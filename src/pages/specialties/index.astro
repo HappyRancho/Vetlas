@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import { specialties } from "@data";
+
+/** Speciality index (spec: launch specialities list). */
+---
+
+<BaseLayout
+  title="All veterinary specialties — Vetlas"
+  description="Explore veterinary specialities in India — medicine, surgery, dermatology, gynaecology & obstetrics, radiology & USG, cardiology, gastroenterology, ophthalmology, neurology and oncology."
+  canonical="/specialties/"
+>
+  <div class="container">
+    <header class="page-head">
+      <h1>Browse veterinary specialities</h1>
+      <p>
+        Not sure which kind of vet you need? Start here — each speciality page explains what it
+        covers and lists the clinics and doctors who practise it, city by city.
+      </p>
+    </header>
+
+    <ul class="tile-grid" style="margin-top:2rem;padding-bottom:1rem">
+      {specialties.map((s, i) => (
+        <li>
+          <a class="card card-hover" href={`/specialties/${s.slug}/`} style={`animation-delay:${Math.min(i, 8) * 50}ms;display:flex;flex-direction:column;gap:0.75rem;height:100%`}>
+            <span class="card-icon"><Icon name={s.icon} class="icon icon-lg" /></span>
+            <b style="font-family:var(--font-display);font-size:1.1rem">{s.name}</b>
+            <span class="small soft" style="flex:1">{s.description}</span>
+            <span class="link-more" style="font-size:0.85rem">
+              Find care <Icon name="arrow" class="icon" />
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

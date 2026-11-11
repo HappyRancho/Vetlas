@@ -1,0 +1,43 @@
+# Vetlas
+
+> Vetlas (https://vetlas.thatvetguy.net) is a decision-support tool that helps pet owners in
+> India select veterinary care based on attributed, trustworthy data. It is NOT a directory and
+> NOT an ad platform: providers cannot pay for rankings or to hide reviews. Every fact carries a
+> trust label; nothing is fabricated. The site is currently in beta and all provider data is
+> clearly-marked SAMPLE content, not verified real-world listings.
+
+## Key sections
+
+- [Home](https://vetlas.thatvetguy.net/): search across specialities, cities and providers.
+- [Find care](https://vetlas.thatvetguy.net/search/): sentence-driven search builder
+  ("My dog needs a skin specialist in Bengaluru").
+- [Specialties](https://vetlas.thatvetguy.net/specialties/): speciality index — medicine,
+  surgery, dermatology, gynaecology & obstetrics, radiology & USG, cardiology, gastroenterology,
+  ophthalmology, neurology, oncology, emergency care, dentistry, orthopedics, preventive care,
+  avian & exotics, physiotherapy.
+- [Locations](https://vetlas.thatvetguy.net/locations/): city index (10 cities at launch).
+- [Cost guide](https://vetlas.thatvetguy.net/costs/): typical treatment cost ranges for India.
+- [Methodology](https://vetlas.thatvetguy.net/methodology/): how verification, review themes,
+  AI summaries and expense estimates work (including minimum-sample gates).
+- [About](https://vetlas.thatvetguy.net/about/): data policy and trust tiers.
+
+## URL structure
+
+- `/{city}/` — city landing page (e.g. `/bengaluru/`)
+- `/{city}/{speciality}/` — city × speciality combination page (e.g. `/mumbai/dermatology/`)
+- `/{city}/{provider-slug}/` — provider profile (facility or doctor), e.g.
+  `/bengaluru/lakeside-animal-hospital-bengaluru/`, `/kochi/dr-kavya-nair/`
+- `/{city}/{speciality}/` pages are indexed only when ≥3 vetted providers match.
+
+## Trust tiers
+
+- **Verified**: manually checked by Vetlas staff (date-stamped).
+- **Provider-confirmed**: confirmed directly by the provider.
+- **Public source**: from public pages/maps/directories, with fetch date.
+- **User-submitted**: moderated owner reports.
+- **Estimated**: system-calculated; displayed only above minimum sample sizes.
+
+## Data status
+
+All provider records, reviews, ratings and prices currently on the site are SAMPLE data for the
+beta experience. Vetlas never presents sample data as verified real-world information.

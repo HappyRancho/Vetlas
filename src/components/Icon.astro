@@ -1,0 +1,68 @@
+---
+/**
+ * Dependency-free inline icon set (stroke style, 24px grid).
+ * Mirrors the paths used across the app; `name` selects the glyph.
+ */
+interface Props {
+  name: string;
+  class?: string;
+  size?: "sm" | "md" | "lg" | "xl";
+  style?: string;
+}
+const { name, class: className = "icon", size, style } = Astro.props;
+
+const icons: Record<string, string> = {
+  paw: `<ellipse cx="5.5" cy="10" rx="1.9" ry="2.4"/><ellipse cx="9.5" cy="6.2" rx="1.9" ry="2.5"/><ellipse cx="14.5" cy="6.2" rx="1.9" ry="2.5"/><ellipse cx="18.5" cy="10" rx="1.9" ry="2.4"/><path d="M12 11.5c2.6 0 5.5 2.2 5.5 5a3.2 3.2 0 0 1-3.4 3.4c-.9 0-1.4-.4-2.1-.4s-1.2.4-2.1.4A3.2 3.2 0 0 1 6.5 16.5c0-2.8 2.9-5 5.5-5Z"/>`,
+  scissors: `<circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8.2 7.6 20 18M8.2 16.4 20 6"/>`,
+  siren: `<path d="M6 18v-5a6 6 0 0 1 12 0v5"/><path d="M3 18h18"/><path d="M4 21h16"/><path d="M12 3v2M4.9 5.6l1.4 1.4M19.1 5.6l-1.4 1.4"/>`,
+  tooth: `<path d="M7.5 3.5c2 0 3 1 4.5 1s2.5-1 4.5-1c2.4 0 3.7 2 3.5 4.5-.2 2.2-.9 3.2-1.4 5.5-.5 2.3-.9 7-2.6 7-1.5 0-1.4-4-4-4s-2.5 4-4 4c-1.7 0-2.1-4.7-2.6-7-.5-2.3-1.2-3.3-1.4-5.5C3.8 5.5 5.1 3.5 7.5 3.5Z"/>`,
+  drop: `<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/>`,
+  bone: `<path d="M17.5 3.5a3 3 0 0 1 3 3 3 3 0 0 1-2.3 2.9 3 3 0 0 1-4.3 4.3A3 3 0 0 1 9 16.7 3 3 0 0 1 6 19a3 3 0 0 1-3-3 3 3 0 0 1 2.3-2.9 3 3 0 0 1 4.3-4.3A3 3 0 0 1 12 6.3 3 3 0 0 1 15 3.5a3 3 0 0 1 2.5 0Z"/>`,
+  stethoscope: `<path d="M4 3v6a5 5 0 0 0 10 0V3"/><path d="M9 14v2a5 5 0 0 0 10 0v-2"/><circle cx="19" cy="11" r="2.2"/>`,
+  eye: `<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.8"/>`,
+  shield: `<path d="M12 3l7 3v6c0 4.5-3 8.5-7 9.5C8 20.5 5 16.5 5 12V6l7-3Z"/><path d="M9 12l2 2 4-4.5"/>`,
+  bird: `<path d="M16 7a2.5 2.5 0 1 0-2.5-2.5"/><path d="M4 10s2.5-4 8-4c4 0 7 2 7 5 0 4.5-4 8-8 8H6l4-3c-4 0-6-2.5-6-6Z"/>`,
+  wave: `<path d="M2 12c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M2 17c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M2 7c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/>`,
+  scan: `<path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><circle cx="12" cy="12" r="3.5"/>`,
+  search: `<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>`,
+  pin: `<path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/>`,
+  clock: `<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>`,
+  phone: `<path d="M5 4h4l1.7 4.3-2.2 1.6a12 12 0 0 0 5.6 5.6l1.6-2.2L20 15v4a1.6 1.6 0 0 1-1.7 1.6C10 20 4 14 3.4 5.7A1.6 1.6 0 0 1 5 4Z"/>`,
+  check: `<path d="m4.5 12.5 5 5 10-11"/>`,
+  badge: `<path d="M12 2.8l2.3 1.2 2.6.3 1.1 2.4 1.9 1.8-.6 2.5.6 2.5-1.9 1.8-1.1 2.4-2.6.3L12 21.2l-2.3-1.2-2.6-.3-1.1-2.4-1.9-1.8.6-2.5-.6-2.5 1.9-1.8 1.1-2.4 2.6-.3L12 2.8Z"/><path d="m9.5 12 2 2 3.5-4"/>`,
+  arrow: `<path d="M4 12h16M14 6l6 6-6 6"/>`,
+  building: `<path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h3a2 2 0 0 1 2 2v10M2 21h20"/><path d="M8 7h2M8 11h2M8 15h2"/>`,
+  doctor: `<circle cx="10" cy="7" r="3.5"/><path d="M3.5 21c0-3.6 2.9-6.5 6.5-6.5 1.6 0 3 .5 4.2 1.4"/><path d="M17 15v3a2.5 2.5 0 0 0 5 0v-1"/><path d="M18.5 12.5 20 14l1.8-1.8"/>`,
+  menu: `<path d="M4 6h16M4 12h16M4 18h16"/>`,
+  x: `<path d="M6 6l12 12M18 6 6 18"/>`,
+  sparkle: `<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="M19 16l.9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16Z"/>`,
+  wallet: `<path d="M3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1"/><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/><path d="M21 9h-5a3 3 0 0 0 0 6h5V9Z"/>`,
+  info: `<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>`,
+  filter: `<path d="M3 5h18M6.5 12h11M10 19h4"/>`,
+  heart: `<path d="M12 20.5S3.5 15.5 3.5 9.5A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.9c0 6-8.5 11-8.5 11Z"/>`,
+  back: `<path d="M20 12H4M10 6l-6 6 6 6"/>`,
+};
+
+const specialityAlias: Record<string, string> = {
+  paw: "paw", scissors: "scissors", siren: "siren", tooth: "tooth", drop: "drop",
+  bone: "bone", stethoscope: "stethoscope", eye: "eye", shield: "shield",
+  bird: "bird", wave: "wave", scan: "scan", heart: "heart",
+};
+
+const path = specialityAlias[name] ?? icons[name] ?? icons.paw;
+const sizeClass = size ? ` icon-${size}` : "";
+---
+
+<svg
+  class={`${className}${sizeClass}`}
+  style={style}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  set:html={path}
+/>

@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import { cities, providers, doctors } from "@data";
+
+/** City index — shows publication gate status per city (spec §2). */
+const minFor = (c: (typeof cities)[number]) => (c.isMetro ? 30 : 15);
+const countFor = (c: (typeof cities)[number]) =>
+  providers.filter((p) => p.cityId === c.id).length + doctors.filter((d) => d.cityId === c.id).length;
+---
+
+<BaseLayout
+  title="Veterinary care by city — Vetlas"
+  description="Find veterinary clinics, hospitals and doctors across India — Bengaluru, Mumbai, Delhi NCR, Hyderabad, Chennai, Pune, Kolkata, Jaipur, Ahmedabad and Kochi."
+  canonical="/locations/"
+>
+  <div class="container">
+    <header class="page-head">
+      <h1>Care in your city</h1>
+      <p>
+        We're mapping India's veterinary infrastructure city by city. A city page goes live for
+        search engines only once it meets Vetlas' quality thresholds — accuracy over volume.
+      </p>
+    </header>
+
+    <ul class="tile-grid" style="margin-top:2rem;padding-bottom:1rem">
+      {cities.map((c, i) => {
+        const n = countFor(c);
+        const min = minFor(c);
+        return (
+          <li>
+            <a class="card card-hover" href={`/${c.slug}/`} style={`animation-delay:${Math.min(i, 8) * 50}ms;display:flex;align-items:center;gap:0.9rem;min-height:4.5rem`}>
+              <span class="card-icon"><Icon name="pin" class="icon icon-lg" /></span>
+              <span style="flex:1;min-width:0">
+                <b style="font-family:var(--font-display);font-size:1.05rem;display:flex;align-items:center;gap:0.5rem">
+                  {c.name}
+                  {c.isMetro && (
+                    <span class="chip" style="padding:0.1rem 0.5rem;font-size:0.62rem;background:var(--amber-soft);border-color:transparent;color:var(--amber-ink);text-transform:uppercase">Metro</span>
+                  )}
+                </b>
+                <span class="small muted" style="display:block">
+                  {c.state} · {n} sample profiles · publish minimum {min}
+                </span>
+              </span>
+              <Icon name="arrow" class="icon" />
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</BaseLayout>

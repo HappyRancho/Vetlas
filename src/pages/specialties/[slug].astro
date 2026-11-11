@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import ProviderLedgerRow from "../../components/ProviderLedgerRow.astro";
+import DoctorLedgerRow from "../../components/DoctorLedgerRow.astro";
+import TrustBadge from "../../components/TrustBadge.astro";
+import { specialties, getSpecialty, providersBySpecialty, doctorsBySpecialty, reviews, deriveReviewThemes } from "@data";
+
+export function getStaticPaths() {
+  return specialties.map((specialty) => ({ params: { slug: specialty.slug }, props: { specialty } }));
+}
+
+const { specialty } = Astro.props;
+const providerList = providersBySpecialty(specialty.id);
+const doctorList = doctorsBySpecialty(specialty.id);
+const vettedCount = 0; // sample dataset
+const noindex = vettedCount < 3; // spec §6: combination pages need ≥3 vetted providers
+
+const themeFor = (slug: string) =>
+  deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+---
+
+<BaseLayout
+  title={`${specialty.name} — vets across India`}
+  description={`${specialty.description} Find ${specialty.name.toLowerCase()} clinics and doctors across India on Vetlas.`}
+  noindex={noindex}
+  canonical={`/specialties/${specialty.slug}/`}
+>
+  <div class="container">
+    <a class="back-link" href="/specialties/" style="margin-top:1.5rem">
+      <Icon name="back" class="icon icon-md" /> All specialities
+    </a>
+
+    <header class="page-head animate-fade-up" style="display:flex;gap:1.25rem;align-items:flex-start;max-width:none">
+      <span class="card-icon" style="width:3.5rem;height:3.5rem;border-radius:18px">
+        <Icon name={specialty.icon} class="icon icon-xl" />
+      </span>
+      <div>
+        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">{specialty.name}</h1>
+        <p class="soft" style="margin-top:0.5rem;font-size:0.95rem">{specialty.description}</p>
+      </div>
+    </header>
+
+    <section style="padding-block:2.5rem 0" aria-labelledby="sp-p">
+      <div class="section-head" style="margin-bottom:1rem">
+        <h2 class="section-title" id="sp-p" style="font-size:1.35rem">Clinics &amp; hospitals</h2>
+        <TrustBadge level="sample" />
+      </div>
+      {providerList.length > 0 ? (
+        <ol class="ledger">
+          {providerList.map((p, i) => (
+            <ProviderLedgerRow provider={p} index={i} theme={themeFor(p.slug)} />
+          ))}
+        </ol>
+      ) : (
+        <div class="empty-state card">
+          <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
+          <h2>No clinics listed yet</h2>
+          <p>We haven't added {specialty.name.toLowerCase()} facilities to the sample dataset yet.</p>
+          <div class="actions"><a class="btn btn-primary" href="/search/">Browse all clinics</a></div>
+        </div>
+      )}
+    </section>
+
+    <section style="padding-block:2.5rem" aria-labelledby="sp-d">
+      <h2 class="section-title" id="sp-d" style="font-size:1.35rem;margin-bottom:1rem">Doctors</h2>
+      {doctorList.length > 0 ? (
+        <ol class="ledger">
+          {doctorList.map((d, i) => (
+            <DoctorLedgerRow doctor={d} index={i} theme={themeFor(d.slug)} />
+          ))}
+        </ol>
+      ) : (
+        <div class="empty-state card">
+          <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
+          <h2>No doctors listed yet</h2>
+          <p>No {specialty.name.toLowerCase()} doctors in the sample dataset yet.</p>
+          <div class="actions"><a class="btn btn-primary" href="/search/">Browse all doctors</a></div>
+        </div>
+      )}
+    </section>
+  </div>
+</BaseLayout>

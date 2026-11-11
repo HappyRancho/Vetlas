@@ -1,0 +1,192 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import SearchBuilder from "../components/SearchBuilder.astro";
+import ProviderLedgerRow from "../components/ProviderLedgerRow.astro";
+import DoctorLedgerRow from "../components/DoctorLedgerRow.astro";
+import TrustBadge from "../components/TrustBadge.astro";
+import {
+  cities, specialties, providers, doctors, reviews, costEstimates,
+  feeRangeINR, deriveReviewThemes,
+} from "@data";
+
+const topProviders = [...providers].sort((a, b) => b.rating - a.rating).slice(0, 5);
+const topDoctors = [...doctors].sort((a, b) => b.rating - a.rating).slice(0, 5);
+
+/** Top recurring theme per provider (spec: themes over stars) */
+const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+---
+
+<BaseLayout
+  title="Vetlas — Choose veterinary care in India with confidence"
+  description="A decision-support tool for pet owners in India: find veterinary clinics, hospitals and doctors with attributed, trustworthy data. No ads, no paid placements."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-blob teal" aria-hidden="true"></div>
+    <div class="hero-blob amber" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <p class="eyebrow animate-fade-in">
+          <Icon name="sparkle" class="icon icon-md" style="color:var(--amber)" />
+          Made for India's pets &amp; their people
+        </p>
+        <h1 class="hero-title">
+          Find the right care<br />
+          for the one who <span class="accent">can't tell<svg viewBox="0 0 220 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9c50-6 150-6 214-2" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span>
+          you where it hurts
+        </h1>
+        <p class="hero-sub">
+          Vetlas is a decision-support tool, not a directory or ad platform. Every fact carries a
+          trust label and a source — so you can choose care with confidence.
+        </p>
+        <div class="hero-search">
+          <SearchBuilder />
+        </div>
+        <ul class="hero-chips">
+          {specialties.slice(0, 5).map((s) => (
+            <li>
+              <a class="chip" href={`/specialties/${s.slug}/`}>
+                <Icon name={s.icon} class="icon icon-sm" />
+                {s.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <dl class="hero-stats">
+        <div class="stat"><dt class="visually-hidden">Specialties covered</dt><dd><b>16</b><span>Specialties covered</span></dd></div>
+        <div class="stat"><dt class="visually-hidden">Cities</dt><dd><b>10</b><span>Cities &amp; growing</span></dd></div>
+        <div class="stat"><dt class="visually-hidden">Cost</dt><dd><b>₹0</b><span>Always free to use</span></dd></div>
+        <div class="stat"><dt class="visually-hidden">Ads</dt><dd><b>Zero</b><span>Ads or paid placement</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Specialties -->
+  <section class="section container" aria-labelledby="specialties-h">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title" id="specialties-h">Browse by speciality</h2>
+        <p>From everyday checkups to 24×7 critical care.</p>
+      </div>
+      <a class="link-more" href="/specialties/">All specialties <Icon name="arrow" class="icon" /></a>
+    </div>
+    <ul class="tile-grid">
+      {specialties.map((s, i) => (
+        <li>
+          <a class="card card-hover tile" href={`/specialties/${s.slug}/`} style={`animation-delay:${Math.min(i, 8) * 45}ms`}>
+            <span class="card-icon"><Icon name={s.icon} class="icon icon-lg" /></span>
+            <span>
+              <b>{s.name}</b>
+              <span>{s.tagline}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Top care — ledger -->
+  <section class="section container" aria-labelledby="clinics-h">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title" id="clinics-h">Care people rely on</h2>
+        <p>Sample listings from our beta dataset — each row shows a recurring reviewer theme.</p>
+      </div>
+      <a class="link-more" href="/search/">Explore all clinics <Icon name="arrow" class="icon" /></a>
+    </div>
+    <ol class="ledger">
+      {topProviders.map((p, i) => (
+        <ProviderLedgerRow provider={p} index={i} theme={themeFor(p.slug)} />
+      ))}
+    </ol>
+  </section>
+
+  <!-- Doctors -->
+  <section class="section-band">
+    <div class="section container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Meet the doctors</h2>
+          <p>Specialists, surgeons and gentle first-opinion vets.</p>
+        </div>
+        <a class="link-more" href="/search/">Find a doctor <Icon name="arrow" class="icon" /></a>
+      </div>
+      <ol class="ledger">
+        {topDoctors.map((d, i) => (
+          <DoctorLedgerRow doctor={d} index={i} theme={themeFor(d.slug)} />
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Cities -->
+  <section class="section container" aria-labelledby="cities-h">
+    <h2 class="section-title" id="cities-h">Veterinary care across India</h2>
+    <p class="muted" style="margin-top:0.3rem">Starting with India's metros, expanding city by city — published only when quality thresholds are met.</p>
+    <ul class="tile-grid" style="margin-top:1.5rem">
+      {cities.map((c, i) => (
+        <li>
+          <a class="card card-hover" href={`/${c.slug}/`} style={`animation-delay:${Math.min(i, 8) * 45}ms;display:flex;align-items:center;justify-content:space-between;min-height:4rem`}>
+            <span>
+              <b style="font-family:var(--font-display);font-size:1rem">{c.name}</b>
+              <span class="small muted" style="display:block">{c.state}</span>
+            </span>
+            <Icon name="arrow" class="icon" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Cost guide -->
+  <section class="container pb-section" style="padding-block:0 3rem" aria-labelledby="costs-h">
+    <div class="card" style="padding:2rem;position:relative;overflow:hidden">
+      <div class="hero-blob amber" aria-hidden="true" style="top:auto;bottom:-6rem;right:-4rem"></div>
+      <div style="position:relative">
+        <p class="eyebrow"><Icon name="wallet" class="icon icon-md" /> Budget with confidence</p>
+        <h2 class="section-title" id="costs-h" style="margin-top:0.75rem">Know typical costs before you go</h2>
+        <p class="soft" style="margin-top:0.5rem;max-width:36rem;font-size:0.95rem">
+          Indicative ranges for consultations, vaccinations, diagnostics and procedures — kept
+          strictly separate from provider fees, and labelled honestly.
+        </p>
+        <ul class="service-list" style="margin-top:1.25rem;max-width:40rem">
+          {costEstimates.slice(2, 8).map((c) => (
+            <li class="card" style="box-shadow:none;padding:0.65rem 0.85rem;justify-content:space-between">
+              <span class="small soft">{c.name}</span>
+              <b class="small" style="color:var(--teal-deep)">{feeRangeINR(c.min, c.max)}</b>
+            </li>
+          ))}
+        </ul>
+        <a class="btn btn-primary" style="margin-top:1.5rem" href="/costs/">
+          View the full cost guide <Icon name="arrow" class="icon icon-md" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="container" style="padding-block:0 4rem" aria-labelledby="trust-h">
+    <h2 class="section-title" id="trust-h" style="text-align:center">Why trust Vetlas</h2>
+    <div class="feature-grid" style="margin-top:2rem">
+      <div class="card">
+        <span class="card-icon"><Icon name="badge" class="icon icon-lg" /></span>
+        <h3 style="margin-top:0.85rem;font-size:1.05rem">Honest data, clearly labelled</h3>
+        <p class="small soft" style="margin-top:0.4rem">Every fact carries a trust label with a distinct shape and colour — readable without colour vision.</p>
+        <p style="margin-top:0.75rem"><TrustBadge level="verified" /> <TrustBadge level="provider-confirmed" /> <TrustBadge level="public" /></p>
+      </div>
+      <div class="card">
+        <span class="card-icon amber"><Icon name="shield" class="icon icon-lg" /></span>
+        <h3 style="margin-top:0.85rem;font-size:1.05rem">No ads, no paid placement</h3>
+        <p class="small soft" style="margin-top:0.4rem">Providers can never pay for higher rankings or to hide reviews. Rankings follow data, not money.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon coral"><Icon name="sparkle" class="icon icon-lg" /></span>
+        <h3 style="margin-top:0.85rem;font-size:1.05rem">Themes over stars</h3>
+        <p class="small soft" style="margin-top:0.4rem">Reputation is shown through recurring reviewer themes — like “Calm with nervous pets” — not just aggregate numbers.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

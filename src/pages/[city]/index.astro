@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import ProviderLedgerRow from "../../components/ProviderLedgerRow.astro";
+import DoctorLedgerRow from "../../components/DoctorLedgerRow.astro";
+import SearchBuilder from "../../components/SearchBuilder.astro";
+import TrustBadge from "../../components/TrustBadge.astro";
+import {
+  cities, providers, doctors, reviews, getCity, deriveReviewThemes,
+  providersByCity, doctorsByCity,
+} from "@data";
+
+/** Minimum vetted profiles required to publish a city (spec §2) */
+const PUBLISH_MINIMUM: Record<number, number> = { 1: 30, 2: 15, 3: 5 };
+
+export function getStaticPaths() {
+  return cities.map((city) => ({
+    params: { city: city.slug },
+    props: { city },
+  }));
+}
+
+const { city } = Astro.props;
+const cityProviders = providersByCity(city.id);
+const cityDoctors = doctorsByCity(city.id);
+
+const themeFor = (slug: string) =>
+  deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+
+const tierMin = PUBLISH_MINIMUM[city.isMetro ? 1 : 2] ?? 5;
+const profileCount = cityProviders.length + cityDoctors.length;
+
+const noindex = true; // sample dataset — published cities only in production
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: `Veterinary care in ${city.name}`,
+  description: `Veterinary clinics, hospitals and doctors in ${city.name}, ${city.state}.`,
+  about: {
+    "@type": "City",
+    name: city.name,
+    address: { "@type": "PostalAddress", addressRegion: city.state, addressCountry: "IN" },
+  },
+};
+---
+
+<BaseLayout
+  title={`Veterinary clinics & doctors in ${city.name}`}
+  description={`Find veterinary hospitals, clinics and doctors in ${city.name}, ${city.state}. Compare specialities, fees and reviewer themes on Vetlas.`}
+  noindex={noindex}
+  canonical={`/${city.slug}/`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <div class="container">
+    <a class="back-link" href="/locations/" style="margin-top:1.5rem">
+      <Icon name="back" class="icon icon-md" /> All cities
+    </a>
+
+    <header class="page-head animate-fade-up" style="display:flex;gap:1.25rem;align-items:center;max-width:none">
+      <span class="card-icon" style="width:3.5rem;height:3.5rem;border-radius:18px">
+        <Icon name="pin" class="icon icon-xl" />
+      </span>
+      <div>
+        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Veterinary care in {city.name}</h1>
+        <p class="muted" style="margin-top:0.3rem;font-size:0.95rem">
+          {city.state} · {cityProviders.length} clinics &amp; hospitals · {cityDoctors.length} doctors
+        </p>
+      </div>
+    </header>
+
+    <div class="notice-box" style="margin-top:1rem;max-width:44rem">
+      <strong>Publication status:</strong> this city is part of the demo dataset.
+      Vetlas publishes a Tier-{city.isMetro ? 1 : 2} city only once at least {tierMin} vetted
+      profiles exist (spec §2). Currently showing {profileCount} sample profiles.
+    </div>
+
+    <section style="padding-block:2.5rem 0" aria-labelledby="search-h">
+      <h2 class="visually-hidden" id="search-h">Search within {city.name}</h2>
+      <SearchBuilder compact />
+    </section>
+
+    <section style="padding-block:2.5rem 0" aria-labelledby="cp-h">
+      <h2 class="section-title" id="cp-h">Clinics &amp; hospitals</h2>
+      <div style="margin-top:0.75rem"><TrustBadge level="sample" label="Sample data" /></div>
+      {cityProviders.length > 0 ? (
+        <ol class="ledger" style="margin-top:0.75rem">
+          {cityProviders.map((p, i) => (
+            <ProviderLedgerRow provider={p} index={i} theme={themeFor(p.slug)} />
+          ))}
+        </ol>
+      ) : (
+        <div class="empty-state card">
+          <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
+          <h2>Nothing here yet</h2>
+          <p>We haven't mapped {city.name} in the sample dataset. Browse care across India meanwhile.</p>
+          <div class="actions"><a class="btn btn-primary" href="/search/">Browse all of India</a></div>
+        </div>
+      )}
+    </section>
+
+    <section style="padding-block:2.5rem" aria-labelledby="cd-h">
+      <h2 class="section-title" id="cd-h">Doctors</h2>
+      {cityDoctors.length > 0 ? (
+        <ol class="ledger" style="margin-top:0.75rem">
+          {cityDoctors.map((d, i) => (
+            <DoctorLedgerRow doctor={d} index={i} theme={themeFor(d.slug)} />
+          ))}
+        </ol>
+      ) : (
+        <div class="empty-state card">
+          <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
+          <h2>No doctors here yet</h2>
+          <p>This city hasn't been mapped in the sample dataset yet.</p>
+          <div class="actions"><a class="btn btn-primary" href="/search/">Browse all doctors</a></div>
+        </div>
+      )}
+    </section>
+  </div>
+</BaseLayout>

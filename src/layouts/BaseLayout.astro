@@ -1,0 +1,171 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/inter";
+import Icon from "../components/Icon.astro";
+import { cities, specialties } from "@data";
+
+interface Props {
+  title: string;
+  description: string;
+  /** SEO indexability gate (spec §6): unvetted content is noindex */
+  noindex?: boolean;
+  canonical?: string;
+}
+const { title, description, noindex = false, canonical } = Astro.props;
+const siteUrl = Astro.site ?? Astro.url;
+const canonicalUrl = canonical ? new URL(canonical, siteUrl) : Astro.url;
+const year = new Date().getFullYear();
+
+const nav = [
+  { href: "/search/", label: "Find care" },
+  { href: "/specialties/", label: "Specialties" },
+  { href: "/locations/", label: "Locations" },
+  { href: "/costs/", label: "Cost guide" },
+  { href: "/about/", label: "About" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0E7A6C" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site guide" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vetlas" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary" />
+    {
+      noindex === false && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Vetlas",
+            url: String(siteUrl),
+            description:
+              "India's veterinary care decision-support platform — find clinics, hospitals and doctors with attributed, trustworthy data.",
+          })}
+        />
+      )
+    }
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="notice">
+      <div class="container">
+        <Icon name="info" class="icon icon-md" />
+        <p>
+          <strong>Demo notice:</strong> Vetlas is in beta. Every listing, review and price on this
+          site is <a href="/about/">clearly-marked sample data</a> — not verified real-world
+          providers. We never present sample data as verified.
+        </p>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">
+          <span class="brand-mark"><Icon name="paw" class="icon icon-md" /></span>
+          Vetlas
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))}
+          <a class="btn btn-primary" href="/search/">Search now</a>
+        </nav>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+          <Icon name="menu" class="icon icon-md" />
+        </button>
+      </div>
+      <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Mobile">
+        {nav.map((item) => (
+          <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))}
+        <a class="btn btn-primary" style="margin:0.5rem 0.75rem 0" href="/search/">Search now</a>
+      </nav>
+    </header>
+
+    <script>
+      const btn = document.querySelector<HTMLButtonElement>(".nav-toggle");
+      const nav = document.querySelector<HTMLElement>("#mobile-nav");
+      if (btn && nav) {
+        btn.addEventListener("click", () => {
+          const open = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", String(!open));
+          btn.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+          nav.toggleAttribute("hidden", open);
+        });
+      }
+    </script>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="/">
+            <span class="brand-mark"><Icon name="paw" class="icon icon-md" /></span>
+            Vetlas
+          </a>
+          <p>
+            India's veterinary healthcare decision-support platform — find, compare and choose care
+            with attributed, trustworthy data.
+          </p>
+          <p class="small">In beta · sample data only · free forever</p>
+        </div>
+        <nav class="footer-col" aria-label="Popular specialties">
+          <h2>Popular specialties</h2>
+          <ul>
+            {specialties.slice(0, 5).map((s) => (
+              <li><a href={`/specialties/${s.slug}/`}>{s.name}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Cities">
+          <h2>Cities</h2>
+          <ul>
+            {cities.slice(0, 6).map((c) => (
+              <li><a href={`/${c.slug}/`}>Vets in {c.name}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Vetlas">
+          <h2>Vetlas</h2>
+          <ul>
+            <li><a href="/about/">About &amp; data policy</a></li>
+            <li><a href="/methodology/">Verification methodology</a></li>
+            <li><a href="/costs/">Treatment cost guide</a></li>
+            <li><a href="/search/">Find a clinic</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p>© {year} Vetlas. Built for India's pets and their people.</p>
+          <p>Not a veterinary provider. In an emergency, contact a clinic directly.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

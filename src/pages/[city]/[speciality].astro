@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import ProviderLedgerRow from "../../components/ProviderLedgerRow.astro";
+import DoctorLedgerRow from "../../components/DoctorLedgerRow.astro";
+import TrustBadge from "../../components/TrustBadge.astro";
+import {
+  cities, specialties, getCity, getSpecialty, providersByCity, doctorsByCity,
+  reviews, deriveReviewThemes,
+} from "@data";
+
+/**
+ * City × speciality combination landing page (spec §6).
+ * SEO gate: published (indexable) only when ≥3 vetted providers match —
+ * otherwise the page still renders but is marked noindex.
+ */
+export function getStaticPaths() {
+  return cities.flatMap((city) =>
+    specialties.map((specialty) => ({
+      params: { city: city.slug, speciality: specialty.slug },
+      props: { city, specialty },
+    }))
+  );
+}
+
+const { city, specialty } = Astro.props;
+
+const cityProviders = providersByCity(city.id).filter((p) =>
+  p.specialtyIds.includes(specialty.id)
+);
+const cityDoctors = doctorsByCity(city.id).filter(
+  (d) => d.primarySpecialtyId === specialty.id || d.secondarySpecialtyIds.includes(specialty.id)
+);
+
+const vettedCount = 0; // sample dataset: nothing is vetted yet
+const indexable = vettedCount >= 3; // spec §6 threshold
+const noindex = !indexable;
+
+const themeFor = (slug: string) =>
+  deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+---
+
+<BaseLayout
+  title={`${specialty.name} in ${city.name}`}
+  description={`${specialty.description} Find ${specialty.name.toLowerCase()} clinics and doctors in ${city.name}, ${city.state} on Vetlas.`}
+  noindex={noindex}
+  canonical={`/${city.slug}/${specialty.slug}/`}
+>
+  <div class="container">
+    <a class="back-link" href={`/${city.slug}/`} style="margin-top:1.5rem">
+      <Icon name="back" class="icon icon-md" /> Veterinary care in {city.name}
+    </a>
+
+    <header class="page-head animate-fade-up" style="display:flex;gap:1.25rem;align-items:flex-start;max-width:none">
+      <span class="card-icon" style="width:3.5rem;height:3.5rem;border-radius:18px">
+        <Icon name={specialty.icon} class="icon icon-xl" />
+      </span>
+      <div>
+        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">{specialty.name} in {city.name}</h1>
+        <p class="soft" style="margin-top:0.5rem;font-size:0.95rem">{specialty.description}</p>
+      </div>
+    </header>
+
+    {!indexable && (
+      <p class="notice-box" style="margin-top:1.25rem;max-width:44rem">
+        <strong>Why this page is marked “not for search engines”:</strong> Vetlas publishes a
+        city × speciality combination page for indexing only once at least 3 vetted providers
+        match (currently {vettedCount}). This demo page stays accessible to you but stays out of
+        search results.
+      </p>
+    )}
+
+    <section style="padding-block:2.5rem 0" aria-labelledby="cs-p">
+      <div class="section-head" style="margin-bottom:1rem">
+        <h2 class="section-title" id="cs-p" style="font-size:1.35rem">{specialty.name} clinics &amp; hospitals in {city.name}</h2>
+        <TrustBadge level="sample" />
+      </div>
+      {cityProviders.length > 0 ? (
+        <ol class="ledger">
+          {cityProviders.map((p, i) => (
+            <ProviderLedgerRow provider={p} index={i} theme={themeFor(p.slug)} />
+          ))}
+        </ol>
+      ) : (
+        <div class="empty-state card">
+          <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
+          <h2>No matches here yet</h2>
+          <p>We haven't listed a {specialty.name.toLowerCase()} facility in {city.name} in the sample dataset.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href={`/specialties/${specialty.slug}/`}>See all of India</a>
+            <a class="btn btn-secondary" href={`/${city.slug}/`}>All care in {city.name}</a>
+          </div>
+        </div>
+      )}
+    </section>
+
+    <section style="padding-block:2.5rem" aria-labelledby="cs-d">
+      <h2 class="section-title" id="cs-d" style="font-size:1.35rem;margin-bottom:1rem">{specialty.name} doctors in {city.name}</h2>
+      {cityDoctors.length > 0 ? (
+        <ol class="ledger">
+          {cityDoctors.map((d, i) => (
+            <DoctorLedgerRow doctor={d} index={i} theme={themeFor(d.slug)} />
+          ))}
+        </ol>
+      ) : (
+        <div class="empty-state card">
+          <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
+          <h2>No doctors listed yet</h2>
+          <p>No {specialty.name.toLowerCase()} doctors in {city.name} in the sample dataset. Check back soon.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/search/">Browse all doctors</a>
+          </div>
+        </div>
+      )}
+    </section>
+  </div>
+</BaseLayout>

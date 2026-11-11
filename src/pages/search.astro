@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import SearchBuilder from "../components/SearchBuilder.astro";
+
+/** Static entry point for the sentence-driven search builder (spec §7). */
+---
+
+<BaseLayout
+  title="Find veterinary care — Vetlas"
+  description="Describe what your pet needs — 'My dog needs a skin specialist in Indore' — and Vetlas finds matching clinics, hospitals and doctors across India."
+  canonical="/search/"
+>
+  <div class="container">
+    <header class="page-head animate-fade-up" style="max-width:44rem;margin-inline:auto;text-align:center;padding-block:3rem 2rem">
+      <h1>Describe what you need</h1>
+      <p style="margin-inline:auto">Build your search as a sentence — no forms full of dropdown grids, no ads in the way.</p>
+    </header>
+
+    <div class="animate-fade-up" style="animation-delay:100ms;max-width:52rem;margin-inline:auto">
+      <SearchBuilder />
+      <p class="muted small" style="text-align:center;margin-top:1rem">
+        Your sentence becomes a city × speciality page — for example
+        <a href="/bengaluru/dermatology/">/bengaluru/dermatology/</a>.
+      </p>
+    </div>
+
+    <script>
+      // Deep-link support: /search/?city=…&speciality=… → /{city}/{speciality}/
+      const params = new URLSearchParams(window.location.search);
+      const city = params.get("city");
+      const speciality = params.get("speciality");
+      if (city && speciality && /^[a-z-]+$/.test(city) && /^[a-z-]+$/.test(speciality)) {
+        window.location.replace(`/${city}/${speciality}/`);
+      }
+    </script>
+
+    <section class="section" style="padding-block:3rem 0" aria-labelledby="ways-h">
+      <h2 class="section-title" id="ways-h" style="font-size:1.35rem">Other ways in</h2>
+      <ul class="tile-grid" style="margin-top:1.25rem">
+        <li><a class="card card-hover" href="/specialties/"><span class="card-icon"><Icon name="stethoscope" class="icon icon-lg" /></span><span><b>By speciality</b><span>Surgery, dermatology, emergency care and more</span></span></a></li>
+        <li><a class="card card-hover" href="/locations/"><span class="card-icon"><Icon name="pin" class="icon icon-lg" /></span><span><b>By city</b><span>Metros first, expanding nationwide</span></span></a></li>
+        <li><a class="card card-hover" href="/costs/"><span class="card-icon amber"><Icon name="wallet" class="icon icon-lg" /></span><span><b>By budget</b><span>Typical treatment cost ranges</span></span></a></li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

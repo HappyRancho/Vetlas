@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<BaseLayout
+  title="About Vetlas & our data policy"
+  description="What Vetlas is, how we label every fact with a trust tier, and why there are no ads or paid placements. Free forever, built for India."
+  canonical="/about/"
+>
+  <div class="container">
+    <header class="page-head" style="text-align:center;margin-inline:auto">
+      <span class="card-icon" style="margin:0 auto;width:3.5rem;height:3.5rem;border-radius:18px;background:var(--teal);color:#fff">
+        <Icon name="paw" class="icon icon-xl" />
+      </span>
+      <h1 style="margin-top:1rem">About Vetlas</h1>
+      <p style="margin-inline:auto">
+        Vetlas is an independent, India-wide veterinary care decision-support tool — not a
+        directory, not an ad platform. Our goal: when your pet is unwell, help you choose the right
+        care quickly, with attributed and trustworthy data.
+      </p>
+    </header>
+
+    <div class="doc" style="margin-top:2.5rem;padding-bottom:1rem">
+      <div class="doc-block">
+        <h2><Icon name="badge" class="icon icon-lg" /> Our data policy</h2>
+        <p>
+          Every fact on Vetlas carries a <strong>trust label</strong> with a distinct geometric
+          shape and colour:
+        </p>
+        <p style="display:grid;gap:0.5rem;margin-top:0.9rem">
+          <span><strong>Verified</strong> — credentials checked by hand by the Vetlas team, with the date checked shown.</span>
+          <span><strong>Provider-confirmed</strong> — details claimed and confirmed directly by the provider.</span>
+          <span><strong>Public source</strong> — from public web pages, maps or directories, with fetch date and link.</span>
+          <span><strong>User-submitted</strong> — moderated reports from pet owners.</span>
+          <span><strong>Estimated</strong> — system-calculated ranges, shown only above minimum sample sizes.</span>
+        </p>
+        <p>
+          Right now, while we're in beta, all records are <strong>sample data</strong> — realistic
+          fictional content built to design and test the experience. Ratings, reviews, phone
+          numbers and prices are illustrative only. We never invent provider information, reviews,
+          ratings or pricing, and we never present sample data as real. Missing data is shown as
+          "not available yet" — never guessed.
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2><Icon name="shield" class="icon icon-lg" /> No ads, no paid placement</h2>
+        <p>
+          Providers cannot pay for higher rankings or to hide reviews. Results follow data —
+          trust level, review themes and fees — never money. Vetlas is free to use, forever.
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2><Icon name="sparkle" class="icon icon-lg" /> Themes over stars</h2>
+        <p>
+          A number out of five hides more than it shows. Vetlas surfaces recurring qualitative
+          themes from reviews — like <em>"Calm with nervous pets"</em> — alongside ratings, so you
+          can see <strong>how</strong> a place treats animals, not just how much.
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2><Icon name="clock" class="icon icon-lg" /> Built for the hard days</h2>
+        <p>
+          Most people find a vet for the first time during an emergency. Vetlas is optimised for
+          that moment: fast search, 24×7 filters, fee transparency and a clear path to the right
+          speciality. No popups, no lead-capture walls, no sponsored cards.
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2>Suggest a provider</h2>
+        <p>
+          Community submissions open soon. If you'd like to flag a great clinic or doctor — or
+          correct something you see — the repository is public and issues are welcome.
+        </p>
+        <a class="btn btn-primary" style="margin-top:1rem" href="/search/">Start exploring</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

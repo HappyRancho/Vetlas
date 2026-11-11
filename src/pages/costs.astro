@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import TrustBadge from "../components/TrustBadge.astro";
+import { costEstimates, feeRangeINR } from "@data";
+
+/**
+ * Cost guide (spec §4):
+ * consultation fees kept separate from expense estimates; expense tiers are
+ * ₹500–1,000 | ₹1,000–2,500 | ₹2,500–5,000 | ₹5,000+; ranges shown only when
+ * enough approved reports exist — for now the India-wide guide is explicitly
+ * labelled "Estimated" (dashed-ring trust tier).
+ */
+const groups: [string, string][] = [
+  ["consultation", "Consultations"],
+  ["vaccination", "Vaccinations"],
+  ["diagnostics", "Diagnostics"],
+  ["procedure", "Procedures & surgeries"],
+  ["medicine", "Medicines"],
+];
+const expenseTiers = ["₹500–1,000", "₹1,000–2,500", "₹2,500–5,000", "₹5,000+"];
+---
+
+<BaseLayout
+  title="Pet treatment cost guide for India — Vetlas"
+  description="Indicative price ranges for common veterinary treatments in India — consultations, vaccinations, diagnostics, surgeries and medicine courses."
+  canonical="/costs/"
+>
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow"><Icon name="wallet" class="icon icon-md" /> Cost guide</p>
+      <h1 style="margin-top:0.5rem">What things typically cost</h1>
+      <p>
+        Broad, city-agnostic price ranges for common veterinary care in India, in rupees. Use these
+        to budget and to sanity-check quotes you receive.
+      </p>
+      <p class="notice-box" style="margin-top:1rem;max-width:40rem">
+        <strong>Trust status:</strong> the ranges below are <TrustBadge level="estimated" /> —
+        system-level placeholders pending our <a href="/methodology/">methodology</a> for
+        collecting ≥10 approved user reports per facility (spec §4). Until then they are broad
+        India-wide figures, not verified market research.
+      </p>
+    </header>
+
+    <section style="margin-top:2.5rem" aria-labelledby="tiers-h">
+      <h2 class="section-title" id="tiers-h" style="font-size:1.35rem">Additional expense tiers</h2>
+      <p class="small soft" style="margin-top:0.4rem">
+        When you report a visit, Vetlas records the total additional cost (beyond the consultation)
+        in one of these buckets. Ranges per facility appear only with ≥10 approved reports in the
+        last 12 months.
+      </p>
+      <ul style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem">
+        {expenseTiers.map((t) => (
+          <li><span class="chip" style="font-size:0.9rem;padding:0.5rem 1rem"><Icon name="wallet" class="icon" />{t}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <div style="margin-top:2.5rem;padding-bottom:1rem">
+      {groups.map(([cat, label]) => {
+        const items = costEstimates.filter((c) => c.category === cat);
+        if (items.length === 0) return null;
+        return (
+          <section style="margin-bottom:2.5rem" aria-labelledby={`costs-${cat}`}>
+            <h2 class="section-title" id={`costs-${cat}`} style="font-size:1.35rem;margin-bottom:1rem">{label}</h2>
+            <div class="card" style="padding:0.25rem 0">
+              <table class="cost-table">
+                <tbody>
+                  {items.map((item, i) => (
+                    <tr class="animate-fade-in" style={`animation-delay:${i * 40}ms`}>
+                      <td class="cost-name">
+                        {item.name}
+                        {item.note && <small>{item.note}</small>}
+                      </td>
+                      <td class="cost-amount">{feeRangeINR(item.min, item.max)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>

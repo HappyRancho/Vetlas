@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<BaseLayout
+  title="Verification & estimation methodology"
+  description="How Vetlas verifies providers, generates review themes and AI summaries, and computes expense estimates — with explicit minimum-sample gates."
+  canonical="/methodology/"
+>
+  <div class="container">
+    <header class="page-head">
+      <h1>Methodology</h1>
+      <p>
+        How data gets onto Vetlas, how it is labelled, and when we allow ourselves to show
+        estimates and summaries.
+      </p>
+    </header>
+
+    <div class="doc" style="margin-top:2.5rem;padding-bottom:1rem">
+      <div class="doc-block">
+        <h2><Icon name="badge" class="icon icon-lg" /> Verification logic</h2>
+        <p>
+          Every profile starts <strong>unverified</strong>. Verified badges appear only after a
+          Vetlas team member has checked the evidence by hand, and show the exact date checked.
+          Council registration numbers are never verified or displayed — credentials are listed
+          exactly as stated, with the source.
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2><Icon name="sparkle" class="icon icon-lg" /> Review themes & AI summaries</h2>
+        <p>
+          Reputation is built from <strong>recurring themes</strong> extracted across stored
+          reviews — each theme shows how many reviews support it. AI-written summaries are
+          generated <strong>strictly from stored review IDs</strong> (no hallucinated content) and
+          only when <strong>at least 5 public reviews</strong> exist. Summaries are labelled:
+          <em>"AI-summarised from N public reviews, updated on &lt;date&gt;"</em>.
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2><Icon name="wallet" class="icon icon-lg" /> Expense estimates</h2>
+        <p>
+          Consultation fees are kept separate from additional medicine/treatment expenses. Vetlas
+          collects user reports of total additional visit cost into tiers — ₹500–1,000,
+          ₹1,000–2,500, ₹2,500–5,000 and ₹5,000+. A per-facility estimate is displayed
+          <strong>only after at least 10 approved reports in the last 12 months</strong>; below
+          that we show "not enough reports yet".
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2><Icon name="pin" class="icon icon-lg" /> City publication gates</h2>
+        <p>
+          Cities are published only when profiles meet strict quality thresholds: Tier 1 cities
+          need <strong>≥30 vetted profiles</strong> (target 80–100), Tier 2 need
+          <strong>≥15</strong> (target 40–50), Tier 3 need <strong>≥5</strong> (target 10–20).
+          Cities below the minimum stay unpublished and noindexed.
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2><Icon name="search" class="icon icon-lg" /> Search & indexability</h2>
+        <p>
+          Combination pages (city × speciality) are indexed only with <strong>≥3 vetted
+          providers</strong>; thin profiles are noindexed until they meet quality bars. URL
+          structure is lowercase and hyphenated: <code>/{'{'}city{'}'}/</code>,
+          <code>/{'{'}city{'}'}/{'{'}speciality{'}'}/</code>,
+          <code>/{'{'}city{'}'}/{'{'}provider{'}'}/</code>.
+        </p>
+      </div>
+
+      <div class="doc-block">
+        <h2><Icon name="info" class="icon icon-lg" /> Zero dark patterns</h2>
+        <p>
+          No popups, no lead-capture walls, no sponsored listing cards, no fake urgency. If a
+          number or claim isn't backed by data, we'd rather say <strong>"not available yet"</strong>
+          than invent it.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,297 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import TrustBadge from "../../components/TrustBadge.astro"
+import {
+  providers, doctors, cityById,
+  specialtyById, providerReviews, doctorReviews, providersDoctors, doctorsProviders,
+  feeINR, deriveReviewThemes, trustLabels, type Review, type TrustLevel,
+} from "@data";
+
+const toBadge = (t?: string): TrustLevel =>
+  t === "verified" ? "verified"
+  : t === "provider_confirmed" ? "provider-confirmed"
+  : t === "user_submitted" ? "user-submitted"
+  : t === "estimated" ? "estimated"
+  : t === "sample" ? "sample"
+  : "public";
+
+export function getStaticPaths() {
+  return [
+    ...providers.map((p) => ({
+      params: { city: cityById(p.cityId)!.slug, provider: p.slug },
+      props: { kind: "facility" as const, provider: p },
+    })),
+    ...doctors.map((d) => ({
+      params: { city: cityById(d.cityId)!.slug, provider: d.slug },
+      props: { kind: "doctor" as const, doctor: d },
+    })),
+  ];
+}
+
+const { kind, provider, doctor } = Astro.props;
+
+const facility = kind === "facility" ? provider : undefined;
+const vet = kind === "doctor" ? doctor : undefined;
+const doc = facility ?? vet!;
+const city = cityById(doc.cityId)!;
+
+const profileReviews: Review[] = facility ? providerReviews(facility.slug) : doctorReviews(vet!.slug);
+const themes = deriveReviewThemes(profileReviews);
+const topThemes = themes.filter((t) => t.reviewCount >= 1);
+const feeTrust = toBadge(facility ? facility.fees.trustLevel : "sample");
+const isFacility = kind === "facility";
+
+const title = isFacility
+  ? `${facility!.name} — ${facility!.area}, ${city.name}`
+  : `Dr. ${vet!.name} — ${specialtyById(vet!.primarySpecialtyId)?.name}, ${city.name}`;
+const description = isFacility
+  ? `${facility!.name} is a ${facility!.type} in ${facility!.area}, ${city.name}. OPD consultation from ${feeINR(facility!.fees.opd)}. ${facility!.specialtyIds.map((s) => specialtyById(s)?.name).join(", ")}.`
+  : `Dr. ${vet!.name} is a ${specialtyById(vet!.primarySpecialtyId)?.name} vet in ${city.name} with ${vet!.experienceYears} years of experience. Consultation fee ${feeINR(vet!.consultationFee)}.`;
+
+const noindex = true; // sample dataset gate (spec §6)
+
+const jsonLd = isFacility
+  ? {
+      "@context": "https://schema.org",
+      "@type": "VeterinaryCare",
+      name: facility!.name,
+      telephone: facility!.phone,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: facility!.address,
+        addressLocality: facility!.area,
+        addressRegion: city.state,
+        addressCountry: "IN",
+      },
+      openingHours: facility!.hours.open24 ? "Mo-Su 00:00-24:00" : `Mo-Su ${facility!.hours.open}-${facility!.hours.close}`,
+      priceRange: `${feeINR(facility!.fees.opd)}+`,
+    }
+  : {
+      "@context": "https://schema.org",
+      "@type": "Physician",
+      name: `Dr. ${vet!.name}`,
+      medicalSpecialty: specialtyById(vet!.primarySpecialtyId)?.name,
+      knowsLanguage: vet!.languages,
+      worksAt: doctorsProviders(vet!).map((p) => ({
+        "@type": "VeterinaryCare",
+        name: p.name,
+        address: `${p.address}, ${cityById(p.cityId)?.name}`,
+      })),
+    };
+---
+
+<BaseLayout title={title} description={description} noindex={noindex} canonical={`/${city.slug}/${doc.slug}/`}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <div class="container">
+    <a class="back-link" href={`/${city.slug}/`} style="margin-top:1.5rem">
+      <Icon name="back" class="icon icon-md" /> Veterinary care in {city.name}
+    </a>
+
+    <header class="card profile-header" style="margin-top:1rem">
+      <div class={`profile-band ${isFacility ? "teal" : "coral"}`}>
+        <div class="top">
+          <div class="profile-id">
+            <span class="card-icon">
+              <Icon name={isFacility ? "building" : "doctor"} class="icon icon-xl" />
+            </span>
+            <div>
+              <h1 class="profile-name">
+                {isFacility ? facility!.name : `Dr. ${vet!.name}`}
+              </h1>
+              <p class="profile-meta">
+                {isFacility ? (
+                  <>
+                    <span style="text-transform:capitalize">{facility!.type}</span>
+                    <span class="dot">
+                      <Icon name="pin" class="icon" style="vertical-align:-0.15em" />
+                      {facility!.area}, {city.name}
+                    </span>
+                    <span class="dot">Est. {facility!.establishedYear}</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{specialtyById(vet!.primarySpecialtyId)?.name}</span>
+                    <span class="dot">{vet!.experienceYears} years experience</span>
+                    <span class="dot">{city.name}</span>
+                  </>
+                )}
+              </p>
+              <p class="small muted" style="margin-top:0.25rem">
+                {isFacility
+                  ? facility!.specialtyIds.map((s) => specialtyById(s)?.name).filter(Boolean).join(" · ")
+                  : vet!.degrees.join(" · ")}
+              </p>
+              <div class="profile-tags">
+                <TrustBadge level="sample" />
+                <span class="chip" style="font-size:0.68rem">
+                  {isFacility
+                    ? facility!.hours.open24 ? "Open 24×7" : `${facility!.hours.open}–${facility!.hours.close}`
+                    : `Speaks: ${vet!.languages.join(", ")}`}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="rating-side">
+            <b>{(isFacility ? facility!.rating : vet!.rating).toFixed(1)}</b>
+            <p class="muted small">sample rating</p>
+            <p class="muted small">{(isFacility ? facility!.reviewCount : vet!.reviewCount)} sample reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <span class="fee-pill">
+          <Icon name="wallet" class="icon icon-md" />
+          {isFacility ? `OPD ${feeINR(facility!.fees.opd)}` : `Consultation ${feeINR(vet!.consultationFee)}`}
+        </span>
+        <TrustBadge level={feeTrust} label={`Fee: ${trustLabels[facility?.fees.trustLevel ?? "sample"]}`} />
+        {isFacility && (
+          <a class="btn btn-primary" href={`tel:${facility!.phone.replace(/\s/g, "")}`}>
+            <Icon name="phone" class="icon icon-md" /> {facility!.phone}
+          </a>
+        )}
+        {!isFacility && doctorsProviders(vet!).map((p) => (
+          <a class="btn btn-secondary" href={`tel:${p.phone.replace(/\s/g, "")}`}>
+            <Icon name="phone" class="icon icon-md" /> Book via {p.name}
+          </a>
+        ))}
+      </div>
+    </header>
+
+    <div class="profile-grid">
+      <div>
+        <section class="panel animate-fade-up" style="animation-delay:60ms">
+          <h2>About</h2>
+          <p class="soft" style="font-size:0.95rem">{isFacility ? facility!.about : vet!.about}</p>
+
+          <h3>Specialties</h3>
+          <ul style="display:flex;flex-wrap:wrap;gap:0.5rem">
+            {(isFacility
+              ? facility!.specialtyIds
+              : [vet!.primarySpecialtyId, ...vet!.secondarySpecialtyIds]
+            ).map((id) => {
+              const s = specialtyById(id);
+              return s && (
+                <li><a class="chip" href={`/specialties/${s.slug}/`}>{s.name}</a></li>
+              );
+            })}
+          </ul>
+
+          {isFacility && (
+            <>
+              <h3>Services</h3>
+              <ul class="service-list">
+                {facility!.services.map((svc) => (
+                  <li><Icon name="check" class="icon" />{svc}</li>
+                ))}
+              </ul>
+            </>
+          )}
+        </section>
+
+        {isFacility && providersDoctors(facility!).length > 0 && (
+          <section class="panel animate-fade-up" style="animation-delay:120ms;margin-top:1.5rem">
+            <h2>Doctors at {facility!.name}</h2>
+            <ol class="ledger" style="border-top:0">
+              {providersDoctors(facility!).map((d, i) => (
+                <li class="ledger-row" style="min-height:3.75rem">
+                  <span class="ledger-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span class="ledger-main">
+                    <a class="ledger-name" href={`/vets/${d.slug}/`}>Dr. {d.name}</a>
+                    <span class="ledger-meta">{specialtyById(d.primarySpecialtyId)?.name} · {d.experienceYears} yrs exp</span>
+                  </span>
+                  <span class="ledger-fee">{feeINR(d.consultationFee)}<small>consultation</small></span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {!isFacility && doctorsProviders(vet!).length > 0 && (
+          <section class="panel animate-fade-up" style="animation-delay:120ms;margin-top:1.5rem">
+            <h2>Practises at</h2>
+            <ol class="ledger" style="border-top:0">
+              {doctorsProviders(vet!).map((p, i) => (
+                <li class="ledger-row" style="min-height:3.75rem">
+                  <span class="ledger-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span class="ledger-main">
+                    <a class="ledger-name" href={`/${cityById(p.cityId)?.slug}/${p.slug}/`}>{p.name}</a>
+                    <span class="ledger-meta">{p.area}, {cityById(p.cityId)?.name} · {p.hours.open24 ? "Open 24×7" : `${p.hours.open}–${p.hours.close}`}</span>
+                  </span>
+                  <span class="ledger-fee">{feeINR(p.fees.opd)}<small>OPD</small></span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        <section class="panel animate-fade-up" style="animation-delay:180ms;margin-top:1.5rem">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem">
+            <h2>Reviews</h2>
+            <p class="small muted">Illustrative sample reviews</p>
+          </div>
+          {topThemes.length > 0 && (
+            <div class="theme-strip">
+              <h3 style="margin:0 0.25rem 0 0">Themes:</h3>
+              {topThemes.map((t) => (
+                <span class="chip">
+                  <span style="color:var(--teal)" aria-hidden="true">＋</span>
+                  {t.theme} <span class="count">×{t.reviewCount}</span>
+                </span>
+              ))}
+            </div>
+          )}
+          <ul>
+            {profileReviews.map((r) => (
+              <li class="review-item">
+                <div class="review-head">
+                  <b>{r.author}</b>
+                  <span class="stars" aria-label={`Rated ${r.rating} of 5 (sample)`}>
+                    {Array.from({ length: 5 }).map((_, si) => (
+                      <span class={si < Math.round(r.rating) ? "" : "off"} aria-hidden="true">★</span>
+                    ))}
+                  </span>
+                </div>
+                <p class="review-body">{r.text}</p>
+                {r.tags.length > 0 && (
+                  <ul class="review-tags">{r.tags.map((t) => <li class="chip">{t}</li>)}</ul>
+                )}
+                <p class="review-date">
+                  {new Date(r.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <aside>
+        <div class="aside-block animate-fade-up" style="animation-delay:100ms">
+          <h2>Visit information</h2>
+          <dl class="kv">
+            {isFacility ? (
+              <>
+                <div><dt>Address</dt><dd class="soft" style="font-weight:500">{facility!.address}, {city.name}</dd></div>
+                <div><dt>Timings</dt><dd>{facility!.hours.open24 ? "24 hours, 7 days" : `Daily ${facility!.hours.open}–${facility!.hours.close}`}</dd></div>
+                <div><dt>Phone</dt><dd><a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a></dd></div>
+                <div><dt>Amenities</dt><dd class="soft" style="font-weight:500">{facility!.amenities.join(", ")}</dd></div>
+              </>
+            ) : (
+              <>
+                <div><dt>Experience</dt><dd>{vet!.experienceYears} years</dd></div>
+                <div><dt>Languages</dt><dd class="soft" style="font-weight:500">{vet!.languages.join(", ")}</dd></div>
+                <div><dt>Data status</dt><dd><TrustBadge level="sample" /></dd></div>
+              </>
+            )}
+          </dl>
+          <p class="notice-box">
+            This is a <strong>sample profile</strong>. Always confirm timings, fees and availability
+            by phone before visiting.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

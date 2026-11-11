@@ -1,0 +1,19 @@
+# Vetlas robots.txt
+
+User-agent: *
+Allow: /
+
+# LLM & AI crawlers are welcome (spec §6 — LLM discoverability)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://vetlas.thatvetguy.net/sitemap-index.xml

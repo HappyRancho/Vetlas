@@ -1,0 +1,29 @@
+---
+/**
+ * Visual trust label (spec §1, §7).
+ * Every badge pairs a distinct geometric shape with its colour so the tier
+ * is readable without colour vision:
+ *   verified = filled circle · provider-confirmed = ring · public = square
+ *   user-submitted = diamond · estimated = dashed ring · sample = outline square
+ */
+interface Props {
+  level: string;
+  label?: string;
+}
+const { level, label } = Astro.props;
+
+const labels: Record<string, string> = {
+  "verified": "Verified",
+  "provider-confirmed": "Provider confirmed",
+  "public": "Public source",
+  "user-submitted": "User submitted",
+  "estimated": "Estimated",
+  "sample": "Sample",
+};
+const text = label ?? labels[level] ?? level;
+---
+
+<span class={`trust-badge trust-${level}`} title={`Trust level: ${text}`}>
+  <span class="trust-shape" aria-hidden="true"></span>
+  {text}
+</span>
