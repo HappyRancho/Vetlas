@@ -4,6 +4,7 @@ import Icon from "../../components/Icon.astro";
 import { specialties } from "@data";
 
 /** Speciality index (spec: launch specialities list). */
+const gridFill = (6 - (specialties.length % 6)) % 6;
 ---
 
 <BaseLayout
@@ -32,6 +33,9 @@ import { specialties } from "@data";
             <Icon name="arrow" class="icon dir-arrow" />
           </a>
         </li>
+      ))}
+      {Array.from({ length: gridFill }).map(() => (
+        <li class="dir-fill" aria-hidden="true" />
       ))}
     </ul>
   </div>

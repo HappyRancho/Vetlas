@@ -107,6 +107,8 @@ button { font: inherit; }
 }
 .chip:hover { border-color: rgba(14, 122, 108, 0.4); color: var(--teal-deep); }
 .chip .icon { font-size: 0.9em; color: var(--teal); }
+/* Interactive chips meet the 44px touch-target minimum (spec §7) */
+a.chip { min-height: var(--tap); }
 
 .icon { width: 1em; height: 1em; flex-shrink: 0; }
 .icon-md { width: 1.25em; height: 1.25em; }
@@ -262,10 +264,11 @@ button { font: inherit; }
   display: inline-flex; align-items: center; gap: 0.35rem;
   padding: 0.2rem 0.65rem;
   border-radius: var(--r-pill); border: 1px solid;
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
   text-decoration: none !important;
+  vertical-align: middle;
 }
-.trust-shape { width: 0.65em; height: 0.65em; flex-shrink: 0; }
+.trust-shape { width: 0.7em; height: 0.7em; flex-shrink: 0; }
 /* Verified: filled circle, green */
 .trust-verified { background: var(--green-soft); border-color: rgba(29, 107, 51, 0.3); color: var(--green-ink); }
 .trust-verified .trust-shape { background: var(--green-ink); border-radius: 50%; }
@@ -310,14 +313,19 @@ button { font: inherit; }
   color: var(--ink); transition: color 0.15s;
 }
 .ledger-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.2rem; }
-.ledger-meta .dot::before { content: "·"; margin-right: 0.6rem; }
+.ledger-meta .dot:not(:first-child)::before { content: "·"; margin-right: 0.6rem; }
 .ledger-theme {
-  display: none; font-size: 0.8rem; color: var(--teal-deep);
+  display: block; font-size: 0.8rem; color: var(--teal-deep);
   max-width: 16rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-@media (min-width: 40em) { .ledger-theme { display: block; } }
+/* Mobile: theme drops to its own line under the meta — fee stays top-right */
+@media (max-width: 39.99em) {
+  .ledger-theme { grid-column: 2; grid-row: 2; margin-top: 0.2rem; }
+}
 .ledger-fee { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
-.ledger-fee small { display: block; font-weight: 500; font-size: 0.68rem; color: var(--ink-faint); }
+/* Fee pinned to the last track so right edges line up with or without a theme cell */
+@media (min-width: 40em) { .ledger-fee { grid-column: 4; } }
+.ledger-fee small { display: block; font-weight: 500; font-size: 0.7rem; color: var(--ink-faint); }
 
 /* ---------- Cards (featured content only) ---------- */
 .card {
@@ -349,11 +357,11 @@ button { font: inherit; }
 
 /* ---------- Hero ---------- */
 .hero { position: relative; }
-.hero .container { position: relative; padding-block: 3.5rem 4rem; }
+.hero .container { position: relative; padding-block: 2.75rem 3.25rem; }
 @media (min-width: 40em) { .hero .container { padding-block: 5rem 5.5rem; } }
 .hero-inner { max-width: 46rem; margin-inline: auto; text-align: center; }
 .hero-title {
-  font-size: clamp(2.3rem, 6.5vw, 4rem); font-weight: 700;
+  font-size: clamp(2.1rem, 6.5vw, 4rem); font-weight: 700;
   margin-top: 1.25rem;
   animation: fade-up 0.5s ease-out both;
 }
@@ -372,7 +380,7 @@ button { font: inherit; }
 /* hairline stat row — no boxes, no shadows */
 .stat-row {
   display: grid; grid-template-columns: repeat(2, 1fr);
-  max-width: 46rem; margin: 3.25rem auto 0;
+  max-width: 46rem; margin: 2.5rem auto 0;
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   animation: fade-in 0.5s 0.32s ease-out both;
 }
@@ -458,7 +466,7 @@ button { font: inherit; }
   text-transform: uppercase; color: var(--ink-faint); padding: 0; margin-bottom: 0.5rem;
 }
 .species-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.chip-toggle { cursor: pointer; user-select: none; min-height: 2.15rem; align-items: center; }
+.chip-toggle { cursor: pointer; user-select: none; min-height: var(--tap); align-items: center; }
 .chip-toggle input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .chip-toggle:has(input:checked) {
   background: var(--teal-soft); border-color: rgba(14, 122, 108, 0.45); color: var(--teal-deep); font-weight: 600;
@@ -514,6 +522,10 @@ button { font: inherit; }
 .dir-cell-tall { align-items: flex-start; }
 .dir-cell-tall .dir-icon { margin-top: 0.1rem; }
 .dir-cell-tall .dir-text span { font-size: 0.8rem; line-height: 1.5; }
+/* invisible filler cells — keeps the last hairline row full at 2/3-col
+   breakpoints (hidden on mobile where the grid is single-column) */
+.dir-fill { display: none; background: var(--surface); }
+@media (min-width: 40em) { .dir-fill { display: block; min-height: 4.5rem; } }
 
 /* ---------- Index list (cities, plain rows) ---------- */
 .index-list { border-top: 1px solid var(--line); }
@@ -573,8 +585,8 @@ button { font: inherit; }
 }
 .profile-band { padding: 1.75rem 1.25rem; }
 @media (min-width: 40em) { .profile-band { padding: 2.25rem 2rem; } }
-.profile-band.teal { background: linear-gradient(100deg, var(--teal-soft), var(--teal-mist) 55%, var(--surface)); }
-.profile-band.coral { background: linear-gradient(100deg, var(--coral-soft), var(--amber-soft) 55%, var(--surface)); }
+.profile-band.teal { background: var(--teal-soft); }
+.profile-band.coral { background: var(--coral-soft); }
 .profile-band .top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .profile-id { display: flex; gap: 1rem; }
 .profile-id .card-icon { width: 3.5rem; height: 3.5rem; border-radius: 18px; font-size: 1.5rem; background: var(--surface); box-shadow: var(--shadow-card); }
@@ -584,6 +596,11 @@ button { font: inherit; }
 .profile-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
 /* Themes over stars — recurring reviewer themes lead the header */
 .themes-side { max-width: 100%; }
+@media (max-width: 39.99em) {
+  /* stacked header: hairline separates themes from the identity block */
+  .profile-band .top { row-gap: 1.25rem; }
+  .themes-side { width: 100%; border-top: 1px solid var(--line); padding-top: 0.9rem; }
+}
 @media (min-width: 40em) {
   .themes-side { text-align: right; margin-left: auto; max-width: 22rem; }
   .themes-side .themes-list { justify-content: flex-end; }
@@ -669,10 +686,14 @@ button { font: inherit; }
 /* ---------- Sections ---------- */
 .section { padding-block: 3rem; }
 @media (min-width: 40em) { .section { padding-block: 4rem; } }
-.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.section-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
 .section-head p { margin-top: 0.3rem; font-size: 0.9rem; color: var(--ink-faint); }
 .section-band { background: rgba(239, 246, 244, 0.6); }
-.link-more { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.9rem; font-weight: 600; }
+.link-more {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.9rem; font-weight: 600;
+  min-height: var(--tap); white-space: nowrap;
+}
 .feature-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
 @media (min-width: 40em) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 64em) { .feature-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -711,10 +732,21 @@ button { font: inherit; }
 .animate-wiggle { animation: wiggle 2.2s ease-in-out infinite; }
 
 /* ---------- Prose pages (about / methodology) ---------- */
-.doc { max-width: 44rem; }
+.doc { max-width: 44rem; counter-reset: step; }
 .doc-block { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow-card); padding: 1.5rem; }
 .doc-block + .doc-block { margin-top: 1rem; }
 .doc-block h2 { display: flex; align-items: center; gap: 0.6rem; font-size: 1.15rem; }
+/* numbered step chip — gives long document pages a scannable rhythm */
+.doc-block h2::before {
+  counter-increment: step;
+  content: counter(step, decimal-leading-zero);
+  display: inline-grid; place-items: center;
+  min-width: 1.8rem; height: 1.8rem; padding-inline: 0.4rem;
+  border-radius: var(--r-pill);
+  background: var(--teal-soft); color: var(--teal-deep);
+  font-family: var(--font-display); font-size: 0.78rem; font-weight: 700;
+  flex-shrink: 0;
+}
 .doc-block h2 .icon { color: var(--teal); }
 .doc-block p { margin-top: 0.6rem; font-size: 0.92rem; }
 

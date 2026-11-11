@@ -2,9 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import SearchBuilder from "../components/SearchBuilder.astro";
+import TrustBadge from "../components/TrustBadge.astro";
 import {
-  cities, specialties, providers, doctors,
-  cityById, specialtyById,
+  cities, specialties, providers, doctors, reviews,
+  cityById, specialtyById, deriveReviewThemes,
 } from "@data";
 
 /**
@@ -23,6 +24,10 @@ const speciesOptions = [
   { v: "hamster", l: "Hamsters" },
 ];
 
+/** Top recurring theme per listing (spec §1: themes over stars) */
+const themeFor = (slug: string) =>
+  deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+
 interface Row {
   href: string;
   name: string;
@@ -34,6 +39,7 @@ interface Row {
   specialty: string;
   species: string;
   blob: string;
+  theme?: string;
 }
 
 const rows: Row[] = [
@@ -53,6 +59,7 @@ const rows: Row[] = [
       blob: [p.name, p.area, city.name, p.type, ...specs, ...p.services, ...p.species]
         .join(" ")
         .toLowerCase(),
+      theme: themeFor(p.slug),
     };
   }),
   ...doctors.map((d): Row => {
@@ -72,6 +79,7 @@ const rows: Row[] = [
       blob: [`Dr ${d.name}`, d.name, ...specs, city.name, ...d.degrees, ...d.species, ...d.languages]
         .join(" ")
         .toLowerCase(),
+      theme: themeFor(d.slug),
     };
   }),
 ].sort((a, b) => b.rating - a.rating);
@@ -160,7 +168,8 @@ const rows: Row[] = [
     </section>
 
     <p class="result-count" id="result-count" role="status" aria-live="polite">
-      Showing <b>{rows.length}</b> of <b>{rows.length}</b> listings
+      <span id="result-count-text">Showing <b>{rows.length}</b> of <b>{rows.length}</b> listings</span>
+      <TrustBadge level="sample" />
     </p>
 
     <ol class="ledger" id="search-results">
@@ -185,6 +194,7 @@ const rows: Row[] = [
               ))}
             </span>
           </span>
+          {r.theme && <span class="ledger-theme" title={r.theme}>“{r.theme}”</span>}
           <span class="ledger-fee">
             ₹{r.fee.toLocaleString("en-IN")}
             <small>consultation</small>
@@ -231,7 +241,7 @@ const rows: Row[] = [
       const speciesBoxes = Array.from(
         document.querySelectorAll<HTMLInputElement>('input[name="species"]')
       );
-      const count = document.getElementById("result-count")!;
+      const count = document.getElementById("result-count-text")!;
       const empty = document.getElementById("no-results") as HTMLElement;
       const clearBtn = document.getElementById("clear-filters");
       const total = rows.length;

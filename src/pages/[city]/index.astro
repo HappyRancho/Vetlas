@@ -30,6 +30,18 @@ const themeFor = (slug: string) =>
 const tierMin = PUBLISH_MINIMUM[city.isMetro ? 1 : 2] ?? 5;
 const profileCount = cityProviders.length + cityDoctors.length;
 
+/** "3 clinics · 1 hospital · 2 doctors" — pluralised, omitting empty groups */
+const clinicCount = cityProviders.filter((p) => p.type === "clinic").length;
+const hospitalCount = cityProviders.length - clinicCount;
+const headMeta = [
+  city.state,
+  clinicCount > 0 ? `${clinicCount} ${clinicCount === 1 ? "clinic" : "clinics"}` : "",
+  hospitalCount > 0 ? `${hospitalCount} ${hospitalCount === 1 ? "hospital" : "hospitals"}` : "",
+  cityDoctors.length > 0
+    ? `${cityDoctors.length} ${cityDoctors.length === 1 ? "doctor" : "doctors"}`
+    : "",
+].filter(Boolean).join(" · ");
+
 const noindex = true; // sample dataset — published cities only in production
 
 const jsonLd = {
@@ -65,7 +77,7 @@ const jsonLd = {
       <div>
         <h1>Veterinary care in {city.name}</h1>
         <p class="muted head-desc">
-          {city.state} · {cityProviders.length} clinics &amp; hospitals · {cityDoctors.length} doctors
+          {headMeta}
         </p>
       </div>
     </header>

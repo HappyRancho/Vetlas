@@ -15,6 +15,12 @@ const topDoctors = [...doctors].sort((a, b) => b.rating - a.rating).slice(0, 5);
 
 /** Top recurring theme per provider (spec: themes over stars) */
 const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+
+/**
+ * Invisible filler cells for the hairline grid: a multiple of 6 keeps the
+ * last row full at every column count we use (1 / 2 / 3). Hidden on mobile.
+ */
+const gridFill = (6 - (specialties.length % 6)) % 6;
 ---
 
 <BaseLayout
@@ -83,6 +89,9 @@ const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.ta
             <Icon name="arrow" class="icon dir-arrow" />
           </a>
         </li>
+      ))}
+      {Array.from({ length: gridFill }).map(() => (
+        <li class="dir-fill" aria-hidden="true" />
       ))}
     </ul>
   </section>

@@ -250,7 +250,8 @@ const jsonLd = isFacility
               {topThemes.map((t) => (
                 <span class="chip">
                   <span class="theme-plus" aria-hidden="true">＋</span>
-                  {t.theme} <span class="count">×{t.reviewCount}</span>
+                  {t.theme}
+                  {t.reviewCount > 1 && <span class="count"> ×{t.reviewCount}</span>}
                 </span>
               ))}
             </div>
