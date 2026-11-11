@@ -29,12 +29,12 @@ const expenseTiers = ["₹500–1,000", "₹1,000–2,500", "₹2,500–5,000", 
   <div class="container">
     <header class="page-head">
       <p class="eyebrow"><Icon name="wallet" class="icon icon-md" /> Cost guide</p>
-      <h1 style="margin-top:0.5rem">What things typically cost</h1>
+      <h1 class="mt-05">What things typically cost</h1>
       <p>
         Broad, city-agnostic price ranges for common veterinary care in India, in rupees. Use these
         to budget and to sanity-check quotes you receive.
       </p>
-      <p class="notice-box" style="margin-top:1rem;max-width:40rem">
+      <p class="notice-box mt-1 maxw-40">
         <strong>Trust status:</strong> the ranges below are <TrustBadge level="estimated" /> —
         system-level placeholders pending our <a href="/methodology/">methodology</a> for
         collecting ≥10 approved user reports per facility (spec §4). Until then they are broad
@@ -42,28 +42,28 @@ const expenseTiers = ["₹500–1,000", "₹1,000–2,500", "₹2,500–5,000", 
       </p>
     </header>
 
-    <section style="margin-top:2.5rem" aria-labelledby="tiers-h">
-      <h2 class="section-title" id="tiers-h" style="font-size:1.35rem">Additional expense tiers</h2>
-      <p class="small soft" style="margin-top:0.4rem">
+    <section class="mt-25" aria-labelledby="tiers-h">
+      <h2 class="section-title section-title-sm" id="tiers-h">Additional expense tiers</h2>
+      <p class="small soft mt-xs">
         When you report a visit, Vetlas records the total additional cost (beyond the consultation)
         in one of these buckets. Ranges per facility appear only with ≥10 approved reports in the
         last 12 months.
       </p>
-      <ul style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem">
+      <ul class="list-inline mt-1">
         {expenseTiers.map((t) => (
-          <li><span class="chip" style="font-size:0.9rem;padding:0.5rem 1rem"><Icon name="wallet" class="icon" />{t}</span></li>
+          <li><span class="chip chip-lg"><Icon name="wallet" class="icon" />{t}</span></li>
         ))}
       </ul>
     </section>
 
-    <div style="margin-top:2.5rem;padding-bottom:1rem">
+    <div class="mt-25 pb-1">
       {groups.map(([cat, label]) => {
         const items = costEstimates.filter((c) => c.category === cat);
         if (items.length === 0) return null;
         return (
-          <section style="margin-bottom:2.5rem" aria-labelledby={`costs-${cat}`}>
-            <h2 class="section-title" id={`costs-${cat}`} style="font-size:1.35rem;margin-bottom:1rem">{label}</h2>
-            <div class="card" style="padding:0.25rem 0">
+          <section class="mb-25" aria-labelledby={`costs-${cat}`}>
+            <h2 class="section-title" id={`costs-${cat}`} class="section-title section-title-sm mb-1">{label}</h2>
+            <div class="card card-flush">
               <table class="cost-table">
                 <tbody>
                   {items.map((item, i) => (

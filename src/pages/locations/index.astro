@@ -23,26 +23,20 @@ const countFor = (c: (typeof cities)[number]) =>
       </p>
     </header>
 
-    <ul class="tile-grid" style="margin-top:2rem;padding-bottom:1rem">
-      {cities.map((c, i) => {
+    <ul class="index-list mt-2 pb-1">
+      {cities.map((c) => {
         const n = countFor(c);
         const min = minFor(c);
         return (
           <li>
-            <a class="card card-hover" href={`/${c.slug}/`} style={`animation-delay:${Math.min(i, 8) * 50}ms;display:flex;align-items:center;gap:0.9rem;min-height:4.5rem`}>
-              <span class="card-icon"><Icon name="pin" class="icon icon-lg" /></span>
-              <span style="flex:1;min-width:0">
-                <b style="font-family:var(--font-display);font-size:1.05rem;display:flex;align-items:center;gap:0.5rem">
-                  {c.name}
-                  {c.isMetro && (
-                    <span class="chip" style="padding:0.1rem 0.5rem;font-size:0.62rem;background:var(--amber-soft);border-color:transparent;color:var(--amber-ink);text-transform:uppercase">Metro</span>
-                  )}
-                </b>
-                <span class="small muted" style="display:block">
-                  {c.state} · {n} sample profiles · publish minimum {min}
-                </span>
+            <a class="index-row" href={`/${c.slug}/`}>
+              <span class="index-name">
+                {c.name}
+                {c.isMetro && <span class="chip chip-xs">Metro</span>}
               </span>
-              <Icon name="arrow" class="icon" />
+              <span class="index-meta">{c.state} · publish minimum {min} vetted profiles</span>
+              <span class="index-count">{n} sample profiles</span>
+              <Icon name="arrow" class="icon index-arrow" />
             </a>
           </li>
         );

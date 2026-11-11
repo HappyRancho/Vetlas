@@ -66,6 +66,8 @@ export interface Provider {
   /** 24-hour clock, e.g. { open: "09:00", close: "20:30" }; open24 true means round the clock */
   hours: { open24: boolean; open?: string; close?: string };
   specialtyIds: string[];
+  /** Animal species this provider treats (sample labels for the demo dataset) */
+  species: string[];
   services: string[];
   amenities: string[];
   fees: ConsultationFee;
@@ -90,6 +92,8 @@ export interface Doctor {
   cityId: string;
   primarySpecialtyId: string;
   secondarySpecialtyIds: string[];
+  /** Species this doctor treats (sample labels for the demo dataset) */
+  species: string[];
   /** Slugs of providers the doctor practises at */
   providerSlugs: string[];
   consultationFee: number;

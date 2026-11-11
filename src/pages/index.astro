@@ -7,7 +7,7 @@ import DoctorLedgerRow from "../components/DoctorLedgerRow.astro";
 import TrustBadge from "../components/TrustBadge.astro";
 import {
   cities, specialties, providers, doctors, reviews, costEstimates,
-  feeRangeINR, deriveReviewThemes,
+  providersByCity, feeRangeINR, deriveReviewThemes,
 } from "@data";
 
 const topProviders = [...providers].sort((a, b) => b.rating - a.rating).slice(0, 5);
@@ -23,12 +23,10 @@ const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.ta
 >
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-blob teal" aria-hidden="true"></div>
-    <div class="hero-blob amber" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-inner">
         <p class="eyebrow animate-fade-in">
-          <Icon name="sparkle" class="icon icon-md" style="color:var(--amber)" />
+          <Icon name="sparkle" class="icon icon-md icon-amber" />
           Made for India's pets &amp; their people
         </p>
         <h1 class="hero-title">
@@ -55,16 +53,16 @@ const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.ta
         </ul>
       </div>
 
-      <dl class="hero-stats">
-        <div class="stat"><dt class="visually-hidden">Specialties covered</dt><dd><b>16</b><span>Specialties covered</span></dd></div>
-        <div class="stat"><dt class="visually-hidden">Cities</dt><dd><b>10</b><span>Cities &amp; growing</span></dd></div>
-        <div class="stat"><dt class="visually-hidden">Cost</dt><dd><b>₹0</b><span>Always free to use</span></dd></div>
-        <div class="stat"><dt class="visually-hidden">Ads</dt><dd><b>Zero</b><span>Ads or paid placement</span></dd></div>
+      <dl class="stat-row">
+        <div class="stat"><dt>{specialties.length}</dt><dd>Specialities covered</dd></div>
+        <div class="stat"><dt>{cities.length}</dt><dd>Cities &amp; growing</dd></div>
+        <div class="stat"><dt>{providers.length + doctors.length}</dt><dd>Sample listings</dd></div>
+        <div class="stat"><dt>₹0</dt><dd>Always free to use</dd></div>
       </dl>
     </div>
   </section>
 
-  <!-- Specialties -->
+  <!-- Specialties — hairline directory -->
   <section class="section container" aria-labelledby="specialties-h">
     <div class="section-head">
       <div>
@@ -73,15 +71,16 @@ const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.ta
       </div>
       <a class="link-more" href="/specialties/">All specialties <Icon name="arrow" class="icon" /></a>
     </div>
-    <ul class="tile-grid">
-      {specialties.map((s, i) => (
+    <ul class="hairline-grid">
+      {specialties.map((s) => (
         <li>
-          <a class="card card-hover tile" href={`/specialties/${s.slug}/`} style={`animation-delay:${Math.min(i, 8) * 45}ms`}>
-            <span class="card-icon"><Icon name={s.icon} class="icon icon-lg" /></span>
-            <span>
+          <a class="dir-cell" href={`/specialties/${s.slug}/`}>
+            <span class="dir-icon"><Icon name={s.icon} class="icon icon-lg" /></span>
+            <span class="dir-text">
               <b>{s.name}</b>
               <span>{s.tagline}</span>
             </span>
+            <Icon name="arrow" class="icon dir-arrow" />
           </a>
         </li>
       ))}
@@ -95,7 +94,7 @@ const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.ta
         <h2 class="section-title" id="clinics-h">Care people rely on</h2>
         <p>Sample listings from our beta dataset — each row shows a recurring reviewer theme.</p>
       </div>
-      <a class="link-more" href="/search/">Explore all clinics <Icon name="arrow" class="icon" /></a>
+      <a class="link-more" href="/search/">Explore all listings <Icon name="arrow" class="icon" /></a>
     </div>
     <ol class="ledger">
       {topProviders.map((p, i) => (
@@ -122,71 +121,77 @@ const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.ta
     </div>
   </section>
 
-  <!-- Cities -->
+  <!-- Cities — index rows -->
   <section class="section container" aria-labelledby="cities-h">
-    <h2 class="section-title" id="cities-h">Veterinary care across India</h2>
-    <p class="muted" style="margin-top:0.3rem">Starting with India's metros, expanding city by city — published only when quality thresholds are met.</p>
-    <ul class="tile-grid" style="margin-top:1.5rem">
-      {cities.map((c, i) => (
-        <li>
-          <a class="card card-hover" href={`/${c.slug}/`} style={`animation-delay:${Math.min(i, 8) * 45}ms;display:flex;align-items:center;justify-content:space-between;min-height:4rem`}>
-            <span>
-              <b style="font-family:var(--font-display);font-size:1rem">{c.name}</b>
-              <span class="small muted" style="display:block">{c.state}</span>
-            </span>
-            <Icon name="arrow" class="icon" />
-          </a>
-        </li>
-      ))}
+    <div class="section-head">
+      <div>
+        <h2 class="section-title" id="cities-h">Veterinary care across India</h2>
+        <p>Published city by city — only when quality thresholds are met.</p>
+      </div>
+      <a class="link-more" href="/locations/">All locations <Icon name="arrow" class="icon" /></a>
+    </div>
+    <ul class="index-list">
+      {cities.map((c) => {
+        const n = providersByCity(c.id).length;
+        return (
+          <li>
+            <a class="index-row" href={`/${c.slug}/`}>
+              <span class="index-name">{c.name}</span>
+              <span class="index-meta">{c.state}</span>
+              <span class="index-count">{n} {n === 1 ? "listing" : "listings"}</span>
+              <Icon name="arrow" class="icon index-arrow" />
+            </a>
+          </li>
+        );
+      })}
     </ul>
   </section>
 
   <!-- Cost guide -->
-  <section class="container pb-section" style="padding-block:0 3rem" aria-labelledby="costs-h">
-    <div class="card" style="padding:2rem;position:relative;overflow:hidden">
-      <div class="hero-blob amber" aria-hidden="true" style="top:auto;bottom:-6rem;right:-4rem"></div>
-      <div style="position:relative">
+  <section class="section section-band" aria-labelledby="costs-h">
+    <div class="container split">
+      <div class="split-lead">
         <p class="eyebrow"><Icon name="wallet" class="icon icon-md" /> Budget with confidence</p>
-        <h2 class="section-title" id="costs-h" style="margin-top:0.75rem">Know typical costs before you go</h2>
-        <p class="soft" style="margin-top:0.5rem;max-width:36rem;font-size:0.95rem">
+        <h2 class="section-title" id="costs-h">Know typical costs before you go</h2>
+        <p class="soft">
           Indicative ranges for consultations, vaccinations, diagnostics and procedures — kept
           strictly separate from provider fees, and labelled honestly.
         </p>
-        <ul class="service-list" style="margin-top:1.25rem;max-width:40rem">
-          {costEstimates.slice(2, 8).map((c) => (
-            <li class="card" style="box-shadow:none;padding:0.65rem 0.85rem;justify-content:space-between">
-              <span class="small soft">{c.name}</span>
-              <b class="small" style="color:var(--teal-deep)">{feeRangeINR(c.min, c.max)}</b>
-            </li>
-          ))}
-        </ul>
-        <a class="btn btn-primary" style="margin-top:1.5rem" href="/costs/">
+        <a class="btn btn-primary" href="/costs/">
           View the full cost guide <Icon name="arrow" class="icon icon-md" />
         </a>
       </div>
+      <ul class="cost-rows">
+        {costEstimates.slice(2, 8).map((c) => (
+          <li>
+            <span class="cost-label">{c.name}</span>
+            <b class="cost-value">{feeRangeINR(c.min, c.max)}</b>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
   <!-- Trust -->
-  <section class="container" style="padding-block:0 4rem" aria-labelledby="trust-h">
-    <h2 class="section-title" id="trust-h" style="text-align:center">Why trust Vetlas</h2>
-    <div class="feature-grid" style="margin-top:2rem">
-      <div class="card">
+  <section class="section container" aria-labelledby="trust-h">
+    <h2 class="section-title" id="trust-h">Why trust Vetlas</h2>
+    <ul class="feature-row">
+      <li class="feature">
         <span class="card-icon"><Icon name="badge" class="icon icon-lg" /></span>
-        <h3 style="margin-top:0.85rem;font-size:1.05rem">Honest data, clearly labelled</h3>
-        <p class="small soft" style="margin-top:0.4rem">Every fact carries a trust label with a distinct shape and colour — readable without colour vision.</p>
-        <p style="margin-top:0.75rem"><TrustBadge level="verified" /> <TrustBadge level="provider-confirmed" /> <TrustBadge level="public" /></p>
-      </div>
-      <div class="card">
+        <h3>Honest data, clearly labelled</h3>
+        <p class="small soft">Every fact carries a trust label with a distinct shape and colour — readable without colour vision.</p>
+        <p class="feature-badges"><TrustBadge level="verified" /> <TrustBadge level="provider-confirmed" /> <TrustBadge level="public" /></p>
+      </li>
+      <li class="feature">
         <span class="card-icon amber"><Icon name="shield" class="icon icon-lg" /></span>
-        <h3 style="margin-top:0.85rem;font-size:1.05rem">No ads, no paid placement</h3>
-        <p class="small soft" style="margin-top:0.4rem">Providers can never pay for higher rankings or to hide reviews. Rankings follow data, not money.</p>
-      </div>
-      <div class="card">
+        <h3>No ads, no paid placement</h3>
+        <p class="small soft">Providers can never pay for higher rankings or to hide reviews. Rankings follow data, not money.</p>
+      </li>
+      <li class="feature">
         <span class="card-icon coral"><Icon name="sparkle" class="icon icon-lg" /></span>
-        <h3 style="margin-top:0.85rem;font-size:1.05rem">Themes over stars</h3>
-        <p class="small soft" style="margin-top:0.4rem">Reputation is shown through recurring reviewer themes — like “Calm with nervous pets” — not just aggregate numbers.</p>
-      </div>
-    </div>
+        <h3>Themes over stars</h3>
+        <p class="small soft">Reputation is shown through recurring reviewer themes — like “Calm with nervous pets” — not just aggregate numbers.</p>
+      </li>
+    </ul>
   </section>
 </BaseLayout>

@@ -27,23 +27,23 @@ const themeFor = (slug: string) =>
   canonical={`/specialties/${specialty.slug}/`}
 >
   <div class="container">
-    <a class="back-link" href="/specialties/" style="margin-top:1.5rem">
+    <a class="back-link mt-15" href="/specialties/">
       <Icon name="back" class="icon icon-md" /> All specialities
     </a>
 
-    <header class="page-head animate-fade-up" style="display:flex;gap:1.25rem;align-items:flex-start;max-width:none">
-      <span class="card-icon" style="width:3.5rem;height:3.5rem;border-radius:18px">
+    <header class="page-head page-head-row page-head-row-top animate-fade-up">
+      <span class="card-icon card-icon-lg">
         <Icon name={specialty.icon} class="icon icon-xl" />
       </span>
       <div>
-        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">{specialty.name}</h1>
-        <p class="soft" style="margin-top:0.5rem;font-size:0.95rem">{specialty.description}</p>
+        <h1>{specialty.name}</h1>
+        <p class="soft head-desc">{specialty.description}</p>
       </div>
     </header>
 
-    <section style="padding-block:2.5rem 0" aria-labelledby="sp-p">
-      <div class="section-head" style="margin-bottom:1rem">
-        <h2 class="section-title" id="sp-p" style="font-size:1.35rem">Clinics &amp; hospitals</h2>
+    <section class="section-first" aria-labelledby="sp-p">
+      <div class="section-head mb-1">
+        <h2 class="section-title section-title-sm" id="sp-p">Clinics &amp; hospitals</h2>
         <TrustBadge level="sample" />
       </div>
       {providerList.length > 0 ? (
@@ -62,8 +62,8 @@ const themeFor = (slug: string) =>
       )}
     </section>
 
-    <section style="padding-block:2.5rem" aria-labelledby="sp-d">
-      <h2 class="section-title" id="sp-d" style="font-size:1.35rem;margin-bottom:1rem">Doctors</h2>
+    <section class="section-compact" aria-labelledby="sp-d">
+      <h2 class="section-title" id="sp-d" class="section-title section-title-sm mb-1">Doctors</h2>
       {doctorList.length > 0 ? (
         <ol class="ledger">
           {doctorList.map((d, i) => (

@@ -41,15 +41,14 @@ const icons: Record<string, string> = {
   filter: `<path d="M3 5h18M6.5 12h11M10 19h4"/>`,
   heart: `<path d="M12 20.5S3.5 15.5 3.5 9.5A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.9c0 6-8.5 11-8.5 11Z"/>`,
   back: `<path d="M20 12H4M10 6l-6 6 6 6"/>`,
+  brain: `<path d="M12 5a2.5 2.5 0 0 0-4.9-.6A2.8 2.8 0 0 0 4 7.1a2.9 2.9 0 0 0 .8 2A2.9 2.9 0 0 0 4 11.2a2.8 2.8 0 0 0 2.2 2.7A2.5 2.5 0 0 0 8.5 16H12V5Z"/><path d="M12 5a2.5 2.5 0 0 1 4.9-.6A2.8 2.8 0 0 1 20 7.1a2.9 2.9 0 0 1-.8 2 2.9 2.9 0 0 1 .8 2.1 2.8 2.8 0 0 1-2.2 2.7A2.5 2.5 0 0 1 15.5 16H12"/>`,
+  stomach: `<path d="M7 3v5a5 5 0 0 0 5 5h.5a4 4 0 1 1 0 8H10"/><path d="M5 3h4"/>`,
+  ribbon: `<path d="M10.2 6.2a2.4 2.4 0 1 0 3.6 0"/><path d="M10.2 6.2C9 8.5 7.5 12 6 21"/><path d="M13.8 6.2C15 8.5 16.5 12 18 21"/>`,
+  venus: `<circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/>`,
+  cat: `<path d="M4 9 5.5 4 9.5 7.5h5L18.5 4 20 9v5a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6V9Z"/><path d="M9 12h.01M15 12h.01M10.5 15.5c.8.7 2.2.7 3 0"/>`,
 };
 
-const specialityAlias: Record<string, string> = {
-  paw: "paw", scissors: "scissors", siren: "siren", tooth: "tooth", drop: "drop",
-  bone: "bone", stethoscope: "stethoscope", eye: "eye", shield: "shield",
-  bird: "bird", wave: "wave", scan: "scan", heart: "heart",
-};
-
-const path = specialityAlias[name] ?? icons[name] ?? icons.paw;
+const path = icons[name] ?? icons.paw;
 const sizeClass = size ? ` icon-${size}` : "";
 ---
 

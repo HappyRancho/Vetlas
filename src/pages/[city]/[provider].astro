@@ -85,11 +85,11 @@ const jsonLd = isFacility
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <div class="container">
-    <a class="back-link" href={`/${city.slug}/`} style="margin-top:1.5rem">
+    <a class="back-link mt-15" href={`/${city.slug}/`}>
       <Icon name="back" class="icon icon-md" /> Veterinary care in {city.name}
     </a>
 
-    <header class="card profile-header" style="margin-top:1rem">
+    <header class="card profile-header mt-1">
       <div class={`profile-band ${isFacility ? "teal" : "coral"}`}>
         <div class="top">
           <div class="profile-id">
@@ -103,9 +103,9 @@ const jsonLd = isFacility
               <p class="profile-meta">
                 {isFacility ? (
                   <>
-                    <span style="text-transform:capitalize">{facility!.type}</span>
+                    <span class="capitalize">{facility!.type}</span>
                     <span class="dot">
-                      <Icon name="pin" class="icon" style="vertical-align:-0.15em" />
+                      <Icon name="pin" class="icon icon-inline" />
                       {facility!.area}, {city.name}
                     </span>
                     <span class="dot">Est. {facility!.establishedYear}</span>
@@ -118,14 +118,14 @@ const jsonLd = isFacility
                   </>
                 )}
               </p>
-              <p class="small muted" style="margin-top:0.25rem">
+              <p class="small muted mt-025">
                 {isFacility
                   ? facility!.specialtyIds.map((s) => specialtyById(s)?.name).filter(Boolean).join(" · ")
                   : vet!.degrees.join(" · ")}
               </p>
               <div class="profile-tags">
                 <TrustBadge level="sample" />
-                <span class="chip" style="font-size:0.68rem">
+                <span class="chip chip-sm">
                   {isFacility
                     ? facility!.hours.open24 ? "Open 24×7" : `${facility!.hours.open}–${facility!.hours.close}`
                     : `Speaks: ${vet!.languages.join(", ")}`}
@@ -133,10 +133,22 @@ const jsonLd = isFacility
               </div>
             </div>
           </div>
-          <div class="rating-side">
-            <b>{(isFacility ? facility!.rating : vet!.rating).toFixed(1)}</b>
-            <p class="muted small">sample rating</p>
-            <p class="muted small">{(isFacility ? facility!.reviewCount : vet!.reviewCount)} sample reviews</p>
+          <!-- Themes over stars (spec §1): recurring reviewer themes lead, rating is a footnote -->
+          <div class="themes-side">
+            <p class="themes-label">What reviewers mention</p>
+            {topThemes.length > 0 ? (
+              <ul class="themes-list">
+                {topThemes.slice(0, 3).map((t) => (
+                  <li class="chip">“{t.theme}”</li>
+                ))}
+              </ul>
+            ) : (
+              <p class="soft small">Not enough sample reviews yet to surface themes.</p>
+            )}
+            <p class="muted small themes-footnote">
+              {(isFacility ? facility!.reviewCount : vet!.reviewCount)} sample reviews ·
+              sample rating {(isFacility ? facility!.rating : vet!.rating).toFixed(1)}/5
+            </p>
           </div>
         </div>
       </div>
@@ -164,10 +176,10 @@ const jsonLd = isFacility
       <div>
         <section class="panel animate-fade-up" style="animation-delay:60ms">
           <h2>About</h2>
-          <p class="soft" style="font-size:0.95rem">{isFacility ? facility!.about : vet!.about}</p>
+          <p class="soft small">{isFacility ? facility!.about : vet!.about}</p>
 
           <h3>Specialties</h3>
-          <ul style="display:flex;flex-wrap:wrap;gap:0.5rem">
+          <ul class="list-inline">
             {(isFacility
               ? facility!.specialtyIds
               : [vet!.primarySpecialtyId, ...vet!.secondarySpecialtyIds]
@@ -192,14 +204,14 @@ const jsonLd = isFacility
         </section>
 
         {isFacility && providersDoctors(facility!).length > 0 && (
-          <section class="panel animate-fade-up" style="animation-delay:120ms;margin-top:1.5rem">
+          <section class="panel panel-follow animate-fade-up" style="animation-delay:120ms">
             <h2>Doctors at {facility!.name}</h2>
-            <ol class="ledger" style="border-top:0">
+            <ol class="ledger ledger-flush">
               {providersDoctors(facility!).map((d, i) => (
-                <li class="ledger-row" style="min-height:3.75rem">
+                <li class="ledger-row ledger-row-compact">
                   <span class="ledger-num">{String(i + 1).padStart(2, "0")}</span>
                   <span class="ledger-main">
-                    <a class="ledger-name" href={`/vets/${d.slug}/`}>Dr. {d.name}</a>
+                    <a class="ledger-name" href={`/${city.slug}/${d.slug}/`}>Dr. {d.name}</a>
                     <span class="ledger-meta">{specialtyById(d.primarySpecialtyId)?.name} · {d.experienceYears} yrs exp</span>
                   </span>
                   <span class="ledger-fee">{feeINR(d.consultationFee)}<small>consultation</small></span>
@@ -210,11 +222,11 @@ const jsonLd = isFacility
         )}
 
         {!isFacility && doctorsProviders(vet!).length > 0 && (
-          <section class="panel animate-fade-up" style="animation-delay:120ms;margin-top:1.5rem">
+          <section class="panel panel-follow animate-fade-up" style="animation-delay:120ms">
             <h2>Practises at</h2>
-            <ol class="ledger" style="border-top:0">
+            <ol class="ledger ledger-flush">
               {doctorsProviders(vet!).map((p, i) => (
-                <li class="ledger-row" style="min-height:3.75rem">
+                <li class="ledger-row ledger-row-compact">
                   <span class="ledger-num">{String(i + 1).padStart(2, "0")}</span>
                   <span class="ledger-main">
                     <a class="ledger-name" href={`/${cityById(p.cityId)?.slug}/${p.slug}/`}>{p.name}</a>
@@ -227,17 +239,17 @@ const jsonLd = isFacility
           </section>
         )}
 
-        <section class="panel animate-fade-up" style="animation-delay:180ms;margin-top:1.5rem">
-          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem">
+        <section class="panel panel-follow animate-fade-up" style="animation-delay:180ms">
+          <div class="panel-head">
             <h2>Reviews</h2>
             <p class="small muted">Illustrative sample reviews</p>
           </div>
           {topThemes.length > 0 && (
             <div class="theme-strip">
-              <h3 style="margin:0 0.25rem 0 0">Themes:</h3>
+              <h3 class="theme-strip-label">Themes:</h3>
               {topThemes.map((t) => (
                 <span class="chip">
-                  <span style="color:var(--teal)" aria-hidden="true">＋</span>
+                  <span class="theme-plus" aria-hidden="true">＋</span>
                   {t.theme} <span class="count">×{t.reviewCount}</span>
                 </span>
               ))}
@@ -273,15 +285,15 @@ const jsonLd = isFacility
           <dl class="kv">
             {isFacility ? (
               <>
-                <div><dt>Address</dt><dd class="soft" style="font-weight:500">{facility!.address}, {city.name}</dd></div>
+                <div><dt>Address</dt><dd class="soft fw-medium">{facility!.address}, {city.name}</dd></div>
                 <div><dt>Timings</dt><dd>{facility!.hours.open24 ? "24 hours, 7 days" : `Daily ${facility!.hours.open}–${facility!.hours.close}`}</dd></div>
                 <div><dt>Phone</dt><dd><a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a></dd></div>
-                <div><dt>Amenities</dt><dd class="soft" style="font-weight:500">{facility!.amenities.join(", ")}</dd></div>
+                <div><dt>Amenities</dt><dd class="soft fw-medium">{facility!.amenities.join(", ")}</dd></div>
               </>
             ) : (
               <>
                 <div><dt>Experience</dt><dd>{vet!.experienceYears} years</dd></div>
-                <div><dt>Languages</dt><dd class="soft" style="font-weight:500">{vet!.languages.join(", ")}</dd></div>
+                <div><dt>Languages</dt><dd class="soft fw-medium">{vet!.languages.join(", ")}</dd></div>
                 <div><dt>Data status</dt><dd><TrustBadge level="sample" /></dd></div>
               </>
             )}

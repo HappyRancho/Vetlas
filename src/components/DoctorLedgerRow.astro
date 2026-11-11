@@ -14,7 +14,7 @@ const primary = specialtyById(doctor.primarySpecialtyId);
 <li class="ledger-row animate-fade-up" style={`animation-delay:${Math.min(index, 8) * 50}ms`}>
   <span class="ledger-num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
   <span class="ledger-main">
-    <a class="ledger-name" href={`/vets/${doctor.slug}/`}>Dr. {doctor.name}</a>
+    <a class="ledger-name" href={`/${city?.slug}/${doctor.slug}/`}>Dr. {doctor.name}</a>
     <span class="ledger-meta">
       <span class="dot">{primary?.name}</span>
       <span class="dot">{doctor.experienceYears} yrs exp</span>

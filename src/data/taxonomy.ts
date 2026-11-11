@@ -122,4 +122,49 @@ export const specialties: Specialty[] = [
       "Digital X-ray, ultrasound, and in-house laboratory testing for faster answers.",
     icon: "scan",
   },
+  {
+    id: "cardiology",
+    slug: "cardiology",
+    name: "Cardiology",
+    tagline: "Heart & circulation",
+    description:
+      "Heart murmurs, arrhythmias, congestive heart failure and blood-pressure management.",
+    icon: "heart",
+  },
+  {
+    id: "gastroenterology",
+    slug: "gastroenterology",
+    name: "Gastroenterology",
+    tagline: "Gut, liver & nutrition",
+    description:
+      "Vomiting, diarrhoea, pancreatitis, liver disease and dietary sensitivity work-ups.",
+    icon: "stomach",
+  },
+  {
+    id: "neurology",
+    slug: "neurology",
+    name: "Neurology",
+    tagline: "Brain, nerves & seizures",
+    description:
+      "Seizures, vestibular disease, spinal injuries and other nervous-system disorders.",
+    icon: "brain",
+  },
+  {
+    id: "oncology",
+    slug: "oncology",
+    name: "Oncology",
+    tagline: "Tumour care & comfort",
+    description:
+      "Tumour assessment, chemotherapy protocols and palliative care planning.",
+    icon: "ribbon",
+  },
+  {
+    id: "gynaecology",
+    slug: "gynaecology-obstetrics",
+    name: "Gynaecology & Obstetrics",
+    tagline: "Reproduction & whelping",
+    description:
+      "Breeding support, pregnancy monitoring, caesareans and reproductive health.",
+    icon: "venus",
+  },
 ];

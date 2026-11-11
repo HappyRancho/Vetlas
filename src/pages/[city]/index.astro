@@ -54,38 +54,38 @@ const jsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <div class="container">
-    <a class="back-link" href="/locations/" style="margin-top:1.5rem">
+    <a class="back-link mt-15" href="/locations/">
       <Icon name="back" class="icon icon-md" /> All cities
     </a>
 
-    <header class="page-head animate-fade-up" style="display:flex;gap:1.25rem;align-items:center;max-width:none">
-      <span class="card-icon" style="width:3.5rem;height:3.5rem;border-radius:18px">
+    <header class="page-head page-head-row animate-fade-up">
+      <span class="card-icon card-icon-lg">
         <Icon name="pin" class="icon icon-xl" />
       </span>
       <div>
-        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Veterinary care in {city.name}</h1>
-        <p class="muted" style="margin-top:0.3rem;font-size:0.95rem">
+        <h1>Veterinary care in {city.name}</h1>
+        <p class="muted head-desc">
           {city.state} · {cityProviders.length} clinics &amp; hospitals · {cityDoctors.length} doctors
         </p>
       </div>
     </header>
 
-    <div class="notice-box" style="margin-top:1rem;max-width:44rem">
+    <div class="notice-box mt-1 maxw-44">
       <strong>Publication status:</strong> this city is part of the demo dataset.
       Vetlas publishes a Tier-{city.isMetro ? 1 : 2} city only once at least {tierMin} vetted
       profiles exist (spec §2). Currently showing {profileCount} sample profiles.
     </div>
 
-    <section style="padding-block:2.5rem 0" aria-labelledby="search-h">
+    <section class="section-first" aria-labelledby="search-h">
       <h2 class="visually-hidden" id="search-h">Search within {city.name}</h2>
       <SearchBuilder compact />
     </section>
 
-    <section style="padding-block:2.5rem 0" aria-labelledby="cp-h">
+    <section class="section-first" aria-labelledby="cp-h">
       <h2 class="section-title" id="cp-h">Clinics &amp; hospitals</h2>
-      <div style="margin-top:0.75rem"><TrustBadge level="sample" label="Sample data" /></div>
+      <div class="mt-75"><TrustBadge level="sample" label="Sample data" /></div>
       {cityProviders.length > 0 ? (
-        <ol class="ledger" style="margin-top:0.75rem">
+        <ol class="ledger mt-75">
           {cityProviders.map((p, i) => (
             <ProviderLedgerRow provider={p} index={i} theme={themeFor(p.slug)} />
           ))}
@@ -100,10 +100,10 @@ const jsonLd = {
       )}
     </section>
 
-    <section style="padding-block:2.5rem" aria-labelledby="cd-h">
+    <section class="section-compact" aria-labelledby="cd-h">
       <h2 class="section-title" id="cd-h">Doctors</h2>
       {cityDoctors.length > 0 ? (
-        <ol class="ledger" style="margin-top:0.75rem">
+        <ol class="ledger mt-75">
           {cityDoctors.map((d, i) => (
             <DoctorLedgerRow doctor={d} index={i} theme={themeFor(d.slug)} />
           ))}

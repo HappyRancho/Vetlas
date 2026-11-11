@@ -14,7 +14,7 @@ const city = cityById(provider.cityId);
 <li class="ledger-row animate-fade-up" style={`animation-delay:${Math.min(index, 8) * 50}ms`}>
   <span class="ledger-num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
   <span class="ledger-main">
-    <a class="ledger-name" href={`/clinics/${provider.slug}/`}>{provider.name}</a>
+    <a class="ledger-name" href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
     <span class="ledger-meta">
       <span class="dot">{provider.area}, {city?.name}</span>
       <span class="dot" style="text-transform:capitalize">{provider.type}</span>

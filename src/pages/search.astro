@@ -2,46 +2,327 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import SearchBuilder from "../components/SearchBuilder.astro";
+import {
+  cities, specialties, providers, doctors,
+  cityById, specialtyById,
+} from "@data";
 
-/** Static entry point for the sentence-driven search builder (spec §7). */
+/**
+ * Full search experience (spec §7):
+ * free text + city / speciality / type / species filters over the whole
+ * dataset. Every result is pre-rendered as a real link — without JS the
+ * page lists everything and every row still works. With JS the list is
+ * filtered client-side (no network, no layout shift).
+ */
+
+const speciesOptions = [
+  { v: "dog", l: "Dogs" },
+  { v: "cat", l: "Cats" },
+  { v: "bird", l: "Birds" },
+  { v: "rabbit", l: "Rabbits" },
+  { v: "hamster", l: "Hamsters" },
+];
+
+interface Row {
+  href: string;
+  name: string;
+  type: string;
+  meta: string[];
+  fee: number;
+  rating: number;
+  city: string;
+  specialty: string;
+  species: string;
+  blob: string;
+}
+
+const rows: Row[] = [
+  ...providers.map((p): Row => {
+    const city = cityById(p.cityId)!;
+    const specs = p.specialtyIds.map((id) => specialtyById(id)?.name).filter(Boolean) as string[];
+    return {
+      href: `/${city.slug}/${p.slug}/`,
+      name: p.name,
+      type: p.type,
+      meta: [`${p.area}, ${city.name}`, p.type, specs.slice(0, 3).join(" · ")],
+      fee: p.fees.opd,
+      rating: p.rating,
+      city: city.slug,
+      specialty: p.specialtyIds.join(" "),
+      species: p.species.join(" "),
+      blob: [p.name, p.area, city.name, p.type, ...specs, ...p.services, ...p.species]
+        .join(" ")
+        .toLowerCase(),
+    };
+  }),
+  ...doctors.map((d): Row => {
+    const city = cityById(d.cityId)!;
+    const specIds = [d.primarySpecialtyId, ...d.secondarySpecialtyIds];
+    const specs = specIds.map((id) => specialtyById(id)?.name).filter(Boolean) as string[];
+    return {
+      href: `/${city.slug}/${d.slug}/`,
+      name: `Dr. ${d.name}`,
+      type: "doctor",
+      meta: [specs[0] ?? "", `${d.experienceYears} yrs exp`, city.name, d.degrees.join(" · ")],
+      fee: d.consultationFee,
+      rating: d.rating,
+      city: city.slug,
+      specialty: specIds.join(" "),
+      species: d.species.join(" "),
+      blob: [`Dr ${d.name}`, d.name, ...specs, city.name, ...d.degrees, ...d.species, ...d.languages]
+        .join(" ")
+        .toLowerCase(),
+    };
+  }),
+].sort((a, b) => b.rating - a.rating);
 ---
 
 <BaseLayout
   title="Find veterinary care — Vetlas"
-  description="Describe what your pet needs — 'My dog needs a skin specialist in Indore' — and Vetlas finds matching clinics, hospitals and doctors across India."
+  description="Search clinics, hospitals and doctors across India — filter by city, speciality, animal species and budget. Every listing carries a trust label; no ads, no paid placement."
   canonical="/search/"
 >
   <div class="container">
-    <header class="page-head animate-fade-up" style="max-width:44rem;margin-inline:auto;text-align:center;padding-block:3rem 2rem">
-      <h1>Describe what you need</h1>
-      <p style="margin-inline:auto">Build your search as a sentence — no forms full of dropdown grids, no ads in the way.</p>
+    <header class="page-head search-head animate-fade-up">
+      <h1>Find the right care</h1>
+      <p>Build a sentence, or filter the full list below — either way, no ads in the way.</p>
     </header>
 
-    <div class="animate-fade-up" style="animation-delay:100ms;max-width:52rem;margin-inline:auto">
+    <div class="search-builder-wrap animate-fade-up">
       <SearchBuilder />
-      <p class="muted small" style="text-align:center;margin-top:1rem">
+      <p class="muted small search-builder-note">
         Your sentence becomes a city × speciality page — for example
         <a href="/bengaluru/dermatology/">/bengaluru/dermatology/</a>.
       </p>
     </div>
 
-    <script>
-      // Deep-link support: /search/?city=…&speciality=… → /{city}/{speciality}/
-      const params = new URLSearchParams(window.location.search);
-      const city = params.get("city");
-      const speciality = params.get("speciality");
-      if (city && speciality && /^[a-z-]+$/.test(city) && /^[a-z-]+$/.test(speciality)) {
-        window.location.replace(`/${city}/${speciality}/`);
-      }
-    </script>
+    <!-- Full-list filters -->
+    <section class="search-panel animate-fade-up" aria-label="Filter all results" style="animation-delay:80ms">
+      <div class="search-field">
+        <Icon name="search" class="icon icon-md search-field-icon" />
+        <label class="visually-hidden" for="q">Search by name, area or service</label>
+        <input
+          type="search"
+          id="q"
+          name="q"
+          placeholder="Search by name, area or service…"
+          autocomplete="off"
+          enterkeyhint="search"
+        />
+      </div>
 
-    <section class="section" style="padding-block:3rem 0" aria-labelledby="ways-h">
-      <h2 class="section-title" id="ways-h" style="font-size:1.35rem">Other ways in</h2>
-      <ul class="tile-grid" style="margin-top:1.25rem">
+      <div class="search-selects">
+        <label class="search-select">
+          <span>City</span>
+          <select id="f-city">
+            <option value="">All cities</option>
+            {cities.map((c) => <option value={c.slug}>{c.name}</option>)}
+          </select>
+        </label>
+        <label class="search-select">
+          <span>Speciality</span>
+          <select id="f-spec">
+            <option value="">All specialities</option>
+            {specialties.map((s) => <option value={s.id} data-slug={s.slug}>{s.name}</option>)}
+          </select>
+        </label>
+        <label class="search-select">
+          <span>Type</span>
+          <select id="f-type">
+            <option value="">Everyone</option>
+            <option value="clinic">Clinics</option>
+            <option value="hospital">Hospitals</option>
+            <option value="doctor">Doctors</option>
+          </select>
+        </label>
+        <label class="search-select">
+          <span>Sort</span>
+          <select id="f-sort">
+            <option value="rating">Top rated (sample)</option>
+            <option value="fee-asc">Fee: low to high</option>
+            <option value="fee-desc">Fee: high to low</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </label>
+      </div>
+
+      <fieldset class="species-filter">
+        <legend>Treats</legend>
+        <div class="species-chips">
+          {speciesOptions.map((s) => (
+            <label class="chip chip-toggle">
+              <input type="checkbox" name="species" value={s.v} />
+              {s.l}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    </section>
+
+    <p class="result-count" id="result-count" role="status" aria-live="polite">
+      Showing <b>{rows.length}</b> of <b>{rows.length}</b> listings
+    </p>
+
+    <ol class="ledger" id="search-results">
+      {rows.map((r, i) => (
+        <li
+          class="ledger-row"
+          data-blob={r.blob}
+          data-city={r.city}
+          data-type={r.type}
+          data-specialty={r.specialty}
+          data-species={r.species}
+          data-fee={r.fee}
+          data-rating={r.rating}
+          data-name={r.name.toLowerCase()}
+        >
+          <span class="ledger-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <span class="ledger-main">
+            <a class="ledger-name" href={r.href}>{r.name}</a>
+            <span class="ledger-meta">
+              {r.meta.filter(Boolean).map((m, j) => (
+                <span class={j === 0 ? "" : "dot"}>{m}</span>
+              ))}
+            </span>
+          </span>
+          <span class="ledger-fee">
+            ₹{r.fee.toLocaleString("en-IN")}
+            <small>consultation</small>
+          </span>
+        </li>
+      ))}
+    </ol>
+
+    <div class="empty-state" id="no-results" hidden>
+      <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
+      <h2>No matches</h2>
+      <p>Try a wider search — clear a filter or two and look again.</p>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" id="clear-filters">Clear all filters</button>
+      </div>
+    </div>
+
+    <section class="section" aria-labelledby="ways-h">
+      <h2 class="section-title" id="ways-h">Other ways in</h2>
+      <ul class="tile-grid mt-125">
         <li><a class="card card-hover" href="/specialties/"><span class="card-icon"><Icon name="stethoscope" class="icon icon-lg" /></span><span><b>By speciality</b><span>Surgery, dermatology, emergency care and more</span></span></a></li>
         <li><a class="card card-hover" href="/locations/"><span class="card-icon"><Icon name="pin" class="icon icon-lg" /></span><span><b>By city</b><span>Metros first, expanding nationwide</span></span></a></li>
         <li><a class="card card-hover" href="/costs/"><span class="card-icon amber"><Icon name="wallet" class="icon icon-lg" /></span><span><b>By budget</b><span>Typical treatment cost ranges</span></span></a></li>
       </ul>
     </section>
   </div>
+
+  <script>
+    /**
+     * Client-side filtering over the pre-rendered ledger rows.
+     * All rows ship in the HTML (works without JS); this only hides,
+     * renumbers and reorders them. Query params from the sentence
+     * builder (?pet=&speciality=&city=&q=) pre-fill the filters.
+     */
+    const results = document.getElementById("search-results") as HTMLOListElement | null;
+    if (results) {
+      const list: HTMLOListElement = results;
+      const rows = Array.from(list.querySelectorAll<HTMLLIElement>(".ledger-row"));
+      const q = document.getElementById("q") as HTMLInputElement;
+      const city = document.getElementById("f-city") as HTMLSelectElement;
+      const spec = document.getElementById("f-spec") as HTMLSelectElement;
+      const type = document.getElementById("f-type") as HTMLSelectElement;
+      const sort = document.getElementById("f-sort") as HTMLSelectElement;
+      const speciesBoxes = Array.from(
+        document.querySelectorAll<HTMLInputElement>('input[name="species"]')
+      );
+      const count = document.getElementById("result-count")!;
+      const empty = document.getElementById("no-results") as HTMLElement;
+      const clearBtn = document.getElementById("clear-filters");
+      const total = rows.length;
+
+      function apply() {
+        const query = q.value.trim().toLowerCase();
+        const tokens = query ? query.split(/\s+/) : [];
+        const cityV = city.value;
+        const specV = spec.value;
+        const typeV = type.value;
+        const wantedSpecies = speciesBoxes.filter((b) => b.checked).map((b) => b.value);
+
+        let shown = 0;
+        for (const row of rows) {
+          const d = row.dataset;
+          let ok = true;
+          if (cityV && d.city !== cityV) ok = false;
+          if (ok && specV && !(d.specialty ?? "").split(" ").includes(specV)) ok = false;
+          if (ok && typeV && d.type !== typeV) ok = false;
+          if (ok && wantedSpecies.length) {
+            const has = (d.species ?? "").split(" ");
+            ok = wantedSpecies.some((s) => has.includes(s));
+          }
+          if (ok && tokens.length) {
+            const blob = d.blob ?? "";
+            ok = tokens.every((t) => blob.includes(t));
+          }
+          row.hidden = !ok;
+          if (ok) shown++;
+        }
+
+        // sort visible rows
+        const cmp: Record<string, (a: HTMLLIElement, b: HTMLLIElement) => number> = {
+          rating: (a, b) => Number(b.dataset.rating) - Number(a.dataset.rating),
+          "fee-asc": (a, b) => Number(a.dataset.fee) - Number(b.dataset.fee),
+          "fee-desc": (a, b) => Number(b.dataset.fee) - Number(a.dataset.fee),
+          name: (a, b) => (a.dataset.name ?? "").localeCompare(b.dataset.name ?? ""),
+        };
+        const comparator = cmp[sort.value] ?? cmp.rating!;
+        const visible = rows.filter((r) => !r.hidden).sort(comparator);
+        visible.forEach((r, i) => {
+          list.appendChild(r);
+          const num = r.querySelector(".ledger-num");
+          if (num) num.textContent = String(i + 1).padStart(2, "0");
+        });
+
+        count.innerHTML = shown === total
+          ? `Showing <b>${total}</b> of <b>${total}</b> listings`
+          : `Showing <b>${shown}</b> of <b>${total}</b> listings`;
+        empty.hidden = shown > 0;
+        list.hidden = shown === 0;
+      }
+
+      function clearAll() {
+        q.value = "";
+        city.value = "";
+        spec.value = "";
+        type.value = "";
+        sort.value = "rating";
+        speciesBoxes.forEach((b) => (b.checked = false));
+        apply();
+      }
+
+      q.addEventListener("input", apply);
+      city.addEventListener("change", apply);
+      spec.addEventListener("change", apply);
+      type.addEventListener("change", apply);
+      sort.addEventListener("change", apply);
+      speciesBoxes.forEach((b) => b.addEventListener("change", apply));
+      clearBtn?.addEventListener("click", clearAll);
+
+      // Deep-link params from the sentence builder / shared URLs
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("q")) q.value = params.get("q")!;
+      if (params.get("city")) city.value = params.get("city")!;
+      if (params.get("speciality")) {
+        const slug = params.get("speciality")!;
+        const opt = Array.from(spec.options).find(
+          (o) => o.textContent?.toLowerCase() === slug.replace(/-/g, " ")
+        );
+        // match by slug → option value via data list built below
+        const bySlug = spec.querySelector<HTMLOptionElement>(`option[data-slug="${slug}"]`);
+        if (bySlug) spec.value = bySlug.value;
+        else if (opt) spec.value = opt.value;
+      }
+      const pet = params.get("pet");
+      if (pet && speciesBoxes.some((b) => b.value === pet)) {
+        const box = speciesBoxes.find((b) => b.value === pet);
+        if (box) box.checked = true;
+      }
+      if (params.toString()) apply();
+    }
+  </script>
 </BaseLayout>

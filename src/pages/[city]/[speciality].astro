@@ -47,22 +47,22 @@ const themeFor = (slug: string) =>
   canonical={`/${city.slug}/${specialty.slug}/`}
 >
   <div class="container">
-    <a class="back-link" href={`/${city.slug}/`} style="margin-top:1.5rem">
+    <a class="back-link mt-15" href={`/${city.slug}/`}>
       <Icon name="back" class="icon icon-md" /> Veterinary care in {city.name}
     </a>
 
-    <header class="page-head animate-fade-up" style="display:flex;gap:1.25rem;align-items:flex-start;max-width:none">
-      <span class="card-icon" style="width:3.5rem;height:3.5rem;border-radius:18px">
+    <header class="page-head page-head-row page-head-row-top animate-fade-up">
+      <span class="card-icon card-icon-lg">
         <Icon name={specialty.icon} class="icon icon-xl" />
       </span>
       <div>
-        <h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">{specialty.name} in {city.name}</h1>
-        <p class="soft" style="margin-top:0.5rem;font-size:0.95rem">{specialty.description}</p>
+        <h1>{specialty.name} in {city.name}</h1>
+        <p class="soft head-desc">{specialty.description}</p>
       </div>
     </header>
 
     {!indexable && (
-      <p class="notice-box" style="margin-top:1.25rem;max-width:44rem">
+      <p class="notice-box mt-15 maxw-44">
         <strong>Why this page is marked “not for search engines”:</strong> Vetlas publishes a
         city × speciality combination page for indexing only once at least 3 vetted providers
         match (currently {vettedCount}). This demo page stays accessible to you but stays out of
@@ -70,9 +70,9 @@ const themeFor = (slug: string) =>
       </p>
     )}
 
-    <section style="padding-block:2.5rem 0" aria-labelledby="cs-p">
-      <div class="section-head" style="margin-bottom:1rem">
-        <h2 class="section-title" id="cs-p" style="font-size:1.35rem">{specialty.name} clinics &amp; hospitals in {city.name}</h2>
+    <section class="section-first" aria-labelledby="cs-p">
+      <div class="section-head mb-1">
+        <h2 class="section-title section-title-sm" id="cs-p">{specialty.name} clinics &amp; hospitals in {city.name}</h2>
         <TrustBadge level="sample" />
       </div>
       {cityProviders.length > 0 ? (
@@ -94,8 +94,8 @@ const themeFor = (slug: string) =>
       )}
     </section>
 
-    <section style="padding-block:2.5rem" aria-labelledby="cs-d">
-      <h2 class="section-title" id="cs-d" style="font-size:1.35rem;margin-bottom:1rem">{specialty.name} doctors in {city.name}</h2>
+    <section class="section-compact" aria-labelledby="cs-d">
+      <h2 class="section-title" id="cs-d" class="section-title section-title-sm mb-1">{specialty.name} doctors in {city.name}</h2>
       {cityDoctors.length > 0 ? (
         <ol class="ledger">
           {cityDoctors.map((d, i) => (
