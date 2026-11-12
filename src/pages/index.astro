@@ -5,7 +5,7 @@ import UniversalSearch from "../components/UniversalSearch.astro";
 import FacilityVisual from "../components/FacilityVisual.astro";
 import { providers, cityById } from "@data";
 
-const featured = providers.filter((p) => p.type === "hospital").sort((a, b) => b.rating - a.rating).slice(0, 3);
+const featured = providers.slice(0, 3);
 const petTypes = [
   { label: "Dogs", emoji: "🐶", query: "dog" },
   { label: "Cats", emoji: "🐱", query: "cat" },
@@ -25,7 +25,7 @@ const petTypes = [
         <span><strong>Vetlas</strong><small>by ThatVetGuy</small></span>
       </div>
       <div class="hero-actions">
-        <button class="location-pill" type="button"><Icon name="pin" class="icon icon-sm" /> Jaipur <span>⌄</span></button>
+        <a class="location-pill" href="/indore/"><Icon name="pin" class="icon icon-sm" /> Indore <span>⌄</span></a>
         <button class="notification-pill" type="button" aria-label="Notifications"><Icon name="bell" class="icon icon-md" /><i></i></button>
       </div>
       <div class="hero-copy">
@@ -65,10 +65,10 @@ const petTypes = [
           {featured.map((provider) => {
             const city = cityById(provider.cityId);
             return <a class="hospital-card" href={`/${city?.slug}/${provider.slug}/`}>
-              <div class="hospital-image"><FacilityVisual type={provider.type} seed={provider.slug} /><span>★ {provider.rating.toFixed(1)}</span></div>
+              <div class="hospital-image"><FacilityVisual type={provider.type} seed={provider.slug} />{provider.rating ? <span>★ {provider.rating.toFixed(1)}</span> : <span>Rating not verified</span>}</div>
               <strong>{provider.name}</strong>
               <small><Icon name="pin" class="icon icon-sm" /> {provider.area}, {city?.name}</small>
-              <em><Icon name={provider.hours.open24 ? "clock" : "paw"} class="icon icon-sm" /> {provider.hours.open24 ? "24x7" : "Clinics"} <b>→</b></em>
+              <em><Icon name={provider.hours.open24 ? "clock" : "paw"} class="icon icon-sm" /> {provider.hours.open24 ? "24×7 listed" : "View details"} <b>→</b></em>
             </a>;
           })}
         </div>

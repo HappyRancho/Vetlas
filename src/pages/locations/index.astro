@@ -25,7 +25,7 @@ const growing = cities.filter((c) => !c.isMetro);
       <h1 class="mt-05">Care in your city</h1>
       <p>
         We're mapping India's veterinary infrastructure city by city. Pick a city to see its
-        hospitals, clinics and doctors — with facilities, fees and sample reviews in one place.
+        hospitals, clinics and doctors — with source links and explicit gaps in one place.
       </p>
       <div class="mt-1"><LocationPicker /></div>
     </header>
@@ -36,7 +36,7 @@ const growing = cities.filter((c) => !c.isMetro);
           <p class="section-eyebrow">Major cities</p>
           <h2 class="section-title section-title-sm" id="metros-h">Metro coverage</h2>
         </div>
-        <TrustBadge level="sample" label="Sample data" />
+        <TrustBadge level="public" label="Public listings" />
       </div>
       <ul class="index-list">
         {metros.map((c) => {
@@ -50,7 +50,7 @@ const growing = cities.filter((c) => !c.isMetro);
                   <span class="chip chip-xs">Metro</span>
                 </span>
                 <span class="index-meta">{c.state} · publish minimum {min} vetted profiles</span>
-                <span class="index-count">{n} sample profiles</span>
+                <span class="index-count">{n} public profiles</span>
                 <Icon name="arrow" class="icon index-arrow" />
               </a>
             </li>
@@ -75,7 +75,7 @@ const growing = cities.filter((c) => !c.isMetro);
               <a class="index-row" href={`/${c.slug}/`}>
                 <span class="index-name">{c.name}</span>
                 <span class="index-meta">{c.state} · publish minimum {min} vetted profiles</span>
-                <span class="index-count">{n} sample profiles</span>
+                <span class="index-count">{n} public profiles</span>
                 <Icon name="arrow" class="icon index-arrow" />
               </a>
             </li>

@@ -7,9 +7,6 @@ import UniversalSearch from "../../components/UniversalSearch.astro";
 import TrustBadge from "../../components/TrustBadge.astro";
 import { cities, providersByCity, doctorsByCity } from "@data";
 
-/** Minimum vetted profiles required to publish a city (spec §2) */
-const PUBLISH_MINIMUM: Record<number, number> = { 1: 30, 2: 15, 3: 5 };
-
 export function getStaticPaths() {
   return cities.map((city) => ({
     params: { city: city.slug },
@@ -21,7 +18,6 @@ const { city } = Astro.props;
 const cityProviders = providersByCity(city.id);
 const cityDoctors = doctorsByCity(city.id);
 
-const tierMin = PUBLISH_MINIMUM[city.isMetro ? 1 : 2] ?? 5;
 const profileCount = cityProviders.length + cityDoctors.length;
 
 const clinicCount = cityProviders.filter((p) => p.type === "clinic").length;
@@ -35,7 +31,7 @@ const headMeta = [
     : "",
 ].filter(Boolean).join(" · ");
 
-const noindex = true; // sample dataset — published cities only in production
+const noindex = true; // keep discovery pages noindex until source coverage is stronger
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -75,9 +71,10 @@ const jsonLd = {
     </header>
 
     <div class="notice-box mt-1 maxw-44">
-      <strong>Demo city page.</strong> These are sample profiles. Vetlas publishes a city page
-      for search engines only once at least {tierMin} vetted profiles exist — currently
-      {profileCount} sample profiles are shown for design and testing.
+      <strong>Indore pilot.</strong> These profiles are drawn from public listings and are not
+      independently verified by Vetlas. Vetlas publishes city pages for search engines only once
+      source coverage and review evidence are strong enough; {profileCount} records are currently
+      available for discovery.
     </div>
 
     <section class="section-first" aria-labelledby="search-h">
@@ -91,7 +88,7 @@ const jsonLd = {
           <p class="section-eyebrow">Facilities</p>
           <h2 class="section-title section-title-sm" id="cp-h">Hospitals &amp; clinics in {city.name}</h2>
         </div>
-        <TrustBadge level="sample" label="Sample data" />
+        <TrustBadge level="public" label="Public source" />
       </div>
       {cityProviders.length > 0 ? (
         <div class="facility-grid">
@@ -113,7 +110,7 @@ const jsonLd = {
           <p class="section-eyebrow">Doctors</p>
           <h2 class="section-title section-title-sm" id="cd-h">Veterinarians in {city.name}</h2>
         </div>
-        <TrustBadge level="sample" label="Sample data" />
+        <TrustBadge level="public" label="Public source" />
       </div>
       {cityDoctors.length > 0 ? (
         <div class="doctor-grid">
