@@ -41,7 +41,14 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
       <Icon name="x" class="icon icon-md" />
     </button>
     <button class="btn btn-primary usearch-submit" type="submit">
-      <span>Search</span>
+      {variant === "hero" ? (
+        <>
+          <Icon name="sliders" class="icon icon-md" />
+          <span class="visually-hidden">Search</span>
+        </>
+      ) : (
+        <span>Search</span>
+      )}
     </button>
   </div>
   <div class="usearch-panel" id={`${uid}-panel`} role="listbox" aria-label="Search suggestions" hidden></div>

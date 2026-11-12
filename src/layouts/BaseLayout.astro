@@ -36,7 +36,7 @@ const isCurrent = (href: string) =>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#eff6ff" />
+    <meta name="theme-color" content="#f6f8f4" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
@@ -71,9 +71,9 @@ const isCurrent = (href: string) =>
 
     <div class="beta-strip">
       <div class="container beta-strip-inner">
-        <span class="beta-tag">Beta</span>
+        <span class="beta-tag">Sample data</span>
         <p>
-          Sample listings only. Every profile, fee and review is clearly marked demo data —
+          Prototype — names and numbers are fictional. Every fee and review is labelled —
           <a href="/about/">read the data policy</a>.
         </p>
       </div>
@@ -95,24 +95,13 @@ const isCurrent = (href: string) =>
         </nav>
 
         <div class="header-actions">
-          <a class="header-icon-link" href="/search/" aria-label="Search veterinary care">
-            <Icon name="search" class="icon icon-md" />
+          <a class="header-icon-link" href="/about/" aria-label="About Vetlas and the sample-data policy">
+            <Icon name="info" class="icon icon-md" />
           </a>
           <a class="btn btn-primary header-cta" href="/search/">Find care</a>
-          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
-            <Icon name="menu" class="icon icon-md" />
-          </button>
         </div>
       </div>
 
-      <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Mobile">
-        {nav.map((item) => (
-          <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
-            <Icon name={item.icon} class="icon icon-md" />
-            {item.label}
-          </a>
-        ))}
-      </nav>
     </header>
 
     <main id="main">
@@ -183,17 +172,37 @@ const isCurrent = (href: string) =>
         <Icon name="pin" class="icon icon-md" />
         <span>Cities</span>
       </a>
+      <button class="bottom-more" type="button" aria-expanded="false" aria-controls="more-sheet" aria-haspopup="true">
+        <Icon name="dots" class="icon icon-md" />
+        <span>More</span>
+      </button>
     </nav>
 
+    <div class="more-sheet" id="more-sheet" hidden>
+      <a href="/costs/"><Icon name="wallet" class="icon icon-md" /> Cost guide <small>sample fees</small></a>
+      <a href="/methodology/"><Icon name="badge" class="icon icon-md" /> How data is checked <small>1 min</small></a>
+      <a href="/about/"><Icon name="info" class="icon icon-md" /> About &amp; data policy</a>
+    </div>
+
     <script>
-      const btn = document.querySelector<HTMLButtonElement>(".nav-toggle");
-      const nav = document.querySelector<HTMLElement>("#mobile-nav");
-      if (btn && nav) {
-        btn.addEventListener("click", () => {
-          const open = btn.getAttribute("aria-expanded") === "true";
-          btn.setAttribute("aria-expanded", String(!open));
-          btn.setAttribute("aria-label", open ? "Open menu" : "Close menu");
-          nav.toggleAttribute("hidden", open);
+      const moreBtn = document.querySelector<HTMLButtonElement>(".bottom-more");
+      const sheet = document.querySelector<HTMLElement>("#more-sheet");
+      if (moreBtn && sheet) {
+        const setOpen = (open: boolean) => {
+          moreBtn.setAttribute("aria-expanded", String(open));
+          sheet.toggleAttribute("hidden", !open);
+        };
+        moreBtn.addEventListener("click", () => {
+          setOpen(sheet.hasAttribute("hidden"));
+        });
+        document.addEventListener("click", (e) => {
+          if (!sheet.hasAttribute("hidden") && e.target instanceof Node && !sheet.contains(e.target) && !moreBtn.contains(e.target)) setOpen(false);
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !sheet.hasAttribute("hidden")) {
+            setOpen(false);
+            moreBtn.focus();
+          }
         });
       }
     </script>
