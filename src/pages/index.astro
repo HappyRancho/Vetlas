@@ -2,210 +2,86 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import UniversalSearch from "../components/UniversalSearch.astro";
-import { cities, providers, doctors, specialties, feeINR, cityById, specialtyById } from "@data";
+import FacilityVisual from "../components/FacilityVisual.astro";
+import { providers, cityById } from "@data";
 
-interface RankRow {
-  name: string;
-  initials: string;
-  tag: string;
-  citySlug: string;
-  href: string;
-  fee: number;
-  reviews: number;
-}
-
-const initialsOf = (name: string) =>
-  name
-    .replace(/^Dr\.?\s+/i, "")
-    .split(/\s+/)
-    .map((w) => w[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-
-const ranked: RankRow[] = [
-  ...providers.map((p) => {
-    const city = cityById(p.cityId);
-    return {
-      name: p.name,
-      initials: initialsOf(p.name),
-      tag: p.type === "hospital" ? "Hospital" : "Clinic",
-      citySlug: city?.slug ?? "",
-      href: `/${city?.slug}/${p.slug}/`,
-      fee: p.fees.opd,
-      reviews: p.reviewCount,
-    };
-  }),
-  ...doctors.map((d) => {
-    const city = cityById(d.cityId);
-    return {
-      name: `Dr. ${d.name}`,
-      initials: initialsOf(d.name),
-      tag: specialtyById(d.primarySpecialtyId)?.name ?? "Veterinarian",
-      citySlug: city?.slug ?? "",
-      href: `/${city?.slug}/${d.slug}/`,
-      fee: d.consultationFee,
-      reviews: d.reviewCount,
-    };
-  }),
-].sort((a, b) => b.reviews - a.reviews);
-
-const maxReviews = ranked[0]?.reviews ?? 1;
-const chipCities = cities.slice(0, 6);
-const feesSorted = providers.map((p) => p.fees.opd).sort((a, b) => a - b);
-const feeLow = feesSorted[0];
-const feeHigh = feesSorted[feesSorted.length - 1];
+const featured = providers.filter((p) => p.type === "hospital").sort((a, b) => b.rating - a.rating).slice(0, 3);
+const petTypes = [
+  { label: "Dogs", emoji: "🐶", query: "dog" },
+  { label: "Cats", emoji: "🐱", query: "cat" },
+  { label: "Small Pets", emoji: "🐰", query: "rabbit" },
+  { label: "Birds", emoji: "🦜", query: "bird" },
+];
 ---
 
 <BaseLayout
   title="Vetlas — find veterinary care in India, calmly"
   description="Discover veterinary hospitals, clinics and doctors across India. Compare locations, specialities, facilities, fees and sample ratings — with every fact clearly labelled."
 >
-  <section class="dash container" aria-label="Find veterinary care">
-    <p class="value-pill">
-      <Icon name="paw" class="icon icon-md" />
-      Choose a vet with evidence, not ads.
-    </p>
-
-    <UniversalSearch variant="hero" />
-
-    <div class="city-chips" role="group" aria-label="Filter results by city">
-      <button type="button" class="city-chip" data-city="" data-name="India" aria-pressed="true">
-        <Icon name="pin" class="icon icon-sm" /> All India
-      </button>
-      {chipCities.map((c) => (
-        <button type="button" class="city-chip" data-city={c.slug} data-name={c.name} aria-pressed="false">
-          <Icon name="pin" class="icon icon-sm" /> {c.name}
-        </button>
-      ))}
-      <a class="city-chip-more" href="/locations/">
-        All {cities.length} cities <Icon name="arrow" class="icon icon-sm" />
-      </a>
+  <section class="home-shell" aria-label="Find veterinary care">
+    <div class="home-hero">
+      <div class="hero-brand">
+        <span class="hero-logo"><Icon name="paw" class="icon icon-lg" /><b>+</b></span>
+        <span><strong>Vetlas</strong><small>by ThatVetGuy</small></span>
+      </div>
+      <div class="hero-actions">
+        <button class="location-pill" type="button"><Icon name="pin" class="icon icon-sm" /> Jaipur <span>⌄</span></button>
+        <button class="notification-pill" type="button" aria-label="Notifications"><Icon name="bell" class="icon icon-md" /><i></i></button>
+      </div>
+      <div class="hero-copy">
+        <h1>Find the Best<br /><em>Veterinary Care</em><br />for Your Pet</h1>
+        <p>Hospitals · Clinics · Doctors · Specialists</p>
+      </div>
+      <div class="hero-pets" aria-hidden="true"><span>🐶</span><span>🐱</span></div>
     </div>
 
-    <article class="sos-card">
-      <div class="sos-copy">
-        <p class="sos-eyebrow">Need care now?</p>
-        <h2>24×7 vets in <span id="sos-city">India</span></h2>
-        <p class="sos-sub">Emergency first, then everything else.</p>
-      </div>
-      <a class="sos-btn" id="sos-link" href="/search/?q=24x7">Show now</a>
-      <svg class="sos-ecg" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 14h84l8-9 10 18 10-9h52l8-9 10 18 10-9h52l8-9 10 18 10-9h124" />
-      </svg>
-    </article>
-
-    <div class="duo-grid">
-      <a class="duo-card duo-specialist" href="/specialties/">
-        <h2>Find a<br />specialist</h2>
-        <span class="duo-icons">
-          <span class="duo-icon"><Icon name="tooth" class="icon icon-md" /></span>
-          <span class="duo-icon"><Icon name="heart" class="icon icon-md" /></span>
-          <span class="duo-icon"><Icon name="eye" class="icon icon-md" /></span>
-          <span class="duo-icon duo-icon-more">+{Math.max(specialties.length - 3, 0)}</span>
-        </span>
-        <span class="duo-foot">
-          {specialties.length} areas of care
-          <span class="duo-arrow"><Icon name="arrow" class="icon icon-sm" /></span>
-        </span>
-      </a>
-
-      <a class="duo-card duo-cost" href="/costs/">
-        <h2>What will<br />it cost?</h2>
-        <span class="duo-cost-label">Consult fee, typical · sample</span>
-        <span class="duo-fee">₹{feeLow} – ₹{feeHigh}</span>
-        <span class="duo-foot">
-          Visit extras kept apart
-          <span class="duo-arrow"><Icon name="arrow" class="icon icon-sm" /></span>
-        </span>
-      </a>
-    </div>
-
-    <a class="strip" href="/methodology/">
-      <span class="strip-icon"><Icon name="sparkle" class="icon icon-md" /></span>
-      <span class="strip-text">
-        How the sample fees &amp; reviews are built
-        <small>Every number carries its trust label</small>
-      </span>
-      <span class="strip-chip">1 min</span>
-    </a>
-
-    <section class="rank-card" aria-labelledby="rank-h">
-      <div class="rank-head">
-        <h2 id="rank-h">Top by owner reviews</h2>
-        <a href="/search/">See all</a>
-      </div>
-      <p class="rank-sub">
-        <span id="rank-city">India</span> · ranked by review count only, never by payment · sample
-      </p>
-      <div class="rank-list">
-        {ranked.map((r) => (
-          <a class="rank-row" href={r.href} data-city={r.citySlug}>
-            <span class="rank-avatar" aria-hidden="true">{r.initials}</span>
-            <span class="rank-main">
-              <span class="rank-name">
-                <b>{r.name}</b>
-                <span class="rank-tag">{r.tag}</span>
-              </span>
-              <span class="rank-meter">
-                <span class="rank-bar" aria-hidden="true">
-                  <span class="rank-fill" style={`--w: ${Math.round((r.reviews / maxReviews) * 100)}%`} />
-                </span>
-                <span class="rank-count">{r.reviews}</span>
-              </span>
-            </span>
-            <span class="rank-side">
-              <span class="rank-fee">{feeINR(r.fee)}</span>
-              <Icon name="arrow" class="icon rank-arrow" />
-            </span>
-          </a>
+    <div class="home-content">
+      <UniversalSearch variant="hero" />
+      <div class="home-categories">
+        {[
+          ["building", "Hospitals", "/search/?q=hospital"],
+          ["store", "Clinics", "/search/?q=clinic"],
+          ["doctor", "Doctors", "/search/?q=doctor"],
+          ["sparkle", "Specialists", "/specialties/"],
+        ].map(([icon, label, href]) => (
+          <a href={href}><span><Icon name={icon} class="icon icon-lg" /></span><b>{label}</b></a>
         ))}
       </div>
-    </section>
 
-    <a class="dash-all" href="/search/">
-      Browse all {ranked.length} sample hospitals, clinics &amp; doctors
-      <Icon name="arrow" class="icon icon-sm" />
-    </a>
+      <a class="home-emergency" href="/search/?q=24x7">
+        <span class="emergency-icon">🚑</span>
+        <span><strong>Emergency Care?</strong><small>Find nearby 24x7 veterinary hospitals</small></span>
+        <b>Find Now <Icon name="arrow" class="icon icon-sm" /></b>
+      </a>
+
+      <div class="home-actions-grid">
+        <a class="home-action specialist-action" href="/specialties/"><Icon name="stethoscope" class="icon icon-xl" /><span><strong>Find a<br />Specialist</strong><small>Expert care for<br />your pet's needs</small></span><i>→</i></a>
+        <a class="home-action cost-action" href="/costs/"><Icon name="wallet" class="icon icon-xl" /><span><strong>Estimate<br />Consultation Cost</strong><small>Plan better,<br />care smarter</small></span><i>→</i></a>
+      </div>
+
+      <section class="home-section">
+        <div class="home-section-head"><h2><span>★</span> Top Veterinary Hospitals</h2><a href="/search/">See All →</a></div>
+        <div class="hospital-scroller">
+          {featured.map((provider) => {
+            const city = cityById(provider.cityId);
+            return <a class="hospital-card" href={`/${city?.slug}/${provider.slug}/`}>
+              <div class="hospital-image"><FacilityVisual type={provider.type} seed={provider.slug} /><span>★ {provider.rating.toFixed(1)}</span></div>
+              <strong>{provider.name}</strong>
+              <small><Icon name="pin" class="icon icon-sm" /> {provider.area}, {city?.name}</small>
+              <em><Icon name={provider.hours.open24 ? "clock" : "paw"} class="icon icon-sm" /> {provider.hours.open24 ? "24x7" : "Clinics"} <b>→</b></em>
+            </a>;
+          })}
+        </div>
+      </section>
+
+      <section class="home-section pet-section">
+        <div class="home-section-head"><h2><span>♣</span> Find by Pet Type</h2></div>
+        <div class="pet-scroller">
+          {petTypes.map((pet) => <a href={`/search/?q=${pet.query}`}><span>{pet.emoji}</span><b>{pet.label} →</b></a>)}
+        </div>
+      </section>
+
+      <a class="home-promise" href="/about/"><span>💙🐾</span><span><strong>Healthy Pets. Happy Lives.</strong><small>Trusted veterinary care, always nearby.</small></span><b>Explore More →</b></a>
+    </div>
   </section>
-
-  <script>
-    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".city-chip"));
-    const rows = Array.from(document.querySelectorAll<HTMLAnchorElement>(".rank-row"));
-    const sosCity = document.getElementById("sos-city");
-    const sosLink = document.getElementById("sos-link") as HTMLAnchorElement | null;
-    const rankCity = document.getElementById("rank-city");
-    const KEY = "vetlas-city";
-
-    function apply(citySlug: string, cityName: string) {
-      chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.city === citySlug)));
-      rows.forEach((r) => {
-        r.hidden = citySlug !== "" && r.dataset.city !== citySlug;
-      });
-      if (rankCity) rankCity.textContent = cityName;
-      if (sosCity) sosCity.textContent = cityName;
-      if (sosLink) {
-        sosLink.href = citySlug
-          ? `/search/?q=${encodeURIComponent(`24x7 ${cityName}`)}`
-          : "/search/?q=24x7";
-      }
-      try {
-        localStorage.setItem(KEY, citySlug);
-      } catch {
-        /* storage unavailable */
-      }
-    }
-
-    chips.forEach((c) => {
-      c.addEventListener("click", () => apply(c.dataset.city ?? "", c.dataset.name ?? "India"));
-    });
-
-    try {
-      const saved = localStorage.getItem(KEY);
-      const chip = saved ? chips.find((c) => c.dataset.city === saved) : undefined;
-      if (saved && chip) apply(saved, chip.dataset.name ?? "India");
-    } catch {
-      /* storage unavailable */
-    }
-  </script>
 </BaseLayout>
