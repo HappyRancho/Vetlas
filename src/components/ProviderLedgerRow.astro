@@ -26,7 +26,7 @@ const city = cityById(provider.cityId);
   </span>
   {theme && <span class="ledger-theme" title={theme}>“{theme}”</span>}
   <span class="ledger-fee">
-    {feeINR(provider.fees.opd)}
+    {provider.fees ? feeINR(provider.fees.opd) : "Not verified"}
     <small>consultation</small>
   </span>
 </li>

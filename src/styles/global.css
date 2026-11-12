@@ -25,14 +25,14 @@
   --line-strong: #cfdccd;
 
   /* brand */
-  --blue: #1f7a52;
-  --blue-deep: #186244;
-  --blue-dark: #123f2c;
-  --blue-soft: #e2f2e9;
-  --blue-mist: #eef6f0;
-  --mint: #279668;
-  --mint-soft: #dff2e6;
-  --mint-ink: #186244;
+  --blue: #176ee5;
+  --blue-deep: #123b78;
+  --blue-dark: #0c2d62;
+  --blue-soft: #e2efff;
+  --blue-mist: #f0f6ff;
+  --mint: #159b7b;
+  --mint-soft: #dff5ef;
+  --mint-ink: #08705b;
   --amber: #d99a2b;
   --amber-soft: #fdf3df;
   --amber-ink: #8a5c13;
@@ -303,7 +303,7 @@ a.chip { min-height: var(--tap); }
 /* ---------- Bottom navigation ---------- */
 .bottom-nav {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-  display: grid; grid-template-columns: repeat(5, 1fr);
+  display: grid;   grid-template-columns: repeat(4, 1fr);
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-top: 1px solid var(--line);

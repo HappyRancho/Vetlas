@@ -31,18 +31,18 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
     </span>
     <span class={`facility-open${provider.hours.open24 ? " is-open" : ""}`}>
       <span class="status-dot" aria-hidden="true" />
-      {provider.hours.open24 ? "24×7" : "Open today"}
+      {provider.hours.open24 ? "24×7 listed" : "Hours not verified"}
     </span>
   </a>
 
   <div class="facility-body">
     <div class="facility-top">
-      <TrustBadge level={provider.verified ? "verified" : "sample"} label={provider.verified ? undefined : "Sample"} />
-      <span class="rating-pill" title="Illustrative sample rating and review count">
+      <TrustBadge level="public" label="Public source" />
+      {provider.rating ? <span class="rating-pill" title="Rating shown from the linked public listing">
         <Icon name="sparkle" class="icon" />
         {provider.rating.toFixed(1)}
-        <small>{provider.reviewCount} reviews</small>
-      </span>
+        {provider.reviewCount && <small>{provider.reviewCount} reviews</small>}
+      </span> : <span class="small muted">Rating not verified</span>}
     </div>
 
     <h3 class="facility-name">
@@ -62,8 +62,7 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
 
     <div class="facility-footer">
       <div class="facility-fee">
-        <b>{feeINR(provider.fees.opd)}</b>
-        <span>consultation · sample</span>
+        {provider.fees ? <><b>{feeINR(provider.fees.opd)}</b><span>consultation · public listing</span></> : <><b>Not verified</b><span>consultation fee</span></>}
       </div>
       <a class="facility-action" href={`/${city?.slug}/${provider.slug}/`}>
         View profile <Icon name="arrow" class="icon" />
