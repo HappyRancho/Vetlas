@@ -9,8 +9,8 @@
 ## Key sections
 
 - [Home](https://vetlas.thatvetguy.net/): search across specialities, cities and providers.
-- [Find care](https://vetlas.thatvetguy.net/search/): sentence-driven search builder
-  ("My dog needs a skin specialist in Bengaluru").
+- [Find care](https://vetlas.thatvetguy.net/search/): one universal search across cities,
+  specialities, hospitals, clinics and doctors, with filters for care type and animal.
 - [Specialties](https://vetlas.thatvetguy.net/specialties/): speciality index — medicine,
   surgery, dermatology, gynaecology & obstetrics, radiology & USG, cardiology, gastroenterology,
   ophthalmology, neurology, oncology, emergency care, dentistry, orthopedics, preventive care,

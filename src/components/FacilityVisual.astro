@@ -1,0 +1,42 @@
+---
+/**
+ * Illustration-only media for facility cards.
+ * Vetlas has no verified facility photographs in the sample dataset, so we
+ * never imply a photo: this is a clearly-labelled, decorative illustration.
+ */
+interface Props {
+  type: "hospital" | "clinic";
+  seed?: string;
+  large?: boolean;
+}
+const { type, seed = "vetlas", large = false } = Astro.props;
+const tones = ["sky", "mint", "lilac", "sand"];
+const hash = [...seed].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+const tone = tones[hash % tones.length];
+---
+
+<div class={`fac-visual fac-visual-${tone}${large ? " fac-visual-lg" : ""}`} aria-hidden="true">
+  <svg class="fac-visual-art" viewBox="0 0 400 170" fill="none" preserveAspectRatio="xMidYMax slice">
+    <circle class="fv-sun" cx="330" cy="34" r="26" />
+    <path class="fv-cloud" d="M42 48c0-8 6-13 14-13 3-7 12-9 18-4 7-2 14 3 14 10 6 0 10 4 10 9H42Z" />
+    <path class="fv-hill" d="M0 146c54-27 102-31 152-17 49 14 99 13 140-4 40-16 73-17 108-5v50H0v-24Z" />
+    <rect class="fv-building" x="118" y="64" width="164" height="89" rx="9" />
+    <path class="fv-roof" d="M110 65h180" />
+    <rect class="fv-window" x="136" y="82" width="30" height="25" rx="4" />
+    <rect class="fv-window" x="176" y="82" width="30" height="25" rx="4" />
+    <rect class="fv-window" x="234" y="82" width="30" height="25" rx="4" />
+    <rect class="fv-door" x="187" y="121" width="27" height="32" rx="4" />
+    {type === "hospital" ? (
+      <path class="fv-mark" d="M245 118v28M231 132h28" />
+    ) : (
+      <path class="fv-mark" d="M259 128c0-9-12-15-12-15s-12 6-12 15a12 12 0 0 0 24 0Z" />
+    )}
+    <path class="fv-tree" d="M72 148v-31" />
+    <path class="fv-tree" d="M72 128c-13 0-20-10-20-20 0-13 11-23 20-23s20 10 20 23c0 10-7 20-20 20Z" />
+    <path class="fv-paw" d="M318 126c0 10-8 17-17 17-7 0-12-4-12-9 0-7 8-12 17-12 7 0 12 2 12 4Z" />
+    <circle class="fv-paw-dot" cx="296" cy="112" r="5" />
+    <circle class="fv-paw-dot" cx="310" cy="104" r="5" />
+    <circle class="fv-paw-dot" cx="326" cy="108" r="5" />
+  </svg>
+  <span class="fac-visual-label">Illustration</span>
+</div>

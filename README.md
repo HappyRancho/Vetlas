@@ -55,7 +55,7 @@ src/data/                   Framework-agnostic data layer + sample dataset
   taxonomy.ts               Cities & specialities
   seed.ts                   Sample providers, doctors, reviews, cost ranges
   index.ts                  Lookup helpers (swap point for D1)
-src/components/*.astro      Icon, TrustBadge, ledger rows, sentence search builder
+src/components/*.astro      Icon, TrustBadge, universal search, facility/doctor cards
 src/layouts/BaseLayout.astro  Head/SEO/header/footer, tiny vanilla-JS nav toggle
 src/pages/                  index, search, [city]/, [city]/[speciality]/,
                             [city]/[provider]/, specialties/, locations/, costs,

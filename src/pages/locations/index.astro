@@ -1,12 +1,17 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
+import LocationPicker from "../../components/LocationPicker.astro";
+import TrustBadge from "../../components/TrustBadge.astro";
 import { cities, providers, doctors } from "@data";
 
 /** City index — shows publication gate status per city (spec §2). */
 const minFor = (c: (typeof cities)[number]) => (c.isMetro ? 30 : 15);
 const countFor = (c: (typeof cities)[number]) =>
   providers.filter((p) => p.cityId === c.id).length + doctors.filter((d) => d.cityId === c.id).length;
+
+const metros = cities.filter((c) => c.isMetro);
+const growing = cities.filter((c) => !c.isMetro);
 ---
 
 <BaseLayout
@@ -15,32 +20,68 @@ const countFor = (c: (typeof cities)[number]) =>
   canonical="/locations/"
 >
   <div class="container">
-    <header class="page-head">
-      <h1>Care in your city</h1>
+    <header class="page-head animate-fade-up">
+      <p class="eyebrow"><Icon name="pin" class="icon icon-md" /> City directory</p>
+      <h1 class="mt-05">Care in your city</h1>
       <p>
-        We're mapping India's veterinary infrastructure city by city. A city page goes live for
-        search engines only once it meets Vetlas' quality thresholds — accuracy over volume.
+        We're mapping India's veterinary infrastructure city by city. Pick a city to see its
+        hospitals, clinics and doctors — with facilities, fees and sample reviews in one place.
       </p>
+      <div class="mt-1"><LocationPicker /></div>
     </header>
 
-    <ul class="index-list mt-2 pb-1">
-      {cities.map((c) => {
-        const n = countFor(c);
-        const min = minFor(c);
-        return (
-          <li>
-            <a class="index-row" href={`/${c.slug}/`}>
-              <span class="index-name">
-                {c.name}
-                {c.isMetro && <span class="chip chip-xs">Metro</span>}
-              </span>
-              <span class="index-meta">{c.state} · publish minimum {min} vetted profiles</span>
-              <span class="index-count">{n} sample profiles</span>
-              <Icon name="arrow" class="icon index-arrow" />
-            </a>
-          </li>
-        );
-      })}
-    </ul>
+    <section class="section-first" aria-labelledby="metros-h">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Major cities</p>
+          <h2 class="section-title section-title-sm" id="metros-h">Metro coverage</h2>
+        </div>
+        <TrustBadge level="sample" label="Sample data" />
+      </div>
+      <ul class="index-list">
+        {metros.map((c) => {
+          const n = countFor(c);
+          const min = minFor(c);
+          return (
+            <li>
+              <a class="index-row" href={`/${c.slug}/`}>
+                <span class="index-name">
+                  {c.name}
+                  <span class="chip chip-xs">Metro</span>
+                </span>
+                <span class="index-meta">{c.state} · publish minimum {min} vetted profiles</span>
+                <span class="index-count">{n} sample profiles</span>
+                <Icon name="arrow" class="icon index-arrow" />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <section class="section-compact pb-1" aria-labelledby="growing-h">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Growing coverage</p>
+          <h2 class="section-title section-title-sm" id="growing-h">More cities</h2>
+        </div>
+      </div>
+      <ul class="index-list">
+        {growing.map((c) => {
+          const n = countFor(c);
+          const min = minFor(c);
+          return (
+            <li>
+              <a class="index-row" href={`/${c.slug}/`}>
+                <span class="index-name">{c.name}</span>
+                <span class="index-meta">{c.state} · publish minimum {min} vetted profiles</span>
+                <span class="index-count">{n} sample profiles</span>
+                <Icon name="arrow" class="icon index-arrow" />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   </div>
 </BaseLayout>

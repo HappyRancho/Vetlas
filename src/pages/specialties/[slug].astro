@@ -1,10 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
-import ProviderLedgerRow from "../../components/ProviderLedgerRow.astro";
-import DoctorLedgerRow from "../../components/DoctorLedgerRow.astro";
+import FacilityCard from "../../components/FacilityCard.astro";
+import DoctorCard from "../../components/DoctorCard.astro";
+import UniversalSearch from "../../components/UniversalSearch.astro";
 import TrustBadge from "../../components/TrustBadge.astro";
-import { specialties, getSpecialty, providersBySpecialty, doctorsBySpecialty, reviews, deriveReviewThemes } from "@data";
+import {
+  specialties, cities, providersBySpecialty, doctorsBySpecialty,
+} from "@data";
 
 export function getStaticPaths() {
   return specialties.map((specialty) => ({ params: { slug: specialty.slug }, props: { specialty } }));
@@ -16,8 +19,9 @@ const doctorList = doctorsBySpecialty(specialty.id);
 const vettedCount = 0; // sample dataset
 const noindex = vettedCount < 3; // spec §6: combination pages need ≥3 vetted providers
 
-const themeFor = (slug: string) =>
-  deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+const cityLinks = cities.filter((city) =>
+  providerList.some((p) => p.cityId === city.id) || doctorList.some((d) => d.cityId === city.id)
+);
 ---
 
 <BaseLayout
@@ -36,22 +40,49 @@ const themeFor = (slug: string) =>
         <Icon name={specialty.icon} class="icon icon-xl" />
       </span>
       <div>
+        <p class="eyebrow">{specialty.tagline}</p>
         <h1>{specialty.name}</h1>
         <p class="soft head-desc">{specialty.description}</p>
+        <div class="profile-tags">
+          <TrustBadge level="sample" label="Sample listings" />
+          <span class="chip chip-sm">Across {cities.length} cities</span>
+        </div>
       </div>
     </header>
 
+    <section class="section-first" aria-labelledby="search-h">
+      <h2 class="visually-hidden" id="search-h">Search for care</h2>
+      <UniversalSearch variant="compact" />
+    </section>
+
+    {cityLinks.length > 0 && (
+      <section class="section-compact" aria-labelledby="cities-h">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow">By location</p>
+            <h2 class="section-title section-title-sm" id="cities-h">Where to find {specialty.name.toLowerCase()}</h2>
+          </div>
+        </div>
+        <ul class="list-inline">
+          {cityLinks.map((city) => (
+            <li><a class="chip" href={`/${city.slug}/${specialty.slug}/`}><Icon name="pin" class="icon" />{city.name}</a></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
     <section class="section-first" aria-labelledby="sp-p">
-      <div class="section-head mb-1">
-        <h2 class="section-title section-title-sm" id="sp-p">Clinics &amp; hospitals</h2>
-        <TrustBadge level="sample" />
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Facilities</p>
+          <h2 class="section-title section-title-sm" id="sp-p">Clinics &amp; hospitals</h2>
+        </div>
+        <TrustBadge level="sample" label="Sample data" />
       </div>
       {providerList.length > 0 ? (
-        <ol class="ledger">
-          {providerList.map((p, i) => (
-            <ProviderLedgerRow provider={p} index={i} theme={themeFor(p.slug)} />
-          ))}
-        </ol>
+        <div class="facility-grid">
+          {providerList.map((p, i) => <FacilityCard provider={p} index={i} />)}
+        </div>
       ) : (
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
@@ -62,20 +93,24 @@ const themeFor = (slug: string) =>
       )}
     </section>
 
-    <section class="section-compact" aria-labelledby="sp-d">
-      <h2 class="section-title" id="sp-d" class="section-title section-title-sm mb-1">Doctors</h2>
+    <section class="section-compact pb-1" aria-labelledby="sp-d">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Doctors</p>
+          <h2 class="section-title section-title-sm" id="sp-d">Veterinarians in this speciality</h2>
+        </div>
+        <TrustBadge level="sample" label="Sample data" />
+      </div>
       {doctorList.length > 0 ? (
-        <ol class="ledger">
-          {doctorList.map((d, i) => (
-            <DoctorLedgerRow doctor={d} index={i} theme={themeFor(d.slug)} />
-          ))}
-        </ol>
+        <div class="doctor-grid">
+          {doctorList.map((d, i) => <DoctorCard doctor={d} index={i} />)}
+        </div>
       ) : (
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
           <h2>No doctors listed yet</h2>
           <p>No {specialty.name.toLowerCase()} doctors in the sample dataset yet.</p>
-          <div class="actions"><a class="btn btn-primary" href="/search/">Browse all doctors</a></div>
+          <div class="actions"><a class="btn btn-primary" href="/search/?type=doctor">Browse all doctors</a></div>
         </div>
       )}
     </section>

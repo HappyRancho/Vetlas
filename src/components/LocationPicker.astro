@@ -1,0 +1,29 @@
+---
+import Icon from "./Icon.astro";
+import { cities } from "@data";
+
+interface Props {
+  selected?: string;
+  class?: string;
+}
+const { selected = "", class: className = "" } = Astro.props;
+---
+
+<form class={`location-picker ${className}`} action="/search/" method="get" data-location-picker>
+  <Icon name="pin" class="icon icon-md" />
+  <label class="visually-hidden" for="location-city">Choose a city</label>
+  <select id="location-city" name="city" aria-label="Choose a city">
+    <option value="">All of India</option>
+    {cities.map((city) => <option value={city.slug} selected={city.slug === selected}>{city.name}</option>)}
+  </select>
+  <button class="btn btn-secondary location-go" type="submit">Go</button>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>("form[data-location-picker]").forEach((form) => {
+    const select = form.querySelector<HTMLSelectElement>('select[name="city"]');
+    select?.addEventListener("change", () => {
+      if (select.value) window.location.assign(`/${select.value}/`);
+    });
+  });
+</script>

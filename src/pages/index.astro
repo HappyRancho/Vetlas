@@ -1,205 +1,313 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
-import SearchBuilder from "../components/SearchBuilder.astro";
-import ProviderLedgerRow from "../components/ProviderLedgerRow.astro";
-import DoctorLedgerRow from "../components/DoctorLedgerRow.astro";
+import UniversalSearch from "../components/UniversalSearch.astro";
+import LocationPicker from "../components/LocationPicker.astro";
+import FacilityCard from "../components/FacilityCard.astro";
+import DoctorCard from "../components/DoctorCard.astro";
 import TrustBadge from "../components/TrustBadge.astro";
 import {
-  cities, specialties, providers, doctors, reviews, costEstimates,
-  providersByCity, feeRangeINR, deriveReviewThemes,
+  cities, specialties, providers, doctors, reviews,
+  feeINR, deriveReviewThemes,
 } from "@data";
 
-const topProviders = [...providers].sort((a, b) => b.rating - a.rating).slice(0, 5);
-const topDoctors = [...doctors].sort((a, b) => b.rating - a.rating).slice(0, 5);
+const hospitalCount = providers.filter((p) => p.type === "hospital").length;
+const clinicCount = providers.filter((p) => p.type === "clinic").length;
 
-/** Top recurring theme per provider (spec: themes over stars) */
-const themeFor = (slug: string) => deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+const featured = [...providers]
+  .sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount)
+  .slice(0, 4);
 
-/**
- * Invisible filler cells for the hairline grid: a multiple of 6 keeps the
- * last row full at every column count we use (1 / 2 / 3). Hidden on mobile.
- */
-const gridFill = (6 - (specialties.length % 6)) % 6;
+const topDoctors = [...doctors]
+  .sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount)
+  .slice(0, 4);
+
+const popular = [...providers]
+  .sort((a, b) => b.reviewCount - a.reviewCount)
+  .slice(0, 5);
+
+const comparison = [providers[0], providers[1], providers[2]].filter(Boolean);
+const openNow = providers.filter((p) => p.hours.open24).slice(0, 3);
+
+const themeFor = (slug: string) =>
+  deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
+
+const discovery = [
+  {
+    label: "Hospitals",
+    href: "/search/?type=hospital",
+    icon: "building",
+    countText: `${hospitalCount} sample hospitals`,
+    text: "Emergency, surgery & inpatient care",
+    tone: "sky",
+  },
+  {
+    label: "Clinics",
+    href: "/search/?type=clinic",
+    icon: "heart",
+    countText: `${clinicCount} sample clinics`,
+    text: "Neighbourhood consults & preventive care",
+    tone: "mint",
+  },
+  {
+    label: "Doctors",
+    href: "/search/?type=doctor",
+    icon: "doctor",
+    countText: `${doctors.length} sample doctors`,
+    text: "Individual vets and their specialisms",
+    tone: "lilac",
+  },
+  {
+    label: "Specialist care",
+    href: "/specialties/",
+    icon: "stethoscope",
+    countText: `${specialties.length} specialities`,
+    text: "From dentistry to emergency medicine",
+    tone: "sand",
+  },
+];
 ---
 
 <BaseLayout
-  title="Vetlas — Choose veterinary care in India with confidence"
-  description="A decision-support tool for pet owners in India: find veterinary clinics, hospitals and doctors with attributed, trustworthy data. No ads, no paid placements."
+  title="Vetlas — find veterinary care in India, calmly"
+  description="Discover veterinary hospitals, clinics and doctors across India. Compare locations, specialities, facilities, fees and sample ratings — with every fact clearly labelled."
 >
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <p class="eyebrow animate-fade-in">
-          <Icon name="sparkle" class="icon icon-md icon-amber" />
-          Made for India's pets &amp; their people
-        </p>
-        <h1 class="hero-title">
-          Find the right care<br />
-          for the one who <span class="accent">can't tell<svg viewBox="0 0 220 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9c50-6 150-6 214-2" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span>
-          you where it hurts
-        </h1>
-        <p class="hero-sub">
-          Vetlas is a decision-support tool, not a directory or ad platform. Every fact carries a
-          trust label and a source — so you can choose care with confidence.
-        </p>
-        <div class="hero-search">
-          <SearchBuilder />
+  <section class="home-hero">
+    <div class="container hero-layout">
+      <div class="hero-copy">
+        <div class="hero-kicker-row">
+          <p class="eyebrow"><Icon name="sparkle" class="icon icon-md" /> Veterinary care across India</p>
+          <LocationPicker />
         </div>
-        <ul class="hero-chips">
-          {specialties.slice(0, 5).map((s) => (
+
+        <h1 class="home-title">
+          Find the right vet,<br />
+          <span class="title-accent">without the guesswork.</span>
+        </h1>
+        <p class="home-sub">
+          Search hospitals, clinics and doctors by city or speciality. See the details that matter
+          before you go — facilities, consultation fees and what other pet owners mention.
+        </p>
+
+        <UniversalSearch variant="hero" />
+
+        <div class="hero-quick">
+          <span class="hero-quick-label">Popular</span>
+          <a href="/search/?q=Emergency">Emergency care</a>
+          <a href="/specialties/dermatology/">Dermatology</a>
+          <a href="/search/?q=Dentistry">Dentistry</a>
+          <a href="/search/?q=Bengaluru">Bengaluru</a>
+        </div>
+      </div>
+
+      <aside class="hero-aside" aria-labelledby="open-now-h">
+        <div class="aside-head">
+          <div>
+            <p class="aside-eyebrow">For the urgent moments</p>
+            <h2 id="open-now-h">Open 24×7</h2>
+          </div>
+          <TrustBadge level="sample" label="Sample" />
+        </div>
+        <ul class="open-list">
+          {openNow.map((p) => (
             <li>
-              <a class="chip" href={`/specialties/${s.slug}/`}>
-                <Icon name={s.icon} class="icon icon-sm" />
-                {s.name}
-              </a>
+              <span class="open-icon"><Icon name="siren" class="icon icon-md" /></span>
+              <span class="open-text">
+                <a href={`/${cities.find((c) => c.id === p.cityId)?.slug}/${p.slug}/`}>{p.name}</a>
+                <span>{p.area}, {cities.find((c) => c.id === p.cityId)?.name}</span>
+              </span>
+              <Icon name="arrow" class="icon open-arrow" />
             </li>
           ))}
         </ul>
-      </div>
+        <a class="aside-link" href="/search/?q=24">Browse emergency care <Icon name="arrow" class="icon" /></a>
+      </aside>
+    </div>
 
-      <dl class="stat-row">
-        <div class="stat"><dt>{specialties.length}</dt><dd>Specialities covered</dd></div>
-        <div class="stat"><dt>{cities.length}</dt><dd>Cities &amp; growing</dd></div>
-        <div class="stat"><dt>{providers.length + doctors.length}</dt><dd>Sample listings</dd></div>
-        <div class="stat"><dt>₹0</dt><dd>Always free to use</dd></div>
+    <div class="container">
+      <dl class="hero-stats">
+        <div><dt>{providers.length}</dt><dd>sample facilities</dd></div>
+        <div><dt>{doctors.length}</dt><dd>sample doctors</dd></div>
+        <div><dt>{cities.length}</dt><dd>cities mapped</dd></div>
+        <div><dt>{specialties.length}</dt><dd>specialities</dd></div>
       </dl>
     </div>
   </section>
 
-  <!-- Specialties — hairline directory -->
-  <section class="section container" aria-labelledby="specialties-h">
+  <section class="section container" aria-labelledby="discover-h">
     <div class="section-head">
       <div>
-        <h2 class="section-title" id="specialties-h">Browse by speciality</h2>
-        <p>From everyday checkups to 24×7 critical care.</p>
+        <p class="section-eyebrow">Start here</p>
+        <h2 class="section-title" id="discover-h">What are you looking for?</h2>
       </div>
-      <a class="link-more" href="/specialties/">All specialties <Icon name="arrow" class="icon" /></a>
+      <a class="link-more" href="/search/">See all care <Icon name="arrow" class="icon" /></a>
     </div>
-    <ul class="hairline-grid">
-      {specialties.map((s) => (
+    <ul class="discovery-grid">
+      {discovery.map((item) => (
         <li>
-          <a class="dir-cell" href={`/specialties/${s.slug}/`}>
-            <span class="dir-icon"><Icon name={s.icon} class="icon icon-lg" /></span>
-            <span class="dir-text">
-              <b>{s.name}</b>
-              <span>{s.tagline}</span>
+          <a class={`discovery-card discovery-${item.tone}`} href={item.href}>
+            <span class="discovery-icon"><Icon name={item.icon} class="icon icon-lg" /></span>
+            <span class="discovery-copy">
+              <span class="discovery-count">{item.countText}</span>
+              <b>{item.label}</b>
+              <span>{item.text}</span>
             </span>
-            <Icon name="arrow" class="icon dir-arrow" />
+            <span class="discovery-arrow" aria-hidden="true"><Icon name="arrow" class="icon" /></span>
           </a>
         </li>
-      ))}
-      {Array.from({ length: gridFill }).map(() => (
-        <li class="dir-fill" aria-hidden="true" />
       ))}
     </ul>
   </section>
 
-  <!-- Top care — ledger -->
-  <section class="section container" aria-labelledby="clinics-h">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title" id="clinics-h">Care people rely on</h2>
-        <p>Sample listings from our beta dataset — each row shows a recurring reviewer theme.</p>
-      </div>
-      <a class="link-more" href="/search/">Explore all listings <Icon name="arrow" class="icon" /></a>
-    </div>
-    <ol class="ledger">
-      {topProviders.map((p, i) => (
-        <ProviderLedgerRow provider={p} index={i} theme={themeFor(p.slug)} />
-      ))}
-    </ol>
-  </section>
-
-  <!-- Doctors -->
-  <section class="section-band">
-    <div class="section container">
+  <section class="section section-tint" aria-labelledby="featured-h">
+    <div class="container">
       <div class="section-head">
         <div>
-          <h2 class="section-title">Meet the doctors</h2>
-          <p>Specialists, surgeons and gentle first-opinion vets.</p>
+          <p class="section-eyebrow">Care people choose</p>
+          <h2 class="section-title" id="featured-h">Featured hospitals &amp; clinics</h2>
+          <p>Sample facilities, ranked by illustrative rating — never by payment.</p>
         </div>
-        <a class="link-more" href="/search/">Find a doctor <Icon name="arrow" class="icon" /></a>
+        <a class="link-more" href="/search/">Explore all listings <Icon name="arrow" class="icon" /></a>
       </div>
-      <ol class="ledger">
-        {topDoctors.map((d, i) => (
-          <DoctorLedgerRow doctor={d} index={i} theme={themeFor(d.slug)} />
-        ))}
-      </ol>
+      <div class="facility-grid">
+        {featured.map((p, i) => <FacilityCard provider={p} index={i} featured />)}
+      </div>
     </div>
   </section>
 
-  <!-- Cities — index rows -->
-  <section class="section container" aria-labelledby="cities-h">
+  <section class="section container" aria-labelledby="specialities-h">
     <div class="section-head">
       <div>
-        <h2 class="section-title" id="cities-h">Veterinary care across India</h2>
-        <p>Published city by city — only when quality thresholds are met.</p>
+        <p class="section-eyebrow">Find the right expertise</p>
+        <h2 class="section-title" id="specialities-h">Browse by speciality</h2>
+        <p>Know what your pet needs? Start with the speciality, then choose a city.</p>
       </div>
-      <a class="link-more" href="/locations/">All locations <Icon name="arrow" class="icon" /></a>
+      <a class="link-more" href="/specialties/">All {specialties.length} specialities <Icon name="arrow" class="icon" /></a>
     </div>
-    <ul class="index-list">
-      {cities.map((c) => {
-        const n = providersByCity(c.id).length;
+    <ul class="specialty-grid">
+      {specialties.slice(0, 12).map((s) => (
+        <li>
+          <a class="specialty-card" href={`/specialties/${s.slug}/`}>
+            <span class="specialty-icon"><Icon name={s.icon} class="icon icon-md" /></span>
+            <span class="specialty-copy">
+              <b>{s.name}</b>
+              <span>{s.tagline}</span>
+            </span>
+            <Icon name="arrow" class="icon specialty-arrow" />
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="specialty-more">
+      <a href="/specialties/">View every veterinary speciality <Icon name="arrow" class="icon" /></a>
+    </p>
+  </section>
+
+  <section class="section section-tint" aria-labelledby="doctors-h">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">People behind the care</p>
+          <h2 class="section-title" id="doctors-h">Featured veterinary doctors</h2>
+          <p>Qualifications, experience and the practice they work with — all clearly labelled.</p>
+        </div>
+        <a class="link-more" href="/search/?type=doctor">Meet more doctors <Icon name="arrow" class="icon" /></a>
+      </div>
+      <div class="doctor-grid">
+        {topDoctors.map((d, i) => <DoctorCard doctor={d} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="popular-h">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">Most reviewed in the sample set</p>
+        <h2 class="section-title" id="popular-h">Popular hospitals &amp; clinics</h2>
+      </div>
+      <a class="link-more" href="/locations/">Browse by city <Icon name="arrow" class="icon" /></a>
+    </div>
+    <ol class="popular-list">
+      {popular.map((p, i) => {
+        const city = cities.find((c) => c.id === p.cityId);
         return (
           <li>
-            <a class="index-row" href={`/${c.slug}/`}>
-              <span class="index-name">{c.name}</span>
-              <span class="index-meta">{c.state}</span>
-              <span class="index-count">{n} {n === 1 ? "listing" : "listings"}</span>
-              <Icon name="arrow" class="icon index-arrow" />
+            <a class="popular-row" href={`/${city?.slug}/${p.slug}/`}>
+              <span class="popular-rank">{String(i + 1).padStart(2, "0")}</span>
+              <span class="popular-icon"><Icon name={p.type === "hospital" ? "building" : "heart"} class="icon icon-md" /></span>
+              <span class="popular-name">
+                <b>{p.name}</b>
+                <span>{p.area}, {city?.name} · {p.type === "hospital" ? "Hospital" : "Clinic"}</span>
+              </span>
+              <span class="popular-open">{p.hours.open24 ? "24×7" : `${p.hours.open}–${p.hours.close}`}</span>
+              <span class="popular-rating">★ {p.rating.toFixed(1)} <small>{p.reviewCount} sample reviews</small></span>
+              <span class="popular-fee">{feeINR(p.fees.opd)}<small>consult</small></span>
+              <Icon name="arrow" class="icon popular-arrow" />
             </a>
           </li>
         );
       })}
-    </ul>
+    </ol>
   </section>
 
-  <!-- Cost guide -->
-  <section class="section section-band" aria-labelledby="costs-h">
-    <div class="container split">
-      <div class="split-lead">
-        <p class="eyebrow"><Icon name="wallet" class="icon icon-md" /> Budget with confidence</p>
-        <h2 class="section-title" id="costs-h">Know typical costs before you go</h2>
-        <p class="soft">
-          Indicative ranges for consultations, vaccinations, diagnostics and procedures — kept
-          strictly separate from provider fees, and labelled honestly.
-        </p>
-        <a class="btn btn-primary" href="/costs/">
-          View the full cost guide <Icon name="arrow" class="icon icon-md" />
-        </a>
+  <section class="section section-tint" aria-labelledby="compare-h">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">The details that matter</p>
+          <h2 class="section-title" id="compare-h">Compare before you choose</h2>
+          <p>Fees, opening hours, facilities and reviewer themes — side by side.</p>
+        </div>
+        <TrustBadge level="sample" label="Sample data" />
       </div>
-      <ul class="cost-rows">
-        {costEstimates.slice(2, 8).map((c) => (
-          <li>
-            <span class="cost-label">{c.name}</span>
-            <b class="cost-value">{feeRangeINR(c.min, c.max)}</b>
-          </li>
-        ))}
-      </ul>
+      <div class="compare-grid">
+        {comparison.map((p) => {
+          const city = cities.find((c) => c.id === p.cityId);
+          const theme = themeFor(p.slug);
+          return (
+            <article class="compare-card">
+              <div class="compare-head">
+                <span class="compare-type"><Icon name={p.type === "hospital" ? "building" : "heart"} class="icon" />{p.type === "hospital" ? "Hospital" : "Clinic"}</span>
+                <span class="compare-rating">★ {p.rating.toFixed(1)}</span>
+              </div>
+              <h3><a href={`/${city?.slug}/${p.slug}/`}>{p.name}</a></h3>
+              <p class="compare-loc">{p.area}, {city?.name}</p>
+              <dl class="compare-rows">
+                <div><dt>Consultation</dt><dd>{feeINR(p.fees.opd)}</dd></div>
+                <div><dt>Hours</dt><dd>{p.hours.open24 ? "Open 24×7" : `${p.hours.open}–${p.hours.close}`}</dd></div>
+                <div><dt>Facilities</dt><dd>{p.amenities.slice(0, 2).join(" · ")}</dd></div>
+                <div><dt>Reviewers say</dt><dd class="compare-theme">{theme ? `“${theme}”` : "Not enough sample reviews"}</dd></div>
+              </dl>
+              <a class="btn btn-secondary compare-btn" href={`/${city?.slug}/${p.slug}/`}>View profile</a>
+            </article>
+          );
+        })}
+      </div>
     </div>
   </section>
 
-  <!-- Trust -->
-  <section class="section container" aria-labelledby="trust-h">
-    <h2 class="section-title" id="trust-h">Why trust Vetlas</h2>
-    <ul class="feature-row">
-      <li class="feature">
-        <span class="card-icon"><Icon name="badge" class="icon icon-lg" /></span>
-        <h3>Honest data, clearly labelled</h3>
-        <p class="small soft">Every fact carries a trust label with a distinct shape and colour — readable without colour vision.</p>
-        <p class="feature-badges"><TrustBadge level="verified" /> <TrustBadge level="provider-confirmed" /> <TrustBadge level="public" /></p>
+  <section class="section container" aria-labelledby="how-h">
+    <div class="section-head">
+      <div>
+        <p class="section-eyebrow">A calmer directory</p>
+        <h2 class="section-title" id="how-h">Why people use Vetlas</h2>
+      </div>
+    </div>
+    <ul class="value-row">
+      <li>
+        <span class="value-icon"><Icon name="badge" class="icon icon-lg" /></span>
+        <h3>Clearly labelled data</h3>
+        <p>Every fee, rating and profile carries its trust status. Sample content is never dressed up as verified.</p>
       </li>
-      <li class="feature">
-        <span class="card-icon amber"><Icon name="shield" class="icon icon-lg" /></span>
-        <h3>No ads, no paid placement</h3>
-        <p class="small soft">Providers can never pay for higher rankings or to hide reviews. Rankings follow data, not money.</p>
+      <li>
+        <span class="value-icon value-mint"><Icon name="shield" class="icon icon-lg" /></span>
+        <h3>No ads or paid rankings</h3>
+        <p>Hospitals and clinics cannot buy a higher position. Ordering follows the data, not the cheque book.</p>
       </li>
-      <li class="feature">
-        <span class="card-icon coral"><Icon name="sparkle" class="icon icon-lg" /></span>
-        <h3>Themes over stars</h3>
-        <p class="small soft">Reputation is shown through recurring reviewer themes — like “Calm with nervous pets” — not just aggregate numbers.</p>
+      <li>
+        <span class="value-icon value-sand"><Icon name="sparkle" class="icon icon-lg" /></span>
+        <h3>Reviews with context</h3>
+        <p>Recurring themes — such as calm handling or clear explanations — sit alongside ratings, not instead of them.</p>
       </li>
     </ul>
   </section>

@@ -1,14 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
-import ProviderLedgerRow from "../../components/ProviderLedgerRow.astro";
-import DoctorLedgerRow from "../../components/DoctorLedgerRow.astro";
-import SearchBuilder from "../../components/SearchBuilder.astro";
+import FacilityCard from "../../components/FacilityCard.astro";
+import DoctorCard from "../../components/DoctorCard.astro";
+import UniversalSearch from "../../components/UniversalSearch.astro";
 import TrustBadge from "../../components/TrustBadge.astro";
-import {
-  cities, providers, doctors, reviews, getCity, deriveReviewThemes,
-  providersByCity, doctorsByCity,
-} from "@data";
+import { cities, providersByCity, doctorsByCity } from "@data";
 
 /** Minimum vetted profiles required to publish a city (spec §2) */
 const PUBLISH_MINIMUM: Record<number, number> = { 1: 30, 2: 15, 3: 5 };
@@ -24,13 +21,9 @@ const { city } = Astro.props;
 const cityProviders = providersByCity(city.id);
 const cityDoctors = doctorsByCity(city.id);
 
-const themeFor = (slug: string) =>
-  deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
-
 const tierMin = PUBLISH_MINIMUM[city.isMetro ? 1 : 2] ?? 5;
 const profileCount = cityProviders.length + cityDoctors.length;
 
-/** "3 clinics · 1 hospital · 2 doctors" — pluralised, omitting empty groups */
 const clinicCount = cityProviders.filter((p) => p.type === "clinic").length;
 const hospitalCount = cityProviders.length - clinicCount;
 const headMeta = [
@@ -59,7 +52,7 @@ const jsonLd = {
 
 <BaseLayout
   title={`Veterinary clinics & doctors in ${city.name}`}
-  description={`Find veterinary hospitals, clinics and doctors in ${city.name}, ${city.state}. Compare specialities, fees and reviewer themes on Vetlas.`}
+  description={`Find veterinary hospitals, clinics and doctors in ${city.name}, ${city.state}. Compare specialities, facilities, fees and reviewer themes on Vetlas.`}
   noindex={noindex}
   canonical={`/${city.slug}/`}
 >
@@ -75,33 +68,35 @@ const jsonLd = {
         <Icon name="pin" class="icon icon-xl" />
       </span>
       <div>
-        <h1>Veterinary care in {city.name}</h1>
-        <p class="muted head-desc">
-          {headMeta}
-        </p>
+        <p class="eyebrow">Veterinary care</p>
+        <h1>{city.name}</h1>
+        <p class="muted head-desc">{headMeta}</p>
       </div>
     </header>
 
     <div class="notice-box mt-1 maxw-44">
-      <strong>Publication status:</strong> this city is part of the demo dataset.
-      Vetlas publishes a Tier-{city.isMetro ? 1 : 2} city only once at least {tierMin} vetted
-      profiles exist (spec §2). Currently showing {profileCount} sample profiles.
+      <strong>Demo city page.</strong> These are sample profiles. Vetlas publishes a city page
+      for search engines only once at least {tierMin} vetted profiles exist — currently
+      {profileCount} sample profiles are shown for design and testing.
     </div>
 
     <section class="section-first" aria-labelledby="search-h">
-      <h2 class="visually-hidden" id="search-h">Search within {city.name}</h2>
-      <SearchBuilder compact />
+      <h2 class="visually-hidden" id="search-h">Search within {city.name} and beyond</h2>
+      <UniversalSearch variant="compact" />
     </section>
 
     <section class="section-first" aria-labelledby="cp-h">
-      <h2 class="section-title" id="cp-h">Clinics &amp; hospitals</h2>
-      <div class="mt-75"><TrustBadge level="sample" label="Sample data" /></div>
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Facilities</p>
+          <h2 class="section-title section-title-sm" id="cp-h">Hospitals &amp; clinics in {city.name}</h2>
+        </div>
+        <TrustBadge level="sample" label="Sample data" />
+      </div>
       {cityProviders.length > 0 ? (
-        <ol class="ledger mt-75">
-          {cityProviders.map((p, i) => (
-            <ProviderLedgerRow provider={p} index={i} theme={themeFor(p.slug)} />
-          ))}
-        </ol>
+        <div class="facility-grid">
+          {cityProviders.map((p, i) => <FacilityCard provider={p} index={i} />)}
+        </div>
       ) : (
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
@@ -113,19 +108,23 @@ const jsonLd = {
     </section>
 
     <section class="section-compact" aria-labelledby="cd-h">
-      <h2 class="section-title" id="cd-h">Doctors</h2>
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Doctors</p>
+          <h2 class="section-title section-title-sm" id="cd-h">Veterinarians in {city.name}</h2>
+        </div>
+        <TrustBadge level="sample" label="Sample data" />
+      </div>
       {cityDoctors.length > 0 ? (
-        <ol class="ledger mt-75">
-          {cityDoctors.map((d, i) => (
-            <DoctorLedgerRow doctor={d} index={i} theme={themeFor(d.slug)} />
-          ))}
-        </ol>
+        <div class="doctor-grid">
+          {cityDoctors.map((d, i) => <DoctorCard doctor={d} index={i} />)}
+        </div>
       ) : (
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
           <h2>No doctors here yet</h2>
           <p>This city hasn't been mapped in the sample dataset yet.</p>
-          <div class="actions"><a class="btn btn-primary" href="/search/">Browse all doctors</a></div>
+          <div class="actions"><a class="btn btn-primary" href="/search/?type=doctor">Browse all doctors</a></div>
         </div>
       )}
     </section>

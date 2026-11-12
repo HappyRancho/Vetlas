@@ -1,20 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
-import SearchBuilder from "../components/SearchBuilder.astro";
+import UniversalSearch from "../components/UniversalSearch.astro";
+import FacilityCard from "../components/FacilityCard.astro";
+import DoctorCard from "../components/DoctorCard.astro";
 import TrustBadge from "../components/TrustBadge.astro";
 import {
-  cities, specialties, providers, doctors, reviews,
-  cityById, specialtyById, deriveReviewThemes,
+  cities, specialties, providers, doctors, cityById, specialtyById,
 } from "@data";
-
-/**
- * Full search experience (spec §7):
- * free text + city / speciality / type / species filters over the whole
- * dataset. Every result is pre-rendered as a real link — without JS the
- * page lists everything and every row still works. With JS the list is
- * filtered client-side (no network, no layout shift).
- */
 
 const speciesOptions = [
   { v: "dog", l: "Dogs" },
@@ -24,134 +17,128 @@ const speciesOptions = [
   { v: "hamster", l: "Hamsters" },
 ];
 
-/** Top recurring theme per listing (spec §1: themes over stars) */
-const themeFor = (slug: string) =>
-  deriveReviewThemes(reviews.filter((r) => r.targetSlug === slug))[0]?.theme;
-
 interface Row {
-  href: string;
-  name: string;
+  kind: "facility" | "doctor";
   type: string;
-  meta: string[];
-  fee: number;
-  rating: number;
+  name: string;
+  href: string;
   city: string;
   specialty: string;
   species: string;
+  fee: number;
+  rating: number;
   blob: string;
-  theme?: string;
 }
 
 const rows: Row[] = [
   ...providers.map((p): Row => {
     const city = cityById(p.cityId)!;
-    const specs = p.specialtyIds.map((id) => specialtyById(id)?.name).filter(Boolean) as string[];
+    const specs = p.specialtyIds.map((id) => specialtyById(id));
     return {
-      href: `/${city.slug}/${p.slug}/`,
-      name: p.name,
+      kind: "facility",
       type: p.type,
-      meta: [`${p.area}, ${city.name}`, p.type, specs.slice(0, 3).join(" · ")],
+      name: p.name,
+      href: `/${city.slug}/${p.slug}/`,
+      city: city.slug,
+      specialty: [
+        ...p.specialtyIds,
+        ...specs.map((s) => s?.slug).filter(Boolean),
+      ].join(" "),
+      species: p.species.join(" "),
       fee: p.fees.opd,
       rating: p.rating,
-      city: city.slug,
-      specialty: p.specialtyIds.join(" "),
-      species: p.species.join(" "),
-      blob: [p.name, p.area, city.name, p.type, ...specs, ...p.services, ...p.species]
-        .join(" ")
-        .toLowerCase(),
-      theme: themeFor(p.slug),
+      blob: [
+        p.name, p.area, city.name, city.slug, p.type, p.type === "hospital" ? "hospital" : "clinic",
+        ...specs.map((s) => `${s?.name} ${s?.slug}`),
+        ...p.services, ...p.species, ...p.amenities,
+        p.hours.open24 ? "24x7 24 hours emergency open" : "open",
+      ].join(" ").toLowerCase(),
     };
   }),
   ...doctors.map((d): Row => {
     const city = cityById(d.cityId)!;
     const specIds = [d.primarySpecialtyId, ...d.secondarySpecialtyIds];
-    const specs = specIds.map((id) => specialtyById(id)?.name).filter(Boolean) as string[];
+    const specs = specIds.map((id) => specialtyById(id));
     return {
-      href: `/${city.slug}/${d.slug}/`,
-      name: `Dr. ${d.name}`,
+      kind: "doctor",
       type: "doctor",
-      meta: [specs[0] ?? "", `${d.experienceYears} yrs exp`, city.name, d.degrees.join(" · ")],
+      name: `Dr. ${d.name}`,
+      href: `/${city.slug}/${d.slug}/`,
+      city: city.slug,
+      specialty: [
+        ...specIds,
+        ...specs.map((s) => s?.slug).filter(Boolean),
+      ].join(" "),
+      species: d.species.join(" "),
       fee: d.consultationFee,
       rating: d.rating,
-      city: city.slug,
-      specialty: specIds.join(" "),
-      species: d.species.join(" "),
-      blob: [`Dr ${d.name}`, d.name, ...specs, city.name, ...d.degrees, ...d.species, ...d.languages]
-        .join(" ")
-        .toLowerCase(),
-      theme: themeFor(d.slug),
+      blob: [
+        `Dr ${d.name}`, d.name, "doctor vet veterinarian specialist",
+        ...specs.map((s) => `${s?.name} ${s?.slug}`),
+        city.name, city.slug, ...d.degrees, ...d.species, ...d.languages,
+      ].join(" ").toLowerCase(),
     };
   }),
-].sort((a, b) => b.rating - a.rating);
+];
 ---
 
 <BaseLayout
   title="Find veterinary care — Vetlas"
-  description="Search clinics, hospitals and doctors across India — filter by city, speciality, animal species and budget. Every listing carries a trust label; no ads, no paid placement."
+  description="One search for veterinary hospitals, clinics and doctors across India. Search by city, speciality, facility or doctor name, then refine by type, city and animal."
   canonical="/search/"
 >
   <div class="container">
-    <header class="page-head search-head animate-fade-up">
+    <header class="search-hero">
+      <p class="eyebrow"><Icon name="search" class="icon icon-md" /> One search, every kind of care</p>
       <h1>Find the right care</h1>
-      <p>Build a sentence, or filter the full list below — either way, no ads in the way.</p>
+      <p class="search-hero-sub">
+        Type a city, speciality, hospital, clinic or doctor. Vetlas understands the mix and shows
+        the closest matches first.
+      </p>
+      <UniversalSearch variant="page" />
+      <ul class="search-signals" aria-label="Search supports">
+        <li><Icon name="pin" class="icon" />City or area</li>
+        <li><Icon name="stethoscope" class="icon" />Speciality</li>
+        <li><Icon name="building" class="icon" />Hospital or clinic</li>
+        <li><Icon name="doctor" class="icon" />Doctor</li>
+      </ul>
     </header>
 
-    <div class="search-builder-wrap animate-fade-up">
-      <SearchBuilder />
-      <p class="muted small search-builder-note">
-        Your sentence becomes a city × speciality page — for example
-        <a href="/bengaluru/dermatology/">/bengaluru/dermatology/</a>.
-      </p>
-    </div>
+    <section class="search-shell" aria-label="Filter results">
+      <div class="filter-bar">
+        <div class="filter-types" role="group" aria-label="Filter by type">
+          <button class="filter-chip" type="button" data-type="" aria-pressed="true">All care</button>
+          <button class="filter-chip" type="button" data-type="hospital" aria-pressed="false">Hospitals</button>
+          <button class="filter-chip" type="button" data-type="clinic" aria-pressed="false">Clinics</button>
+          <button class="filter-chip" type="button" data-type="doctor" aria-pressed="false">Doctors</button>
+        </div>
 
-    <!-- Full-list filters -->
-    <section class="search-panel animate-fade-up" aria-label="Filter all results" style="animation-delay:80ms">
-      <div class="search-field">
-        <Icon name="search" class="icon icon-md search-field-icon" />
-        <label class="visually-hidden" for="q">Search by name, area or service</label>
-        <input
-          type="search"
-          id="q"
-          name="q"
-          placeholder="Search by name, area or service…"
-          autocomplete="off"
-          enterkeyhint="search"
-        />
-      </div>
-
-      <div class="search-selects">
-        <label class="search-select">
-          <span>City</span>
-          <select id="f-city">
-            <option value="">All cities</option>
-            {cities.map((c) => <option value={c.slug}>{c.name}</option>)}
-          </select>
-        </label>
-        <label class="search-select">
-          <span>Speciality</span>
-          <select id="f-spec">
-            <option value="">All specialities</option>
-            {specialties.map((s) => <option value={s.id} data-slug={s.slug}>{s.name}</option>)}
-          </select>
-        </label>
-        <label class="search-select">
-          <span>Type</span>
-          <select id="f-type">
-            <option value="">Everyone</option>
-            <option value="clinic">Clinics</option>
-            <option value="hospital">Hospitals</option>
-            <option value="doctor">Doctors</option>
-          </select>
-        </label>
-        <label class="search-select">
-          <span>Sort</span>
-          <select id="f-sort">
-            <option value="rating">Top rated (sample)</option>
-            <option value="fee-asc">Fee: low to high</option>
-            <option value="fee-desc">Fee: high to low</option>
-            <option value="name">Name A–Z</option>
-          </select>
-        </label>
+        <div class="filter-selects">
+          <label class="filter-select">
+            <span>City</span>
+            <select id="f-city">
+              <option value="">All cities</option>
+              {cities.map((c) => <option value={c.slug}>{c.name}</option>)}
+            </select>
+          </label>
+          <label class="filter-select">
+            <span>Speciality</span>
+            <select id="f-spec">
+              <option value="">All specialities</option>
+              {specialties.map((s) => <option value={s.slug} data-id={s.id}>{s.name}</option>)}
+            </select>
+          </label>
+          <label class="filter-select">
+            <span>Sort</span>
+            <select id="f-sort">
+              <option value="relevance">Best match</option>
+              <option value="rating">Top rated (sample)</option>
+              <option value="fee-asc">Fee: low to high</option>
+              <option value="fee-desc">Fee: high to low</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </label>
+        </div>
       </div>
 
       <fieldset class="species-filter">
@@ -165,102 +152,172 @@ const rows: Row[] = [
           ))}
         </div>
       </fieldset>
+
+      <div class="search-toolbar">
+        <p class="result-count" id="result-count" role="status" aria-live="polite">
+          <span id="result-count-text">Showing <b>{rows.length}</b> of <b>{rows.length}</b> sample listings</span>
+        </p>
+        <div class="search-toolbar-actions">
+          <TrustBadge level="sample" />
+          <button type="button" class="text-button" id="clear-filters">Clear all</button>
+        </div>
+      </div>
     </section>
 
-    <p class="result-count" id="result-count" role="status" aria-live="polite">
-      <span id="result-count-text">Showing <b>{rows.length}</b> of <b>{rows.length}</b> listings</span>
-      <TrustBadge level="sample" />
-    </p>
+    <p class="search-intent" id="search-intent" hidden></p>
 
-    <ol class="ledger" id="search-results">
+    <ol class="result-list" id="search-results">
       {rows.map((r, i) => (
         <li
-          class="ledger-row"
-          data-blob={r.blob}
-          data-city={r.city}
+          class="result-item"
+          data-kind={r.kind}
           data-type={r.type}
+          data-city={r.city}
           data-specialty={r.specialty}
           data-species={r.species}
           data-fee={r.fee}
           data-rating={r.rating}
           data-name={r.name.toLowerCase()}
+          data-blob={r.blob}
         >
-          <span class="ledger-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-          <span class="ledger-main">
-            <a class="ledger-name" href={r.href}>{r.name}</a>
-            <span class="ledger-meta">
-              {r.meta.filter(Boolean).map((m, j) => (
-                <span class={j === 0 ? "" : "dot"}>{m}</span>
-              ))}
-            </span>
-          </span>
-          {r.theme && <span class="ledger-theme" title={r.theme}>“{r.theme}”</span>}
-          <span class="ledger-fee">
-            ₹{r.fee.toLocaleString("en-IN")}
-            <small>consultation</small>
-          </span>
+          {r.kind === "facility"
+            ? <FacilityCard provider={providers.find((p) => `/${cityById(p.cityId)?.slug}/${p.slug}/` === r.href)!} index={i} />
+            : <DoctorCard doctor={doctors.find((d) => `/${cityById(d.cityId)?.slug}/${d.slug}/` === r.href)!} index={i} />}
         </li>
       ))}
     </ol>
 
     <div class="empty-state" id="no-results" hidden>
       <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
-      <h2>No matches</h2>
-      <p>Try a wider search — clear a filter or two and look again.</p>
+      <h2>No matches yet</h2>
+      <p>Try a nearby city, a broader speciality, or clear a filter or two.</p>
       <div class="actions">
-        <button type="button" class="btn btn-secondary" id="clear-filters">Clear all filters</button>
+        <button type="button" class="btn btn-primary" id="clear-search-filters">Clear search &amp; filters</button>
       </div>
     </div>
 
     <section class="section" aria-labelledby="ways-h">
-      <h2 class="section-title" id="ways-h">Other ways in</h2>
-      <ul class="tile-grid mt-125">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Still browsing</p>
+          <h2 class="section-title" id="ways-h">Other ways in</h2>
+        </div>
+      </div>
+      <ul class="tile-grid">
         <li><a class="card card-hover" href="/specialties/"><span class="card-icon"><Icon name="stethoscope" class="icon icon-lg" /></span><span><b>By speciality</b><span>Surgery, dermatology, emergency care and more</span></span></a></li>
         <li><a class="card card-hover" href="/locations/"><span class="card-icon"><Icon name="pin" class="icon icon-lg" /></span><span><b>By city</b><span>Metros first, expanding nationwide</span></span></a></li>
-        <li><a class="card card-hover" href="/costs/"><span class="card-icon amber"><Icon name="wallet" class="icon icon-lg" /></span><span><b>By budget</b><span>Typical treatment cost ranges</span></span></a></li>
+        <li><a class="card card-hover" href="/costs/"><span class="card-icon amber"><Icon name="wallet" class="icon icon-lg" /></span><span><b>Typical costs</b><span>Broad ranges for common care in India</span></span></a></li>
       </ul>
     </section>
   </div>
 
   <script>
-    /**
-     * Client-side filtering over the pre-rendered ledger rows.
-     * All rows ship in the HTML (works without JS); this only hides,
-     * renumbers and reorders them. Query params from the sentence
-     * builder (?pet=&speciality=&city=&q=) pre-fill the filters.
-     */
     const results = document.getElementById("search-results") as HTMLOListElement | null;
     if (results) {
       const list: HTMLOListElement = results;
-      const rows = Array.from(list.querySelectorAll<HTMLLIElement>(".ledger-row"));
-      const q = document.getElementById("q") as HTMLInputElement;
+      const rows = Array.from(list.querySelectorAll<HTMLLIElement>(".result-item"));
       const city = document.getElementById("f-city") as HTMLSelectElement;
       const spec = document.getElementById("f-spec") as HTMLSelectElement;
-      const type = document.getElementById("f-type") as HTMLSelectElement;
       const sort = document.getElementById("f-sort") as HTMLSelectElement;
-      const speciesBoxes = Array.from(
-        document.querySelectorAll<HTMLInputElement>('input[name="species"]')
-      );
+      const typeButtons = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-chip"));
+      const speciesBoxes = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="species"]'));
       const count = document.getElementById("result-count-text")!;
+      const intent = document.getElementById("search-intent") as HTMLElement;
       const empty = document.getElementById("no-results") as HTMLElement;
-      const clearBtn = document.getElementById("clear-filters");
+      const clearAll = document.getElementById("clear-filters");
+      const clearSearch = document.getElementById("clear-search-filters");
+      const params = new URLSearchParams(window.location.search);
       const total = rows.length;
+      let type = params.get("type") || "";
+      let query = (params.get("q") || "").trim();
+
+      const cityName = (slug: string) => city.querySelector<HTMLOptionElement>(`option[value="${slug}"]`)?.textContent || slug;
+      const specName = (slug: string) => spec.querySelector<HTMLOptionElement>(`option[value="${slug}"]`)?.textContent || slug;
+
+      if (params.get("city")) city.value = params.get("city")!;
+      if (params.get("speciality")) spec.value = params.get("speciality")!;
+      if (params.get("sort")) sort.value = params.get("sort")!;
+      const pet = params.get("pet");
+      if (pet) {
+        const box = speciesBoxes.find((b) => b.value === pet);
+        if (box) box.checked = true;
+      }
+      typeButtons.forEach((b) => {
+        const isActive = (b.dataset.type || "") === type;
+        b.setAttribute("aria-pressed", String(isActive));
+      });
+
+      function setType(next: string) {
+        type = next;
+        typeButtons.forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.type || "") === type)));
+        apply();
+      }
+
+      function detectIntent() {
+        if (!query) {
+          intent.hidden = true;
+          return;
+        }
+        const q = query.toLowerCase();
+        const foundCity = Array.from(city.options).find((o) => o.value && q.includes(o.value)) ||
+          Array.from(city.options).find((o) => o.value && q.includes(o.textContent!.toLowerCase()));
+        const foundSpec = Array.from(spec.options).find((o) => o.value && q.includes(o.value)) ||
+          Array.from(spec.options).find((o) => o.value && q.includes(o.textContent!.toLowerCase()));
+        const kind = /\b(hospital|hospitals)\b/.test(q) ? "hospitals"
+          : /\b(clinic|clinics)\b/.test(q) ? "clinics"
+          : /\b(doctor|doctors|vet|vets|specialist|specialists)\b/.test(q) ? "doctors"
+          : "";
+        const bits = [
+          foundCity ? `city: ${cityName(foundCity.value)}` : "",
+          foundSpec ? `speciality: ${specName(foundSpec.value)}` : "",
+          kind ? `looking for: ${kind}` : "",
+        ].filter(Boolean);
+        intent.innerHTML = bits.length
+          ? `<span class="intent-label">Understood</span> ${bits.join(" · ")}. Refine below if needed.`
+          : `<span class="intent-label">Searching all care</span> for “${query.replace(/[<>&"']/g, "")}” across every city.`;
+        intent.hidden = false;
+      }
+
+      function updateUrl() {
+        const next = new URLSearchParams();
+        if (query) next.set("q", query);
+        if (type) next.set("type", type);
+        if (city.value) next.set("city", city.value);
+        if (spec.value) next.set("speciality", spec.value);
+        if (sort.value !== "relevance") next.set("sort", sort.value);
+        const animal = speciesBoxes.find((b) => b.checked)?.value;
+        if (animal) next.set("pet", animal);
+        const nextQuery = next.toString();
+        history.replaceState(null, "", nextQuery ? `?${nextQuery}` : window.location.pathname);
+      }
 
       function apply() {
-        const query = q.value.trim().toLowerCase();
-        const tokens = query ? query.split(/\s+/) : [];
-        const cityV = city.value;
-        const specV = spec.value;
-        const typeV = type.value;
+        const normalized = query
+          .toLowerCase()
+          .replace(/×/g, "x")
+          .replace(/[^\p{L}\p{N}\s]/gu, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+        const stopWords = new Set([
+          "a", "an", "and", "at", "for", "in", "me", "near", "of", "the", "to", "with",
+          "vet", "vets", "veterinarian", "veterinary",
+        ]);
+        const tokens = normalized ? normalized.split(" ").filter((t) => t && !stopWords.has(t)) : [];
         const wantedSpecies = speciesBoxes.filter((b) => b.checked).map((b) => b.value);
-
         let shown = 0;
+
         for (const row of rows) {
           const d = row.dataset;
           let ok = true;
-          if (cityV && d.city !== cityV) ok = false;
-          if (ok && specV && !(d.specialty ?? "").split(" ").includes(specV)) ok = false;
-          if (ok && typeV && d.type !== typeV) ok = false;
+          if (type && d.type !== type) ok = false;
+          if (ok && city.value && d.city !== city.value) ok = false;
+          if (ok && spec.value) {
+            const specValues = (d.specialty ?? "").split(" ");
+            if (!specValues.includes(spec.value)) {
+              const option = spec.querySelector<HTMLOptionElement>(`option[value="${spec.value}"]`);
+              if (!option || !specValues.includes(option.dataset.id ?? "")) ok = false;
+            }
+          }
           if (ok && wantedSpecies.length) {
             const has = (d.species ?? "").split(" ");
             ok = wantedSpecies.some((s) => has.includes(s));
@@ -273,66 +330,78 @@ const rows: Row[] = [
           if (ok) shown++;
         }
 
-        // sort visible rows
+        const relevance = (row: HTMLLIElement) => {
+          if (!query) return 0;
+          const name = row.dataset.name ?? "";
+          if (name === query.toLowerCase()) return 0;
+          if (name.startsWith(query.toLowerCase())) return 1;
+          if (name.includes(query.toLowerCase())) return 2;
+          return 3;
+        };
+
         const cmp: Record<string, (a: HTMLLIElement, b: HTMLLIElement) => number> = {
+          relevance: (a, b) => relevance(a) - relevance(b) || Number(b.dataset.rating) - Number(a.dataset.rating),
           rating: (a, b) => Number(b.dataset.rating) - Number(a.dataset.rating),
           "fee-asc": (a, b) => Number(a.dataset.fee) - Number(b.dataset.fee),
           "fee-desc": (a, b) => Number(b.dataset.fee) - Number(a.dataset.fee),
           name: (a, b) => (a.dataset.name ?? "").localeCompare(b.dataset.name ?? ""),
         };
-        const comparator = cmp[sort.value] ?? cmp.rating!;
+        const comparator = cmp[sort.value] ?? cmp.relevance!;
         const visible = rows.filter((r) => !r.hidden).sort(comparator);
-        visible.forEach((r, i) => {
-          list.appendChild(r);
-          const num = r.querySelector(".ledger-num");
-          if (num) num.textContent = String(i + 1).padStart(2, "0");
-        });
+        visible.forEach((r) => list.appendChild(r));
 
-        count.innerHTML = shown === total
-          ? `Showing <b>${total}</b> of <b>${total}</b> listings`
-          : `Showing <b>${shown}</b> of <b>${total}</b> listings`;
+        count.innerHTML = `Showing <b>${shown}</b> of <b>${total}</b> sample listings`;
         empty.hidden = shown > 0;
         list.hidden = shown === 0;
+        detectIntent();
+        updateUrl();
       }
 
-      function clearAll() {
-        q.value = "";
+      function clearEverything() {
+        query = "";
+        const input = document.querySelector<HTMLInputElement>("form[data-universal-search] input[name='q']");
+        if (input) {
+          input.value = "";
+          const clear = document.querySelector<HTMLButtonElement>(".usearch-clear");
+          if (clear) clear.hidden = true;
+        }
         city.value = "";
         spec.value = "";
-        type.value = "";
-        sort.value = "rating";
+        sort.value = "relevance";
+        type = "";
+        typeButtons.forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.type || "") === "")));
         speciesBoxes.forEach((b) => (b.checked = false));
         apply();
       }
 
-      q.addEventListener("input", apply);
+      typeButtons.forEach((button) => button.addEventListener("click", () => setType(button.dataset.type || "")));
       city.addEventListener("change", apply);
       spec.addEventListener("change", apply);
-      type.addEventListener("change", apply);
       sort.addEventListener("change", apply);
       speciesBoxes.forEach((b) => b.addEventListener("change", apply));
-      clearBtn?.addEventListener("click", clearAll);
+      clearAll?.addEventListener("click", clearEverything);
+      clearSearch?.addEventListener("click", clearEverything);
 
-      // Deep-link params from the sentence builder / shared URLs
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("q")) q.value = params.get("q")!;
-      if (params.get("city")) city.value = params.get("city")!;
-      if (params.get("speciality")) {
-        const slug = params.get("speciality")!;
-        const opt = Array.from(spec.options).find(
-          (o) => o.textContent?.toLowerCase() === slug.replace(/-/g, " ")
-        );
-        // match by slug → option value via data list built below
-        const bySlug = spec.querySelector<HTMLOptionElement>(`option[data-slug="${slug}"]`);
-        if (bySlug) spec.value = bySlug.value;
-        else if (opt) spec.value = opt.value;
-      }
-      const pet = params.get("pet");
-      if (pet && speciesBoxes.some((b) => b.value === pet)) {
-        const box = speciesBoxes.find((b) => b.value === pet);
-        if (box) box.checked = true;
-      }
-      if (params.toString()) apply();
+      document.addEventListener("usearch:input", (event) => {
+        query = (event as CustomEvent<{ value: string }>).detail.value.trim();
+        apply();
+      });
+      document.addEventListener("usearch:clear", () => {
+        query = "";
+        apply();
+      });
+      document.addEventListener("submit", (event) => {
+        const form = (event.target as HTMLElement).closest("form[data-universal-search]");
+        if (form) {
+          event.preventDefault();
+          const input = form.querySelector<HTMLInputElement>("input[name='q']");
+          query = (input?.value || "").trim();
+          apply();
+          document.querySelector(".search-shell")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+
+      apply();
     }
   </script>
 </BaseLayout>

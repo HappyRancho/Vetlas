@@ -1,7 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
-import TrustBadge from "../../components/TrustBadge.astro"
+import TrustBadge from "../../components/TrustBadge.astro";
+import FacilityVisual from "../../components/FacilityVisual.astro";
+import DoctorLedgerRow from "../../components/DoctorLedgerRow.astro";
+import ProviderLedgerRow from "../../components/ProviderLedgerRow.astro";
 import {
   providers, doctors, cityById,
   specialtyById, providerReviews, doctorReviews, providersDoctors, doctorsProviders,
@@ -90,6 +93,7 @@ const jsonLd = isFacility
     </a>
 
     <header class="card profile-header mt-1">
+      {isFacility && <FacilityVisual type={facility!.type} seed={facility!.slug} large />}
       <div class={`profile-band ${isFacility ? "teal" : "coral"}`}>
         <div class="top">
           <div class="profile-id">
@@ -208,14 +212,7 @@ const jsonLd = isFacility
             <h2>Doctors at {facility!.name}</h2>
             <ol class="ledger ledger-flush">
               {providersDoctors(facility!).map((d, i) => (
-                <li class="ledger-row ledger-row-compact">
-                  <span class="ledger-num">{String(i + 1).padStart(2, "0")}</span>
-                  <span class="ledger-main">
-                    <a class="ledger-name" href={`/${city.slug}/${d.slug}/`}>Dr. {d.name}</a>
-                    <span class="ledger-meta">{specialtyById(d.primarySpecialtyId)?.name} · {d.experienceYears} yrs exp</span>
-                  </span>
-                  <span class="ledger-fee">{feeINR(d.consultationFee)}<small>consultation</small></span>
-                </li>
+                <DoctorLedgerRow doctor={d} index={i} />
               ))}
             </ol>
           </section>
@@ -226,14 +223,7 @@ const jsonLd = isFacility
             <h2>Practises at</h2>
             <ol class="ledger ledger-flush">
               {doctorsProviders(vet!).map((p, i) => (
-                <li class="ledger-row ledger-row-compact">
-                  <span class="ledger-num">{String(i + 1).padStart(2, "0")}</span>
-                  <span class="ledger-main">
-                    <a class="ledger-name" href={`/${cityById(p.cityId)?.slug}/${p.slug}/`}>{p.name}</a>
-                    <span class="ledger-meta">{p.area}, {cityById(p.cityId)?.name} · {p.hours.open24 ? "Open 24×7" : `${p.hours.open}–${p.hours.close}`}</span>
-                  </span>
-                  <span class="ledger-fee">{feeINR(p.fees.opd)}<small>OPD</small></span>
-                </li>
+                <ProviderLedgerRow provider={p} index={i} />
               ))}
             </ol>
           </section>

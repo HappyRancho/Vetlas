@@ -1,0 +1,70 @@
+---
+import Icon from "./Icon.astro";
+import TrustBadge from "./TrustBadge.astro";
+import {
+  cityById, specialtyById, doctorsProviders, feeINR, type Doctor,
+} from "@data";
+
+interface Props {
+  doctor: Doctor;
+  index?: number;
+}
+const { doctor, index = 0 } = Astro.props;
+const city = cityById(doctor.cityId);
+const primary = specialtyById(doctor.primarySpecialtyId);
+const practiseAt = doctorsProviders(doctor)[0];
+const initials = doctor.name
+  .split(" ")
+  .map((part) => part[0])
+  .slice(0, 2)
+  .join("");
+const tones = ["sky", "mint", "lilac", "sand"];
+const hash = [...doctor.slug].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+const tone = tones[hash % tones.length];
+---
+
+<article class="doctor-card" style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
+  <div class={`doctor-avatar doctor-avatar-${tone}`} aria-hidden="true">
+    <span>{initials}</span>
+    <Icon name="stethoscope" class="doctor-avatar-icon" />
+  </div>
+
+  <div class="doctor-body">
+    <div class="doctor-top">
+      <TrustBadge level={doctor.verified ? "verified" : "sample"} label={doctor.verified ? undefined : "Sample"} />
+      <span class="rating-pill" title="Illustrative sample rating and review count">
+        <Icon name="sparkle" class="icon" />
+        {doctor.rating.toFixed(1)}
+        <small>{doctor.reviewCount} reviews</small>
+      </span>
+    </div>
+
+    <h3 class="doctor-name">
+      <a href={`/${city?.slug}/${doctor.slug}/`}>Dr. {doctor.name}</a>
+    </h3>
+    <p class="doctor-quals">{doctor.degrees.join(" · ")}</p>
+
+    <p class="doctor-speciality">
+      {primary?.name}
+      <span class="meta-sep">·</span>
+      {doctor.experienceYears} yrs experience
+    </p>
+
+    <p class="doctor-place">
+      <Icon name="building" class="icon" />
+      {practiseAt ? practiseAt.name : "Independent practice"}
+      <span class="meta-sep">·</span>
+      {city?.name}
+    </p>
+
+    <div class="doctor-footer">
+      <div class="doctor-fee">
+        <b>{feeINR(doctor.consultationFee)}</b>
+        <span>consultation · sample</span>
+      </div>
+      <a class="doctor-action" href={`/${city?.slug}/${doctor.slug}/`}>
+        View profile <Icon name="arrow" class="icon" />
+      </a>
+    </div>
+  </div>
+</article>

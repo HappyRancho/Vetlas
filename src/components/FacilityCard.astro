@@ -1,0 +1,73 @@
+---
+import Icon from "./Icon.astro";
+import FacilityVisual from "./FacilityVisual.astro";
+import TrustBadge from "./TrustBadge.astro";
+import { cityById, specialtyById, feeINR, type Provider } from "@data";
+
+interface Props {
+  provider: Provider;
+  featured?: boolean;
+  index?: number;
+}
+const { provider, featured = false, index = 0 } = Astro.props;
+const city = cityById(provider.cityId);
+const specs = provider.specialtyIds
+  .map((id) => specialtyById(id)?.name)
+  .filter((name): name is string => Boolean(name));
+const hours = provider.hours.open24
+  ? "Open 24×7"
+  : provider.hours.open && provider.hours.close
+    ? `${provider.hours.open}–${provider.hours.close}`
+    : "Hours not listed";
+const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
+---
+
+<article class={`facility-card${featured ? " facility-card-featured" : ""}`} style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
+  <a class="facility-media" href={`/${city?.slug}/${provider.slug}/`} tabindex="-1" aria-hidden="true">
+    <FacilityVisual type={provider.type} seed={provider.slug} />
+    <span class="facility-type-pill">
+      <Icon name={provider.type === "hospital" ? "building" : "heart"} class="icon" />
+      {provider.type === "hospital" ? "Hospital" : "Clinic"}
+    </span>
+    <span class={`facility-open${provider.hours.open24 ? " is-open" : ""}`}>
+      <span class="status-dot" aria-hidden="true" />
+      {provider.hours.open24 ? "24×7" : "Open today"}
+    </span>
+  </a>
+
+  <div class="facility-body">
+    <div class="facility-top">
+      <TrustBadge level={provider.verified ? "verified" : "sample"} label={provider.verified ? undefined : "Sample"} />
+      <span class="rating-pill" title="Illustrative sample rating and review count">
+        <Icon name="sparkle" class="icon" />
+        {provider.rating.toFixed(1)}
+        <small>{provider.reviewCount} reviews</small>
+      </span>
+    </div>
+
+    <h3 class="facility-name">
+      <a href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
+    </h3>
+
+    <p class="facility-location">
+      <Icon name="pin" class="icon" />
+      {provider.area}, {city?.name}
+      <span class="meta-sep">·</span>
+      <span class="facility-hours"><Icon name="clock" class="icon" />{hours}</span>
+    </p>
+
+    <ul class="facility-tags" aria-label="Services and facilities">
+      {highlights.map((item) => <li>{item}</li>)}
+    </ul>
+
+    <div class="facility-footer">
+      <div class="facility-fee">
+        <b>{feeINR(provider.fees.opd)}</b>
+        <span>consultation · sample</span>
+      </div>
+      <a class="facility-action" href={`/${city?.slug}/${provider.slug}/`}>
+        View profile <Icon name="arrow" class="icon" />
+      </a>
+    </div>
+  </div>
+</article>

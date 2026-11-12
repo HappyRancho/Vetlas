@@ -1,42 +1,60 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
-import { specialties } from "@data";
+import TrustBadge from "../../components/TrustBadge.astro";
+import {
+  specialties, providersBySpecialty, doctorsBySpecialty,
+} from "@data";
 
-/** Speciality index (spec: launch specialities list). */
-const gridFill = (6 - (specialties.length % 6)) % 6;
+const withCount = specialties.map((specialty) => ({
+  specialty,
+  count: providersBySpecialty(specialty.id).length + doctorsBySpecialty(specialty.id).length,
+}));
 ---
 
 <BaseLayout
-  title="All veterinary specialties — Vetlas"
-  description="Explore veterinary specialities in India — medicine, surgery, dermatology, gynaecology & obstetrics, radiology & USG, cardiology, gastroenterology, ophthalmology, neurology and oncology."
+  title="All veterinary specialities — Vetlas"
+  description="Explore veterinary specialities in India — medicine, surgery, dermatology, gynaecology & obstetrics, cardiology, gastroenterology, ophthalmology, neurology and oncology."
   canonical="/specialties/"
 >
   <div class="container">
-    <header class="page-head">
-      <h1>Browse veterinary specialities</h1>
+    <header class="page-head animate-fade-up">
+      <p class="eyebrow"><Icon name="stethoscope" class="icon icon-md" /> Speciality directory</p>
+      <h1 class="mt-05">Find the right kind of vet</h1>
       <p>
-        Not sure which kind of vet you need? Start here — each speciality page explains what it
-        covers and lists the clinics and doctors who practise it, city by city.
+        Not sure who to see? Each speciality explains what it covers and lists the hospitals,
+        clinics and doctors who practise it. Start broad, then narrow by city.
       </p>
+      <div class="mt-75"><TrustBadge level="sample" label="Sample listings" /></div>
     </header>
 
-    <ul class="hairline-grid mt-2 pb-1">
-      {specialties.map((s) => (
+    <ul class="specialty-grid mt-2 pb-1">
+      {withCount.map(({ specialty, count }) => (
         <li>
-          <a class="dir-cell dir-cell-tall" href={`/specialties/${s.slug}/`}>
-            <span class="dir-icon"><Icon name={s.icon} class="icon icon-lg" /></span>
-            <span class="dir-text">
-              <b>{s.name}</b>
-              <span>{s.description}</span>
+          <a class="specialty-card" href={`/specialties/${specialty.slug}/`}>
+            <span class="specialty-icon"><Icon name={specialty.icon} class="icon icon-md" /></span>
+            <span class="specialty-copy">
+              <b>{specialty.name}</b>
+              <span>{specialty.tagline} · {count} sample listings</span>
             </span>
-            <Icon name="arrow" class="icon dir-arrow" />
+            <Icon name="arrow" class="icon specialty-arrow" />
           </a>
         </li>
       ))}
-      {Array.from({ length: gridFill }).map(() => (
-        <li class="dir-fill" aria-hidden="true" />
-      ))}
     </ul>
+
+    <section class="section" aria-labelledby="city-h">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Another way in</p>
+          <h2 class="section-title section-title-sm" id="city-h">Prefer to browse by city?</h2>
+        </div>
+        <a class="link-more" href="/locations/">All cities <Icon name="arrow" class="icon" /></a>
+      </div>
+      <p class="soft small">
+        City pages group every hospital, clinic and doctor by location, with facilities and
+        consultation fees at a glance.
+      </p>
+    </section>
   </div>
 </BaseLayout>

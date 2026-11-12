@@ -16,14 +16,18 @@ const { title, description, noindex = false, canonical } = Astro.props;
 const siteUrl = Astro.site ?? Astro.url;
 const canonicalUrl = canonical ? new URL(canonical, siteUrl) : Astro.url;
 const year = new Date().getFullYear();
+const path = Astro.url.pathname;
 
 const nav = [
-  { href: "/search/", label: "Find care" },
-  { href: "/specialties/", label: "Specialties" },
-  { href: "/locations/", label: "Locations" },
-  { href: "/costs/", label: "Cost guide" },
-  { href: "/about/", label: "About" },
+  { href: "/search/", label: "Find care", icon: "search" },
+  { href: "/specialties/", label: "Specialities", icon: "stethoscope" },
+  { href: "/locations/", label: "Cities", icon: "pin" },
+  { href: "/about/", label: "About", icon: "info" },
+  { href: "/costs/", label: "Cost guide", icon: "wallet" },
 ];
+
+const isCurrent = (href: string) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(href);
 ---
 
 <!doctype html>
@@ -32,7 +36,7 @@ const nav = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0E7A6C" />
+    <meta name="theme-color" content="#eff6ff" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
@@ -56,7 +60,7 @@ const nav = [
             name: "Vetlas",
             url: String(siteUrl),
             description:
-              "India's veterinary care decision-support platform — find clinics, hospitals and doctors with attributed, trustworthy data.",
+              "India's veterinary care discovery platform — find clinics, hospitals and doctors with clearly attributed data.",
           })}
         />
       )
@@ -65,57 +69,51 @@ const nav = [
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="notice">
-      <div class="container">
-        <Icon name="info" class="icon icon-md" />
+    <div class="beta-strip">
+      <div class="container beta-strip-inner">
+        <span class="beta-tag">Beta</span>
         <p>
-          <strong>Demo notice:</strong> Vetlas is in beta. Every listing, review and price on this
-          site is <a href="/about/">clearly-marked sample data</a> — not verified real-world
-          providers. We never present sample data as verified.
+          Sample listings only. Every profile, fee and review is clearly marked demo data —
+          <a href="/about/">read the data policy</a>.
         </p>
       </div>
     </div>
 
     <header class="site-header">
-      <div class="container">
-        <a class="brand" href="/">
-          <span class="brand-mark"><Icon name="paw" class="icon icon-md" /></span>
-          Vetlas
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Vetlas home">
+          <span class="brand-mark"><Icon name="paw" class="icon" /></span>
+          <span class="brand-word">Vetlas</span>
         </a>
+
         <nav class="site-nav" aria-label="Primary">
-          {nav.map((item) => (
-            <a href={item.href} aria-current={Astro.url.pathname === item.href || (item.href !== "/" && Astro.url.pathname.startsWith(item.href)) ? "page" : undefined}>
+          {nav.slice(0, 4).map((item) => (
+            <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
               {item.label}
             </a>
           ))}
-          <a class="btn btn-primary" href="/search/">Search now</a>
         </nav>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
-          <Icon name="menu" class="icon icon-md" />
-        </button>
+
+        <div class="header-actions">
+          <a class="header-icon-link" href="/search/" aria-label="Search veterinary care">
+            <Icon name="search" class="icon icon-md" />
+          </a>
+          <a class="btn btn-primary header-cta" href="/search/">Find care</a>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+            <Icon name="menu" class="icon icon-md" />
+          </button>
+        </div>
       </div>
+
       <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Mobile">
         {nav.map((item) => (
-          <a href={item.href} aria-current={Astro.url.pathname === item.href || (item.href !== "/" && Astro.url.pathname.startsWith(item.href)) ? "page" : undefined}>
+          <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+            <Icon name={item.icon} class="icon icon-md" />
             {item.label}
           </a>
         ))}
-        <a class="btn btn-primary" style="margin:0.5rem 0.75rem 0" href="/search/">Search now</a>
       </nav>
     </header>
-
-    <script>
-      const btn = document.querySelector<HTMLButtonElement>(".nav-toggle");
-      const nav = document.querySelector<HTMLElement>("#mobile-nav");
-      if (btn && nav) {
-        btn.addEventListener("click", () => {
-          const open = btn.getAttribute("aria-expanded") === "true";
-          btn.setAttribute("aria-expanded", String(!open));
-          btn.setAttribute("aria-label", open ? "Open menu" : "Close menu");
-          nav.toggleAttribute("hidden", open);
-        });
-      }
-    </script>
 
     <main id="main">
       <slot />
@@ -125,17 +123,17 @@ const nav = [
       <div class="container footer-grid">
         <div class="footer-brand">
           <a class="brand" href="/">
-            <span class="brand-mark"><Icon name="paw" class="icon icon-md" /></span>
-            Vetlas
+            <span class="brand-mark"><Icon name="paw" class="icon" /></span>
+            <span class="brand-word">Vetlas</span>
           </a>
           <p>
-            India's veterinary healthcare decision-support platform — find, compare and choose care
-            with attributed, trustworthy data.
+            A calmer way to find veterinary care in India. Discover hospitals, clinics and doctors,
+            compare what matters, and choose with confidence.
           </p>
-          <p class="small">In beta · sample data only · free forever</p>
+          <p class="footer-fineprint">Beta · sample data only · free to use</p>
         </div>
-        <nav class="footer-col" aria-label="Popular specialties">
-          <h2>Popular specialties</h2>
+        <nav class="footer-col" aria-label="Popular specialities">
+          <h2>Specialities</h2>
           <ul>
             {specialties.slice(0, 5).map((s) => (
               <li><a href={`/specialties/${s.slug}/`}>{s.name}</a></li>
@@ -153,19 +151,51 @@ const nav = [
         <nav class="footer-col" aria-label="Vetlas">
           <h2>Vetlas</h2>
           <ul>
+            <li><a href="/search/">Find care</a></li>
+            <li><a href="/costs/">Cost guide</a></li>
+            <li><a href="/methodology/">How data is checked</a></li>
             <li><a href="/about/">About &amp; data policy</a></li>
-            <li><a href="/methodology/">Verification methodology</a></li>
-            <li><a href="/costs/">Treatment cost guide</a></li>
-            <li><a href="/search/">Find a clinic</a></li>
           </ul>
         </nav>
       </div>
       <div class="footer-bottom">
         <div class="container">
-          <p>© {year} Vetlas. Built for India's pets and their people.</p>
+          <p>© {year} Vetlas. Made for India's pets and their people.</p>
           <p>Not a veterinary provider. In an emergency, contact a clinic directly.</p>
         </div>
       </div>
     </footer>
+
+    <nav class="bottom-nav" aria-label="Quick navigation">
+      <a href="/" aria-current={path === "/" ? "page" : undefined}>
+        <Icon name="home" class="icon icon-md" />
+        <span>Home</span>
+      </a>
+      <a href="/search/" aria-current={isCurrent("/search/") ? "page" : undefined}>
+        <Icon name="search" class="icon icon-md" />
+        <span>Search</span>
+      </a>
+      <a href="/specialties/" aria-current={isCurrent("/specialties/") ? "page" : undefined}>
+        <Icon name="stethoscope" class="icon icon-md" />
+        <span>Specialities</span>
+      </a>
+      <a href="/locations/" aria-current={isCurrent("/locations/") ? "page" : undefined}>
+        <Icon name="pin" class="icon icon-md" />
+        <span>Cities</span>
+      </a>
+    </nav>
+
+    <script>
+      const btn = document.querySelector<HTMLButtonElement>(".nav-toggle");
+      const nav = document.querySelector<HTMLElement>("#mobile-nav");
+      if (btn && nav) {
+        btn.addEventListener("click", () => {
+          const open = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", String(!open));
+          btn.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+          nav.toggleAttribute("hidden", open);
+        });
+      }
+    </script>
   </body>
 </html>
