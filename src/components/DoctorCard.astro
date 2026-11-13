@@ -24,9 +24,8 @@ const tone = tones[hash % tones.length];
 ---
 
 <article class="doctor-card" style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
-  <div class={`doctor-avatar doctor-avatar-${tone}`} aria-hidden="true">
-    <span>{initials}</span>
-    <Icon name="stethoscope" class="doctor-avatar-icon" />
+  <div class={`doctor-avatar doctor-avatar-${tone}${doctor.imageUrl ? " doctor-avatar-photo" : ""}`} aria-hidden="true">
+    {doctor.imageUrl ? <img src={doctor.imageUrl} alt="" loading="lazy" decoding="async" /> : <><span>{initials}</span><Icon name="stethoscope" class="doctor-avatar-icon" /></>}
   </div>
 
   <div class="doctor-body">

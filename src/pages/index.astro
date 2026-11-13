@@ -2,86 +2,166 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import UniversalSearch from "../components/UniversalSearch.astro";
-import FacilityVisual from "../components/FacilityVisual.astro";
-import { providers, cityById } from "@data";
+import FacilityCard from "../components/FacilityCard.astro";
+import { providers, specialties, cityById } from "@data";
 
-const featured = providers.filter((p) => p.type === "hospital").sort((a, b) => b.rating - a.rating).slice(0, 3);
-const petTypes = [
-  { label: "Dogs", emoji: "🐶", query: "dog" },
-  { label: "Cats", emoji: "🐱", query: "cat" },
-  { label: "Small Pets", emoji: "🐰", query: "rabbit" },
-  { label: "Birds", emoji: "🦜", query: "bird" },
-];
+const facilities = providers.slice().sort((a, b) => a.name.localeCompare(b.name)).slice(0, 3);
+const emergencyFacilities = providers.filter((provider) => provider.hours.open24).slice(0, 3);
+const discoverySpecialties = specialties.slice(0, 6);
 ---
 
 <BaseLayout
-  title="Vetlas — find veterinary care in India, calmly"
-  description="Discover veterinary hospitals, clinics and doctors across India. Compare locations, specialities, facilities, fees and sample ratings — with every fact clearly labelled."
+  title="Vetlas — find the right veterinary care"
+  description="Discover veterinary clinics, hospitals and specialists across India. Explore facilities, services, doctors and available information before choosing where to go."
 >
-  <section class="home-shell" aria-label="Find veterinary care">
-    <div class="home-hero">
-      <div class="hero-brand">
-        <span class="hero-logo"><Icon name="paw" class="icon icon-lg" /><b>+</b></span>
-        <span><strong>Vetlas</strong><small>by ThatVetGuy</small></span>
+  <div class="home-page">
+    <section class="home-hero" aria-labelledby="home-title">
+      <div class="container home-hero-inner">
+        <div class="home-hero-copy">
+          <p class="eyebrow"><Icon name="paw" class="icon" /> Veterinary care, made easier</p>
+          <h1 id="home-title">Find the right<br /><span>veterinary care.</span></h1>
+          <p class="home-hero-lede">
+            Discover veterinary clinics, hospitals and specialists across India. Explore facilities,
+            services, doctors and available information before choosing where to go.
+          </p>
+          <UniversalSearch variant="hero" id="home-search" />
+          <p class="home-disclaimer"><Icon name="info" class="icon" /> Sample data is clearly labelled while Vetlas is in beta.</p>
+        </div>
+        <div class="home-hero-art" aria-hidden="true">
+          <div class="hero-art-orbit hero-art-orbit-one"></div>
+          <div class="hero-art-orbit hero-art-orbit-two"></div>
+          <div class="hero-art-card">
+            <Icon name="stethoscope" class="icon icon-xl" />
+            <span>Care that starts<br /><b>with confidence.</b></span>
+          </div>
+          <div class="hero-art-paw"><Icon name="paw" class="icon icon-xl" /></div>
+        </div>
       </div>
-      <div class="hero-actions">
-        <button class="location-pill" type="button"><Icon name="pin" class="icon icon-sm" /> Jaipur <span>⌄</span></button>
-        <button class="notification-pill" type="button" aria-label="Notifications"><Icon name="bell" class="icon icon-md" /><i></i></button>
-      </div>
-      <div class="hero-copy">
-        <h1>Find the Best<br /><em>Veterinary Care</em><br />for Your Pet</h1>
-        <p>Hospitals · Clinics · Doctors · Specialists</p>
-      </div>
-      <div class="hero-pets" aria-hidden="true"><span>🐶</span><span>🐱</span></div>
-    </div>
+    </section>
 
-    <div class="home-content">
-      <UniversalSearch variant="hero" />
-      <div class="home-categories">
-        {[
-          ["building", "Hospitals", "/search/?q=hospital"],
-          ["store", "Clinics", "/search/?q=clinic"],
-          ["doctor", "Doctors", "/search/?q=doctor"],
-          ["sparkle", "Specialists", "/specialties/"],
-        ].map(([icon, label, href]) => (
-          <a href={href}><span><Icon name={icon} class="icon icon-lg" /></span><b>{label}</b></a>
-        ))}
-      </div>
+    <div class="container home-main">
+      <section class="discovery-section" aria-labelledby="discover-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Start exploring</p>
+            <h2 id="discover-title">What are you looking for?</h2>
+          </div>
+          <a class="section-link" href="/search/">View all care <Icon name="arrow" class="icon" /></a>
+        </div>
+        <div class="discovery-grid">
+          <a class="discovery-card" href="/search/?q=hospital">
+            <span class="discovery-icon discovery-icon-blue"><Icon name="building" class="icon icon-lg" /></span>
+            <span><b>Veterinary hospitals</b><small>Round-the-clock and specialist care</small></span>
+            <Icon name="arrow" class="icon discovery-arrow" />
+          </a>
+          <a class="discovery-card" href="/search/?q=clinic">
+            <span class="discovery-icon discovery-icon-mint"><Icon name="store" class="icon icon-lg" /></span>
+            <span><b>Veterinary clinics</b><small>Everyday care, close to home</small></span>
+            <Icon name="arrow" class="icon discovery-arrow" />
+          </a>
+          <a class="discovery-card" href="/search/?q=doctor">
+            <span class="discovery-icon discovery-icon-lilac"><Icon name="doctor" class="icon icon-lg" /></span>
+            <span><b>Veterinary doctors</b><small>Explore doctors and their practice</small></span>
+            <Icon name="arrow" class="icon discovery-arrow" />
+          </a>
+          <a class="discovery-card" href="/specialties/">
+            <span class="discovery-icon discovery-icon-sand"><Icon name="stethoscope" class="icon icon-lg" /></span>
+            <span><b>Specialists</b><small>Find care by area of expertise</small></span>
+            <Icon name="arrow" class="icon discovery-arrow" />
+          </a>
+          <a class="discovery-card discovery-card-emergency" href="/search/?q=24x7">
+            <span class="discovery-icon"><Icon name="siren" class="icon icon-lg" /></span>
+            <span><b>Emergency care</b><small>Find facilities listing 24×7 hours</small></span>
+            <Icon name="arrow" class="icon discovery-arrow" />
+          </a>
+        </div>
+      </section>
 
-      <a class="home-emergency" href="/search/?q=24x7">
-        <span class="emergency-icon">🚑</span>
-        <span><strong>Emergency Care?</strong><small>Find nearby 24x7 veterinary hospitals</small></span>
-        <b>Find Now <Icon name="arrow" class="icon icon-sm" /></b>
-      </a>
+      <section class="home-callout emergency-callout" aria-labelledby="emergency-title">
+        <div class="callout-icon"><Icon name="siren" class="icon icon-lg" /></div>
+        <div>
+          <p class="eyebrow">For urgent searches</p>
+          <h2 id="emergency-title">Facilities listing 24×7 hours</h2>
+          <p>Explore the sample directory and confirm availability directly with a facility before travelling.</p>
+        </div>
+        <a class="btn btn-emergency" href="/search/?q=24x7">Find emergency care <Icon name="arrow" class="icon" /></a>
+      </section>
 
-      <div class="home-actions-grid">
-        <a class="home-action specialist-action" href="/specialties/"><Icon name="stethoscope" class="icon icon-xl" /><span><strong>Find a<br />Specialist</strong><small>Expert care for<br />your pet's needs</small></span><i>→</i></a>
-        <a class="home-action cost-action" href="/costs/"><Icon name="wallet" class="icon icon-xl" /><span><strong>Estimate<br />Consultation Cost</strong><small>Plan better,<br />care smarter</small></span><i>→</i></a>
-      </div>
+      <section class="home-section" aria-labelledby="featured-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Explore the directory</p>
+            <h2 id="featured-title">Facilities to explore</h2>
+          </div>
+          <a class="section-link" href="/search/">See all <Icon name="arrow" class="icon" /></a>
+        </div>
+        <p class="section-note">A sample selection from the Vetlas directory — not a paid or quality ranking.</p>
+        <div class="facility-grid home-facility-grid">
+          {facilities.map((provider, index) => <FacilityCard provider={provider} index={index} />)}
+        </div>
+      </section>
 
-      <section class="home-section">
-        <div class="home-section-head"><h2><span>★</span> Top Veterinary Hospitals</h2><a href="/search/">See All →</a></div>
-        <div class="hospital-scroller">
-          {featured.map((provider) => {
+      <section class="home-section" aria-labelledby="specialties-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Browse by need</p>
+            <h2 id="specialties-title">Find a speciality</h2>
+          </div>
+          <a class="section-link" href="/specialties/">All specialities <Icon name="arrow" class="icon" /></a>
+        </div>
+        <div class="specialty-grid">
+          {discoverySpecialties.map((specialty) => (
+            <a class="specialty-tile" href={`/specialties/${specialty.slug}/`}>
+              <span class="specialty-tile-icon"><Icon name={specialty.icon} class="icon icon-md" /></span>
+              <span><b>{specialty.name}</b><small>{specialty.tagline}</small></span>
+              <Icon name="arrow" class="icon" />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="home-section emergency-list-section" aria-labelledby="availability-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Availability information</p>
+            <h2 id="availability-title">24×7 listings</h2>
+          </div>
+          <a class="section-link" href="/search/?q=24x7">View all <Icon name="arrow" class="icon" /></a>
+        </div>
+        <p class="section-note">These facilities list round-the-clock hours in the sample data. Please confirm before visiting.</p>
+        <div class="compact-facility-list">
+          {emergencyFacilities.map((provider) => {
             const city = cityById(provider.cityId);
-            return <a class="hospital-card" href={`/${city?.slug}/${provider.slug}/`}>
-              <div class="hospital-image"><FacilityVisual type={provider.type} seed={provider.slug} /><span>★ {provider.rating.toFixed(1)}</span></div>
-              <strong>{provider.name}</strong>
-              <small><Icon name="pin" class="icon icon-sm" /> {provider.area}, {city?.name}</small>
-              <em><Icon name={provider.hours.open24 ? "clock" : "paw"} class="icon icon-sm" /> {provider.hours.open24 ? "24x7" : "Clinics"} <b>→</b></em>
+            return <a class="compact-facility" href={`/${city?.slug}/${provider.slug}/`}>
+              <span class="compact-facility-icon"><Icon name="building" class="icon icon-md" /></span>
+              <span><b>{provider.name}</b><small>{provider.area} · 24×7 listed · sample</small></span>
+              <Icon name="arrow" class="icon" />
             </a>;
           })}
         </div>
       </section>
 
-      <section class="home-section pet-section">
-        <div class="home-section-head"><h2><span>♣</span> Find by Pet Type</h2></div>
-        <div class="pet-scroller">
-          {petTypes.map((pet) => <a href={`/search/?q=${pet.query}`}><span>{pet.emoji}</span><b>{pet.label} →</b></a>)}
+      <section class="home-trust-grid" aria-labelledby="trust-title">
+        <div>
+          <p class="eyebrow">A clearer way to choose</p>
+          <h2 id="trust-title">Explore the details that matter.</h2>
+          <p>Vetlas brings useful information into one place so you can compare options without confusing advertising or hidden placement.</p>
         </div>
+        <ul class="trust-points">
+          <li><Icon name="building" class="icon" /><span><b>Facility information</b><small>Locations, hours, services and infrastructure.</small></span></li>
+          <li><Icon name="doctor" class="icon" /><span><b>Doctor information</b><small>Practice details and supported specialities where available.</small></span></li>
+          <li><Icon name="badge" class="icon" /><span><b>Clear data labels</b><small>Ratings, fees and reviews are marked as sample or sourced.</small></span></li>
+        </ul>
       </section>
 
-      <a class="home-promise" href="/about/"><span>💙🐾</span><span><strong>Healthy Pets. Happy Lives.</strong><small>Trusted veterinary care, always nearby.</small></span><b>Explore More →</b></a>
+      <section class="home-contribute" aria-labelledby="contribute-title">
+        <div>
+          <p class="eyebrow">Help improve the directory</p>
+          <h2 id="contribute-title">Own a veterinary practice?</h2>
+          <p>Suggest a listing or share updated information so future pet owners can find accurate care details.</p>
+        </div>
+        <a class="btn btn-secondary" href="/about/">Suggest an update <Icon name="arrow" class="icon" /></a>
+      </section>
     </div>
-  </section>
+  </div>
 </BaseLayout>

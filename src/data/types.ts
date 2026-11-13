@@ -78,6 +78,8 @@ export interface Provider {
   about: string;
   verified: boolean;
   dataSource: DataSource;
+  /** Optional future real facility photograph; absent records use the illustrated fallback. */
+  imageUrl?: string;
 }
 
 export interface Doctor {
@@ -103,6 +105,8 @@ export interface Doctor {
   reviewCount: number;
   verified: boolean;
   dataSource: DataSource;
+  /** Optional future real doctor photograph; absent records use the initials fallback. */
+  imageUrl?: string;
 }
 
 export interface Review {

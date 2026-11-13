@@ -24,7 +24,7 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
 
 <article class={`facility-card${featured ? " facility-card-featured" : ""}`} style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
   <a class="facility-media" href={`/${city?.slug}/${provider.slug}/`} tabindex="-1" aria-hidden="true">
-    <FacilityVisual type={provider.type} seed={provider.slug} />
+    <FacilityVisual type={provider.type} seed={provider.slug} imageUrl={provider.imageUrl} />
     <span class="facility-type-pill">
       <Icon name={provider.type === "hospital" ? "building" : "heart"} class="icon" />
       {provider.type === "hospital" ? "Hospital" : "Clinic"}
