@@ -1,0 +1,63 @@
+---
+import Icon from "./Icon.astro";
+import { cities } from "@data";
+
+interface Props {
+  path: string;
+  isCurrent: (href: string) => boolean;
+}
+const { path, isCurrent } = Astro.props;
+---
+
+<nav class="bottom-nav" aria-label="Quick navigation">
+  <a href="/" aria-current={path === "/" ? "page" : undefined}>
+    <Icon name="home" class="icon icon-md" />
+    <span>Home</span>
+  </a>
+  <a href="/search/" aria-current={isCurrent("/search/") ? "page" : undefined}>
+    <Icon name="search" class="icon icon-md" />
+    <span>Search</span>
+  </a>
+  <a href="/specialties/" aria-current={isCurrent("/specialties/") ? "page" : undefined}>
+    <Icon name="stethoscope" class="icon icon-md" />
+    <span>Speciality</span>
+  </a>
+  <a href="/rankings/" aria-current={isCurrent("/rankings/") ? "page" : undefined}>
+    <Icon name="podium" class="icon icon-md" />
+    <span>Rankings</span>
+  </a>
+  <button class="bottom-more" type="button" aria-expanded="false" aria-controls="more-sheet" aria-haspopup="true">
+    <Icon name="dots" class="icon icon-md" />
+    <span>More</span>
+  </button>
+</nav>
+
+<div class="more-sheet" id="more-sheet" hidden>
+  <a href="/locations/"><Icon name="pin" class="icon icon-md" /> Cities <small>all {cities.length} cities</small></a>
+  <a href="/costs/"><Icon name="wallet" class="icon icon-md" /> Cost guide <small>availability varies</small></a>
+  <a href="/methodology/"><Icon name="badge" class="icon icon-md" /> How data is checked <small>1 min</small></a>
+  <a href="/about/"><Icon name="info" class="icon icon-md" /> About &amp; data policy</a>
+</div>
+
+<script>
+  const moreBtn = document.querySelector<HTMLButtonElement>(".bottom-more");
+  const sheet = document.querySelector<HTMLElement>("#more-sheet");
+  if (moreBtn && sheet) {
+    const setOpen = (open: boolean) => {
+      moreBtn.setAttribute("aria-expanded", String(open));
+      sheet.toggleAttribute("hidden", !open);
+    };
+    moreBtn.addEventListener("click", () => {
+      setOpen(sheet.hasAttribute("hidden"));
+    });
+    document.addEventListener("click", (e) => {
+      if (!sheet.hasAttribute("hidden") && e.target instanceof Node && !sheet.contains(e.target) && !moreBtn.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !sheet.hasAttribute("hidden")) {
+        setOpen(false);
+        moreBtn.focus();
+      }
+    });
+  }
+</script>

@@ -1,0 +1,54 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  path: string;
+}
+const { path } = Astro.props;
+
+const nav = [
+  { href: "/search/", label: "Find care" },
+  { href: "/specialties/", label: "Specialities" },
+  { href: "/locations/", label: "Cities" },
+  { href: "/costs/", label: "Cost guide" },
+];
+
+const isCurrent = (href: string) => path === href || path.startsWith(href);
+---
+
+<div class="beta-strip">
+  <div class="container beta-strip-inner">
+    <span class="beta-tag">Indore pilot</span>
+    <p>
+      Public listings only — ratings and fees retain their original source —
+      <a href="/about/">read the data policy</a>.
+    </p>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Vetlas home">
+      <span class="brand-mark"><Icon name="paw" class="icon" /></span>
+      <span class="brand-word">
+        Vetlas
+        <small class="brand-by">by ThatVetGuy</small>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      {nav.map((item) => (
+        <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="header-icon-link" href="/about/" aria-label="About Vetlas and the data policy">
+        <Icon name="info" class="icon icon-md" />
+      </a>
+      <a class="btn btn-primary header-cta" href="/search/">Find care</a>
+    </div>
+  </div>
+</header>

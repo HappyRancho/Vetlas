@@ -2,206 +2,216 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import UniversalSearch from "../components/UniversalSearch.astro";
-import FacilityCard from "../components/FacilityCard.astro";
-import { providers, specialties, cityById, cities } from "@data";
+import FeaturedFacility from "../components/FeaturedFacility.astro";
+import { cities, providers, specialties } from "@data";
 
-const facilities = providers.filter((provider) => provider.imageUrl).slice(0, 3);
-const emergencyFacilities = providers.filter((provider) => provider.hours.open24).slice(0, 3);
-const discoverySpecialties = specialties.slice(0, 6);
-const listedCities = cities.filter((city) => providers.some((provider) => provider.cityId === city.id));
-const petTypes = [
-  { label: "Dogs", value: "dog", icon: "paw" },
-  { label: "Cats", value: "cat", icon: "paw" },
-  { label: "Birds", value: "bird", icon: "bird" },
-  { label: "Rabbits", value: "rabbit", icon: "paw" },
-  { label: "Small pets", value: "hamster", icon: "heart" },
+const chipCities = cities.slice(0, 6);
+
+const discovery = [
+  { href: "/search/?type=hospital", label: "Hospitals", icon: "hospital", sub: `${providers.filter((p) => p.type === "hospital").length} listings` },
+  { href: "/search/?type=clinic", label: "Clinics", icon: "building", sub: `${providers.filter((p) => p.type === "clinic").length} listings` },
+  { href: "/search/?type=doctor", label: "Doctors", icon: "doctor", sub: "Browse by speciality" },
+  { href: "/specialties/", label: "Specialists", icon: "stethoscope", sub: `${specialties.length} areas of care` },
+];
+
+const specSlugs = ["general-practice", "surgery", "dermatology", "orthopedics", "ophthalmology", "dentistry"];
+const stripSpecs = specSlugs
+  .map((slug) => specialties.find((s) => s.slug === slug))
+  .filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+const seenCities = new Set<string>();
+const featured = providers
+  .filter((p) => {
+    if (seenCities.has(p.cityId)) return false;
+    seenCities.add(p.cityId);
+    return true;
+  })
+  .slice(0, 3);
+
+const pets = [
+  { v: "dog", l: "Dogs", icon: "dog" },
+  { v: "cat", l: "Cats", icon: "cat" },
+  { v: "bird", l: "Birds", icon: "bird" },
+  { v: "rabbit", l: "Rabbits", icon: "rabbit" },
+  { v: "hamster", l: "Small pets", icon: "hamster" },
+  { v: "farm", l: "Farm animals", icon: "cow" },
 ];
 ---
 
 <BaseLayout
-  title="Vetlas — find the right veterinary care"
-  description="Discover veterinary clinics, hospitals and specialists across India. Explore facilities, services, doctors and available information before choosing where to go."
+  title="Vetlas — find veterinary care in India, calmly"
+  description="Discover veterinary hospitals, clinics and doctors across India. Compare locations, specialities, facilities, fees and sample ratings — with every fact clearly labelled."
 >
-  <div class="home-page">
-    <section class="home-hero" aria-labelledby="home-title">
-      <div class="container home-hero-inner">
-        <div class="home-hero-copy">
-          <p class="eyebrow"><Icon name="paw" class="icon" /> Veterinary care, made easier</p>
-          <h1 id="home-title">Choose a vet<br /><span>with confidence.</span></h1>
-          <p class="home-hero-lede">
-            Discover veterinary hospitals, clinics and specialists. Explore available services,
-            facilities and public information before visiting.
-          </p>
-          <UniversalSearch variant="hero" id="home-search" />
-          <p class="home-disclaimer"><Icon name="info" class="icon" /> Sample data is clearly labelled while Vetlas is in beta.</p>
+  <div class="container home">
+    <section class="hero" aria-label="Find veterinary care">
+      <div class="hero-copy">
+        <h1 class="hero-title">Choose a vet with confidence.</h1>
+        <p class="hero-sub">
+          Discover veterinary hospitals, clinics and specialists across India.
+        </p>
+
+        <UniversalSearch variant="hero" />
+
+        <div class="city-chips" role="group" aria-label="Filter results by city">
+          <button type="button" class="city-chip" data-city="" data-name="India" aria-pressed="true">
+            <Icon name="pin" class="icon icon-sm" /> All India
+          </button>
+          {chipCities.map((c) => (
+            <button type="button" class="city-chip" data-city={c.slug} data-name={c.name} aria-pressed="false">
+              <Icon name="pin" class="icon icon-sm" /> {c.name}
+            </button>
+          ))}
+          <a class="city-chip-more" href="/locations/">
+            All {cities.length} cities <Icon name="arrow" class="icon icon-sm" />
+          </a>
         </div>
-        <div class="home-hero-art" aria-hidden="true">
-          <div class="hero-art-orbit hero-art-orbit-one"></div>
-          <div class="hero-art-orbit hero-art-orbit-two"></div>
-          <div class="hero-art-card">
-            <Icon name="stethoscope" class="icon icon-xl" />
-            <span>Care that starts<br /><b>with confidence.</b></span>
-          </div>
-          <div class="hero-art-paw"><Icon name="paw" class="icon icon-xl" /></div>
-        </div>
+      </div>
+
+      <div class="hero-media">
+        <figure class="hero-photo">
+          <img
+            src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&h=600&fit=crop&q=72&fm=jpg"
+            srcset="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=480&h=360&fit=crop&q=70&fm=jpg 480w, https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&h=600&fit=crop&q=72&fm=jpg 800w"
+            sizes="(min-width: 58em) 24vw, 45vw"
+            width="800"
+            height="600"
+            alt="A happy beagle looking into the camera"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+        <figure class="hero-photo">
+          <img
+            src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&h=600&fit=crop&q=72&fm=jpg"
+            srcset="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=480&h=360&fit=crop&q=70&fm=jpg 480w, https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&h=600&fit=crop&q=72&fm=jpg 800w"
+            sizes="(min-width: 58em) 24vw, 45vw"
+            width="800"
+            height="600"
+            alt="A ginger cat resting on a wooden floor"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
       </div>
     </section>
 
-    <div class="container home-main">
-      <section class="discovery-section" aria-labelledby="discover-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Start exploring</p>
-            <h2 id="discover-title">What are you looking for?</h2>
-          </div>
-          <a class="section-link" href="/search/">View all care <Icon name="arrow" class="icon" /></a>
-        </div>
-        <div class="discovery-grid">
-          <a class="discovery-card" href="/hospitals/">
-            <span class="discovery-icon discovery-icon-blue"><Icon name="building" class="icon icon-lg" /></span>
-            <span><b>Veterinary hospitals</b><small>Round-the-clock and specialist care</small></span>
-            <Icon name="arrow" class="icon discovery-arrow" />
-          </a>
-          <a class="discovery-card" href="/clinics/">
-            <span class="discovery-icon discovery-icon-mint"><Icon name="store" class="icon icon-lg" /></span>
-            <span><b>Veterinary clinics</b><small>Everyday care, close to home</small></span>
-            <Icon name="arrow" class="icon discovery-arrow" />
-          </a>
-          <a class="discovery-card" href="/doctors/">
-            <span class="discovery-icon discovery-icon-lilac"><Icon name="doctor" class="icon icon-lg" /></span>
-            <span><b>Veterinary doctors</b><small>Explore doctors and their practice</small></span>
-            <Icon name="arrow" class="icon discovery-arrow" />
-          </a>
-          <a class="discovery-card" href="/specialists/">
-            <span class="discovery-icon discovery-icon-sand"><Icon name="stethoscope" class="icon icon-lg" /></span>
-            <span><b>Specialists</b><small>Find care by area of expertise</small></span>
-            <Icon name="arrow" class="icon discovery-arrow" />
-          </a>
-          <a class="discovery-card discovery-card-emergency" href="/emergency/">
-            <span class="discovery-icon"><Icon name="siren" class="icon icon-lg" /></span>
-            <span><b>Emergency care</b><small>Find facilities listing 24×7 hours</small></span>
-            <Icon name="arrow" class="icon discovery-arrow" />
-          </a>
-        </div>
-      </section>
+    <nav class="discover" aria-label="Browse care by type">
+      {discovery.map((d) => (
+        <a class="discover-card" href={d.href}>
+          <span class="discover-icon"><Icon name={d.icon} class="icon icon-lg" /></span>
+          <span class="discover-label">{d.label}</span>
+          <span class="discover-sub">{d.sub}</span>
+        </a>
+      ))}
+    </nav>
 
-      <section class="home-callout emergency-callout" aria-labelledby="emergency-title">
-        <div class="callout-icon"><Icon name="siren" class="icon icon-lg" /></div>
+    <section class="emergency" aria-labelledby="emergency-h">
+      <span class="emergency-icon" aria-hidden="true"><Icon name="siren" class="icon icon-lg" /></span>
+      <div class="emergency-copy">
+        <h2 id="emergency-h">Need emergency veterinary care?</h2>
+        <p>Find facilities advertising emergency and 24×7 services.</p>
+      </div>
+      <a class="emergency-action" href="/search/?q=emergency">
+        Show now <Icon name="arrow" class="icon" />
+      </a>
+    </section>
+
+    <section class="home-section" aria-labelledby="specs-h">
+      <div class="section-head">
         <div>
-          <p class="eyebrow">For urgent searches</p>
-          <h2 id="emergency-title">Facilities listing 24×7 hours</h2>
-          <p>Explore the sample directory and confirm availability directly with a facility before travelling.</p>
+          <p class="section-eyebrow">Speciality discovery</p>
+          <h2 id="specs-h">Popular specialities</h2>
         </div>
-        <a class="btn btn-emergency" href="/search/?q=24x7">Find emergency care <Icon name="arrow" class="icon" /></a>
-      </section>
+        <a class="link-more" href="/specialties/">
+          All {specialties.length} specialities <Icon name="arrow" class="icon" />
+        </a>
+      </div>
+      <div class="spec-strip" role="list">
+        {stripSpecs.map((s) => (
+          <a class="spec-chip" href={`/specialties/${s.slug}/`} role="listitem">
+            <span class="spec-chip-icon"><Icon name={s.icon} class="icon icon-md" /></span>
+            <span class="spec-chip-label">{s.name}</span>
+          </a>
+        ))}
+      </div>
+    </section>
 
-      <section class="home-section" aria-labelledby="featured-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Explore the directory</p>
-            <h2 id="featured-title">Facilities to explore</h2>
-          </div>
-          <a class="section-link" href="/search/">See all <Icon name="arrow" class="icon" /></a>
-        </div>
-        <p class="section-note">A sample selection from the Vetlas directory — not a paid or quality ranking.</p>
-        <div class="facility-grid home-facility-grid">
-          {facilities.map((provider, index) => <FacilityCard provider={provider} index={index} />)}
-        </div>
-      </section>
-
-      <section class="home-section home-city-section" aria-labelledby="cities-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Where to start</p>
-            <h2 id="cities-title">Popular cities</h2>
-          </div>
-          <a class="section-link" href="/locations/">All cities <Icon name="arrow" class="icon" /></a>
-        </div>
-        <div class="home-city-row" aria-label="Cities with listings">
-          {listedCities.map((city) => (
-            <a class="home-city-chip" href={`/${city.slug}/`}><Icon name="pin" class="icon" /> {city.name}</a>
-          ))}
-        </div>
-      </section>
-
-      <section class="home-section" aria-labelledby="specialties-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Browse by need</p>
-            <h2 id="specialties-title">Find a speciality</h2>
-          </div>
-          <a class="section-link" href="/specialties/">All specialities <Icon name="arrow" class="icon" /></a>
-        </div>
-        <div class="specialty-grid">
-          {discoverySpecialties.map((specialty) => (
-            <a class="specialty-tile" href={`/specialties/${specialty.slug}/`}>
-              <span class="specialty-tile-icon"><Icon name={specialty.icon} class="icon icon-md" /></span>
-              <span><b>{specialty.name}</b><small>{specialty.tagline}</small></span>
-              <Icon name="arrow" class="icon" />
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section class="home-section emergency-list-section" aria-labelledby="availability-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Availability information</p>
-            <h2 id="availability-title">24×7 listings</h2>
-          </div>
-          <a class="section-link" href="/search/?q=24x7">View all <Icon name="arrow" class="icon" /></a>
-        </div>
-        <p class="section-note">These facilities list round-the-clock hours or emergency services. Please confirm before visiting.</p>
-        <div class="compact-facility-list">
-          {emergencyFacilities.map((provider) => {
-            const city = cityById(provider.cityId);
-            return <a class="compact-facility" href={`/${city?.slug}/${provider.slug}/`}>
-              <span class="compact-facility-icon"><Icon name="building" class="icon icon-md" /></span>
-              <span><b>{provider.name}</b><small>{provider.area} · 24×7 listed · sample</small></span>
-              <Icon name="arrow" class="icon" />
-            </a>;
-          })}
-        </div>
-      </section>
-
-      <section class="home-section" aria-labelledby="pets-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Care for every companion</p>
-            <h2 id="pets-title">Browse by pet</h2>
-          </div>
-        </div>
-        <div class="pet-type-row">
-          {petTypes.map((pet) => (
-            <a class="pet-type-card" href={`/search/?pet=${pet.value}`}>
-              <span class="pet-type-icon"><Icon name={pet.icon} class="icon icon-md" /></span>
-              <span>{pet.label}</span>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section class="home-trust-grid" aria-labelledby="trust-title">
+    <section class="home-section" aria-labelledby="featured-h">
+      <div class="section-head">
         <div>
-          <p class="eyebrow">A clearer way to choose</p>
-          <h2 id="trust-title">Explore the details that matter.</h2>
-          <p>Vetlas brings useful information into one place so you can compare options without confusing advertising or hidden placement.</p>
+          <p class="section-eyebrow">From the demo dataset</p>
+          <h2 id="featured-h">Featured facilities</h2>
+          <p>Three sample profiles, one from each city — every profile carries its trust labels.</p>
         </div>
-        <ul class="trust-points">
-          <li><Icon name="building" class="icon" /><span><b>Facility information</b><small>Locations, hours, services and infrastructure.</small></span></li>
-          <li><Icon name="doctor" class="icon" /><span><b>Doctor information</b><small>Practice details and supported specialities where available.</small></span></li>
-          <li><Icon name="badge" class="icon" /><span><b>Clear data labels</b><small>Ratings, fees and reviews are marked as sample or sourced.</small></span></li>
-        </ul>
-      </section>
+        <a class="link-more" href="/search/">
+          See all in search <Icon name="arrow" class="icon" />
+        </a>
+      </div>
+      <div class="featured-grid">
+        {featured.map((p) => <FeaturedFacility provider={p} />)}
+      </div>
+    </section>
 
-      <section class="home-contribute" aria-labelledby="contribute-title">
+    <section class="home-section" aria-labelledby="pets-h">
+      <div class="section-head">
         <div>
-          <p class="eyebrow">Help improve the directory</p>
-          <h2 id="contribute-title">Own a veterinary practice?</h2>
-          <p>Suggest a listing or share updated information so future pet owners can find accurate care details.</p>
+          <p class="section-eyebrow">Pet-type discovery</p>
+          <h2 id="pets-h">Browse care by pet</h2>
         </div>
-        <a class="btn btn-secondary" href="/about/">Suggest an update <Icon name="arrow" class="icon" /></a>
-      </section>
-    </div>
+      </div>
+      <div class="pet-grid" role="list">
+        {pets.map((p) => (
+          <a class="pet-card" href={`/search/?pet=${p.v}`} role="listitem">
+            <span class="pet-icon"><Icon name={p.icon} class="icon icon-xl" /></span>
+            <span class="pet-label">{p.l}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="transparency" aria-labelledby="transparency-h">
+      <span class="transparency-mark" aria-hidden="true"><Icon name="shield" class="icon icon-lg" /></span>
+      <h2 id="transparency-h">A little more transparency. A better decision.</h2>
+      <p>
+        Explore facility information, available services and public-source information before visiting.
+        Every number on Vetlas carries a trust label — this prototype runs on clearly-marked sample data.
+      </p>
+      <div class="transparency-actions">
+        <a class="btn btn-primary" href="/methodology/">How the data is checked</a>
+        <a class="btn" href="/search/">Browse all care</a>
+      </div>
+    </section>
   </div>
+
+  <script>
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".city-chip"));
+    const KEY = "vetlas-city";
+
+    function apply(citySlug: string) {
+      chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.city === citySlug)));
+      try {
+        localStorage.setItem(KEY, citySlug);
+      } catch {
+        /* storage unavailable */
+      }
+      document.querySelectorAll<HTMLAnchorElement>(".discover-card").forEach((a) => {
+        const href = new URL(a.href);
+        if (citySlug) href.searchParams.set("city", citySlug);
+        else href.searchParams.delete("city");
+        a.setAttribute("href", `${href.pathname}${href.search}`);
+      });
+    }
+
+    chips.forEach((c) => {
+      c.addEventListener("click", () => apply(c.dataset.city ?? ""));
+    });
+
+    try {
+      const saved = localStorage.getItem(KEY);
+      const chip = saved ? chips.find((c) => c.dataset.city === saved) : undefined;
+      if (saved && chip) apply(saved);
+    } catch {
+      /* storage unavailable */
+    }
+  </script>
 </BaseLayout>

@@ -81,8 +81,9 @@ const rows = [...providerRows, ...doctorRows];
 const availableProviders = providerRows.filter((row) => row.provider);
 const serviceOptions = [...new Set(availableProviders.flatMap((row) => row.provider.services))]
   .sort((a, b) => a.localeCompare(b));
-const petOptions = [...new Set(rows.flatMap((row) => row.species.split(" ").filter(Boolean)))]
-  .sort((a, b) => a.localeCompare(b));
+const petOptions = [
+  ...new Set([...rows.flatMap((row) => row.species.split(" ").filter(Boolean)), "farm"]),
+].sort((a, b) => a.localeCompare(b));
 const localityOptions = [...new Set(availableProviders.map((row) => row.locality))]
   .sort((a, b) => a.localeCompare(b));
 const stateOptions = [...new Set(availableProviders.map((row) => row.state))]

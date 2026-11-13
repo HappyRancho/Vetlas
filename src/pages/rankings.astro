@@ -1,0 +1,166 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import { cities, providers, doctors, feeINR, cityById, specialtyById } from "@data";
+
+interface RankRow {
+  name: string;
+  initials: string;
+  tag: string;
+  citySlug: string;
+  href: string;
+  fee: number;
+  reviews: number;
+}
+
+const initialsOf = (name: string) =>
+  name
+    .replace(/^Dr\.?\s+/i, "")
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+const ranked: RankRow[] = [
+  ...providers.map((p) => {
+    const city = cityById(p.cityId);
+    return {
+      name: p.name,
+      initials: initialsOf(p.name),
+      tag: p.type === "hospital" ? "Hospital" : "Clinic",
+      citySlug: city?.slug ?? "",
+      href: `/${city?.slug}/${p.slug}/`,
+      fee: p.fees?.opd ?? 0,
+      reviews: p.reviewCount ?? 0,
+    };
+  }),
+  ...doctors.map((d) => {
+    const city = cityById(d.cityId);
+    return {
+      name: `Dr. ${d.name}`,
+      initials: initialsOf(d.name),
+      tag: specialtyById(d.primarySpecialtyId)?.name ?? "Veterinarian",
+      citySlug: city?.slug ?? "",
+      href: `/${city?.slug}/${d.slug}/`,
+      fee: d.consultationFee,
+      reviews: d.reviewCount,
+    };
+  }),
+].sort((a, b) => b.reviews - a.reviews);
+
+const maxReviews = ranked[0]?.reviews ?? 1;
+const chipCities = cities.slice(0, 6);
+---
+
+<BaseLayout
+  title="Sample rankings — Vetlas"
+  description="Demo rankings of veterinary hospitals, clinics and doctors by owner review count. Sample data, never sorted by payment."
+  noindex={true}
+>
+  <section class="dash container rank-page" aria-label="Sample rankings">
+    <header class="page-head">
+      <p class="value-pill">
+        <Icon name="podium" class="icon icon-md" />
+        Sample rankings
+      </p>
+      <h1>Top by owner reviews</h1>
+      <p class="page-sub">
+        Ranked by review count only — never by payment. Every fee and review on Vetlas carries a
+        trust label. Names and numbers are fictional sample data.
+      </p>
+    </header>
+
+    <div class="city-chips" role="group" aria-label="Filter results by city">
+      <button type="button" class="city-chip" data-city="" data-name="India" aria-pressed="true">
+        <Icon name="pin" class="icon icon-sm" /> All India
+      </button>
+      {chipCities.map((c) => (
+        <button type="button" class="city-chip" data-city={c.slug} data-name={c.name} aria-pressed="false">
+          <Icon name="pin" class="icon icon-sm" /> {c.name}
+        </button>
+      ))}
+      <a class="city-chip-more" href="/locations/">
+        All {cities.length} cities <Icon name="arrow" class="icon icon-sm" />
+      </a>
+    </div>
+
+    <section class="rank-card" aria-labelledby="rank-h">
+      <div class="rank-head">
+        <h2 id="rank-h">Ranked list</h2>
+        <a href="/search/">See all in search</a>
+      </div>
+      <p class="rank-sub">
+        <span id="rank-city">India</span> · owner reviews only, ranked by count — never by payment.
+        Sample data.
+      </p>
+      <div class="rank-list">
+        {ranked.map((r) => (
+          <a class="rank-row" href={r.href} data-city={r.citySlug}>
+            <span class="rank-avatar" aria-hidden="true">{r.initials}</span>
+            <span class="rank-main">
+              <span class="rank-name">
+                <b>{r.name}</b>
+                <span class="rank-tag">{r.tag}</span>
+              </span>
+              <span class="rank-meter">
+                <span class="rank-bar" aria-hidden="true">
+                  <span class="rank-fill" style={`--w: ${Math.round((r.reviews / maxReviews) * 100)}%`} />
+                </span>
+                <span class="rank-count">{r.reviews}</span>
+              </span>
+            </span>
+            <span class="rank-side">
+              <span class="rank-fee">{feeINR(r.fee)}</span>
+              <Icon name="arrow" class="icon rank-arrow" />
+            </span>
+          </a>
+        ))}
+      </div>
+      <p class="rank-foot">
+        Every fee, rating and review carries a trust label —
+        <a href="/methodology/">see how the data is checked</a>.
+      </p>
+    </section>
+
+    <p class="page-foot-note">
+      This page is a demo of how rankings could work — it is excluded from search engines while the
+      data is sample-only. Prefer real browsing?
+      <a href="/search/">Open search</a>.
+    </p>
+  </section>
+
+  <script>
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".city-chip"));
+    const rows = Array.from(document.querySelectorAll<HTMLAnchorElement>(".rank-row"));
+    const rankCity = document.getElementById("rank-city");
+    const KEY = "vetlas-city";
+
+    function apply(citySlug: string, cityName: string) {
+      chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.city === citySlug)));
+      rows.forEach((r) => {
+        r.hidden = citySlug !== "" && r.dataset.city !== citySlug;
+        r.classList.remove("is-first");
+      });
+      rows.find((r) => !r.hidden)?.classList.add("is-first");
+      if (rankCity) rankCity.textContent = cityName;
+      try {
+        localStorage.setItem(KEY, citySlug);
+      } catch {
+        /* storage unavailable */
+      }
+    }
+
+    chips.forEach((c) => {
+      c.addEventListener("click", () => apply(c.dataset.city ?? "", c.dataset.name ?? "India"));
+    });
+
+    try {
+      const saved = localStorage.getItem(KEY);
+      const chip = saved ? chips.find((c) => c.dataset.city === saved) : undefined;
+      if (saved && chip) apply(saved, chip.dataset.name ?? "India");
+    } catch {
+      /* storage unavailable */
+    }
+  </script>
+</BaseLayout>

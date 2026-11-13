@@ -1,0 +1,48 @@
+---
+import Icon from "./Icon.astro";
+import FacilityVisual from "./FacilityVisual.astro";
+import { cityById, specialtyById, type Provider } from "@data";
+
+/**
+ * Homepage featured card (spec §10): photo-or-labelled-illustration, name,
+ * location, facility type, supported services and profile navigation only.
+ * Ratings/review counts are omitted on purpose — the demo dataset has no
+ * genuine ones (spec §10 "only if genuine").
+ */
+interface Props {
+  provider: Provider;
+}
+const { provider } = Astro.props;
+const city = cityById(provider.cityId);
+const typeLabel = provider.type === "hospital" ? "Hospital" : "Clinic";
+const services = provider.specialtyIds
+  .map((id) => specialtyById(id)?.name)
+  .filter((n): n is string => Boolean(n))
+  .slice(0, 1)
+  .concat(provider.services.filter((s) => !/24\/7|emergency/i.test(s)).slice(0, 2));
+---
+
+<article class="ffac">
+  <a class="ffac-media" href={`/${city?.slug}/${provider.slug}/`} tabindex="-1" aria-hidden="true">
+    <FacilityVisual type={provider.type} seed={provider.slug} />
+  </a>
+  <div class="ffac-body">
+    <p class="ffac-type">
+      <Icon name={provider.type === "hospital" ? "hospital" : "building"} class="icon" />
+      {typeLabel}
+      <span class="meta-sep" aria-hidden="true">·</span>
+      <Icon name="pin" class="icon" />
+      {city?.name}
+    </p>
+    <h3 class="ffac-name">
+      <a href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
+    </h3>
+    <p class="ffac-area">{provider.area}</p>
+    <ul class="ffac-tags" aria-label="Supported services">
+      {services.map((s) => <li>{s}</li>)}
+    </ul>
+    <a class="ffac-link" href={`/${city?.slug}/${provider.slug}/`}>
+      View profile <Icon name="arrow" class="icon" />
+    </a>
+  </div>
+</article>

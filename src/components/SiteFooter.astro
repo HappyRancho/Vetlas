@@ -1,0 +1,54 @@
+---
+import Icon from "./Icon.astro";
+import { cities, specialties } from "@data";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <span class="brand-mark"><Icon name="paw" class="icon" /></span>
+        <span class="brand-word">Vetlas</span>
+      </a>
+      <p>
+        A calmer way to find veterinary care in India. Discover hospitals, clinics and doctors,
+        compare what matters, and choose with confidence.
+      </p>
+      <p class="footer-fineprint">Indore pilot · public sources · free to use</p>
+    </div>
+    <nav class="footer-col" aria-label="Popular specialities">
+      <h2>Specialities</h2>
+      <ul>
+        {specialties.slice(0, 5).map((s) => (
+          <li><a href={`/specialties/${s.slug}/`}>{s.name}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Cities">
+      <h2>Cities</h2>
+      <ul>
+        {cities.slice(0, 6).map((c) => (
+          <li><a href={`/${c.slug}/`}>Vets in {c.name}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Vetlas">
+      <h2>Vetlas</h2>
+      <ul>
+        <li><a href="/search/">Find care</a></li>
+        <li><a href="/rankings/">Sample rankings</a></li>
+        <li><a href="/costs/">Cost guide</a></li>
+        <li><a href="/methodology/">How data is checked</a></li>
+        <li><a href="/about/">About &amp; data policy</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>© {year} Vetlas. Made for India's pets and their people.</p>
+      <p>Not a veterinary provider. In an emergency, contact a clinic directly.</p>
+    </div>
+  </div>
+</footer>
