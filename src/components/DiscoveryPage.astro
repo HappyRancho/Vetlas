@@ -1,0 +1,314 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "./Icon.astro";
+import UniversalSearch from "./UniversalSearch.astro";
+import FacilityCard from "./FacilityCard.astro";
+import DoctorCard from "./DoctorCard.astro";
+import TrustBadge from "./TrustBadge.astro";
+import { cityById, specialtyById, cities, specialties, type Provider, type Doctor } from "@data";
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  mode?: "all" | "hospitals" | "clinics" | "doctors" | "specialists" | "emergency";
+  providers?: Provider[];
+  doctors?: Doctor[];
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  mode = "all",
+  providers = [],
+  doctors = [],
+} = Astro.props;
+
+const providerRows = providers.map((provider) => {
+  const city = cityById(provider.cityId);
+  const specialtiesForProvider = provider.specialtyIds.map((id) => specialtyById(id)).filter(Boolean);
+  return {
+    kind: "facility" as const,
+    id: provider.id,
+    name: provider.name,
+    type: provider.type,
+    city: city?.slug ?? "",
+    state: city?.state ?? "",
+    locality: provider.area,
+    specialty: provider.specialtyIds.join(" "),
+    services: provider.services.join(" ").toLowerCase(),
+    species: provider.species.join(" ").toLowerCase(),
+    emergency: provider.hours.open24 || provider.services.some((service) => /emergency/i.test(service)),
+    rating: provider.rating ?? 0,
+    fee: provider.fees?.opd ?? 0,
+    search: [
+      provider.name, provider.type, provider.area, provider.address, city?.name, city?.state,
+      ...specialtiesForProvider.map((specialty) => `${specialty?.name} ${specialty?.slug}`),
+      ...provider.services, ...provider.species,
+    ].filter(Boolean).join(" ").toLowerCase(),
+    provider,
+  };
+});
+
+const doctorRows = doctors.map((doctor) => {
+  const city = cityById(doctor.cityId);
+  const specialtyIds = [doctor.primarySpecialtyId, ...doctor.secondarySpecialtyIds];
+  return {
+    kind: "doctor" as const,
+    id: doctor.id,
+    name: `Dr. ${doctor.name}`,
+    type: "doctor",
+    city: city?.slug ?? "",
+    state: city?.state ?? "",
+    locality: "",
+    specialty: specialtyIds.join(" "),
+    services: "",
+    species: doctor.species.join(" ").toLowerCase(),
+    emergency: specialtyIds.includes("emergency"),
+    rating: doctor.rating ?? 0,
+    fee: doctor.consultationFee ?? 0,
+    search: [
+      doctor.name, "doctor veterinarian specialist", city?.name, city?.state,
+      ...specialtyIds.map((id) => specialtyById(id)?.name),
+      ...doctor.degrees, ...doctor.species, ...doctor.languages,
+    ].filter(Boolean).join(" ").toLowerCase(),
+    doctor,
+  };
+});
+
+const rows = [...providerRows, ...doctorRows];
+const availableProviders = providerRows.filter((row) => row.provider);
+const serviceOptions = [...new Set(availableProviders.flatMap((row) => row.provider.services))]
+  .sort((a, b) => a.localeCompare(b));
+const petOptions = [...new Set(rows.flatMap((row) => row.species.split(" ").filter(Boolean)))]
+  .sort((a, b) => a.localeCompare(b));
+const localityOptions = [...new Set(availableProviders.map((row) => row.locality))]
+  .sort((a, b) => a.localeCompare(b));
+const stateOptions = [...new Set(availableProviders.map((row) => row.state))]
+  .sort((a, b) => a.localeCompare(b));
+const isNoindex = true;
+---
+
+<BaseLayout title={`${title} — Vetlas`} description={description} noindex={isNoindex}>
+  <div class="container discovery-page">
+    <header class="discovery-hero">
+      <p class="eyebrow"><Icon name="search" class="icon icon-md" /> {eyebrow}</p>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <UniversalSearch variant="page" />
+    </header>
+
+    <section class="discovery-shell" aria-label="Filter results">
+      <div class="discovery-filter-head">
+        <div>
+          <p class="section-eyebrow">Refine your search</p>
+          <p class="discovery-result-count" id="discovery-count" role="status" aria-live="polite"></p>
+        </div>
+        <button class="filter-drawer-toggle" type="button" aria-expanded="false" aria-controls="discovery-filters">
+          <Icon name="sliders" class="icon" /> Filters
+        </button>
+      </div>
+      <div class="discovery-filters" id="discovery-filters">
+        <div class="discovery-filter-grid">
+          <label class="filter-select">
+            <span>State</span>
+            <select id="filter-state"><option value="">All states</option>{stateOptions.map((state) => <option value={state}>{state}</option>)}</select>
+          </label>
+          <label class="filter-select">
+            <span>City</span>
+            <select id="filter-city"><option value="">All cities</option>{cities.filter((city) => rows.some((row) => row.city === city.slug)).map((city) => <option value={city.slug}>{city.name}</option>)}</select>
+          </label>
+          <label class="filter-select">
+            <span>Locality</span>
+            <select id="filter-locality"><option value="">All localities</option>{localityOptions.map((locality) => <option value={locality}>{locality}</option>)}</select>
+          </label>
+          <label class="filter-select">
+            <span>Speciality</span>
+            <select id="filter-specialty"><option value="">All specialities</option>{specialties.filter((specialty) => rows.some((row) => row.specialty.split(" ").includes(specialty.id))).map((specialty) => <option value={specialty.id}>{specialty.name}</option>)}</select>
+          </label>
+          <label class="filter-select">
+            <span>Service</span>
+            <select id="filter-service"><option value="">All services</option>{serviceOptions.map((service) => <option value={service.toLowerCase()}>{service}</option>)}</select>
+          </label>
+          <label class="filter-select">
+            <span>Pet type</span>
+            <select id="filter-pet"><option value="">All pets</option>{petOptions.map((pet) => <option value={pet}>{pet[0].toUpperCase() + pet.slice(1)}</option>)}</select>
+          </label>
+          <label class="filter-select">
+            <span>Sort</span>
+            <select id="filter-sort">
+              <option value="relevance">Best match</option>
+              <option value="rating">Rating (when listed)</option>
+              <option value="name">Name A–Z</option>
+              <option value="fee-asc">Consultation: low to high</option>
+            </select>
+          </label>
+        </div>
+        <div class="discovery-filter-actions">
+          <label class="chip chip-toggle"><input id="filter-emergency" type="checkbox" /> Emergency / 24×7</label>
+          <button class="text-button" id="discovery-clear" type="button">Reset all</button>
+        </div>
+      </div>
+      <div class="active-filter-chips" id="active-filter-chips" aria-label="Active filters"></div>
+    </section>
+
+    <ol class="discovery-results" id="discovery-results">
+      {rows.map((row, index) => (
+        <li
+          class="discovery-result"
+          data-kind={row.kind}
+          data-type={row.type}
+          data-city={row.city}
+          data-state={row.state}
+          data-locality={row.locality}
+          data-specialty={row.specialty}
+          data-services={row.services}
+          data-species={row.species}
+          data-emergency={row.emergency ? "true" : "false"}
+          data-rating={row.rating}
+          data-fee={row.fee}
+          data-name={row.name.toLowerCase()}
+          data-search={row.search}
+        >
+          {row.kind === "facility"
+            ? <FacilityCard provider={row.provider} index={index} />
+            : <DoctorCard doctor={row.doctor} index={index} />}
+        </li>
+      ))}
+    </ol>
+
+    <div class="empty-state" id="discovery-empty" hidden>
+      <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
+      <h2>No matching care found</h2>
+      <p>Try a broader city, speciality or service, or clear one of the active filters.</p>
+      <button class="btn btn-primary" id="discovery-empty-clear" type="button">Clear filters</button>
+    </div>
+
+    <p class="discovery-trust-note"><TrustBadge level="sample" label="Data status varies by listing" /> Sample and public records remain clearly labelled. Confirm details directly before visiting.</p>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ mode, initialCount: rows.length }}>
+  const resultList = document.getElementById("discovery-results");
+  if (resultList) {
+    const items = Array.from(resultList.querySelectorAll("li.discovery-result"));
+    const count = document.getElementById("discovery-count");
+    const empty = document.getElementById("discovery-empty");
+    const clear = document.getElementById("discovery-clear");
+    const emptyClear = document.getElementById("discovery-empty-clear");
+    const chips = document.getElementById("active-filter-chips");
+    const drawer = document.getElementById("discovery-filters");
+    const drawerToggle = document.querySelector(".filter-drawer-toggle");
+    const controls = {
+      state: document.getElementById("filter-state"),
+      city: document.getElementById("filter-city"),
+      locality: document.getElementById("filter-locality"),
+      specialty: document.getElementById("filter-specialty"),
+      service: document.getElementById("filter-service"),
+      pet: document.getElementById("filter-pet"),
+      sort: document.getElementById("filter-sort"),
+      emergency: document.getElementById("filter-emergency"),
+    };
+    const params = new URLSearchParams(window.location.search);
+    let query = (params.get("q") || "").trim().toLowerCase();
+    const normalize = (value) => value.toLowerCase().replace(/×/g, "x").replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\s+/g, " ").trim();
+    const tokenQuery = normalize(query).split(" ").filter((token) => !["a", "an", "and", "at", "for", "in", "me", "near", "of", "the", "to", "with", "vet", "vets", "veterinary"].includes(token));
+    const selected = (key) => controls[key]?.value || "";
+    const labelFor = (key, value) => controls[key]?.selectedOptions?.[0]?.textContent || value;
+
+    if (params.get("state")) controls.state.value = params.get("state");
+    if (params.get("city")) controls.city.value = params.get("city");
+    if (params.get("locality")) controls.locality.value = params.get("locality");
+    if (params.get("specialty")) controls.specialty.value = params.get("specialty");
+    if (params.get("service")) controls.service.value = params.get("service");
+    if (params.get("pet")) controls.pet.value = params.get("pet");
+    if (params.get("sort")) controls.sort.value = params.get("sort");
+    if (params.get("emergency") === "1") controls.emergency.checked = true;
+
+    const fixedMode = mode === "hospitals" ? "hospital" : mode === "clinics" ? "clinic" : mode === "doctors" ? "doctor" : (params.get("type") || "");
+    function updateUrl() {
+      const next = new URLSearchParams();
+      if (query) next.set("q", query);
+      if (fixedMode) next.set("type", fixedMode);
+      Object.entries(controls).forEach(([key, control]) => {
+        if (key === "emergency" ? control.checked : control.value) next.set(key, key === "emergency" ? "1" : control.value);
+      });
+      history.replaceState(null, "", next.toString() ? `?${next}` : window.location.pathname);
+    }
+    function renderChips() {
+      chips.innerHTML = "";
+      [["state", "State"], ["city", "City"], ["locality", "Locality"], ["specialty", "Speciality"], ["service", "Service"], ["pet", "Pet"]].forEach(([key, label]) => {
+        const value = selected(key);
+        if (!value) return;
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip active-filter-chip";
+        chip.textContent = `${label}: ${labelFor(key, value)} ×`;
+        chip.addEventListener("click", () => { controls[key].value = ""; apply(); });
+        chips.appendChild(chip);
+      });
+      if (controls.emergency.checked) {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip active-filter-chip";
+        chip.textContent = "Emergency / 24×7 ×";
+        chip.addEventListener("click", () => { controls.emergency.checked = false; apply(); });
+        chips.appendChild(chip);
+      }
+    }
+    function apply() {
+      const searchTokens = tokenQuery;
+      let shown = 0;
+      items.forEach((item) => {
+        const data = item.dataset;
+        let visible = !fixedMode || data.type === fixedMode;
+        if (visible && mode === "specialists") visible = data.specialty.split(" ").some((id) => id !== "general");
+        if (visible && controls.state.value) visible = data.state === controls.state.value;
+        if (visible && controls.city.value) visible = data.city === controls.city.value;
+        if (visible && controls.locality.value) visible = data.locality === controls.locality.value;
+        if (visible && controls.specialty.value) visible = data.specialty.split(" ").includes(controls.specialty.value);
+        if (visible && controls.service.value) visible = data.services.includes(controls.service.value);
+        if (visible && controls.pet.value) visible = data.species.split(" ").includes(controls.pet.value);
+        if (visible && controls.emergency.checked) visible = data.emergency === "true";
+        if (visible && searchTokens.length) visible = searchTokens.every((token) => data.search.includes(token));
+        item.hidden = !visible;
+        if (visible) shown++;
+      });
+      const comparator = controls.sort.value === "rating"
+        ? (a, b) => Number(b.dataset.rating) - Number(a.dataset.rating)
+        : controls.sort.value === "name"
+          ? (a, b) => a.dataset.name.localeCompare(b.dataset.name)
+          : controls.sort.value === "fee-asc"
+            ? (a, b) => Number(a.dataset.fee) - Number(b.dataset.fee)
+            : (a, b) => Number(b.dataset.rating) - Number(a.dataset.rating);
+      items.filter((item) => !item.hidden).sort(comparator).forEach((item) => resultList.appendChild(item));
+      count.innerHTML = `<b>${shown}</b> ${shown === 1 ? "result" : "results"}${initialCount ? ` from ${initialCount} listings` : ""}`;
+      empty.hidden = shown > 0;
+      resultList.hidden = shown === 0;
+      renderChips();
+      updateUrl();
+    }
+    Object.values(controls).forEach((control) => control.addEventListener("change", apply));
+    clear.addEventListener("click", () => {
+      Object.values(controls).forEach((control) => {
+        if (control.type === "checkbox") control.checked = false;
+        else control.value = "";
+      });
+      controls.sort.value = "relevance";
+      apply();
+    });
+    emptyClear.addEventListener("click", () => clear.click());
+    drawerToggle.addEventListener("click", () => {
+      const open = drawer.classList.toggle("is-open");
+      drawerToggle.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("usearch:input", (event) => {
+      const value = event.detail?.value ?? "";
+      query = value.trim().toLowerCase();
+      tokenQuery.splice(0, tokenQuery.length, ...normalize(value).split(" ").filter((token) => token && !["a", "an", "and", "at", "for", "in", "me", "near", "of", "the", "to", "with", "vet", "vets", "veterinary"].includes(token)));
+      apply();
+    });
+    apply();
+  }
+</script>

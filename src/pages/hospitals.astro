@@ -1,0 +1,12 @@
+---
+import DiscoveryPage from "../components/DiscoveryPage.astro";
+import { providers } from "@data";
+---
+
+<DiscoveryPage
+  title="Veterinary hospitals"
+  eyebrow="Hospitals"
+  description="Explore hospitals with specialist services, diagnostics or published emergency information."
+  mode="hospitals"
+  providers={providers.filter((provider) => provider.type === "hospital")}
+/>

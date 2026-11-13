@@ -3,11 +3,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import UniversalSearch from "../components/UniversalSearch.astro";
 import FacilityCard from "../components/FacilityCard.astro";
-import { providers, specialties, cityById } from "@data";
+import { providers, specialties, cityById, cities } from "@data";
 
 const facilities = providers.filter((provider) => provider.imageUrl).slice(0, 3);
 const emergencyFacilities = providers.filter((provider) => provider.hours.open24).slice(0, 3);
 const discoverySpecialties = specialties.slice(0, 6);
+const listedCities = cities.filter((city) => providers.some((provider) => provider.cityId === city.id));
+const petTypes = [
+  { label: "Dogs", value: "dog", icon: "paw" },
+  { label: "Cats", value: "cat", icon: "paw" },
+  { label: "Birds", value: "bird", icon: "bird" },
+  { label: "Rabbits", value: "rabbit", icon: "paw" },
+  { label: "Small pets", value: "hamster", icon: "heart" },
+];
 ---
 
 <BaseLayout
@@ -19,10 +27,10 @@ const discoverySpecialties = specialties.slice(0, 6);
       <div class="container home-hero-inner">
         <div class="home-hero-copy">
           <p class="eyebrow"><Icon name="paw" class="icon" /> Veterinary care, made easier</p>
-          <h1 id="home-title">Find the right<br /><span>veterinary care.</span></h1>
+          <h1 id="home-title">Choose a vet<br /><span>with confidence.</span></h1>
           <p class="home-hero-lede">
-            Discover veterinary clinics, hospitals and specialists across India. Explore facilities,
-            services, doctors and available information before choosing where to go.
+            Discover veterinary hospitals, clinics and specialists. Explore available services,
+            facilities and public information before visiting.
           </p>
           <UniversalSearch variant="hero" id="home-search" />
           <p class="home-disclaimer"><Icon name="info" class="icon" /> Sample data is clearly labelled while Vetlas is in beta.</p>
@@ -49,27 +57,27 @@ const discoverySpecialties = specialties.slice(0, 6);
           <a class="section-link" href="/search/">View all care <Icon name="arrow" class="icon" /></a>
         </div>
         <div class="discovery-grid">
-          <a class="discovery-card" href="/search/?q=hospital">
+          <a class="discovery-card" href="/hospitals/">
             <span class="discovery-icon discovery-icon-blue"><Icon name="building" class="icon icon-lg" /></span>
             <span><b>Veterinary hospitals</b><small>Round-the-clock and specialist care</small></span>
             <Icon name="arrow" class="icon discovery-arrow" />
           </a>
-          <a class="discovery-card" href="/search/?q=clinic">
+          <a class="discovery-card" href="/clinics/">
             <span class="discovery-icon discovery-icon-mint"><Icon name="store" class="icon icon-lg" /></span>
             <span><b>Veterinary clinics</b><small>Everyday care, close to home</small></span>
             <Icon name="arrow" class="icon discovery-arrow" />
           </a>
-          <a class="discovery-card" href="/search/?q=doctor">
+          <a class="discovery-card" href="/doctors/">
             <span class="discovery-icon discovery-icon-lilac"><Icon name="doctor" class="icon icon-lg" /></span>
             <span><b>Veterinary doctors</b><small>Explore doctors and their practice</small></span>
             <Icon name="arrow" class="icon discovery-arrow" />
           </a>
-          <a class="discovery-card" href="/specialties/">
+          <a class="discovery-card" href="/specialists/">
             <span class="discovery-icon discovery-icon-sand"><Icon name="stethoscope" class="icon icon-lg" /></span>
             <span><b>Specialists</b><small>Find care by area of expertise</small></span>
             <Icon name="arrow" class="icon discovery-arrow" />
           </a>
-          <a class="discovery-card discovery-card-emergency" href="/search/?q=24x7">
+          <a class="discovery-card discovery-card-emergency" href="/emergency/">
             <span class="discovery-icon"><Icon name="siren" class="icon icon-lg" /></span>
             <span><b>Emergency care</b><small>Find facilities listing 24×7 hours</small></span>
             <Icon name="arrow" class="icon discovery-arrow" />
@@ -101,6 +109,21 @@ const discoverySpecialties = specialties.slice(0, 6);
         </div>
       </section>
 
+      <section class="home-section home-city-section" aria-labelledby="cities-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Where to start</p>
+            <h2 id="cities-title">Popular cities</h2>
+          </div>
+          <a class="section-link" href="/locations/">All cities <Icon name="arrow" class="icon" /></a>
+        </div>
+        <div class="home-city-row" aria-label="Cities with listings">
+          {listedCities.map((city) => (
+            <a class="home-city-chip" href={`/${city.slug}/`}><Icon name="pin" class="icon" /> {city.name}</a>
+          ))}
+        </div>
+      </section>
+
       <section class="home-section" aria-labelledby="specialties-title">
         <div class="section-heading">
           <div>
@@ -128,7 +151,7 @@ const discoverySpecialties = specialties.slice(0, 6);
           </div>
           <a class="section-link" href="/search/?q=24x7">View all <Icon name="arrow" class="icon" /></a>
         </div>
-        <p class="section-note">These facilities list round-the-clock hours in the sample data. Please confirm before visiting.</p>
+        <p class="section-note">These facilities list round-the-clock hours or emergency services. Please confirm before visiting.</p>
         <div class="compact-facility-list">
           {emergencyFacilities.map((provider) => {
             const city = cityById(provider.cityId);
@@ -138,6 +161,23 @@ const discoverySpecialties = specialties.slice(0, 6);
               <Icon name="arrow" class="icon" />
             </a>;
           })}
+        </div>
+      </section>
+
+      <section class="home-section" aria-labelledby="pets-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Care for every companion</p>
+            <h2 id="pets-title">Browse by pet</h2>
+          </div>
+        </div>
+        <div class="pet-type-row">
+          {petTypes.map((pet) => (
+            <a class="pet-type-card" href={`/search/?pet=${pet.value}`}>
+              <span class="pet-type-icon"><Icon name={pet.icon} class="icon icon-md" /></span>
+              <span>{pet.label}</span>
+            </a>
+          ))}
         </div>
       </section>
 

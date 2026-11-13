@@ -1,0 +1,12 @@
+---
+import DiscoveryPage from "../components/DiscoveryPage.astro";
+import { providers } from "@data";
+---
+
+<DiscoveryPage
+  title="Veterinary clinics"
+  eyebrow="Clinics"
+  description="Find local veterinary clinics and compare the services they publicly list."
+  mode="clinics"
+  providers={providers.filter((provider) => provider.type === "clinic")}
+/>

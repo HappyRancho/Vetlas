@@ -1,0 +1,12 @@
+---
+import DiscoveryPage from "../components/DiscoveryPage.astro";
+import { providers } from "@data";
+---
+
+<DiscoveryPage
+  title="Emergency veterinary care"
+  eyebrow="Emergency care"
+  description="Find facilities advertising emergency services or round-the-clock hours. Availability is not live; confirm before travelling."
+  mode="emergency"
+  providers={providers.filter((provider) => provider.hours.open24 || provider.services.some((service) => /emergency/i.test(service)))}
+/>

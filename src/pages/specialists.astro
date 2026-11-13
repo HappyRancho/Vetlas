@@ -1,0 +1,13 @@
+---
+import DiscoveryPage from "../components/DiscoveryPage.astro";
+import { providers, doctors } from "@data";
+---
+
+<DiscoveryPage
+  title="Veterinary specialists"
+  eyebrow="Specialists"
+  description="Explore specialist care across the specialities represented in the Vetlas directory."
+  mode="specialists"
+  providers={providers}
+  doctors={doctors}
+/>

@@ -1,0 +1,12 @@
+---
+import DiscoveryPage from "../components/DiscoveryPage.astro";
+import { doctors } from "@data";
+---
+
+<DiscoveryPage
+  title="Veterinary doctors"
+  eyebrow="Doctors"
+  description="Browse veterinary doctors by city, speciality and the facilities associated with their records."
+  mode="doctors"
+  doctors={doctors}
+/>
