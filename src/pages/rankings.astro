@@ -31,8 +31,8 @@ const ranked: RankRow[] = [
       tag: p.type === "hospital" ? "Hospital" : "Clinic",
       citySlug: city?.slug ?? "",
       href: `/${city?.slug}/${p.slug}/`,
-      fee: p.fees.opd,
-      reviews: p.reviewCount,
+      fee: p.fees?.opd ?? 0,
+      reviews: p.reviewCount ?? 0,
     };
   }),
   ...doctors.map((d) => {
