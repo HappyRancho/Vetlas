@@ -305,9 +305,9 @@ const jsonLd = isFacility
             <div class="source-links mt-1">
               <strong>Sources</strong>
               <div class="list-inline mt-05">
-                {facility!.sources.googleMaps && <a class="chip chip-sm" href={facility!.sources.googleMaps} target="_blank" rel="noreferrer">Google Maps</a>}
-                {facility!.sources.justdial && <a class="chip chip-sm" href={facility!.sources.justdial} target="_blank" rel="noreferrer">Justdial</a>}
-                {facility!.sources.instagram && <a class="chip chip-sm" href={facility!.sources.instagram} target="_blank" rel="noreferrer">Instagram</a>}
+                {facility!.sources?.googleMaps && <a class="chip chip-sm" href={facility!.sources.googleMaps} target="_blank" rel="noreferrer">Google Maps</a>}
+                {facility!.sources?.justdial && <a class="chip chip-sm" href={facility!.sources.justdial} target="_blank" rel="noreferrer">Justdial</a>}
+                {facility!.sources?.instagram && <a class="chip chip-sm" href={facility!.sources.instagram} target="_blank" rel="noreferrer">Instagram</a>}
               </div>
             </div>
           )}

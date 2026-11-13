@@ -9,7 +9,7 @@
  * We never present sample data as verified real-world information.
  */
 
-export type DataSource = "public" | "provider-confirmed" | "user-submitted";
+export type DataSource = "sample" | "public" | "provider-confirmed" | "user-submitted";
 
 /**
  * Per-fact trust levels, mirroring db/schema.sql (Cloudflare D1 v0.3).
@@ -76,15 +76,18 @@ export interface Provider {
   about: string;
   verified: boolean;
   dataSource: DataSource;
-  coordinates?: { lat: number; lng: number };
+  /** Optional future real facility photograph; absent records use the illustrated fallback. */
   imageUrl?: string;
-  sources: {
+  imageCredit?: string;
+  imageSourceUrl?: string;
+  coordinates?: { lat: number; lng: number };
+  sources?: {
     googleMaps?: string;
     justdial?: string;
     instagram?: string;
     website?: string;
   };
-  lastChecked: string;
+  lastChecked?: string;
   reviewSummary?: {
     analysed: number;
     sentiment: "positive" | "mixed" | "negative" | "insufficient";
@@ -118,6 +121,10 @@ export interface Doctor {
   reviewCount: number;
   verified: boolean;
   dataSource: DataSource;
+  /** Optional future real doctor photograph; absent records use the initials fallback. */
+  imageUrl?: string;
+  imageCredit?: string;
+  imageSourceUrl?: string;
 }
 
 export interface Review {

@@ -3,17 +3,33 @@
  * Illustration-only media for facility cards.
  * A decorative placeholder is used until a facility photograph is verified.
  */
+import Icon from "./Icon.astro";
+
 interface Props {
   type: "hospital" | "clinic";
   seed?: string;
   large?: boolean;
+  imageUrl?: string;
+  imageCredit?: string;
 }
-const { type, seed = "vetlas", large = false } = Astro.props;
+const { type, seed = "vetlas", large = false, imageUrl, imageCredit } = Astro.props;
 const tones = ["sky", "mint", "lilac", "sand"];
 const hash = [...seed].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
 const tone = tones[hash % tones.length];
 ---
 
+{imageUrl ? (
+  <div class={`fac-visual fac-visual-photo${large ? " fac-visual-lg" : ""}`}>
+    <img src={imageUrl} alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling?.removeAttribute('hidden')" />
+    <span class="fac-photo-label" title={imageCredit ?? "Openly licensed illustrative image"}>
+      Illustrative photo
+    </span>
+    <div class="fac-photo-fallback" hidden aria-hidden="true">
+      <Icon name={type === "hospital" ? "building" : "heart"} class="icon icon-xl" />
+      <span>Illustration fallback</span>
+    </div>
+  </div>
+) : (
 <div class={`fac-visual fac-visual-${tone}${large ? " fac-visual-lg" : ""}`} aria-hidden="true">
   <svg class="fac-visual-art" viewBox="0 0 400 170" fill="none" preserveAspectRatio="xMidYMax slice">
     <circle class="fv-sun" cx="330" cy="34" r="26" />
@@ -39,3 +55,4 @@ const tone = tones[hash % tones.length];
   </svg>
   <span class="fac-visual-label">Photo not verified</span>
 </div>
+)}

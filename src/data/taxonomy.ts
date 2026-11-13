@@ -2,6 +2,16 @@ import type { City, Specialty } from "./types";
 
 export const cities: City[] = [
   { id: "indore", slug: "indore", name: "Indore", state: "Madhya Pradesh", isMetro: true },
+  { id: "bengaluru", slug: "bengaluru", name: "Bengaluru", state: "Karnataka", isMetro: true },
+  { id: "mumbai", slug: "mumbai", name: "Mumbai", state: "Maharashtra", isMetro: true },
+  { id: "delhi", slug: "delhi", name: "Delhi NCR", state: "Delhi", isMetro: true },
+  { id: "hyderabad", slug: "hyderabad", name: "Hyderabad", state: "Telangana", isMetro: true },
+  { id: "chennai", slug: "chennai", name: "Chennai", state: "Tamil Nadu", isMetro: true },
+  { id: "pune", slug: "pune", name: "Pune", state: "Maharashtra", isMetro: true },
+  { id: "kolkata", slug: "kolkata", name: "Kolkata", state: "West Bengal", isMetro: true },
+  { id: "jaipur", slug: "jaipur", name: "Jaipur", state: "Rajasthan", isMetro: false },
+  { id: "ahmedabad", slug: "ahmedabad", name: "Ahmedabad", state: "Gujarat", isMetro: false },
+  { id: "kochi", slug: "kochi", name: "Kochi", state: "Kerala", isMetro: false },
 ];
 
 export const specialties: Specialty[] = [

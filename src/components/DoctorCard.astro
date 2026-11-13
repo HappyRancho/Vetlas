@@ -24,10 +24,19 @@ const tone = tones[hash % tones.length];
 ---
 
 <article class="doctor-card" style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
-  <div class={`doctor-avatar doctor-avatar-${tone}`} aria-hidden="true">
-    <span>{initials}</span>
-    <Icon name="stethoscope" class="doctor-avatar-icon" />
+  <div class={`doctor-avatar doctor-avatar-${tone}${doctor.imageUrl ? " doctor-avatar-photo" : ""}`} aria-hidden="true">
+    {doctor.imageUrl ? (
+      <>
+        <img src={doctor.imageUrl} alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling?.removeAttribute('hidden')" />
+        <span hidden>{initials}</span>
+      </>
+    ) : <><span>{initials}</span><Icon name="stethoscope" class="doctor-avatar-icon" /></>}
   </div>
+  {doctor.imageSourceUrl && (
+    <p class="doctor-photo-credit">
+      Illustrative photo · <a href={doctor.imageSourceUrl} target="_blank" rel="noreferrer">source</a>
+    </p>
+  )}
 
   <div class="doctor-body">
     <div class="doctor-top">

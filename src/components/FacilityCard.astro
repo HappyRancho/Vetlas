@@ -24,7 +24,12 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
 
 <article class={`facility-card${featured ? " facility-card-featured" : ""}`} style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
   <a class="facility-media" href={`/${city?.slug}/${provider.slug}/`} tabindex="-1" aria-hidden="true">
-    <FacilityVisual type={provider.type} seed={provider.slug} />
+    <FacilityVisual
+      type={provider.type}
+      seed={provider.slug}
+      imageUrl={provider.imageUrl}
+      imageCredit={provider.imageCredit}
+    />
     <span class="facility-type-pill">
       <Icon name={provider.type === "hospital" ? "building" : "heart"} class="icon" />
       {provider.type === "hospital" ? "Hospital" : "Clinic"}
@@ -34,6 +39,11 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
       {provider.hours.open24 ? "24×7 listed" : "Hours not verified"}
     </span>
   </a>
+  {provider.imageSourceUrl && (
+    <p class="facility-photo-credit">
+      Illustrative photo · <a href={provider.imageSourceUrl} target="_blank" rel="noreferrer">source</a>
+    </p>
+  )}
 
   <div class="facility-body">
     <div class="facility-top">
