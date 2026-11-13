@@ -45,8 +45,8 @@ const rows: Row[] = [
         ...specs.map((s) => s?.slug).filter(Boolean),
       ].join(" "),
       species: p.species.join(" "),
-      fee: p.fees.opd,
-      rating: p.rating,
+      fee: p.fees?.opd ?? 0,
+      rating: p.rating ?? 0,
       blob: [
         p.name, p.area, city.name, city.slug, p.type, p.type === "hospital" ? "hospital" : "clinic",
         ...specs.map((s) => `${s?.name} ${s?.slug}`),
@@ -132,7 +132,7 @@ const rows: Row[] = [
             <span>Sort</span>
             <select id="f-sort">
               <option value="relevance">Best match</option>
-              <option value="rating">Top rated (sample)</option>
+              <option value="rating">Top rated</option>
               <option value="fee-asc">Fee: low to high</option>
               <option value="fee-desc">Fee: high to low</option>
               <option value="name">Name A–Z</option>
@@ -155,10 +155,10 @@ const rows: Row[] = [
 
       <div class="search-toolbar">
         <p class="result-count" id="result-count" role="status" aria-live="polite">
-          <span id="result-count-text">Showing <b>{rows.length}</b> of <b>{rows.length}</b> sample listings</span>
+          <span id="result-count-text">Showing <b>{rows.length}</b> of <b>{rows.length}</b> public listings</span>
         </p>
         <div class="search-toolbar-actions">
-          <TrustBadge level="sample" />
+          <TrustBadge level="public" label="Public source" />
           <button type="button" class="text-button" id="clear-filters">Clear all</button>
         </div>
       </div>
@@ -350,7 +350,7 @@ const rows: Row[] = [
         const visible = rows.filter((r) => !r.hidden).sort(comparator);
         visible.forEach((r) => list.appendChild(r));
 
-        count.innerHTML = `Showing <b>${shown}</b> of <b>${total}</b> sample listings`;
+        count.innerHTML = `Showing <b>${shown}</b> of <b>${total}</b> public listings`;
         empty.hidden = shown > 0;
         list.hidden = shown === 0;
         detectIntent();

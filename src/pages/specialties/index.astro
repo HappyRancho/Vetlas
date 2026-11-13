@@ -25,7 +25,7 @@ const withCount = specialties.map((specialty) => ({
         Not sure who to see? Each speciality explains what it covers and lists the hospitals,
         clinics and doctors who practise it. Start broad, then narrow by city.
       </p>
-      <div class="mt-75"><TrustBadge level="sample" label="Sample listings" /></div>
+      <div class="mt-75"><TrustBadge level="public" label="Public listings" /></div>
     </header>
 
     <ul class="specialty-grid mt-2 pb-1">
@@ -35,7 +35,7 @@ const withCount = specialties.map((specialty) => ({
             <span class="specialty-icon"><Icon name={specialty.icon} class="icon icon-md" /></span>
             <span class="specialty-copy">
               <b>{specialty.name}</b>
-              <span>{specialty.tagline} · {count} sample listings</span>
+              <span>{specialty.tagline} · {count} public listings</span>
             </span>
             <Icon name="arrow" class="icon specialty-arrow" />
           </a>

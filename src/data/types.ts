@@ -9,7 +9,7 @@
  * We never present sample data as verified real-world information.
  */
 
-export type DataSource = "sample" | "community" | "verified";
+export type DataSource = "sample" | "public" | "provider-confirmed" | "user-submitted";
 
 /**
  * Per-fact trust levels, mirroring db/schema.sql (Cloudflare D1 v0.3).
@@ -62,19 +62,17 @@ export interface Provider {
   cityId: string;
   area: string;
   address: string;
-  phone: string;
-  /** 24-hour clock, e.g. { open: "09:00", close: "20:30" }; open24 true means round the clock */
-  hours: { open24: boolean; open?: string; close?: string };
+  phone?: string;
+  hours: { open24?: boolean; open?: string; close?: string };
   specialtyIds: string[];
   /** Animal species this provider treats (sample labels for the demo dataset) */
   species: string[];
   services: string[];
   amenities: string[];
-  fees: ConsultationFee;
-  /** Average rating out of 5; sample-data ratings are illustrative only */
-  rating: number;
-  reviewCount: number;
-  establishedYear: number;
+  fees?: ConsultationFee;
+  rating?: number;
+  reviewCount?: number;
+  establishedYear?: number;
   about: string;
   verified: boolean;
   dataSource: DataSource;
@@ -82,6 +80,22 @@ export interface Provider {
   imageUrl?: string;
   imageCredit?: string;
   imageSourceUrl?: string;
+  coordinates?: { lat: number; lng: number };
+  sources?: {
+    googleMaps?: string;
+    justdial?: string;
+    instagram?: string;
+    website?: string;
+  };
+  lastChecked?: string;
+  reviewSummary?: {
+    analysed: number;
+    sentiment: "positive" | "mixed" | "negative" | "insufficient";
+    positiveThemes: string[];
+    negativeThemes: string[];
+    mixedThemes?: string[];
+    mostRecentReview?: string;
+  };
 }
 
 export interface Doctor {

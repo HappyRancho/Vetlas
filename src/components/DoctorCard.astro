@@ -40,8 +40,8 @@ const tone = tones[hash % tones.length];
 
   <div class="doctor-body">
     <div class="doctor-top">
-      <TrustBadge level={doctor.verified ? "verified" : "sample"} label={doctor.verified ? undefined : "Sample"} />
-      <span class="rating-pill" title="Illustrative sample rating and review count">
+      <TrustBadge level={doctor.verified ? "verified" : "public"} label={doctor.verified ? undefined : "Public source"} />
+      <span class="rating-pill" title="Rating from a public listing">
         <Icon name="sparkle" class="icon" />
         {doctor.rating.toFixed(1)}
         <small>{doctor.reviewCount} reviews</small>
@@ -69,7 +69,7 @@ const tone = tones[hash % tones.length];
     <div class="doctor-footer">
       <div class="doctor-fee">
         <b>{feeINR(doctor.consultationFee)}</b>
-        <span>consultation · sample</span>
+        <span>consultation · public listing</span>
       </div>
       <a class="doctor-action" href={`/${city?.slug}/${doctor.slug}/`}>
         View profile <Icon name="arrow" class="icon" />

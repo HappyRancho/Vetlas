@@ -1,6 +1,7 @@
 import type { City, Specialty } from "./types";
 
 export const cities: City[] = [
+  { id: "indore", slug: "indore", name: "Indore", state: "Madhya Pradesh", isMetro: true },
   { id: "bengaluru", slug: "bengaluru", name: "Bengaluru", state: "Karnataka", isMetro: true },
   { id: "mumbai", slug: "mumbai", name: "Mumbai", state: "Maharashtra", isMetro: true },
   { id: "delhi", slug: "delhi", name: "Delhi NCR", state: "Delhi", isMetro: true },

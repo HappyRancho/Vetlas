@@ -1,8 +1,7 @@
 ---
 /**
  * Illustration-only media for facility cards.
- * Vetlas has no verified facility photographs in the sample dataset, so we
- * never imply a photo: this is a clearly-labelled, decorative illustration.
+ * A decorative placeholder is used until a facility photograph is verified.
  */
 import Icon from "./Icon.astro";
 
@@ -54,6 +53,6 @@ const tone = tones[hash % tones.length];
     <circle class="fv-paw-dot" cx="310" cy="104" r="5" />
     <circle class="fv-paw-dot" cx="326" cy="108" r="5" />
   </svg>
-  <span class="fac-visual-label">Illustration</span>
+  <span class="fac-visual-label">Photo not verified</span>
 </div>
 )}

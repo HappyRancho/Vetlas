@@ -42,14 +42,15 @@ const city = cityById(doc.cityId)!;
 const profileReviews: Review[] = facility ? providerReviews(facility.slug) : doctorReviews(vet!.slug);
 const themes = deriveReviewThemes(profileReviews);
 const topThemes = themes.filter((t) => t.reviewCount >= 1);
-const feeTrust = toBadge(facility ? facility.fees.trustLevel : "sample");
+const sourceReviewSummary = facility?.reviewSummary;
+const feeTrust = toBadge(facility?.fees?.trustLevel);
 const isFacility = kind === "facility";
 
 const title = isFacility
   ? `${facility!.name} — ${facility!.area}, ${city.name}`
   : `Dr. ${vet!.name} — ${specialtyById(vet!.primarySpecialtyId)?.name}, ${city.name}`;
 const description = isFacility
-  ? `${facility!.name} is a ${facility!.type} in ${facility!.area}, ${city.name}. OPD consultation from ${feeINR(facility!.fees.opd)}. ${facility!.specialtyIds.map((s) => specialtyById(s)?.name).join(", ")}.`
+  ? `${facility!.name} is a ${facility!.type} in ${facility!.area}, ${city.name}. ${facility!.specialtyIds.map((s) => specialtyById(s)?.name).join(", ")}.`
   : `Dr. ${vet!.name} is a ${specialtyById(vet!.primarySpecialtyId)?.name} vet in ${city.name} with ${vet!.experienceYears} years of experience. Consultation fee ${feeINR(vet!.consultationFee)}.`;
 
 const noindex = true; // sample dataset gate (spec §6)
@@ -67,8 +68,8 @@ const jsonLd = isFacility
         addressRegion: city.state,
         addressCountry: "IN",
       },
-      openingHours: facility!.hours.open24 ? "Mo-Su 00:00-24:00" : `Mo-Su ${facility!.hours.open}-${facility!.hours.close}`,
-      priceRange: `${feeINR(facility!.fees.opd)}+`,
+      ...(facility!.hours.open24 ? { openingHours: "Mo-Su 00:00-24:00" } : {}),
+      ...(facility!.fees ? { priceRange: `${feeINR(facility!.fees.opd)}+` } : {}),
     }
   : {
       "@context": "https://schema.org",
@@ -112,7 +113,7 @@ const jsonLd = isFacility
                       <Icon name="pin" class="icon icon-inline" />
                       {facility!.area}, {city.name}
                     </span>
-                    <span class="dot">Est. {facility!.establishedYear}</span>
+                    {facility!.establishedYear && <span class="dot">Est. {facility!.establishedYear}</span>}
                   </>
                 ) : (
                   <>
@@ -128,10 +129,10 @@ const jsonLd = isFacility
                   : vet!.degrees.join(" · ")}
               </p>
               <div class="profile-tags">
-                <TrustBadge level="sample" />
+                <TrustBadge level="public" label="Public source" />
                 <span class="chip chip-sm">
                   {isFacility
-                    ? facility!.hours.open24 ? "Open 24×7" : `${facility!.hours.open}–${facility!.hours.close}`
+                    ? facility!.hours.open24 ? "24×7 listed — verify" : "Hours not verified"
                     : `Speaks: ${vet!.languages.join(", ")}`}
                 </span>
               </div>
@@ -146,12 +147,19 @@ const jsonLd = isFacility
                   <li class="chip">“{t.theme}”</li>
                 ))}
               </ul>
+            ) : sourceReviewSummary && (sourceReviewSummary.positiveThemes.length > 0 || sourceReviewSummary.negativeThemes.length > 0) ? (
+              <div class="stack">
+                <p class="soft small"><strong>Source-reported themes</strong> — not independently sampled by Vetlas.</p>
+                {sourceReviewSummary.positiveThemes.length > 0 && <p class="small"><strong>Often positive:</strong> {sourceReviewSummary.positiveThemes.join(", ")}.</p>}
+                {sourceReviewSummary.negativeThemes.length > 0 && <p class="small"><strong>Concerns reported:</strong> {sourceReviewSummary.negativeThemes.join(", ")}.</p>}
+                {sourceReviewSummary.mixedThemes && sourceReviewSummary.mixedThemes.length > 0 && <p class="small"><strong>Mixed:</strong> {sourceReviewSummary.mixedThemes.join(", ")}.</p>}
+              </div>
             ) : (
-              <p class="soft small">Not enough sample reviews yet to surface themes.</p>
+              <p class="soft small">No review themes have been independently analysed yet.</p>
             )}
             <p class="muted small themes-footnote">
-              {(isFacility ? facility!.reviewCount : vet!.reviewCount)} sample reviews ·
-              sample rating {(isFacility ? facility!.rating : vet!.rating).toFixed(1)}/5
+              {isFacility ? (facility!.reviewCount ? `${facility!.reviewCount} public reviews listed` : "Review count not verified") : `${vet!.reviewCount} public reviews`} ·
+              {isFacility ? (facility!.rating ? `public rating ${facility!.rating.toFixed(1)}/5` : "rating not verified") : `public rating ${vet!.rating.toFixed(1)}/5`}
             </p>
           </div>
         </div>
@@ -160,16 +168,16 @@ const jsonLd = isFacility
       <div class="profile-actions">
         <span class="fee-pill">
           <Icon name="wallet" class="icon icon-md" />
-          {isFacility ? `OPD ${feeINR(facility!.fees.opd)}` : `Consultation ${feeINR(vet!.consultationFee)}`}
+          {isFacility ? (facility!.fees ? `OPD ${feeINR(facility!.fees.opd)}` : "Fee not verified") : `Consultation ${feeINR(vet!.consultationFee)}`}
         </span>
-        <TrustBadge level={feeTrust} label={`Fee: ${trustLabels[facility?.fees.trustLevel ?? "sample"]}`} />
-        {isFacility && (
-          <a class="btn btn-primary" href={`tel:${facility!.phone.replace(/\s/g, "")}`}>
+        {isFacility && facility!.fees && <TrustBadge level={feeTrust} label={`Fee: ${trustLabels[facility!.fees.trustLevel]}`} />}
+        {isFacility && facility!.phone && (
+          <a class="btn btn-primary" href={`tel:${facility!.phone!.replace(/\s/g, "")}`}>
             <Icon name="phone" class="icon icon-md" /> {facility!.phone}
           </a>
         )}
         {!isFacility && doctorsProviders(vet!).map((p) => (
-          <a class="btn btn-secondary" href={`tel:${p.phone.replace(/\s/g, "")}`}>
+          p.phone && <a class="btn btn-secondary" href={`tel:${p.phone.replace(/\s/g, "")}`}>
             <Icon name="phone" class="icon icon-md" /> Book via {p.name}
           </a>
         ))}
@@ -232,7 +240,7 @@ const jsonLd = isFacility
         <section class="panel panel-follow animate-fade-up" style="animation-delay:180ms">
           <div class="panel-head">
             <h2>Reviews</h2>
-            <p class="small muted">Illustrative sample reviews</p>
+            <p class="small muted">No review text is reproduced; themes appear only after analysis.</p>
           </div>
           {topThemes.length > 0 && (
             <div class="theme-strip">
@@ -277,9 +285,9 @@ const jsonLd = isFacility
             {isFacility ? (
               <>
                 <div><dt>Address</dt><dd class="soft fw-medium">{facility!.address}, {city.name}</dd></div>
-                <div><dt>Timings</dt><dd>{facility!.hours.open24 ? "24 hours, 7 days" : `Daily ${facility!.hours.open}–${facility!.hours.close}`}</dd></div>
-                <div><dt>Phone</dt><dd><a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a></dd></div>
-                <div><dt>Amenities</dt><dd class="soft fw-medium">{facility!.amenities.join(", ")}</dd></div>
+                <div><dt>Timings</dt><dd>{facility!.hours.open24 ? "24×7 listed — verify directly" : facility!.hours.open && facility!.hours.close ? `Daily ${facility!.hours.open}–${facility!.hours.close}` : "Not verified"}</dd></div>
+                <div><dt>Phone</dt><dd>{facility!.phone ? <a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a> : "Not verified"}</dd></div>
+                <div><dt>Facilities</dt><dd class="soft fw-medium">{facility!.amenities.length ? facility!.amenities.join(", ") : "Not verified"}</dd></div>
               </>
             ) : (
               <>
@@ -290,9 +298,19 @@ const jsonLd = isFacility
             )}
           </dl>
           <p class="notice-box">
-            This is a <strong>sample profile</strong>. Always confirm timings, fees and availability
-            by phone before visiting.
+            Public listing data, last checked {facility?.lastChecked ?? "not available"}. Vetlas does
+            not independently verify medical quality; confirm timings, fees and availability before visiting.
           </p>
+          {isFacility && (
+            <div class="source-links mt-1">
+              <strong>Sources</strong>
+              <div class="list-inline mt-05">
+                {facility!.sources?.googleMaps && <a class="chip chip-sm" href={facility!.sources.googleMaps} target="_blank" rel="noreferrer">Google Maps</a>}
+                {facility!.sources?.justdial && <a class="chip chip-sm" href={facility!.sources.justdial} target="_blank" rel="noreferrer">Justdial</a>}
+                {facility!.sources?.instagram && <a class="chip chip-sm" href={facility!.sources.instagram} target="_blank" rel="noreferrer">Instagram</a>}
+              </div>
+            </div>
+          )}
         </div>
       </aside>
     </div>
