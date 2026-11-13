@@ -45,6 +45,7 @@ const topThemes = themes.filter((t) => t.reviewCount >= 1);
 const sourceReviewSummary = facility?.reviewSummary;
 const feeTrust = toBadge(facility?.fees?.trustLevel);
 const isFacility = kind === "facility";
+const doctorInitials = vet?.name.split(" ").map((part) => part[0]).slice(0, 2).join("");
 
 const title = isFacility
   ? `${facility!.name} — ${facility!.area}, ${city.name}`
@@ -94,7 +95,24 @@ const jsonLd = isFacility
     </a>
 
     <header class="card profile-header mt-1">
-      {isFacility && <FacilityVisual type={facility!.type} seed={facility!.slug} large />}
+      {isFacility && (
+        <FacilityVisual
+          type={facility!.type}
+          seed={facility!.slug}
+          large
+          imageUrl={facility!.imageUrl}
+          imageCredit={facility!.imageCredit}
+        />
+      )}
+      {!isFacility && (
+        <div class="profile-doctor-photo">
+          {vet!.imageUrl ? (
+            <img src={vet!.imageUrl} alt={`Illustrative photo for Dr. ${vet!.name}`} loading="eager" decoding="async" />
+          ) : (
+            <span>{doctorInitials}</span>
+          )}
+        </div>
+      )}
       <div class={`profile-band ${isFacility ? "teal" : "coral"}`}>
         <div class="top">
           <div class="profile-id">
@@ -288,6 +306,9 @@ const jsonLd = isFacility
                 <div><dt>Timings</dt><dd>{facility!.hours.open24 ? "24×7 listed — verify directly" : facility!.hours.open && facility!.hours.close ? `Daily ${facility!.hours.open}–${facility!.hours.close}` : "Not verified"}</dd></div>
                 <div><dt>Phone</dt><dd>{facility!.phone ? <a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a> : "Not verified"}</dd></div>
                 <div><dt>Facilities</dt><dd class="soft fw-medium">{facility!.amenities.length ? facility!.amenities.join(", ") : "Not verified"}</dd></div>
+                {facility!.coordinates && (
+                  <div><dt>Directions</dt><dd><a href={`https://www.google.com/maps/dir/?api=1&destination=${facility!.coordinates.lat},${facility!.coordinates.lng}`} target="_blank" rel="noreferrer">Open in Google Maps</a></dd></div>
+                )}
               </>
             ) : (
               <>
@@ -311,6 +332,9 @@ const jsonLd = isFacility
               </div>
             </div>
           )}
+          <a class="report-link mt-1" href={`mailto:hello@thatvetguy.net?subject=Report incorrect Vetlas listing: ${encodeURIComponent(doc.name)}`}>
+            Report incorrect information
+          </a>
         </div>
       </aside>
     </div>
