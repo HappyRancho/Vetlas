@@ -22,13 +22,13 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
 >
   <div class="usearch-field">
     <Icon name="search" class="icon icon-md usearch-icon" />
-    <label class="visually-hidden" for={uid}>Search by city, speciality, hospital, clinic or doctor</label>
+    <label class="visually-hidden" for={uid}>Search city, clinic, doctor or speciality</label>
     <input
       id={uid}
       type="search"
       name="q"
       value={initialQuery}
-      placeholder="City, speciality, hospital, clinic or doctor…"
+      placeholder="Search city, clinic, doctor or speciality..."
       autocomplete="off"
       enterkeyhint="search"
       role="combobox"
@@ -40,14 +40,27 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
     <button class="usearch-clear" type="button" aria-label="Clear search" hidden>
       <Icon name="x" class="icon icon-md" />
     </button>
+    {variant === "hero" && (
+      <a
+        class="usearch-filter"
+        data-usearch-filter
+        href="/search/"
+        aria-label="Open search with city, type, speciality and sort filters"
+      >
+        <Icon name="sliders" class="icon icon-md" />
+      </a>
+    )}
     <button class="btn btn-primary usearch-submit" type="submit">
       {variant === "hero" ? (
         <>
-          <Icon name="sliders" class="icon icon-md" />
+          <Icon name="arrow" class="icon icon-md" />
           <span class="visually-hidden">Search</span>
         </>
       ) : (
-        <span>Search</span>
+        <>
+          <span>Search</span>
+          <Icon name="arrow" class="icon icon-md usearch-submit-arrow" />
+        </>
       )}
     </button>
   </div>
@@ -232,8 +245,16 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
       option.scrollIntoView({ block: "nearest" });
     }
 
+    const filterLink = form.querySelector<HTMLAnchorElement>("[data-usearch-filter]");
+    function syncFilter() {
+      if (!filterLink) return;
+      const v = input.value.trim();
+      filterLink.href = v ? `/search/?q=${encodeURIComponent(v)}` : "/search/";
+    }
+
     function emit() {
       document.dispatchEvent(new CustomEvent("usearch:input", { detail: { value: input.value, form } }));
+      syncFilter();
     }
 
     input.addEventListener("focus", () => draw(input.value));
@@ -285,5 +306,6 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
     const urlQuery = new URLSearchParams(window.location.search).get("q");
     if (!input.value && urlQuery) input.value = urlQuery;
     updateClear();
+    syncFilter();
   });
 </script>

@@ -2,8 +2,9 @@
 import "../styles/global.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/inter";
-import Icon from "../components/Icon.astro";
-import { cities, specialties } from "@data";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import BottomNav from "../components/BottomNav.astro";
 
 interface Props {
   title: string;
@@ -15,16 +16,7 @@ interface Props {
 const { title, description, noindex = false, canonical } = Astro.props;
 const siteUrl = Astro.site ?? Astro.url;
 const canonicalUrl = canonical ? new URL(canonical, siteUrl) : Astro.url;
-const year = new Date().getFullYear();
 const path = Astro.url.pathname;
-
-const nav = [
-  { href: "/search/", label: "Find care", icon: "search" },
-  { href: "/specialties/", label: "Specialities", icon: "stethoscope" },
-  { href: "/locations/", label: "Cities", icon: "pin" },
-  { href: "/about/", label: "About", icon: "info" },
-  { href: "/costs/", label: "Cost guide", icon: "wallet" },
-];
 
 const isCurrent = (href: string) =>
   href === "/" ? path === "/" : path === href || path.startsWith(href);
@@ -36,7 +28,7 @@ const isCurrent = (href: string) =>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#f7f8f6" />
+    <meta name="theme-color" content="#f7faf8" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
@@ -69,138 +61,14 @@ const isCurrent = (href: string) =>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="beta-strip">
-      <div class="container beta-strip-inner">
-        <span class="beta-tag">Indore pilot</span>
-        <p>
-          Public listings only — ratings and fees retain their original source —
-          <a href="/about/">read the data policy</a>.
-        </p>
-      </div>
-    </div>
-
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="/" aria-label="Vetlas home">
-          <span class="brand-mark"><Icon name="paw" class="icon" /></span>
-          <span class="brand-word">Vetlas</span>
-        </a>
-
-        <nav class="site-nav" aria-label="Primary">
-          {nav.slice(0, 4).map((item) => (
-            <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <div class="header-actions">
-          <a class="header-icon-link" href="/about/" aria-label="About Vetlas and the data policy">
-            <Icon name="info" class="icon icon-md" />
-          </a>
-          <a class="btn btn-primary header-cta" href="/search/">Find care</a>
-        </div>
-      </div>
-
-    </header>
+    <SiteHeader path={path} />
 
     <main id="main">
       <slot />
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <div class="footer-brand">
-          <a class="brand" href="/">
-            <span class="brand-mark"><Icon name="paw" class="icon" /></span>
-            <span class="brand-word">Vetlas</span>
-          </a>
-          <p>
-            A calmer way to find veterinary care in India. Discover hospitals, clinics and doctors,
-            compare what matters, and choose with confidence.
-          </p>
-          <p class="footer-fineprint">Indore pilot · public sources · free to use</p>
-        </div>
-        <nav class="footer-col" aria-label="Popular specialities">
-          <h2>Specialities</h2>
-          <ul>
-            {specialties.slice(0, 5).map((s) => (
-              <li><a href={`/specialties/${s.slug}/`}>{s.name}</a></li>
-            ))}
-          </ul>
-        </nav>
-        <nav class="footer-col" aria-label="Cities">
-          <h2>Cities</h2>
-          <ul>
-            {cities.slice(0, 6).map((c) => (
-              <li><a href={`/${c.slug}/`}>Vets in {c.name}</a></li>
-            ))}
-          </ul>
-        </nav>
-        <nav class="footer-col" aria-label="Vetlas">
-          <h2>Vetlas</h2>
-          <ul>
-            <li><a href="/search/">Find care</a></li>
-            <li><a href="/costs/">Cost guide</a></li>
-            <li><a href="/methodology/">How data is checked</a></li>
-            <li><a href="/about/">About &amp; data policy</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="footer-bottom">
-        <div class="container">
-          <p>© {year} Vetlas. Made for India's pets and their people.</p>
-          <p>Not a veterinary provider. In an emergency, contact a clinic directly.</p>
-        </div>
-      </div>
-    </footer>
+    <SiteFooter />
 
-    <nav class="bottom-nav" aria-label="Quick navigation">
-      <a href="/" aria-current={path === "/" ? "page" : undefined}>
-        <Icon name="home" class="icon icon-md" />
-        <span>Home</span>
-      </a>
-      <a href="/search/" aria-current={isCurrent("/search/") ? "page" : undefined}>
-        <Icon name="sparkle" class="icon icon-md" />
-        <span>Explore</span>
-      </a>
-      <a href="/specialties/" aria-current={isCurrent("/specialties/") ? "page" : undefined}>
-        <Icon name="stethoscope" class="icon icon-md" />
-        <span>Specialities</span>
-      </a>
-      <button class="bottom-more" type="button" aria-expanded="false" aria-controls="more-sheet" aria-haspopup="true">
-        <Icon name="dots" class="icon icon-md" />
-        <span>More</span>
-      </button>
-    </nav>
-
-    <div class="more-sheet" id="more-sheet" hidden>
-      <a href="/costs/"><Icon name="wallet" class="icon icon-md" /> Cost guide <small>availability varies</small></a>
-      <a href="/methodology/"><Icon name="badge" class="icon icon-md" /> How data is checked <small>1 min</small></a>
-      <a href="/about/"><Icon name="info" class="icon icon-md" /> About &amp; data policy</a>
-    </div>
-
-    <script>
-      const moreBtn = document.querySelector<HTMLButtonElement>(".bottom-more");
-      const sheet = document.querySelector<HTMLElement>("#more-sheet");
-      if (moreBtn && sheet) {
-        const setOpen = (open: boolean) => {
-          moreBtn.setAttribute("aria-expanded", String(open));
-          sheet.toggleAttribute("hidden", !open);
-        };
-        moreBtn.addEventListener("click", () => {
-          setOpen(sheet.hasAttribute("hidden"));
-        });
-        document.addEventListener("click", (e) => {
-          if (!sheet.hasAttribute("hidden") && e.target instanceof Node && !sheet.contains(e.target) && !moreBtn.contains(e.target)) setOpen(false);
-        });
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && !sheet.hasAttribute("hidden")) {
-            setOpen(false);
-            moreBtn.focus();
-          }
-        });
-      }
-    </script>
+    <BottomNav path={path} isCurrent={isCurrent} />
   </body>
 </html>
