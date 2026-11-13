@@ -4,13 +4,16 @@
  * Vetlas has no verified facility photographs in the sample dataset, so we
  * never imply a photo: this is a clearly-labelled, decorative illustration.
  */
+import Icon from "./Icon.astro";
+
 interface Props {
   type: "hospital" | "clinic";
   seed?: string;
   large?: boolean;
   imageUrl?: string;
+  imageCredit?: string;
 }
-const { type, seed = "vetlas", large = false, imageUrl } = Astro.props;
+const { type, seed = "vetlas", large = false, imageUrl, imageCredit } = Astro.props;
 const tones = ["sky", "mint", "lilac", "sand"];
 const hash = [...seed].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
 const tone = tones[hash % tones.length];
@@ -18,7 +21,14 @@ const tone = tones[hash % tones.length];
 
 {imageUrl ? (
   <div class={`fac-visual fac-visual-photo${large ? " fac-visual-lg" : ""}`}>
-    <img src={imageUrl} alt="" loading="lazy" decoding="async" />
+    <img src={imageUrl} alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling?.removeAttribute('hidden')" />
+    <span class="fac-photo-label" title={imageCredit ?? "Openly licensed illustrative image"}>
+      Illustrative photo
+    </span>
+    <div class="fac-photo-fallback" hidden aria-hidden="true">
+      <Icon name={type === "hospital" ? "building" : "heart"} class="icon icon-xl" />
+      <span>Illustration fallback</span>
+    </div>
   </div>
 ) : (
 <div class={`fac-visual fac-visual-${tone}${large ? " fac-visual-lg" : ""}`} aria-hidden="true">

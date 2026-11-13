@@ -5,7 +5,7 @@ import UniversalSearch from "../components/UniversalSearch.astro";
 import FacilityCard from "../components/FacilityCard.astro";
 import { providers, specialties, cityById } from "@data";
 
-const facilities = providers.slice().sort((a, b) => a.name.localeCompare(b.name)).slice(0, 3);
+const facilities = providers.filter((provider) => provider.imageUrl).slice(0, 3);
 const emergencyFacilities = providers.filter((provider) => provider.hours.open24).slice(0, 3);
 const discoverySpecialties = specialties.slice(0, 6);
 ---

@@ -410,6 +410,11 @@ a.chip { min-height: var(--tap); }
 .home-contribute { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 1rem; padding: 1.7rem 2rem; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); }
 .home-contribute .btn { flex-shrink: 0; }
 .fac-visual-photo img { width: 100%; height: 100%; object-fit: cover; }
+.fac-visual-photo { position: relative; }
+.fac-photo-label { position: absolute; left: .55rem; bottom: .55rem; padding: .18rem .4rem; border-radius: var(--r-xs); background: rgba(20,40,61,.72); color: #fff; font-size: .58rem; font-weight: 700; letter-spacing: .03em; }
+.fac-photo-fallback { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: .35rem; background: var(--surface-blue); color: var(--blue-deep); font-size: .7rem; font-weight: 700; }
+.facility-photo-credit, .doctor-photo-credit { margin: .35rem .85rem 0; color: var(--ink-ghost); font-size: .62rem; }
+.facility-photo-credit a, .doctor-photo-credit a { color: var(--blue-deep); text-decoration: underline; }
 .doctor-avatar-photo { padding: 0; }
 .doctor-avatar-photo img { width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 58em) {

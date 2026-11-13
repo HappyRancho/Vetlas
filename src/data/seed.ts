@@ -32,6 +32,9 @@ export const providers: Provider[] = [
       "A 24/7 multi-specialty animal hospital with an in-house diagnostic lab, ICU and dedicated cat ward. Walk-ins accepted; appointments recommended for surgery consultations.",
     verified: false,
     dataSource: "sample",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Procedure_room_at_a_veterinary_clinic_in_Newark%2C_New_Jersey.jpg",
+    imageCredit: "Wikimedia Commons · illustrative photo",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Procedure_room_at_a_veterinary_clinic_in_Newark,_New_Jersey.jpg",
   },
   {
     id: "p2",
@@ -55,6 +58,9 @@ export const providers: Provider[] = [
       "A neighbourhood clinic focused on preventive care, skin and dental health, with gentle handling practices for anxious pets.",
     verified: false,
     dataSource: "sample",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Clinic%C4%83_veterinar%C4%83.jpg",
+    imageCredit: "Wikimedia Commons · illustrative photo",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Clinic%C4%83_veterinar%C4%83.jpg",
   },
   {
     id: "p3",
@@ -78,6 +84,9 @@ export const providers: Provider[] = [
       "Mumbai's busiest animal emergency hospital, handling trauma, poisoning and critical care cases round the clock with an on-site orthopedic team.",
     verified: false,
     dataSource: "sample",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Delta_Animal_Hospital_02.jpg",
+    imageCredit: "Wikimedia Commons · illustrative photo",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Delta_Animal_Hospital_02.jpg",
   },
   {
     id: "p4",
@@ -310,6 +319,9 @@ export const doctors: Doctor[] = [
     reviewCount: 187,
     verified: false,
     dataSource: "sample",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Veterinary_Surgeon.jpg",
+    imageCredit: "Andrew Dunn / Wikimedia Commons · CC BY-SA 2.0",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Veterinary_Surgeon.jpg",
   },
   {
     id: "d2",
@@ -332,6 +344,9 @@ export const doctors: Doctor[] = [
     reviewCount: 152,
     verified: false,
     dataSource: "sample",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Female_Veterinarian,_Business_Owner.jpg",
+    imageCredit: "DorahMalemba / Wikimedia Commons · CC BY-SA 4.0",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Female_Veterinarian,_Business_Owner.jpg",
   },
   {
     id: "d3",
@@ -354,6 +369,9 @@ export const doctors: Doctor[] = [
     reviewCount: 131,
     verified: false,
     dataSource: "sample",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/David_Suarez_(veterinarian).jpg",
+    imageCredit: "Tsuarez99 / Wikimedia Commons · CC BY-SA 4.0",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:David_Suarez_(veterinarian).jpg",
   },
   {
     id: "d4",

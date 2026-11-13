@@ -80,6 +80,8 @@ export interface Provider {
   dataSource: DataSource;
   /** Optional future real facility photograph; absent records use the illustrated fallback. */
   imageUrl?: string;
+  imageCredit?: string;
+  imageSourceUrl?: string;
 }
 
 export interface Doctor {
@@ -107,6 +109,8 @@ export interface Doctor {
   dataSource: DataSource;
   /** Optional future real doctor photograph; absent records use the initials fallback. */
   imageUrl?: string;
+  imageCredit?: string;
+  imageSourceUrl?: string;
 }
 
 export interface Review {
