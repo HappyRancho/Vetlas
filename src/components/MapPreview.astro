@@ -8,7 +8,7 @@ const { expanded = false } = Astro.props;
   <div class="map-content">
     <div class="map-toolbar"><label>Explore city <select id="map-city">{cities.map(c => <option value={c.slug}>{c.name}</option>)}</select></label><button type="button" class="btn btn-primary" id="map-nearby">Use my location</button><a id="map-external" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" href="https://www.google.com/maps/search/veterinary+clinics+India">Open in Google Maps →</a></div>
     <iframe id="area-map" title="City and neighbourhood map preview" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-    <p id="map-status" role="status">Area preview only. Sample facilities are not plotted as real locations.</p>
+    <p id="map-status" role="status">Area preview only. Clinic coordinates have not been independently confirmed.</p>
   </div>
 </details>
 <script>
@@ -42,7 +42,7 @@ const { expanded = false } = Astro.props;
        const q = `${position.coords.latitude},${position.coords.longitude}`;
        frame.src = `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=14&output=embed`;
        external.href = `https://www.google.com/maps/search/veterinary+clinics/@${q},14z`;
-       status.textContent = 'Your area preview. Open Google Maps to explore nearby clinics; directory sample listings are not location-verified.';
+       status.textContent = 'Your area preview. Open Google Maps to explore nearby clinics; directory listings are not location-verified.';
      }, () => { status.textContent = 'Could not access your location. Choose a city to explore instead.'; }, { timeout: 10000, maximumAge: 60000 });
    });
    update();

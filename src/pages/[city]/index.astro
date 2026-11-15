@@ -31,7 +31,7 @@ const headMeta = [
     : "",
 ].filter(Boolean).join(" · ");
 
-const noindex = true; // keep discovery pages noindex until source coverage is stronger
+const noindex = city.id !== "indore"; // keep discovery pages noindex until source coverage is stronger
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -98,7 +98,7 @@ const jsonLd = {
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
           <h2>Nothing here yet</h2>
-          <p>We haven't mapped {city.name} in the sample dataset. Browse care across India meanwhile.</p>
+          <p>We haven't mapped {city.name} in the directory. Browse care across India meanwhile.</p>
           <div class="actions"><a class="btn btn-primary" href="/search/">Browse all of India</a></div>
         </div>
       )}
@@ -120,7 +120,7 @@ const jsonLd = {
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
           <h2>No doctors here yet</h2>
-          <p>This city hasn't been mapped in the sample dataset yet.</p>
+          <p>This city hasn't been mapped in the directory yet.</p>
           <div class="actions"><a class="btn btn-primary" href="/search/?type=doctor">Browse all doctors</a></div>
         </div>
       )}

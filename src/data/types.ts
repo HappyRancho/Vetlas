@@ -55,6 +55,10 @@ export interface ConsultationFee {
 }
 
 export interface Provider {
+  evidence?: { label: string; url: string }[];
+  feeNote?: string;
+  feeIsStarting?: boolean;
+  hoursNote?: string;
   id: string;
   slug: string;
   name: string;

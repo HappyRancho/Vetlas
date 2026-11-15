@@ -19,14 +19,7 @@ const stripSpecs = specSlugs
   .map((slug) => specialties.find((s) => s.slug === slug))
   .filter((s): s is NonNullable<typeof s> => Boolean(s));
 
-const seenCities = new Set<string>();
-const featured = providers
-  .filter((p) => {
-    if (seenCities.has(p.cityId)) return false;
-    seenCities.add(p.cityId);
-    return true;
-  })
-  .slice(0, 3);
+const featured = providers.slice(0, 3);
 
 const petEmoji: Record<string, string> = {dog:"🐶",cat:"🐱",bird:"🦜",rabbit:"🐰",hamster:"🐹",cow:"🐮"};
 const pets = [
@@ -49,7 +42,7 @@ const pets = [
         <p class="hero-trust"><Icon name="shield" class="icon" /> Your veterinary care companion</p>
         <h1 class="hero-title">Choose a vet<br />with <span>confidence.</span></h1>
         <p class="hero-sub">
-          Discover veterinary hospitals, clinics and specialists across India.
+          Discover veterinary clinics and care in Indore.
         </p>
 
         </div>
@@ -120,9 +113,9 @@ const pets = [
     <section class="home-section" aria-labelledby="featured-h">
       <div class="section-head">
         <div>
-          <p class="section-eyebrow">From the demo dataset</p>
+          <p class="section-eyebrow">Indore pilot</p>
           <h2 id="featured-h">Featured facilities</h2>
-          <p>Three sample profiles, one from each city — every profile carries its trust labels.</p>
+          <p>Publicly sourced Indore clinics. Check details before visiting.</p>
         </div>
         <a class="link-more" href="/search/">
           See all in search <Icon name="arrow" class="icon" />
@@ -157,7 +150,7 @@ const pets = [
       <h2 id="transparency-h">A little more transparency. A better decision.</h2>
       <p>
         Explore facility information, available services and public-source information before visiting.
-        Every number on Vetlas carries a trust label — this prototype runs on clearly-marked sample data.
+        Every number on Vetlas carries a trust label — starting with publicly sourced Indore listings.
       </p>
       <div class="transparency-actions">
         <a class="btn btn-primary" href="/methodology/">How the data is checked</a>
@@ -199,6 +192,7 @@ const pets = [
       const saved = localStorage.getItem(KEY);
       const chip = saved ? chips.find((c) => c.dataset.city === saved) : undefined;
       if (saved && chip) apply(saved);
+      else apply("indore");
     } catch {
       /* storage unavailable */
     }

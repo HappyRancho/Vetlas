@@ -44,7 +44,7 @@ const cityLinks = cities.filter((city) =>
         <h1>{specialty.name}</h1>
         <p class="soft head-desc">{specialty.description}</p>
         <div class="profile-tags">
-          <TrustBadge level="sample" label="Sample listings" />
+          <TrustBadge level="public" label="Public-source listings" />
           <span class="chip chip-sm">Across {cities.length} cities</span>
         </div>
       </div>
@@ -77,7 +77,7 @@ const cityLinks = cities.filter((city) =>
           <p class="section-eyebrow">Facilities</p>
           <h2 class="section-title section-title-sm" id="sp-p">Clinics &amp; hospitals</h2>
         </div>
-        <TrustBadge level="sample" label="Sample data" />
+        <TrustBadge level="public" label="Public sources" />
       </div>
       {providerList.length > 0 ? (
         <div class="facility-grid">
@@ -87,7 +87,7 @@ const cityLinks = cities.filter((city) =>
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
           <h2>No clinics listed yet</h2>
-          <p>We haven't added {specialty.name.toLowerCase()} facilities to the sample dataset yet.</p>
+          <p>We haven't added {specialty.name.toLowerCase()} facilities to the directory yet.</p>
           <div class="actions"><a class="btn btn-primary" href="/search/">Browse all clinics</a></div>
         </div>
       )}
@@ -99,7 +99,7 @@ const cityLinks = cities.filter((city) =>
           <p class="section-eyebrow">Doctors</p>
           <h2 class="section-title section-title-sm" id="sp-d">Veterinarians in this speciality</h2>
         </div>
-        <TrustBadge level="sample" label="Sample data" />
+        <TrustBadge level="public" label="Public sources" />
       </div>
       {doctorList.length > 0 ? (
         <div class="doctor-grid">
@@ -109,7 +109,7 @@ const cityLinks = cities.filter((city) =>
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
           <h2>No doctors listed yet</h2>
-          <p>No {specialty.name.toLowerCase()} doctors in the sample dataset yet.</p>
+          <p>No {specialty.name.toLowerCase()} doctors in the directory yet.</p>
           <div class="actions"><a class="btn btn-primary" href="/search/?type=doctor">Browse all doctors</a></div>
         </div>
       )}

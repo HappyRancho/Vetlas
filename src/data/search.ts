@@ -1,5 +1,5 @@
 import { cities, specialties } from "./taxonomy";
-import { providers, doctors } from "./seed";
+import { providers, doctors } from "./index";
 import { cityById, specialtyById } from "./index";
 
 export interface SearchEntry {
