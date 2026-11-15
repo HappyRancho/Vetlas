@@ -16,7 +16,11 @@ import sitemap from "@astrojs/sitemap";
 /** Pages that are indexable in the demo (everything gated by spec §2/§6 is excluded) */
 const INDEXABLE = [
   "/",
-  "/search/",
+  "/indore/",
+  "/indore/myra-pet-clinic-usha-nagar/",
+  "/indore/dr-nigam-pet-clinic/",
+  "/indore/petvet-surya-dev-nagar/",
+  "/indore/dogsvilla-veterinary-services/",
   "/specialties/",
   "/locations/",
   "/costs/",

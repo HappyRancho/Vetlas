@@ -1,5 +1,8 @@
 import { cities, specialties } from "./taxonomy";
-import { providers, doctors, reviews, costEstimates } from "./seed";
+import { indoreProviders as providers } from "./indore";
+const doctors: Doctor[] = [];
+const reviews: Review[] = [];
+const costEstimates: import("./types").CostEstimateItem[] = [];
 import type { City, Specialty, Provider, Doctor, Review, ReviewTheme } from "./types";
 
 export * from "./types";

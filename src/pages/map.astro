@@ -7,6 +7,6 @@ import { cities, providers } from '@data';
 <BaseLayout title="Explore veterinary care on the map — Vetlas" description="Preview neighbourhoods and discover veterinary care across India." noindex>
  <div class="container map-page"><p class="eyebrow">Good care, closer to home</p><h1>A clearer path to care.</h1><p>Explore the area, find a clinic, and plan your visit.</p><MapPreview expanded />
  <div class="section-head"><h2>Explore by city</h2><a href="/search/">All facilities →</a></div>
- <div class="map-cities">{cities.map(c => <a href={`/search/?city=${c.slug}`}><Icon name="pin" class="icon"/><span><b>{c.name}</b><small>{providers.filter(p => p.cityId === c.id).length} sample facilities · {c.state}</small></span><Icon name="arrow" class="icon"/></a>)}</div>
+ <div class="map-cities">{cities.map(c => <a href={`/search/?city=${c.slug}`}><Icon name="pin" class="icon"/><span><b>{c.name}</b><small>{providers.filter(p => p.cityId === c.id).length} listed facilities · {c.state}</small></span><Icon name="arrow" class="icon"/></a>)}</div>
  </div>
 </BaseLayout>

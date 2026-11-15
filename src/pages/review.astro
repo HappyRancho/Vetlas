@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { providers } from '@data';
+---
+<BaseLayout title="Write a veterinary clinic review — Vetlas" description="Share a first-hand veterinary visit experience for editorial review." noindex>
+<div class="container review-page"><p class="eyebrow">Your experience helps another pet parent</p><h1>How was your visit?</h1><p>Describe your own visit, costs and communication. Avoid personal contact details or medical records in the review text.</p>
+<form id="review-form" class="panel review-form"><label>Clinic<select name="clinic" required>{providers.map(p=><option value={p.slug}>{p.name}</option>)}</select></label><label>Display name<input name="author" required maxlength="80" autocomplete="nickname" /></label><label>Visit date<input name="visit" type="date" required max="2026-11-15" /></label><label>Overall experience<select name="rating" required><option value="">Choose a rating</option>{[5,4,3,2,1].map(n=><option value={n}>{n} / 5</option>)}</select></label><label>Your experience<textarea name="experience" required minlength="30" maxlength="3000" rows="6" placeholder="What went well? What could improve? Was the cost explained?" /></label><label>Consultation paid (optional, ₹)<input name="paid" type="number" min="0" max="1000000" /></label><label class="review-consent"><input type="checkbox" required /> This is my first-hand experience. I agree it may be reviewed before publication.</label><button class="btn btn-primary" type="submit">Prepare review email →</button><p class="notice-box">Pilot intake uses email. This opens your email app with a draft to the existing Vetlas contact address. You must send it yourself. Nothing is published automatically, and this site does not yet have a review-submission database.</p><p id="review-status" role="status"></p><a id="review-email" class="btn btn-secondary" hidden>Open email draft</a></form></div>
+</BaseLayout>
+<script>
+ const form=document.querySelector<HTMLFormElement>('#review-form')!;
+ const select=form.elements.namedItem('clinic') as HTMLSelectElement;
+ const provider=new URLSearchParams(location.search).get('provider');if(provider&&Array.from(select.options).some(o=>o.value===provider))select.value=provider;
+ (form.elements.namedItem('visit') as HTMLInputElement).max=new Date().toLocaleDateString('en-CA');
+ form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const data=new FormData(form);const body=['Clinic: '+select.selectedOptions[0].textContent,...['author','visit','rating','experience','paid'].map(k=>`${k}: ${data.get(k)||'Not supplied'}`),'First-hand consent: yes'].join('\n\n');const link=document.querySelector<HTMLAnchorElement>('#review-email')!;link.href=`mailto:hello@thatvetguy.net?subject=${encodeURIComponent('Vetlas review: '+select.selectedOptions[0].textContent)}&body=${encodeURIComponent(body)}`;link.hidden=false;document.getElementById('review-status')!.textContent='Draft prepared. Open it in your email app and send when ready; it has not been submitted.';});
+</script>

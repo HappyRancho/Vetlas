@@ -54,18 +54,19 @@ const description = isFacility
   ? `${facility!.name} is a ${facility!.type} in ${facility!.area}, ${city.name}. ${facility!.specialtyIds.map((s) => specialtyById(s)?.name).join(", ")}.`
   : `Dr. ${vet!.name} is a ${specialtyById(vet!.primarySpecialtyId)?.name} vet in ${city.name} with ${vet!.experienceYears} years of experience. Consultation fee ${feeINR(vet!.consultationFee)}.`;
 
-const noindex = true; // sample dataset gate (spec §6)
+const noindex = doc.dataSource === "sample";
 
 const jsonLd = isFacility
   ? {
       "@context": "https://schema.org",
       "@type": "VeterinaryCare",
       name: facility!.name,
+      url: new URL(`/${city.slug}/${facility!.slug}/`, Astro.site).href,
       telephone: facility!.phone,
       address: {
         "@type": "PostalAddress",
         streetAddress: facility!.address,
-        addressLocality: facility!.area,
+        addressLocality: city.name,
         addressRegion: city.state,
         addressCountry: "IN",
       },
@@ -147,7 +148,7 @@ const jsonLd = isFacility
                   : vet!.degrees.join(" · ")}
               </p>
               <div class="profile-tags">
-                <TrustBadge level="public" label="Public source" />
+                <TrustBadge level={doc.dataSource} />
                 <span class="chip chip-sm">
                   {isFacility
                     ? facility!.hours.open24 ? "24×7 listed — verify" : "Hours not verified"
@@ -186,7 +187,7 @@ const jsonLd = isFacility
       <div class="profile-actions">
         <span class="fee-pill">
           <Icon name="wallet" class="icon icon-md" />
-          {isFacility ? (facility!.fees ? `OPD ${feeINR(facility!.fees.opd)}` : "Fee not verified") : `Consultation ${feeINR(vet!.consultationFee)}`}
+          {isFacility ? (facility!.fees ? `${facility!.feeIsStarting ? "From " : "OPD "}${feeINR(facility!.fees.opd)}` : "Fee not verified") : `Consultation ${feeINR(vet!.consultationFee)}`}
         </span>
         {isFacility && facility!.fees && <TrustBadge level={feeTrust} label={`Fee: ${trustLabels[facility!.fees.trustLevel]}`} />}
         {isFacility && facility!.phone && (
@@ -257,7 +258,8 @@ const jsonLd = isFacility
 
         <section class="panel panel-follow animate-fade-up" style="animation-delay:180ms">
           <div class="panel-head">
-            <h2>Reviews</h2>
+            <h2>Reviews & community evidence</h2>
+            <a class="btn btn-secondary" href={`/review/?provider=${doc.slug}`}>Write a review</a>
             <p class="small muted">No review text is reproduced; themes appear only after analysis.</p>
           </div>
           {topThemes.length > 0 && (
@@ -272,6 +274,7 @@ const jsonLd = isFacility
               ))}
             </div>
           )}
+          {profileReviews.length === 0 && <p class="notice-box">No first-party Vetlas reviews yet. External discussions are linked under Sources; they are not verified visits or a Vetlas rating.</p>}
           <ul>
             {profileReviews.map((r) => (
               <li class="review-item">
@@ -299,6 +302,8 @@ const jsonLd = isFacility
       <aside>
         <div class="aside-block animate-fade-up" style="animation-delay:100ms">
           <h2>Visit information</h2>
+          {facility?.hoursNote && <p class="notice-box">{facility.hoursNote}</p>}
+          {facility?.feeNote && <p class="notice-box">{facility.feeNote}</p>}
           <dl class="kv">
             {isFacility ? (
               <>
@@ -324,7 +329,8 @@ const jsonLd = isFacility
           </p>
           {isFacility && (
             <div class="source-links mt-1">
-              <strong>Sources</strong>
+              <strong>Sources · checked {facility!.lastChecked}</strong>
+              <ul class="evidence-list">{facility!.evidence?.map(e => <li><a href={e.url} target="_blank" rel="noreferrer">{e.label} →</a></li>)}</ul>
               <div class="list-inline mt-05">
                 {facility!.sources?.googleMaps && <a class="chip chip-sm" href={facility!.sources.googleMaps} target="_blank" rel="noreferrer">Google Maps</a>}
                 {facility!.sources?.justdial && <a class="chip chip-sm" href={facility!.sources.justdial} target="_blank" rel="noreferrer">Justdial</a>}
