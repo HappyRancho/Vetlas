@@ -8,7 +8,7 @@ import VetCard from "./VetCard.astro";
 import { veterinarians, vetsForFacility } from "../data/veterinarians";
 import DoctorCard from "./DoctorCard.astro";
 import MapPreview from "./MapPreview.astro";
-import TrustBadge from "./TrustBadge.astro";
+
 import { cityById, specialtyById, cities, specialties, type Provider, type Doctor } from "@data";
 
 interface Props {
@@ -192,7 +192,7 @@ const isNoindex = true;
       <button class="btn btn-primary" id="discovery-empty-clear" type="button">Clear filters</button>
     </div>
 
-    <p class="discovery-trust-note"><TrustBadge level="public" label="Public-source research" /> Source links and fee limitations appear on profiles. Confirm details directly before visiting.</p>
+
   </div>
 </BaseLayout>
 

@@ -17,7 +17,8 @@
     "dev:worker": "wrangler dev",
     "deploy": "npm run build && wrangler deploy",
     "test:community-ui": "node scripts/test-community-ui.cjs",
-    "test:maps": "node --test scripts/test-map-data.mjs && node scripts/test-map-ui.cjs"
+    "test:maps": "node --test scripts/test-map-data.mjs && node scripts/test-map-ui.cjs",
+    "test:compact-ui": "node scripts/test-compact-ui.cjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.1.0",

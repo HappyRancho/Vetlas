@@ -1,79 +1,34 @@
 ---
-import Icon from "./Icon.astro";
-import FacilityMedia from "./FacilityMedia.astro";
-import VetNames from "./VetNames.astro";
-import RatingSummary from "./RatingSummary.astro";
-import TrustBadge from "./TrustBadge.astro";
-import { cityById, specialtyById, feeINR, type Provider } from "@data";
-
-interface Props {
-  provider: Provider;
-  featured?: boolean;
-  index?: number;
-}
-const { provider, featured = false, index = 0 } = Astro.props;
-const city = cityById(provider.cityId);
-const specs = provider.specialtyIds
-  .map((id) => specialtyById(id)?.name)
-  .filter((name): name is string => Boolean(name));
-const hours = provider.hours.open24
-  ? "Open 24×7"
-  : provider.hours.open && provider.hours.close
-    ? `${provider.hours.open}–${provider.hours.close}`
-    : "Hours not listed";
-const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
+import Icon from './Icon.astro';
+import FacilityMedia from './FacilityMedia.astro';
+import VetNames from './VetNames.astro';
+import RatingSummary from './RatingSummary.astro';
+import { cityById, specialtyById, type Provider } from '@data';
+import { consultationLabel, hoursLabel } from '../lib/visit-info.mjs';
+interface Props { provider: Provider; featured?: boolean; index?: number; }
+const {provider,featured=false,index=0}=Astro.props;
+const city=cityById(provider.cityId),href=`/${city?.slug}/${provider.slug}/`,fee=consultationLabel(provider);
+const specs=provider.specialtyIds.map(id=>specialtyById(id)?.name).filter(Boolean);
+const highlights=[...new Set([...specs.slice(0,1),...provider.services.filter(s=>s!=='Consultation')])].slice(0,3);
 ---
-
-<article class={`facility-card${featured ? " facility-card-featured" : ""}`} style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
-  <div class="facility-media"><FacilityMedia provider={provider} /></div>
+<article class:list={['facility-card','care-card',{'facility-card-featured':featured}]} style={`--card-accent:${['#007c73','#4278b9','#9368a3','#b47736'][index%4]}`}>
+ <div class="care-card-main">
+  <div class="facility-media"><FacilityMedia provider={provider}/></div>
   <div class="facility-body">
-    <div class="facility-top">
-      <TrustBadge level={provider.dataSource} />
-      <RatingSummary provider={provider} compact />
-    </div>
-
-    <h3 class="facility-name">
-      <a href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
-    </h3>
-    <VetNames id={provider.id} />
-
-    <p class="facility-location">
-      <Icon name="pin" class="icon" />
-      {provider.area}, {city?.name}
-      <span class="meta-sep">·</span>
-      <span class="facility-hours"><Icon name="clock" class="icon" />{hours}</span>
-    </p>
-
-    <ul class="facility-tags" aria-label="Services and facilities">
-      {highlights.map((item) => <li>{item}</li>)}
-    </ul>
-
-    {provider.feeNote && <p class="small muted">{provider.feeNote}</p>}
-    <div class="quick-actions">
-      <button class="save-facility" type="button" data-save={provider.id} aria-pressed="false" aria-label={`Save ${provider.name}`}>♡ Save</button>
-      {provider.phone && provider.dataSource !== "sample" && <a class="btn btn-primary" href={`tel:${provider.phone.replace(/[^+\d]/g, "")}`}>Call clinic</a>}
-      <a class="btn btn-secondary" href={`/map/?city=${city?.slug}&${provider.coordinates ? `clinic=${provider.id}` : `q=${encodeURIComponent(provider.area)}`}`}>{provider.coordinates ? "Clinic map" : "Area map"} <Icon name="pin" class="icon" /></a>
-    </div>
-    <div class="facility-footer">
-      <div class="facility-fee">
-        {provider.fees ? <><b>{provider.feeIsStarting ? "From " : ""}{feeINR(provider.fees.opd)}</b><span>consultation · {provider.dataSource === "sample" ? "sample" : "listed"}</span></> : <><b>Not verified</b><span>consultation fee</span></>}
-      </div>
-      <a class="facility-action" href={`/${city?.slug}/${provider.slug}/`}>
-        View profile <Icon name="arrow" class="icon" />
-      </a>
-    </div>
+   <div class="facility-top"><span class="care-kind">{provider.type==='hospital'?'Hospital':'Clinic'}</span><RatingSummary provider={provider} compact/></div>
+   <h3 class="facility-name"><a href={href}>{provider.name}</a></h3>
+   <p class="facility-location"><Icon name="pin" class="icon"/>{provider.area}</p>
+   <VetNames id={provider.id}/>
+   <ul class="facility-tags" aria-label="Services">{highlights.map(item=><li>{item}</li>)}</ul>
   </div>
+ </div>
+ <div class="care-visit"><span class="care-hours"><Icon name="clock" class="icon"/>{hoursLabel(provider)}</span>{provider.visitHours?.doctorSummary&&<span class="care-doctor-hours">Doctor: {provider.visitHours.doctorSummary}</span>}</div>
+ <div class="facility-footer"><div class="facility-fee"><b>{fee.amount}</b><span>{fee.caption}</span></div><a class="facility-action" href={href}>View details <Icon name="arrow" class="icon"/></a></div>
+ <div class="quick-actions"><button class="save-facility" type="button" data-save={provider.id} aria-pressed="false" aria-label={`Save ${provider.name}`}><Icon name="heart" class="icon"/><span data-save-label>Save</span></button>{provider.phone&&<a class="btn btn-primary" href={`tel:${provider.phone.replace(/[^+\d]/g,'')}`}><Icon name="phone" class="icon"/>Call clinic</a>}<a class="btn btn-secondary" href={`/map/?clinic=${provider.id}`}><Icon name="pin" class="icon"/>Directions</a></div>
 </article>
-
 <script>
-  const key = 'vetlas-saved';
-  function saved(): string[] { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch { return []; } }
-  function paint() { const ids = saved(); document.querySelectorAll<HTMLButtonElement>('[data-save]').forEach(button => { const active = ids.includes(button.dataset.save!); button.setAttribute('aria-pressed', String(active)); button.textContent = active ? '♥ Saved' : '♡ Save'; }); }
-  document.querySelectorAll<HTMLButtonElement>('[data-save]').forEach(button => button.addEventListener('click', () => {
-    const ids = saved(); const id = button.dataset.save!;
-    try { localStorage.setItem(key, JSON.stringify(ids.includes(id) ? ids.filter(v => v !== id) : [...ids, id])); paint(); }
-    catch { button.textContent = 'Saving unavailable'; }
-  }));
-  paint();
-  window.addEventListener('storage', paint);
+ const key='vetlas-saved';
+ function saved():string[]{try{const ids=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(ids)?ids.filter(id=>typeof id==='string'):[];}catch{return [];}}
+ function paint(){const ids=saved();document.querySelectorAll<HTMLButtonElement>('[data-save]').forEach(button=>{const active=ids.includes(button.dataset.save!);button.setAttribute('aria-pressed',String(active));button.querySelector('[data-save-label]')!.textContent=active?'Saved':'Save';});}
+ document.querySelectorAll<HTMLButtonElement>('[data-save]').forEach(button=>button.addEventListener('click',()=>{const ids=saved(),id=button.dataset.save!;try{localStorage.setItem(key,JSON.stringify(ids.includes(id)?ids.filter(v=>v!==id):[...ids,id]));paint();}catch{button.querySelector('[data-save-label]')!.textContent='Unavailable';}}));paint();window.addEventListener('storage',paint);
 </script>

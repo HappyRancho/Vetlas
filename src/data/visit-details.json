@@ -1,0 +1,332 @@
+{
+  "indore-petvet": {
+    "visitHours": {
+      "summary": "Mon–Sat 6–9 PM · Sun 10 AM–1 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sat",
+          "time": "6–9 PM"
+        },
+        {
+          "days": "Sunday",
+          "time": "10 AM–1 PM"
+        }
+      ],
+      "sourceUrl": "https://www.indorepetvet.com/",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Mo-Sa 18:00-21:00",
+        "Su 10:00-13:00"
+      ]
+    },
+    "about": "PetVet in Surya Dev Nagar offers consultations, vaccination, deworming and wellness checks for dogs and cats. Dr. Amrit Lal Sharma leads the practice. Evening appointments are listed Monday to Saturday, with a Sunday morning session."
+  },
+  "pet-matrix-nipania": {
+    "visitHours": {
+      "summary": "Mon–Sat 6:30–9:30 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sat",
+          "time": "6:30–9:30 PM"
+        },
+        {
+          "days": "Sunday",
+          "time": "11 AM–1 PM"
+        }
+      ],
+      "sourceUrl": "https://petmatrixclinic.com/",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Mo-Sa 18:30-21:30",
+        "Su 11:00-13:00"
+      ]
+    },
+    "about": "Pet Matrix is on Tulsi Nagar Main Road, near Saraswati Mandir and Bombay Hospital. The clinic offers consultations and major, minor and corrective surgery, with evening sessions through the week and a Sunday morning clinic."
+  },
+  "indore-royal-ganeshganj": {
+    "visitHours": {
+      "summary": "Mon–Sat 10 AM–9 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sat",
+          "time": "10 AM–9 PM"
+        },
+        {
+          "days": "Sunday",
+          "time": "Ask clinic"
+        }
+      ],
+      "sourceUrl": "https://www.royalveterinaryclinic.shop/contact",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "doctorSummary": "10 AM–2 PM, 6–9 PM",
+      "openingHours": [
+        "Mo-Sa 10:00-21:00"
+      ]
+    },
+    "consultationListing": {
+      "min": 300,
+      "max": 300,
+      "kind": "historical",
+      "note": "₹300 appears on the Ganeshganj Justdial listing observed in November 2026. Its search snapshot is older; the clinic website does not publish a fee. Ask for the current charge.",
+      "sourceUrl": "https://www.justdial.com/Indore/Royal-Vet-Clinic-and-Surgery-Centre-Bana-Ganpati-Raj-Mohalla/0731PX731-X731-190926025616-J4B1_BZDET/reviews"
+    },
+    "about": "Royal’s Ganeshganj branch is near Antim Square. The clinic lists vaccination and treatment; the wider practice offers surgery, pathology and dental scaling. Dr. Abhay Patel consults in morning and evening sessions."
+  },
+  "indore-royal-kesharbagh": {
+    "visitHours": {
+      "summary": "Daily 10 AM–9 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sun",
+          "time": "10 AM–9 PM"
+        }
+      ],
+      "sourceUrl": "https://www.royalveterinaryclinic.shop/contact",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "doctorSummary": "2–5 PM",
+      "openingHours": [
+        "Mo-Su 10:00-21:00"
+      ]
+    },
+    "about": "Royal’s Kesharbagh Road branch is opposite Palash Parisar. Dr. Abhay Patel’s published consultation session is 2–5 PM, within the clinic’s longer opening hours. Vaccination and treatment are listed; ask which procedures are available at this branch."
+  },
+  "indore-happy-tails-navlakha": {
+    "visitHours": {
+      "summary": "Mon–Sat 10 AM–9 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sat",
+          "time": "10 AM–9 PM"
+        },
+        {
+          "days": "Sunday",
+          "time": "1–4 PM"
+        }
+      ],
+      "sourceUrl": "https://www.happytailspet-clinic.com/contact",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Mo-Sa 10:00-21:00",
+        "Su 13:00-16:00"
+      ]
+    },
+    "about": "Happy Tails in Janki Nagar, Navlakha, is led by Dr. Rashmi Khandelwal. The clinic offers consultations, wellness checkups, vaccinations and nutrition guidance for dogs and cats."
+  },
+  "indore-dogsvilla": {
+    "visitHours": {
+      "summary": "Daily 9 AM–8 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sun",
+          "time": "9 AM–8 PM"
+        }
+      ],
+      "sourceUrl": "https://www.dogsvilla.com/services/veterinary/",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Mo-Su 09:00-20:00"
+      ],
+      "doctorSummary": "Consultation walk-ins 10 AM–6 PM"
+    }
+  },
+  "indore-animal-hospital": {
+    "visitHours": {
+      "summary": "24-hour service",
+      "schedule": [
+        {
+          "days": "Mon–Sun",
+          "time": "24 hours"
+        }
+      ],
+      "sourceUrl": "https://animalveterinaryhospital.in/",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "note": "Call ahead for emergency staffing.",
+      "openingHours": [
+        "Mo-Su 00:00-24:00"
+      ]
+    },
+    "about": "Animal Veterinary Hospital in Silicon City offers consultations, diagnostics and surgery. The hospital advertises 24-hour service at its Chaudhary Market location."
+  },
+  "indore-prime-vet": {
+    "visitHours": {
+      "summary": "Mon–Sat 9 AM–10 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sat",
+          "time": "9 AM–10 PM"
+        },
+        {
+          "days": "Sunday",
+          "time": "9:30 AM–8:30 PM"
+        }
+      ],
+      "sourceUrl": "https://nuzzy.co/places/in/indore/vet-clinics/mahalaxmi-nagar/prime-vet-clinic-pet-health-care/",
+      "sourceLabel": "Nuzzy listing",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Mo-Sa 09:00-22:00",
+        "Su 09:30-20:30"
+      ]
+    },
+    "about": "Prime Vet Clinic is near KIBS Hospital in Mahalaxmi Nagar. The published timetable includes weekday and Saturday evening hours, with a shorter Sunday session."
+  },
+  "indore-petwell": {
+    "visitHours": {
+      "summary": "9:30 AM–10 PM · Wed–Fri to 10:30 PM",
+      "schedule": [
+        {
+          "days": "Sun–Tue, Sat",
+          "time": "9:30 AM–10 PM"
+        },
+        {
+          "days": "Wed–Fri",
+          "time": "9:30 AM–10:30 PM"
+        }
+      ],
+      "sourceUrl": "https://nuzzy.co/places/in/indore/vet-clinics/revenue-nagar/petwell-pet-clinic-and-surgery-center-indore/",
+      "sourceLabel": "Nuzzy listing",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Su,Mo,Tu,Sa 09:30-22:00",
+        "We-Fr 09:30-22:30"
+      ]
+    },
+    "about": "PetWell is at 145 Annapurna Road in Revenue Nagar. Its listings describe consultations and surgical care. The public timetable includes morning-to-evening hours; contact the clinic about a specific procedure."
+  },
+  "indore-vcare": {
+    "visitHours": {
+      "summary": "Website lists 6 AM–midnight",
+      "schedule": [
+        {
+          "days": "Published daily hours",
+          "time": "6 AM–midnight"
+        }
+      ],
+      "sourceUrl": "https://vcarepetclinic.info/",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "note": "The website asks callers to phone for out-of-hours emergencies. Google Maps displays 24 hours; call before an overnight visit."
+    },
+    "about": "V Care offers veterinary consultations and surgery at Royal Palace in Palsikar Colony. The website lists extended daytime and evening hours, with emergency arrangements by phone."
+  },
+  "indore-nigam": {
+    "consultationListing": {
+      "min": 200,
+      "max": 300,
+      "kind": "range",
+      "note": "Justdial lists ₹200 and Practo lists ₹300 for the matching clinic. The range represents differing published consultation charges; confirm the applicable fee.",
+      "sourceUrl": "https://www.practo.com/Indore/clinic/veterinary-clinic-17-new-palasia"
+    },
+    "about": "Dr. Nigam Pet Clinic is in Lalaram Nagar, near St. Paul School. Dr. Ashutosh Nigam is listed at the practice. Published consultation charges range from ₹200 on Justdial to ₹300 on Practo.",
+    "visitHours": {
+      "summary": "Daily 8 AM–10 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sun",
+          "time": "8 AM–10 PM"
+        }
+      ],
+      "sourceUrl": "https://nuzzy.co/places/in/indore/vet-clinics/lalaram-nagar/dr-nigam-pet-clinic-vaccination-center/",
+      "sourceLabel": "Nuzzy listing",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Mo-Su 08:00-22:00"
+      ]
+    }
+  },
+  "indore-my-pet": {
+    "consultationListing": {
+      "min": 200,
+      "max": 200,
+      "kind": "historical",
+      "note": "Timesmed lists ₹200 for Dr. Hemant Mehta at the older EB137 Scheme 94 address. This is not a current quote for the D1/G3–6 clinic; ask for today’s charge.",
+      "sourceUrl": "https://www.timesmed.com/Doctor/Indore/dr-hemant-mehta-70912"
+    },
+    "about": "My Pet Clinic is associated with Dr. Hemant Mehta (H. K. Mehta) in Scheme 94. Use the current D1/G3–6 address opposite Harsh Hyundai Service Centre. Older directories refer to EB137 in the same locality.",
+    "visitHours": {
+      "summary": "Mon–Sat 9 AM–6 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sat",
+          "time": "9 AM–6 PM"
+        },
+        {
+          "days": "Sunday",
+          "time": "9 AM–1 PM"
+        }
+      ],
+      "sourceUrl": "https://nuzzy.co/places/in/indore/vet-clinics/scheme-94-sector-ca/my-pet-clinic-dr-hemant-mehta/",
+      "sourceLabel": "Nuzzy listing",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Mo-Sa 09:00-18:00",
+        "Su 09:00-13:00"
+      ]
+    }
+  },
+  "indore-myra-usha": {
+    "about": "Myra in Usha Nagar is led by Dr. Narendra Chouhan. The clinic website lists ultrasonography, digital X-ray, soft-tissue surgery, dental scaling and eye-care services. Practo lists a ₹200 consultation.",
+    "visitHours": {
+      "summary": "Daily 10 AM–9 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sun",
+          "time": "10 AM–9 PM"
+        }
+      ],
+      "sourceUrl": "https://www.myrapetclinic.co.in/",
+      "sourceLabel": "Clinic website",
+      "checkedAt": "2026-11-15",
+      "note": "Practo lists a shorter Sunday session. Ask the clinic about doctor availability.",
+      "openingHours": [
+        "Mo-Su 10:00-21:00"
+      ]
+    }
+  },
+  "indore-pets-mate": {
+    "about": "Pet’s Mate serves the Manik Bagh Road and Palsikar Colony area from Mid Town Plaza, opposite Gurunanak Niwas. Use this branch for directions; the separate Tulip Enclave listing is closed.",
+    "visitHours": {
+      "summary": "Mon–Sat 9:30 AM–9:30 PM",
+      "schedule": [
+        {
+          "days": "Mon–Sat",
+          "time": "9:30 AM–9:30 PM"
+        },
+        {
+          "days": "Sunday",
+          "time": "10 AM–7:30 PM"
+        }
+      ],
+      "sourceUrl": "https://nuzzy.co/places/in/indore/vet-clinics/palsikar-colony/pet-s-mate-veterinary-clinic/",
+      "sourceLabel": "Nuzzy listing",
+      "checkedAt": "2026-11-15",
+      "openingHours": [
+        "Mo-Sa 09:30-21:30",
+        "Su 10:00-19:30"
+      ]
+    }
+  },
+  "indore-petnvets": {
+    "about": "PetnVets is behind Radisson Hotel, opposite Gate 6, in the Sheetal Nagar area. Dr. Harendra Rajput is associated with the practice. The listing advertises advanced diagnostics and emergency care; call to arrange an urgent visit.",
+    "visitHours": {
+      "summary": "24-hour care advertised · call ahead",
+      "schedule": [
+        {
+          "days": "Nuzzy listing",
+          "time": "24 hours"
+        }
+      ],
+      "sourceUrl": "https://nuzzy.co/places/in/indore/vet-clinics/sheetal-nagar/petnvets-advanced-veterinary-diagnostics-24-7-emergency-care-indore/",
+      "sourceLabel": "Nuzzy listing",
+      "checkedAt": "2026-11-15",
+      "note": "Nuzzy advertises 24-hour care; the Google Maps Sunday timetable shows 10 AM–9 PM. Call for overnight availability."
+    }
+  }
+}

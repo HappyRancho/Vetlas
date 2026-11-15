@@ -1,5 +1,6 @@
 ---
-import { providers, feeINR } from '@data';
+import { consultationLabel, hoursLabel } from '../lib/visit-info.mjs';
+import { providers } from '@data';
 import { vetsForFacility } from '../data/veterinarians';
 import { googleDirections, googlePreview } from '../lib/map-links.mjs';
 import { summarizeRatings } from '../lib/ratings.mjs';
@@ -23,8 +24,8 @@ const records=facilities.map(p=>({...p,href:`/indore/${p.slug}/`,preview:googleP
   <div class="map-results" aria-label="Clinic results"><p data-map-empty hidden class="notice-box">No matching clinics. Try another service or clear a filter.</p>{facilities.map((p,i)=><article data-map-result={p.id} class="map-result">
    <div class="map-result-head"><img src={p.imageUrl} alt={p.imageAlt||p.name} width="64" height="64" loading="lazy"/><div><span class="map-number">{i+1}</span><h2><a href={`/indore/${p.slug}/`}>{p.name}</a></h2><p>{p.area}</p></div></div>
    <VetNames id={p.id}/><RatingSummary provider={p} compact/>
-   <p class="map-result-meta"><strong>{p.fees?`${p.feeIsStarting?'From ':''}${feeINR(p.fees.opd)} listed consultation`:'Consultation fee: confirm'}</strong><span data-distance></span></p>
-   <p class="small muted">{p.hours.open24?'24×7 advertised — call first':p.hours.open&&p.hours.close?`${p.hours.open}–${p.hours.close} listed · confirm today`:'Hours: call to confirm'}</p>
+   <p class="map-result-meta"><strong>{consultationLabel(p).amount} · {consultationLabel(p).caption}</strong><span data-distance></span></p>
+   <p class="small muted">{hoursLabel(p)}</p>
    <div class="map-result-actions"><button type="button" data-select={p.id} aria-pressed="false">Show on map</button>{p.phone&&<a href={`tel:${p.phone.replace(/[^+\d]/g,'')}`}>Call</a>}<a href={googleDirections(p)} target="_blank" rel="noreferrer">Directions →</a><a href={`/indore/${p.slug}/`}>Details →</a></div>
    <a class="map-photo-credit" href={p.imageSourceUrl} target="_blank" rel="noreferrer">Photo: {p.imageCredit}</a>
   </article>)}</div>

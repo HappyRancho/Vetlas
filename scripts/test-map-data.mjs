@@ -14,8 +14,8 @@ test('all 15 branches have source-backed local coordinates and consistent publis
  }
  assert.equal(locations['indore-animal-hospital'].coordinates.lat,22.6465519,'use destination, not camera centre');
 });
-test('eight doctor routes use supported associations without inferred ratings or unknown location pins',()=>{
- assert.equal(vets.length,8);const ids=new Set(directory.facilities.map(p=>p.id));const sitemap=readFileSync(new URL('../dist/sitemap-0.xml',import.meta.url),'utf8');
+test('nine doctor routes use supported associations without inferred ratings or unknown location pins',()=>{
+ assert.equal(vets.length,9);const ids=new Set(directory.facilities.map(p=>p.id));const sitemap=readFileSync(new URL('../dist/sitemap-0.xml',import.meta.url),'utf8');
  for(const v of vets){v.providerIds.forEach(id=>assert(ids.has(id)));assert(v.sources.length>0);const path=`/indore/veterinarians/${v.slug}/`;const html=readFileSync(new URL('../dist'+path+'index.html',import.meta.url),'utf8');assert(sitemap.includes(path));assert(html.includes('"@type":"Person"'));assert(!html.includes('"@type":"Physician"'));assert(!html.includes('"aggregateRating"'));assert(html.includes('rel="canonical"'));}
  assert.deepEqual(vets.find(v=>v.id==='bp-shukla').providerIds,[]);assert(vets.find(v=>v.id==='hk-mehta').sources.some(s=>s.access==='user-confirmed'));assert(vets.find(v=>v.id==='harendra-rajput').aliases.includes('Harendra Singh Rajput'));
 });

@@ -1,353 +1,42 @@
 ---
-import MapPreview from "../../components/MapPreview.astro";
-import VetCard from "../../components/VetCard.astro";
-import { vetsForFacility } from "../../data/veterinarians";
-import { googleDirections } from "../../lib/map-links.mjs";
-import CostVote from "../../components/CostVote.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Icon from "../../components/Icon.astro";
-import TrustBadge from "../../components/TrustBadge.astro";
-import FacilityMedia from "../../components/FacilityMedia.astro";
-import RatingSummary from "../../components/RatingSummary.astro";
-import DoctorLedgerRow from "../../components/DoctorLedgerRow.astro";
-import ProviderLedgerRow from "../../components/ProviderLedgerRow.astro";
-import {
-  providers, doctors, cityById,
-  specialtyById, providerReviews, doctorReviews, providersDoctors, doctorsProviders,
-  feeINR, deriveReviewThemes, trustLabels, type Review, type TrustLevel,
-} from "@data";
-
-const toBadge = (t?: string): TrustLevel =>
-  t === "verified" ? "verified"
-  : t === "provider_confirmed" ? "provider-confirmed"
-  : t === "user_submitted" ? "user-submitted"
-  : t === "estimated" ? "estimated"
-  : t === "sample" ? "sample"
-  : "public";
-
-export function getStaticPaths() {
-  return [
-    ...providers.map((p) => ({
-      params: { city: cityById(p.cityId)!.slug, provider: p.slug },
-      props: { kind: "facility" as const, provider: p },
-    })),
-    ...doctors.map((d) => ({
-      params: { city: cityById(d.cityId)!.slug, provider: d.slug },
-      props: { kind: "doctor" as const, doctor: d },
-    })),
-  ];
-}
-
-const { kind, provider, doctor } = Astro.props;
-
-const facility = kind === "facility" ? provider : undefined;
-const vet = kind === "doctor" ? doctor : undefined;
-const doc = facility ?? vet!;
-const city = cityById(doc.cityId)!;
-
-const profileReviews: Review[] = facility ? providerReviews(facility.slug) : doctorReviews(vet!.slug);
-const themes = deriveReviewThemes(profileReviews);
-const topThemes = themes.filter((t) => t.reviewCount >= 1);
-const sourceReviewSummary = facility?.reviewSummary;
-const feeTrust = toBadge(facility?.fees?.trustLevel);
-const isFacility = kind === "facility";
-const doctorInitials = vet?.name.split(" ").map((part) => part[0]).slice(0, 2).join("");
-
-const title = isFacility
-  ? `${facility!.name} — ${facility!.area}, ${city.name}`
-  : `Dr. ${vet!.name} — ${specialtyById(vet!.primarySpecialtyId)?.name}, ${city.name}`;
-const description = isFacility
-  ? `${facility!.name} is a ${facility!.type} in ${facility!.area}, ${city.name}. ${facility!.specialtyIds.map((s) => specialtyById(s)?.name).join(", ")}.`
-  : `Dr. ${vet!.name} is a ${specialtyById(vet!.primarySpecialtyId)?.name} vet in ${city.name} with ${vet!.experienceYears} years of experience. Consultation fee ${feeINR(vet!.consultationFee)}.`;
-
-const noindex = doc.dataSource === "sample";
-
-const jsonLd = isFacility
-  ? {
-      "@context": "https://schema.org",
-      "@type": "VeterinaryCare",
-      name: facility!.name,
-      "@id": new URL(`/${city.slug}/${facility!.slug}/`, Astro.site).href + '#facility',
-      ...(facility!.imageUrl ? { image: new URL(facility!.imageUrl, Astro.site).href } : {}),
-      ...(facility!.coordinates ? {geo:{"@type":"GeoCoordinates",latitude:facility!.coordinates.lat,longitude:facility!.coordinates.lng},hasMap:facility!.coordinateSource} : {}),
-      url: new URL(`/${city.slug}/${facility!.slug}/`, Astro.site).href,
-      telephone: facility!.phone,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: facility!.address,
-        addressLocality: city.name,
-        addressRegion: city.state,
-        addressCountry: "IN",
-      },
-      ...(facility!.hours.open24 ? { openingHours: "Mo-Su 00:00-24:00" } : {}),
-      ...(facility!.fees ? { priceRange: `${feeINR(facility!.fees.opd)}+` } : {}),
-    }
-  : {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      jobTitle: "Veterinarian",
-      name: `Dr. ${vet!.name}`,
-      knowsAbout: specialtyById(vet!.primarySpecialtyId)?.name,
-      knowsLanguage: vet!.languages,
-      worksAt: doctorsProviders(vet!).map((p) => ({
-        "@type": "VeterinaryCare",
-        name: p.name,
-        address: `${p.address}, ${cityById(p.cityId)?.name}`,
-      })),
-    };
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import FacilityMedia from '../../components/FacilityMedia.astro';
+import RatingSummary from '../../components/RatingSummary.astro';
+import VetCard from '../../components/VetCard.astro';
+import MapPreview from '../../components/MapPreview.astro';
+import CostVote from '../../components/CostVote.astro';
+import { providers, cityById, specialtyById } from '@data';
+import { vetsForFacility } from '../../data/veterinarians';
+import { googleDirections } from '../../lib/map-links.mjs';
+import { consultationLabel, hoursLabel } from '../../lib/visit-info.mjs';
+export function getStaticPaths(){return providers.map(provider=>({params:{city:cityById(provider.cityId)!.slug,provider:provider.slug},props:{provider}}));}
+const {provider:p}=Astro.props,city=cityById(p.cityId)!,vets=vetsForFacility(p.id),fee=consultationLabel(p),path=`/${city.slug}/${p.slug}/`;
+const schema={'@context':'https://schema.org','@type':'VeterinaryCare','@id':new URL(path,Astro.site).href+'#facility',name:p.name,url:new URL(path,Astro.site).href,telephone:p.phone,image:p.imageUrl?new URL(p.imageUrl,Astro.site).href:undefined,address:{'@type':'PostalAddress',streetAddress:p.address,addressLocality:city.name,addressRegion:city.state,addressCountry:'IN'},...(p.coordinates?{geo:{'@type':'GeoCoordinates',latitude:p.coordinates.lat,longitude:p.coordinates.lng},hasMap:p.coordinateSource}:{}),...(p.visitHours?.openingHours?{openingHours:p.visitHours.openingHours}:{}),...(p.fees?{priceRange:`INR ${p.fees.opd}${p.feeIsStarting?'+':''}`}:{})};
 ---
-
-<BaseLayout title={title} description={description} noindex={noindex} canonical={`/${city.slug}/${doc.slug}/`}>
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-
-  <div class="container">
-    <a class="back-link mt-15" href={`/${city.slug}/`}>
-      <Icon name="back" class="icon icon-md" /> Veterinary care in {city.name}
-    </a>
-
-    <header class="card profile-header mt-1">
-      {isFacility && (
-        <FacilityMedia provider={facility!} large />
-      )}
-      {!isFacility && (
-        <div class="profile-doctor-photo">
-          {vet!.imageUrl ? (
-            <img src={vet!.imageUrl} alt={`Illustrative photo for Dr. ${vet!.name}`} loading="eager" decoding="async" />
-          ) : (
-            <span>{doctorInitials}</span>
-          )}
-        </div>
-      )}
-      <div class={`profile-band ${isFacility ? "teal" : "coral"}`}>
-        <div class="top">
-          <div class="profile-id">
-            <span class="card-icon">
-              <Icon name={isFacility ? "building" : "doctor"} class="icon icon-xl" />
-            </span>
-            <div>
-              <h1 class="profile-name">
-                {isFacility ? facility!.name : `Dr. ${vet!.name}`}
-              </h1>
-              <p class="profile-meta">
-                {isFacility ? (
-                  <>
-                    <span class="capitalize">{facility!.type}</span>
-                    <span class="dot">
-                      <Icon name="pin" class="icon icon-inline" />
-                      {facility!.area}, {city.name}
-                    </span>
-                    {facility!.establishedYear && <span class="dot">Est. {facility!.establishedYear}</span>}
-                  </>
-                ) : (
-                  <>
-                    <span>{specialtyById(vet!.primarySpecialtyId)?.name}</span>
-                    <span class="dot">{vet!.experienceYears} years experience</span>
-                    <span class="dot">{city.name}</span>
-                  </>
-                )}
-              </p>
-              <p class="small muted mt-025">
-                {isFacility
-                  ? facility!.specialtyIds.map((s) => specialtyById(s)?.name).filter(Boolean).join(" · ")
-                  : vet!.degrees.join(" · ")}
-              </p>
-              <div class="profile-tags">
-                <TrustBadge level={doc.dataSource} />
-                <span class="chip chip-sm">
-                  {isFacility
-                    ? facility!.hours.open24 ? "24×7 listed — verify" : "Hours not verified"
-                    : `Speaks: ${vet!.languages.join(", ")}`}
-                </span>
-              </div>
-            </div>
-          </div>
-          <!-- Themes over stars (spec §1): recurring reviewer themes lead, rating is a footnote -->
-          <div class="themes-side">
-            <p class="themes-label">What reviewers mention</p>
-            {topThemes.length > 0 ? (
-              <ul class="themes-list">
-                {topThemes.slice(0, 3).map((t) => (
-                  <li class="chip">“{t.theme}”</li>
-                ))}
-              </ul>
-            ) : sourceReviewSummary && (sourceReviewSummary.positiveThemes.length > 0 || sourceReviewSummary.negativeThemes.length > 0) ? (
-              <div class="stack">
-                <p class="soft small"><strong>Source-reported themes</strong> — not independently sampled by Vetlas.</p>
-                {sourceReviewSummary.positiveThemes.length > 0 && <p class="small"><strong>Often positive:</strong> {sourceReviewSummary.positiveThemes.join(", ")}.</p>}
-                {sourceReviewSummary.negativeThemes.length > 0 && <p class="small"><strong>Concerns reported:</strong> {sourceReviewSummary.negativeThemes.join(", ")}.</p>}
-                {sourceReviewSummary.mixedThemes && sourceReviewSummary.mixedThemes.length > 0 && <p class="small"><strong>Mixed:</strong> {sourceReviewSummary.mixedThemes.join(", ")}.</p>}
-              </div>
-            ) : (
-              <p class="soft small">No review themes have been independently analysed yet.</p>
-            )}
-            {facility ? <RatingSummary provider={facility} compact /> : <p class="muted small themes-footnote">{vet!.reviewCount} public reviews · public rating {vet!.rating.toFixed(1)}/5</p>}
-          </div>
-        </div>
-      </div>
-
-      <div class="profile-actions">
-        <span class="fee-pill">
-          <Icon name="wallet" class="icon icon-md" />
-          {isFacility ? (facility!.fees ? `${facility!.feeIsStarting ? "From " : "OPD "}${feeINR(facility!.fees.opd)}` : "Fee not verified") : `Consultation ${feeINR(vet!.consultationFee)}`}
-        </span>
-        {isFacility && facility!.fees && <TrustBadge level={feeTrust} label={`Fee: ${trustLabels[facility!.fees.trustLevel]}`} />}
-        {isFacility && facility!.phone && (
-          <a class="btn btn-primary" href={`tel:${facility!.phone!.replace(/\s/g, "")}`}>
-            <Icon name="phone" class="icon icon-md" /> {facility!.phone}
-          </a>
-        )}
-        {!isFacility && doctorsProviders(vet!).map((p) => (
-          p.phone && <a class="btn btn-secondary" href={`tel:${p.phone.replace(/\s/g, "")}`}>
-            <Icon name="phone" class="icon icon-md" /> Book via {p.name}
-          </a>
-        ))}
-      </div>
-    </header>
-
-    <div class="profile-grid">
-      <div>
-        {facility && <CostVote providerId={facility.id} />}
-        <section class="panel animate-fade-up" style="animation-delay:60ms">
-          <h2>About</h2>
-          <p class="soft small">{isFacility ? facility!.about : vet!.about}</p>
-
-          <h3>Specialties</h3>
-          <ul class="list-inline">
-            {(isFacility
-              ? facility!.specialtyIds
-              : [vet!.primarySpecialtyId, ...vet!.secondarySpecialtyIds]
-            ).map((id) => {
-              const s = specialtyById(id);
-              return s && (
-                <li><a class="chip" href={`/specialties/${s.slug}/`}>{s.name}</a></li>
-              );
-            })}
-          </ul>
-
-          {isFacility && (
-            <>
-              <h3>Services</h3>
-              <ul class="service-list">
-                {facility!.services.map((svc) => (
-                  <li><Icon name="check" class="icon" />{svc}</li>
-                ))}
-              </ul>
-            </>
-          )}
-        </section>
-
-        {facility && <section class="panel panel-follow"><h2>Location & map preview</h2><p>{facility.address}, {city.name}</p><MapPreview providerId={facility.id}/></section>}
-        {facility && vetsForFacility(facility.id).length > 0 && <section class="panel panel-follow"><h2>Listed veterinarians</h2><div class="doctor-grid">{vetsForFacility(facility.id).map(vet=><VetCard vet={vet}/>)}</div></section>}
-        {isFacility && providersDoctors(facility!).length > 0 && (
-          <section class="panel panel-follow animate-fade-up" style="animation-delay:120ms">
-            <h2>Doctors at {facility!.name}</h2>
-            <ol class="ledger ledger-flush">
-              {providersDoctors(facility!).map((d, i) => (
-                <DoctorLedgerRow doctor={d} index={i} />
-              ))}
-            </ol>
-          </section>
-        )}
-
-        {!isFacility && doctorsProviders(vet!).length > 0 && (
-          <section class="panel panel-follow animate-fade-up" style="animation-delay:120ms">
-            <h2>Practises at</h2>
-            <ol class="ledger ledger-flush">
-              {doctorsProviders(vet!).map((p, i) => (
-                <ProviderLedgerRow provider={p} index={i} />
-              ))}
-            </ol>
-          </section>
-        )}
-
-        <section class="panel panel-follow animate-fade-up" style="animation-delay:180ms">
-          <div class="panel-head">
-            <h2>Reviews & community evidence</h2>
-            <a class="btn btn-secondary" href={`/review/?provider=${doc.slug}`}>Write a review</a>
-            <p class="small muted">No review text is reproduced; themes appear only after analysis.</p>
-          </div>
-          {facility && <RatingSummary provider={facility} />}
-          {topThemes.length > 0 && (
-            <div class="theme-strip">
-              <h3 class="theme-strip-label">Themes:</h3>
-              {topThemes.map((t) => (
-                <span class="chip">
-                  <span class="theme-plus" aria-hidden="true">＋</span>
-                  {t.theme}
-                  {t.reviewCount > 1 && <span class="count"> ×{t.reviewCount}</span>}
-                </span>
-              ))}
-            </div>
-          )}
-          {profileReviews.length === 0 && <p class="notice-box">No first-party Vetlas reviews yet. External discussions are linked under Sources; they are not verified visits or a Vetlas rating.</p>}
-          <ul>
-            {profileReviews.map((r) => (
-              <li class="review-item">
-                <div class="review-head">
-                  <b>{r.author}</b>
-                  <span class="stars" aria-label={`Rated ${r.rating} of 5 (sample)`}>
-                    {Array.from({ length: 5 }).map((_, si) => (
-                      <span class={si < Math.round(r.rating) ? "" : "off"} aria-hidden="true">★</span>
-                    ))}
-                  </span>
-                </div>
-                <p class="review-body">{r.text}</p>
-                {r.tags.length > 0 && (
-                  <ul class="review-tags">{r.tags.map((t) => <li class="chip">{t}</li>)}</ul>
-                )}
-                <p class="review-date">
-                  {new Date(r.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-
-      <aside>
-        <div class="aside-block animate-fade-up" style="animation-delay:100ms">
-          <h2>Visit information</h2>
-          {facility?.hoursNote && <p class="notice-box">{facility.hoursNote}</p>}
-          {facility?.feeNote && <p class="notice-box">{facility.feeNote}</p>}
-          <dl class="kv">
-            {isFacility ? (
-              <>
-                <div><dt>Address</dt><dd class="soft fw-medium">{facility!.address}, {city.name}</dd></div>
-                <div><dt>Timings</dt><dd>{facility!.hours.open24 ? "24×7 listed — verify directly" : facility!.hours.open && facility!.hours.close ? `Daily ${facility!.hours.open}–${facility!.hours.close}` : "Not verified"}</dd></div>
-                <div><dt>Phone</dt><dd>{facility!.phone ? <a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a> : "Not verified"}</dd></div>
-                <div><dt>Facilities</dt><dd class="soft fw-medium">{facility!.amenities.length ? facility!.amenities.join(", ") : "Not verified"}</dd></div>
-                {facility!.coordinates && (
-                  <div><dt>Directions</dt><dd>{facility!.coordinateSource && <p class="small">{facility!.mapLocation?.note} · <a href={facility!.coordinateSource} target="_blank" rel="noreferrer">source</a>. Not independently confirmed.</p>}<a href={googleDirections(facility!)} target="_blank" rel="noreferrer">Open in Google Maps</a></dd></div>
-                )}
-              </>
-            ) : (
-              <>
-                <div><dt>Experience</dt><dd>{vet!.experienceYears} years</dd></div>
-                <div><dt>Languages</dt><dd class="soft fw-medium">{vet!.languages.join(", ")}</dd></div>
-                <div><dt>Data status</dt><dd><TrustBadge level="sample" /></dd></div>
-              </>
-            )}
-          </dl>
-          <p class="notice-box">
-            Public listing data, last checked {facility?.lastChecked ?? "not available"}. Vetlas does
-            not independently verify medical quality; confirm timings, fees and availability before visiting.
-          </p>
-          {isFacility && (
-            <div class="source-links mt-1">
-              <strong>Sources · checked {facility!.lastChecked}</strong>
-              <ul class="evidence-list">{facility!.evidence?.map(e => <li><a href={e.url} target="_blank" rel="noreferrer">{e.label} →</a></li>)}</ul>
-              <div class="list-inline mt-05">
-                {facility!.sources?.googleMaps && <a class="chip chip-sm" href={facility!.sources.googleMaps} target="_blank" rel="noreferrer">Google Maps</a>}
-                {facility!.sources?.justdial && <a class="chip chip-sm" href={facility!.sources.justdial} target="_blank" rel="noreferrer">Justdial</a>}
-                {facility!.sources?.instagram && <a class="chip chip-sm" href={facility!.sources.instagram} target="_blank" rel="noreferrer">Instagram</a>}
-              </div>
-            </div>
-          )}
-          <a class="report-link mt-1" href={`mailto:hello@thatvetguy.net?subject=Report incorrect Vetlas listing: ${encodeURIComponent(doc.name)}`}>
-            Report incorrect information
-          </a>
-        </div>
-      </aside>
-    </div>
-  </div>
+<BaseLayout title={`${p.name}, ${p.area} — fees, timings & doctors | Vetlas`} description={`${p.name} in ${p.area}, Indore. Find consultation information, clinic and doctor timings, phone, photos, services and directions.`} canonical={path}>
+ <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+ <div class="container clinic-profile">
+  <Breadcrumbs items={[{name:'Home',href:'/'},{name:city.name,href:`/${city.slug}/`},{name:p.name,href:path}]}/>
+  <header class="clinic-identity"><div class="clinic-cover"><FacilityMedia provider={p} large/></div><div class="clinic-heading"><p class="eyebrow">{p.type} · {city.name}</p><h1>{p.name}</h1><p><Icon name="pin" class="icon"/>{p.area}</p><RatingSummary provider={p} compact/><div class="clinic-head-actions">{p.phone&&<a class="btn btn-primary" href={`tel:${p.phone.replace(/[^+\d]/g,'')}`}><Icon name="phone" class="icon"/>Call clinic</a>}<a class="btn btn-secondary" href={googleDirections(p)} target="_blank" rel="noreferrer"><Icon name="pin" class="icon"/>Directions</a><a class="btn btn-secondary" href="#reviews">Reviews</a></div></div></header>
+  <nav class="clinic-section-nav" aria-label="Clinic sections"><a href="#overview">Overview</a><a href="#visit">Timings & fees</a>{vets.length>0&&<a href="#doctors">Doctors</a>}<a href="#location">Map</a><a href="#visit-costs">Visit costs</a></nav>
+  <div class="clinic-layout"><aside class="clinic-visit panel" id="visit"><p class="eyebrow">Plan your visit</p><h2>Consultation & timings</h2><div class="fee-detail"><strong>{fee.amount}</strong><small>{fee.caption}</small></div>
+   {p.visitHours?.schedule?<dl class="visit-schedule">{p.visitHours.schedule.map(row=><div><dt>{row.days}</dt><dd>{row.time}</dd></div>)}</dl>:<p class="small">{hoursLabel(p)}</p>}
+   {p.visitHours?.doctorSummary&&<p class="visit-doctor-hours"><strong>Doctor hours</strong><br/>{p.visitHours.doctorSummary}</p>}
+   {p.visitHours?.note&&<p class="small">{p.visitHours.note}</p>}
+   <h3>Address</h3><p>{p.address}</p>{p.phone&&<a class="clinic-phone" href={`tel:${p.phone.replace(/[^+\d]/g,'')}`}><Icon name="phone" class="icon"/>{p.phone}</a>}
+   <a class="btn btn-primary" href={googleDirections(p)} target="_blank" rel="noreferrer">Get directions →</a>
+   {p.sources?.website&&<a class="clinic-website" href={p.sources.website} target="_blank" rel="noreferrer">Visit clinic website →</a>}
+  </aside><div class="clinic-content">
+   <section class="panel" id="overview"><p class="eyebrow">Care at a glance</p><h2>About the clinic</h2><p>{p.about}</p><div class="list-inline">{p.specialtyIds.map(id=>{const s=specialtyById(id);return s&&<a class="chip" href={`/specialties/${s.slug}/`}>{s.name}</a>})}</div><h3>Services</h3><ul class="service-list">{p.services.map(s=><li><Icon name="check" class="icon"/>{s}</li>)}</ul>{p.species.length>0&&<p class="clinic-pets">Cares for {p.species.map(s=>({dog:'dogs',cat:'cats',bird:'birds',rabbit:'rabbits'}[s]||s)).join(' · ')}</p>}</section>
+   {vets.length>0&&<section class="panel" id="doctors"><h2>Meet the doctor{vets.length>1?'s':''}</h2><div class="doctor-grid">{vets.map(vet=><VetCard vet={vet} practiceId={p.id}/>)}</div></section>}
+   <section class="panel" id="location"><h2>Find the clinic</h2><p>{p.area}, {city.name}</p><MapPreview providerId={p.id}/></section>
+   <section class="panel" id="visit-costs"><p class="eyebrow">Know what to budget</p><h2>Consultation & visit costs</h2><p><strong>{fee.amount}</strong> · {fee.caption}</p>{p.consultationListing?<p>{p.consultationListing.note}</p>:p.feeNote&&<p>{p.feeNote}</p>}<p class="small">Tests, medicines and procedures may be charged separately. Share your total visit cost below.</p><CostVote providerId={p.id}/></section>
+   <section class="panel" id="reviews"><div class="panel-head"><h2>Reviews & experiences</h2><a class="btn btn-secondary" href={`/review/?provider=${p.slug}`}>Share your visit</a></div><RatingSummary provider={p}/></section>
+   <details class="panel clinic-evidence"><summary>Listing details & photo credits</summary><p class="small">Checked {p.lastChecked}. Details come from clinic websites and public listings; confirm appointment availability with the clinic.</p>{p.visitHours&&<p class="small"><a href={p.visitHours.sourceUrl} target="_blank" rel="noreferrer">Timetable: {p.visitHours.sourceLabel}</a></p>}{p.consultationListing&&<p class="small"><a href={p.consultationListing.sourceUrl} target="_blank" rel="noreferrer">Published consultation listing</a></p>}<ul class="evidence-list">{p.evidence?.map(e=><li><a href={e.url} target="_blank" rel="noreferrer">{e.label}</a></li>)}</ul><p class="small">{p.mapLocation?.note}</p>{p.imageSourceUrl&&<p class="small">Photo: <a href={p.imageSourceUrl} target="_blank" rel="noreferrer">{p.imageCredit}</a></p>}<a class="small" href={`/methodology/`}>How we organise directory information →</a></details>
+   <a class="report-link" href={`mailto:hello@thatvetguy.net?subject=${encodeURIComponent('Update Vetlas listing: '+p.name)}`}>Suggest a correction</a>
+  </div></div>
+ </div>
 </BaseLayout>
+<style>.clinic-profile{padding-bottom:2rem}.clinic-identity{display:grid;grid-template-columns:35% 1fr;border:1px solid #d8e8e1;border-radius:24px;overflow:hidden;background:#fff;margin:1rem 0}.clinic-cover{min-height:230px;overflow:hidden}.clinic-cover :global(.fac-visual){height:100%;min-height:230px}.clinic-heading{padding:22px;min-width:0;background:linear-gradient(120deg,#fff,#f0faf5)}.clinic-heading h1{font-size:clamp(23px,3vw,34px);line-height:1.15;letter-spacing:-.035em;margin:8px 0}.clinic-heading>p:not(.eyebrow){font-size:13px;display:flex;align-items:center;gap:5px;color:#56736e}.clinic-head-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.clinic-head-actions .btn{font-size:12px;padding:10px 14px}.clinic-section-nav{display:flex;gap:7px;overflow:auto;margin:12px 0}.clinic-section-nav a{white-space:nowrap;background:#fff;border:1px solid #dcebe4;padding:10px 14px;border-radius:99px;color:#006e65;font-size:12px;min-height:40px}.clinic-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;align-items:start}.clinic-visit{grid-column:2;grid-row:1;padding:18px;position:sticky;top:85px}.clinic-content{grid-column:1;grid-row:1;display:grid;gap:14px;min-width:0}.clinic-content>.panel{padding:19px}.clinic-layout h2{font-size:21px;margin:5px 0 12px}.clinic-layout h3{font-size:15px;margin:15px 0 8px}.clinic-layout p{font-size:13px;line-height:1.65}.clinic-layout .eyebrow{font-size:10px}.clinic-visit>.btn{width:100%;margin-top:12px}.clinic-phone{display:flex;gap:7px;align-items:center;font-size:14px;color:#007d70}.clinic-website{display:block;text-align:center;font-size:12px;margin-top:12px}.clinic-evidence summary{font-size:12px;font-weight:600;color:#52726b;cursor:pointer;min-height:26px}.clinic-content .service-list{font-size:12px}.clinic-content .list-inline{flex-wrap:wrap}.clinic-content .chip{font-size:11px}.clinic-pets{background:#eef4fc;border-radius:10px;padding:8px 12px}.clinic-content section{scroll-margin-top:90px}.clinic-content .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.clinic-content .panel-head .btn{font-size:11px;padding:9px 12px}.clinic-content :global(.doctor-grid){grid-template-columns:1fr}@media(max-width:760px){.clinic-layout{display:flex;flex-direction:column;gap:14px}.clinic-visit{position:static;width:100%;padding:15px}.clinic-content{width:100%}.clinic-identity{grid-template-columns:105px minmax(0,1fr)}.clinic-cover,.clinic-cover :global(.fac-visual){min-height:210px}.clinic-heading{padding:13px}.clinic-heading h1{font-size:20px}.clinic-heading>p:not(.eyebrow){font-size:11px}.clinic-head-actions{gap:5px}.clinic-head-actions .btn{font-size:10px;padding:8px 10px;min-height:36px}.clinic-content>.panel{padding:15px}.clinic-layout h2{font-size:19px}.clinic-visit .visit-schedule{margin:8px 0}.clinic-section-nav a{font-size:11px;padding:8px 12px}.clinic-heading .eyebrow{font-size:9px}}</style>

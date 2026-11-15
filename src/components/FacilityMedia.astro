@@ -13,7 +13,7 @@ const apiKey = import.meta.env.PUBLIC_GOOGLE_MAPS_BROWSER_KEY;
     <img data-photo-image alt={`Photo from the Google Maps listing for ${provider.name}`} loading="lazy" decoding="async" />
     <figcaption><span>Google Maps</span><span data-photo-credits></span></figcaption>
   </figure>
-  {provider.imageSourceUrl ? <a class="photo-source-link" href={provider.imageSourceUrl} target="_blank" rel="noopener noreferrer">{provider.imageCredit} ↗</a> : provider.sources?.googleMaps && <a class="photo-source-link" href={provider.sources.googleMaps} target="_blank" rel="noopener noreferrer">View listing & photos on Google Maps ↗</a>}
+  {provider.imageSourceUrl ? <a class="photo-source-link" href={provider.imageSourceUrl} target="_blank" rel="noopener noreferrer" title={provider.imageCredit} aria-label={`Photo credit: ${provider.imageCredit}`}>Photo ↗</a> : provider.sources?.googleMaps && <a class="photo-source-link" href={provider.sources.googleMaps} target="_blank" rel="noopener noreferrer">View listing & photos on Google Maps ↗</a>}
 </div>
 <script>
   import { initializeGooglePlaces } from '../scripts/google-places';
