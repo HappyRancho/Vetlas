@@ -1,0 +1,28 @@
+---
+import type { Provider } from '@data';
+import { summarizeRatings } from '../lib/ratings.mjs';
+interface Props { provider: Provider; compact?: boolean; }
+const { provider, compact = false } = Astro.props;
+const ratings = provider.platformRatings ?? [];
+const summary = summarizeRatings(ratings);
+const label = summary.average === null ? 'Rating not available' : `${summary.average.toFixed(1)}/5 · ${summary.platformCount === 1 ? '1 platform' : `${summary.platformCount} platform avg`}`;
+---
+{compact ? (
+  <a class="platform-rating-compact" href={`/${provider.cityId}/${provider.slug}/#platform-ratings`} data-rating-provider={provider.id} data-rating-input={JSON.stringify(ratings)}>{summary.average !== null && '★ '}{label}</a>
+) : (
+  <section class="platform-ratings" id="platform-ratings" data-rating-provider={provider.id} data-rating-input={JSON.stringify(ratings)}>
+    <h3>Ratings across platforms</h3>
+    <p class="platform-rating-value" data-rating-value>{label}</p>
+    <p class="small muted" data-rating-coverage>{summary.platformCount > 0 ? 'Available source snapshots; coverage is incomplete.' : 'No platform score has been sourced for this branch yet.'} Reddit discussions do not have comparable star scores.</p>
+    <details>
+      <summary>Sources & calculation</summary>
+      <ul class="rating-source-list" data-rating-sources>
+        {ratings.map(r => <li><a href={r.url} target="_blank" rel="noopener noreferrer">{r.platform} · {r.score.toFixed(1)}/5 →</a><span>{r.count !== undefined ? `${r.count} ${r.countLabel ?? 'ratings'} · ` : ''}Checked {r.checkedAt}</span><small>{r.note}</small></li>)}
+      </ul>
+      <p class="small muted">Equal-weight arithmetic mean of available 1–5 platform scores, rounded once. One score per platform. A single source is labelled as one platform, not a cross-platform average. Counts stay separate: people and syndicated reviews can overlap. Justdial may already aggregate other sites. These are platform scores, not a clinical-quality score or a claim to cover every platform. <a href="/methodology/#platform-ratings-method">Methodology →</a></p>
+    </details>
+  </section>
+)}
+<style>
+.platform-rating-compact{font-size:.72rem;font-weight:650;color:#007c70;line-height:1.5}.platform-ratings{border:1px solid #d4eae4;background:#f0faf7;border-radius:16px;padding:1rem;margin:1rem 0}.platform-ratings h3{margin:0 0 .4rem}.platform-rating-value{font-weight:700;color:#006f65}.platform-ratings summary{font-size:.8rem;cursor:pointer;padding:.7rem 0;min-height:44px}.rating-source-list{padding-left:1.1rem;display:grid;gap:.8rem;font-size:.8rem}.rating-source-list span,.rating-source-list small{display:block;margin-top:.25rem;color:#526c68}.platform-ratings p{overflow-wrap:anywhere}
+</style>

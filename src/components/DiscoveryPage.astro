@@ -1,4 +1,5 @@
 ---
+import { summarizeRatings } from "../lib/ratings.mjs";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "./Icon.astro";
 import UniversalSearch from "./UniversalSearch.astro";
@@ -41,7 +42,7 @@ const providerRows = providers.map((provider) => {
     services: provider.services.join(" ").toLowerCase(),
     species: provider.species.join(" ").toLowerCase(),
     emergency: provider.hours.open24 || provider.services.some((service) => /emergency/i.test(service)),
-    rating: provider.rating ?? 0,
+    rating: summarizeRatings(provider.platformRatings).average ?? 0,
     fee: provider.fees?.opd ?? 0,
     search: [
       provider.name, provider.type, provider.area, provider.address, city?.name, city?.state,
@@ -141,7 +142,7 @@ const isNoindex = true;
             <span>Sort</span>
             <select id="filter-sort">
               <option value="relevance">Best match</option>
-              <option value="rating">Rating (when listed)</option>
+              <option value="rating">Platform average (available sources)</option>
               <option value="name">Name A–Z</option>
               <option value="fee-asc">Consultation: low to high</option>
             </select>

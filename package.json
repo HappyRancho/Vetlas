@@ -2,13 +2,16 @@
   "name": "vetlas",
   "version": "0.1.0",
   "private": true,
-  "description": "Vetlas — India's trusted veterinary care decision-support platform",
+  "description": "Vetlas \u2014 India's trusted veterinary care decision-support platform",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test:ratings": "node --test scripts/test-ratings.mjs",
+    "check:directory": "node scripts/check-directory.mjs",
+    "test:browser": "node scripts/test-browser.cjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.1.0",

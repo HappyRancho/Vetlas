@@ -18,6 +18,13 @@ import Icon from "../components/Icon.astro";
     </header>
 
     <div class="doc mt-25 pb-1">
+      <div class="doc-block" id="platform-ratings-method">
+        <h2>Platform ratings & facility photos</h2>
+        <p>Scores show an equal-weight arithmetic mean of the available 1–5 platform ratings, rounded to one decimal. Each platform contributes once; we keep the most recently checked snapshot. One source is labelled as one platform. Missing sources are excluded, never zero. We do not claim complete platform coverage.</p>
+        <p>Counts remain attached to their original source. People may review on multiple sites, and Justdial may already combine ratings from across the web. The mean is a convenience comparison, not an independent reviewer average or a measure of medical quality. Reposted ratings and unverified clinic claims are excluded. Reddit discussion votes are not star ratings.</p>
+        <p>Every static score links to its source and states when and how we observed it. Search-index snapshots can be old; checking a result does not establish that the platform score is current. Google Maps scores, when enabled, load live through Places and are identified separately. We do not emit combined external ratings as schema.org aggregateRating.</p>
+        <p>Google facility photos require a reviewed branch Place ID and the Places integration. Photos retain photographer attribution, load only near the viewport, and are not copied into our dataset. If no photo is available, a labelled placeholder and a Google Maps listing link remain.</p>
+      </div>
       <div class="doc-block">
         <h2><Icon name="badge" class="icon icon-lg" /> Verification logic</h2>
         <p>
@@ -53,10 +60,10 @@ import Icon from "../components/Icon.astro";
       <div class="doc-block">
         <h2><Icon name="pin" class="icon icon-lg" /> City publication gates</h2>
         <p>
-          Cities are published only when profiles meet strict quality thresholds: Tier 1 cities
+          Indore is an explicitly labelled public-source pilot with eight facilities. Wider rollout targets are: Tier 1 cities
           need <strong>≥30 vetted profiles</strong> (target 80–100), Tier 2 need
           <strong>≥15</strong> (target 40–50), Tier 3 need <strong>≥5</strong> (target 10–20).
-          Cities below the minimum stay unpublished and noindexed.
+          Other cities below the minimum stay noindexed.
         </p>
       </div>
 

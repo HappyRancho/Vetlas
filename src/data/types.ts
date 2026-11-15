@@ -54,7 +54,21 @@ export interface ConsultationFee {
   trustLevel: TrustLevel;
 }
 
+export interface PlatformRating {
+  platform: string;
+  score: number;
+  count?: number;
+  countLabel?: string;
+  kind: "platform" | "cross-web" | "republished";
+  checkedAt: string;
+  access: "search-index" | "page" | "api";
+  note?: string;
+  url: string;
+}
+
 export interface Provider {
+  platformRatings?: PlatformRating[];
+  coordinateSource?: string;
   evidence?: { label: string; url: string }[];
   feeNote?: string;
   feeIsStarting?: boolean;

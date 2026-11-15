@@ -1,0 +1,24 @@
+---
+import FacilityVisual from './FacilityVisual.astro';
+import places from '../data/google-places.json';
+import type { Provider } from '@data';
+interface Props { provider: Provider; large?: boolean; }
+const { provider, large = false } = Astro.props;
+const record = (places as Record<string, {placeId: string; sourceUrl: string; checkedAt: string}>)[provider.id];
+const apiKey = import.meta.env.PUBLIC_GOOGLE_MAPS_BROWSER_KEY;
+---
+<div class="facility-photo" data-google-place={apiKey && record ? record.placeId : undefined} data-google-key={apiKey && record ? apiKey : undefined} data-provider-id={provider.id} data-provider-name={provider.name}>
+  <div data-photo-fallback><FacilityVisual type={provider.type} seed={provider.slug} large={large} imageUrl={provider.imageUrl} imageCredit={provider.imageCredit} /></div>
+  <figure class:list={['google-facility-photo', {'is-large': large}]} data-google-photo hidden>
+    <img data-photo-image alt={`Photo from the Google Maps listing for ${provider.name}`} loading="lazy" decoding="async" />
+    <figcaption><span>Google Maps</span><span data-photo-credits></span></figcaption>
+  </figure>
+  {provider.sources?.googleMaps && <a class="photo-source-link" href={provider.sources.googleMaps} target="_blank" rel="noopener noreferrer">View listing & photos on Google Maps ↗</a>}
+</div>
+<script>
+  import { initializeGooglePlaces } from '../scripts/google-places';
+  initializeGooglePlaces();
+</script>
+<style>
+.facility-photo{height:100%;min-width:0;position:relative;display:grid;grid-template-rows:minmax(0,1fr) auto}.facility-photo [data-photo-fallback]{height:100%;min-height:0}.google-facility-photo{position:relative;margin:0;height:100%;min-height:150px;background:#e7f6f2}.google-facility-photo>img{display:block;width:100%;height:100%;max-height:280px;min-height:150px;object-fit:cover}.google-facility-photo.is-large>img{height:300px;max-height:300px}.google-facility-photo figcaption{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);color:#173f3b;font-size:11px;padding:5px 8px;display:flex;flex-wrap:wrap;gap:4px 8px}.google-facility-photo [data-photo-credits]{overflow-wrap:anywhere}.photo-source-link{display:block;background:#f1faf7;font-size:.65rem;padding:.4rem .5rem;color:#006e65;line-height:1.4;overflow-wrap:anywhere;min-height:32px}.google-facility-photo[hidden]{display:none}
+</style>

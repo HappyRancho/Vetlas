@@ -2,7 +2,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
 import TrustBadge from "../../components/TrustBadge.astro";
-import FacilityVisual from "../../components/FacilityVisual.astro";
+import FacilityMedia from "../../components/FacilityMedia.astro";
+import RatingSummary from "../../components/RatingSummary.astro";
 import DoctorLedgerRow from "../../components/DoctorLedgerRow.astro";
 import ProviderLedgerRow from "../../components/ProviderLedgerRow.astro";
 import {
@@ -97,13 +98,7 @@ const jsonLd = isFacility
 
     <header class="card profile-header mt-1">
       {isFacility && (
-        <FacilityVisual
-          type={facility!.type}
-          seed={facility!.slug}
-          large
-          imageUrl={facility!.imageUrl}
-          imageCredit={facility!.imageCredit}
-        />
+        <FacilityMedia provider={facility!} large />
       )}
       {!isFacility && (
         <div class="profile-doctor-photo">
@@ -176,10 +171,7 @@ const jsonLd = isFacility
             ) : (
               <p class="soft small">No review themes have been independently analysed yet.</p>
             )}
-            <p class="muted small themes-footnote">
-              {isFacility ? (facility!.reviewCount ? `${facility!.reviewCount} public reviews listed` : "Review count not verified") : `${vet!.reviewCount} public reviews`} ·
-              {isFacility ? (facility!.rating ? `public rating ${facility!.rating.toFixed(1)}/5` : "rating not verified") : `public rating ${vet!.rating.toFixed(1)}/5`}
-            </p>
+            {facility ? <RatingSummary provider={facility} compact /> : <p class="muted small themes-footnote">{vet!.reviewCount} public reviews · public rating {vet!.rating.toFixed(1)}/5</p>}
           </div>
         </div>
       </div>
@@ -262,6 +254,7 @@ const jsonLd = isFacility
             <a class="btn btn-secondary" href={`/review/?provider=${doc.slug}`}>Write a review</a>
             <p class="small muted">No review text is reproduced; themes appear only after analysis.</p>
           </div>
+          {facility && <RatingSummary provider={facility} />}
           {topThemes.length > 0 && (
             <div class="theme-strip">
               <h3 class="theme-strip-label">Themes:</h3>
@@ -312,7 +305,7 @@ const jsonLd = isFacility
                 <div><dt>Phone</dt><dd>{facility!.phone ? <a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a> : "Not verified"}</dd></div>
                 <div><dt>Facilities</dt><dd class="soft fw-medium">{facility!.amenities.length ? facility!.amenities.join(", ") : "Not verified"}</dd></div>
                 {facility!.coordinates && (
-                  <div><dt>Directions</dt><dd><a href={`https://www.google.com/maps/dir/?api=1&destination=${facility!.coordinates.lat},${facility!.coordinates.lng}`} target="_blank" rel="noreferrer">Open in Google Maps</a></dd></div>
+                  <div><dt>Directions</dt><dd>{facility!.coordinateSource && <p class="small">Provider-published coordinates · <a href={facility!.coordinateSource} target="_blank" rel="noreferrer">source</a>. Not independently confirmed.</p>}<a href={`https://www.google.com/maps/dir/?api=1&destination=${facility!.coordinates.lat},${facility!.coordinates.lng}`} target="_blank" rel="noreferrer">Open in Google Maps</a></dd></div>
                 )}
               </>
             ) : (
