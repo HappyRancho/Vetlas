@@ -2,7 +2,9 @@
 
 Research date: 15 November 2026. Product goal: make finding appropriate veterinary care faster and more transparent than a generic business directory. This is a proposed roadmap, not a claim that every feature is implemented or that Vetlas outperforms Practo today.
 
-## 1. Delivery state
+Current implementation and the subsequent roadmap are recorded in [PRACTO-RESEARCH.md](PRACTO-RESEARCH.md). The initial plan below is retained as a historical design baseline.
+
+## 1. Initial delivery state
 
 Implemented in this branch: screenshot-inspired shared mint/teal theme, local dog/cat artwork, compact featured card, search and filters, map previews, location permission flow, browser-saved facilities, four public-source Indore clinic profiles, source links, fee conflict handling, selected-fee comparison and optional cost inputs, and review email preparation. Sample records remain in seed.ts for development but are no longer exported to the active directory. No fictional doctor profiles are published.
 

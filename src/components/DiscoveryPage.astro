@@ -4,6 +4,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "./Icon.astro";
 import UniversalSearch from "./UniversalSearch.astro";
 import FacilityCard from "./FacilityCard.astro";
+import VetCard from "./VetCard.astro";
+import { veterinarians, vetsForFacility } from "../data/veterinarians";
 import DoctorCard from "./DoctorCard.astro";
 import MapPreview from "./MapPreview.astro";
 import TrustBadge from "./TrustBadge.astro";
@@ -47,7 +49,7 @@ const providerRows = providers.map((provider) => {
     search: [
       provider.name, provider.type, provider.area, provider.address, city?.name, city?.state,
       ...specialtiesForProvider.map((specialty) => `${specialty?.name} ${specialty?.slug}`),
-      ...provider.services, ...provider.species,
+      ...provider.services, ...provider.species, ...vetsForFacility(provider.id).flatMap(v=>[v.name,...v.aliases]),
     ].filter(Boolean).join(" ").toLowerCase(),
     provider,
   };
@@ -79,7 +81,8 @@ const doctorRows = doctors.map((doctor) => {
   };
 });
 
-const rows = [...providerRows, ...doctorRows];
+const vetRows = (mode==='all'||mode==='doctors'?veterinarians:[]).map(vet=>({kind:'veterinarian' as const,id:vet.id,name:`Dr. ${vet.name}`,type:'doctor',city:'indore',state:'Madhya Pradesh',locality:vet.area,specialty:'',services:'',species:'',emergency:false,rating:0,fee:0,search:[vet.name,...vet.aliases,vet.area,vet.practice,...vet.focus,'doctor veterinarian Indore Madhya Pradesh'].join(' ').toLowerCase(),vet}));
+const rows = [...providerRows, ...doctorRows, ...vetRows];
 const availableProviders = providerRows.filter((row) => row.provider);
 const serviceOptions = [...new Set(availableProviders.flatMap((row) => row.provider.services))]
   .sort((a, b) => a.localeCompare(b));
@@ -177,7 +180,7 @@ const isNoindex = true;
         >
           {row.kind === "facility"
             ? <FacilityCard provider={row.provider} index={index} />
-            : <DoctorCard doctor={row.doctor} index={index} />}
+            : row.kind === "veterinarian" ? <VetCard vet={row.vet} /> : <DoctorCard doctor={row.doctor} index={index} />}
         </li>
       ))}
     </ol>

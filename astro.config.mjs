@@ -17,6 +17,8 @@ import sitemap from "@astrojs/sitemap";
 const INDEXABLE = [
   "/",
   "/indore/",
+  "/map/",
+  "/indore/veterinarians/",
   "/indore/myra-pet-clinic-usha-nagar/",
   "/indore/dr-nigam-pet-clinic/",
   "/indore/petvet-surya-dev-nagar/",
@@ -46,7 +48,7 @@ export default defineConfig({
       // Publication gates (spec §2, §6): only publish-worthy URLs are listed
       filter: (page) => {
         const path = new URL(page).pathname;
-        return INDEXABLE.includes(path);
+        return INDEXABLE.includes(path) || path.startsWith("/indore/veterinarians/");
       },
     }),
   ],

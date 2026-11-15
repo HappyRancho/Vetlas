@@ -70,6 +70,7 @@ export interface Provider {
   platformRatings?: PlatformRating[];
   reviewEvidence?: { platform: string; summary: string; url: string; checkedAt: string }[];
   coordinateSource?: string;
+  mapLocation?: { plusCode: string; method: string; precisionMeters: number | null; checkedAt: string; sourceUrl: string; placeId: string | null; cid: string | null; note: string };
   evidence?: { label: string; url: string }[];
   feeNote?: string;
   feeIsStarting?: boolean;

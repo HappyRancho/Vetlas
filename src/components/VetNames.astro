@@ -1,0 +1,7 @@
+---
+import { vetsForFacility } from '../data/veterinarians';
+const {id}=Astro.props;
+const vets=vetsForFacility(id);
+---
+{vets.length>0 && <p class="facility-vets">{vets.map((v,i)=><>{i>0?' · ':''}<a href={`/indore/veterinarians/${v.slug}/`}>Dr. {v.name}</a></>)}<span> · listed practitioner</span></p>}
+<style>.facility-vets{font-size:.76rem;line-height:1.5;color:#385a58;margin:.4rem 0}.facility-vets a{font-weight:650;color:#006c66}.facility-vets span{font-size:.66rem;color:#627975}</style>

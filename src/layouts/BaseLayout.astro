@@ -16,7 +16,7 @@ interface Props {
 }
 const { title, description, noindex = false, canonical } = Astro.props;
 const siteUrl = Astro.site ?? Astro.url;
-const canonicalUrl = canonical ? new URL(canonical, siteUrl) : Astro.url;
+const canonicalUrl = canonical ? new URL(canonical, siteUrl) : new URL(Astro.url.pathname, siteUrl);
 const path = Astro.url.pathname;
 
 const isCurrent = (href: string) =>
