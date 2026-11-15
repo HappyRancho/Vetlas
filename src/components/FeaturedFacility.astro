@@ -1,4 +1,5 @@
 ---
+import TrustBadge from "./TrustBadge.astro";
 import Icon from "./Icon.astro";
 import FacilityVisual from "./FacilityVisual.astro";
 import { cityById, specialtyById, type Provider } from "@data";
@@ -37,6 +38,7 @@ const services = provider.specialtyIds
     <h3 class="ffac-name">
       <a href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
     </h3>
+    <TrustBadge level={provider.dataSource} />
     <p class="ffac-area">{provider.area}</p>
     <ul class="ffac-tags" aria-label="Supported services">
       {services.map((s) => <li>{s}</li>)}

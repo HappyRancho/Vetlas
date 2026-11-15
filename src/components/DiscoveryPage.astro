@@ -4,6 +4,7 @@ import Icon from "./Icon.astro";
 import UniversalSearch from "./UniversalSearch.astro";
 import FacilityCard from "./FacilityCard.astro";
 import DoctorCard from "./DoctorCard.astro";
+import MapPreview from "./MapPreview.astro";
 import TrustBadge from "./TrustBadge.astro";
 import { cityById, specialtyById, cities, specialties, type Provider, type Doctor } from "@data";
 
@@ -154,6 +155,7 @@ const isNoindex = true;
       <div class="active-filter-chips" id="active-filter-chips" aria-label="Active filters"></div>
     </section>
 
+    <MapPreview />
     <ol class="discovery-results" id="discovery-results">
       {rows.map((row, index) => (
         <li
@@ -227,7 +229,7 @@ const isNoindex = true;
     if (params.get("sort")) controls.sort.value = params.get("sort");
     if (params.get("emergency") === "1") controls.emergency.checked = true;
 
-    const fixedMode = mode === "hospitals" ? "hospital" : mode === "clinics" ? "clinic" : mode === "doctors" ? "doctor" : (params.get("type") || "");
+    let fixedMode = mode === "hospitals" ? "hospital" : mode === "clinics" ? "clinic" : mode === "doctors" ? "doctor" : (params.get("type") || "");
     function updateUrl() {
       const next = new URLSearchParams();
       if (query) next.set("q", query);
@@ -281,7 +283,7 @@ const isNoindex = true;
         : controls.sort.value === "name"
           ? (a, b) => a.dataset.name.localeCompare(b.dataset.name)
           : controls.sort.value === "fee-asc"
-            ? (a, b) => Number(a.dataset.fee) - Number(b.dataset.fee)
+            ? (a, b) => (Number(a.dataset.fee) || Infinity) - (Number(b.dataset.fee) || Infinity)
             : (a, b) => Number(b.dataset.rating) - Number(a.dataset.rating);
       items.filter((item) => !item.hidden).sort(comparator).forEach((item) => resultList.appendChild(item));
       count.innerHTML = `<b>${shown}</b> ${shown === 1 ? "result" : "results"}${initialCount ? ` from ${initialCount} listings` : ""}`;
@@ -289,9 +291,14 @@ const isNoindex = true;
       resultList.hidden = shown === 0;
       renderChips();
       updateUrl();
+      document.dispatchEvent(new CustomEvent("directory:filtered", { detail: { city: controls.city.value, names: items.filter(item => !item.hidden).map(item => item.dataset.name) } }));
     }
     Object.values(controls).forEach((control) => control.addEventListener("change", apply));
     clear.addEventListener("click", () => {
+      query = ""; tokenQuery.splice(0);
+      if (mode === "all") fixedMode = "";
+      const input = document.querySelector('form[data-universal-search] input[name="q"]');
+      if (input) { input.value = ""; input.dispatchEvent(new Event("input", { bubbles: true })); }
       Object.values(controls).forEach((control) => {
         if (control.type === "checkbox") control.checked = false;
         else control.value = "";

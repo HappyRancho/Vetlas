@@ -47,10 +47,10 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
 
   <div class="facility-body">
     <div class="facility-top">
-      <TrustBadge level="public" label="Public source" />
+      <TrustBadge level={provider.dataSource} />
       {provider.rating ? <span class="rating-pill" title="Rating shown from the linked public listing">
         <Icon name="sparkle" class="icon" />
-        {provider.rating.toFixed(1)}
+        {provider.rating.toFixed(1)} {provider.dataSource === "sample" && <small>sample</small>}
         {provider.reviewCount && <small>{provider.reviewCount} reviews</small>}
       </span> : <span class="small muted">Rating not verified</span>}
     </div>
@@ -70,9 +70,14 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
       {highlights.map((item) => <li>{item}</li>)}
     </ul>
 
+    <div class="quick-actions">
+      <button class="save-facility" type="button" data-save={provider.id} aria-pressed="false" aria-label={`Save ${provider.name}`}>♡ Save</button>
+      {provider.phone && provider.dataSource !== "sample" && <a class="btn btn-primary" href={`tel:${provider.phone.replace(/[^+\d]/g, "")}`}>Call clinic</a>}
+      <a class="btn btn-secondary" href={`/map/?city=${city?.slug}&q=${encodeURIComponent(provider.area)}`}>Area map <Icon name="pin" class="icon" /></a>
+    </div>
     <div class="facility-footer">
       <div class="facility-fee">
-        {provider.fees ? <><b>{feeINR(provider.fees.opd)}</b><span>consultation · public listing</span></> : <><b>Not verified</b><span>consultation fee</span></>}
+        {provider.fees ? <><b>{feeINR(provider.fees.opd)}</b><span>consultation · {provider.dataSource === "sample" ? "sample" : "listed"}</span></> : <><b>Not verified</b><span>consultation fee</span></>}
       </div>
       <a class="facility-action" href={`/${city?.slug}/${provider.slug}/`}>
         View profile <Icon name="arrow" class="icon" />
@@ -80,3 +85,16 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
     </div>
   </div>
 </article>
+
+<script>
+  const key = 'vetlas-saved';
+  function saved(): string[] { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch { return []; } }
+  function paint() { const ids = saved(); document.querySelectorAll<HTMLButtonElement>('[data-save]').forEach(button => { const active = ids.includes(button.dataset.save!); button.setAttribute('aria-pressed', String(active)); button.textContent = active ? '♥ Saved' : '♡ Save'; }); }
+  document.querySelectorAll<HTMLButtonElement>('[data-save]').forEach(button => button.addEventListener('click', () => {
+    const ids = saved(); const id = button.dataset.save!;
+    try { localStorage.setItem(key, JSON.stringify(ids.includes(id) ? ids.filter(v => v !== id) : [...ids, id])); paint(); }
+    catch { button.textContent = 'Saving unavailable'; }
+  }));
+  paint();
+  window.addEventListener('storage', paint);
+</script>
