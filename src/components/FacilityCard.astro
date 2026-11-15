@@ -1,6 +1,7 @@
 ---
 import Icon from "./Icon.astro";
-import FacilityVisual from "./FacilityVisual.astro";
+import FacilityMedia from "./FacilityMedia.astro";
+import RatingSummary from "./RatingSummary.astro";
 import TrustBadge from "./TrustBadge.astro";
 import { cityById, specialtyById, feeINR, type Provider } from "@data";
 
@@ -23,22 +24,7 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
 ---
 
 <article class={`facility-card${featured ? " facility-card-featured" : ""}`} style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
-  <a class="facility-media" href={`/${city?.slug}/${provider.slug}/`} tabindex="-1" aria-hidden="true">
-    <FacilityVisual
-      type={provider.type}
-      seed={provider.slug}
-      imageUrl={provider.imageUrl}
-      imageCredit={provider.imageCredit}
-    />
-    <span class="facility-type-pill">
-      <Icon name={provider.type === "hospital" ? "building" : "heart"} class="icon" />
-      {provider.type === "hospital" ? "Hospital" : "Clinic"}
-    </span>
-    <span class={`facility-open${provider.hours.open24 ? " is-open" : ""}`}>
-      <span class="status-dot" aria-hidden="true" />
-      {provider.hours.open24 ? "24×7 listed" : "Hours not verified"}
-    </span>
-  </a>
+  <div class="facility-media"><FacilityMedia provider={provider} /></div>
   {provider.imageSourceUrl && (
     <p class="facility-photo-credit">
       Illustrative photo · <a href={provider.imageSourceUrl} target="_blank" rel="noreferrer">source</a>
@@ -48,11 +34,7 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
   <div class="facility-body">
     <div class="facility-top">
       <TrustBadge level={provider.dataSource} />
-      {provider.rating ? <span class="rating-pill" title="Rating shown from the linked public listing">
-        <Icon name="sparkle" class="icon" />
-        {provider.rating.toFixed(1)} {provider.dataSource === "sample" && <small>sample</small>}
-        {provider.reviewCount && <small>{provider.reviewCount} reviews</small>}
-      </span> : <span class="small muted">Rating not verified</span>}
+      <RatingSummary provider={provider} compact />
     </div>
 
     <h3 class="facility-name">
@@ -74,7 +56,7 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
     <div class="quick-actions">
       <button class="save-facility" type="button" data-save={provider.id} aria-pressed="false" aria-label={`Save ${provider.name}`}>♡ Save</button>
       {provider.phone && provider.dataSource !== "sample" && <a class="btn btn-primary" href={`tel:${provider.phone.replace(/[^+\d]/g, "")}`}>Call clinic</a>}
-      <a class="btn btn-secondary" href={`/map/?city=${city?.slug}&q=${encodeURIComponent(provider.area)}`}>Area map <Icon name="pin" class="icon" /></a>
+      <a class="btn btn-secondary" href={`/map/?city=${city?.slug}&${provider.coordinates ? `clinic=${provider.id}` : `q=${encodeURIComponent(provider.area)}`}`}>{provider.coordinates ? "Clinic map" : "Area map"} <Icon name="pin" class="icon" /></a>
     </div>
     <div class="facility-footer">
       <div class="facility-fee">

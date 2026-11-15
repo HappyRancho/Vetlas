@@ -21,3 +21,11 @@ Run `npm run build && node scripts/check-directory.mjs` before publishing change
 Keep home sections in the reference order with one featured card. Preserve 16px section gaps, a roughly 185px mobile animal image, compact 78px category tiles, and the floating nav. City controls must remain at least 44px high. New source detail should go on the profile or in an expandable section, not increase homepage height. Check at 390px/430px plus desktop; do not shrink text to compensate for added content.
 
 Next batch: resolve current branch identities and publicly documented locations, then add only adequately supported profiles with unknown fees left unknown. Review backend remains the later milestone in the full plan.
+
+## Coverage and source-media phase — 2026-11-15
+
+Expanded to eight public-source facilities: Pet Matrix (official rendered site resolves 412-AA), Royal Ganeshganj, Royal Kesharbagh Road and Happy Tails Navlakha. Two Royal map coordinates are provider-published, not independently verified. Branch-specific doctor hours are separate from opening hours. New consultation fees remain unknown; a historical Justdial ₹300 Royal fee is not treated as current without corroboration.
+
+Myra has two attributed rating snapshots (Practo 4.5/108 patient stories and Justdial 4.1/582 ratings): equal platform mean 4.3/5. Royal Ganeshganj has one Justdial snapshot 4.9/203; no multi-platform claim. Indexed Justdial observations are explicitly old. Counts are not pooled and cross-web overlap is disclosed. Republished Google figures from clinic sites and other aggregators are excluded.
+
+Google Places photo/live-rating integration is prepared but disabled pending a restricted browser key and reviewed branch Place IDs; see GOOGLE-PLACES-SETUP.md. Static fallbacks link to the matching Maps search/listing. No Google images have been copied, and mock tests do not substitute for an activation smoke test.
