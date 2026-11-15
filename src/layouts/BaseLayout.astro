@@ -65,6 +65,7 @@ const isCurrent = (href: string) =>
     <SiteHeader path={path} />
 
     <main id="main">
+      {path !== '/' && <div class="page-welcome container"><div><a href="/indore/" class="eyebrow">Your Indore care directory</a><p>Better choices.<br /><strong>Happier companions.</strong></p></div><img src="/pet-hero.webp" width="850" height="944" alt="A golden retriever and tabby cat" class="inner-page-pets" decoding="async" /></div>}
       <slot />
     </main>
 

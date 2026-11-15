@@ -1,9 +1,11 @@
 ---
+import CostVote from '../components/CostVote.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { providers, feeINR } from '@data';
 ---
 <BaseLayout title="Indore vet consultation fees & visit cost planner — Vetlas" description="Compare attributed consultation prices, see source conflicts and plan additional veterinary expenses in Indore.">
 <div class="container cost-page"><p class="eyebrow">Know before you go · Indore</p><h1>A clearer idea of the cost.</h1><p>Select clinics to compare published consultation figures. These are source-listed prices, not confirmed quotes or a representative city average.</p>
+<CostVote />
 <div class="cost-layout"><section class="panel"><h2>1. Choose consultation listings</h2>
 {providers.map(p => <label class="cost-choice"><input type="checkbox" data-fee={p.fees?.opd} data-starting={p.feeIsStarting ? '1':'0'} disabled={!p.fees} checked={!!p.fees && !p.feeIsStarting}/><span><b>{p.name}</b><small>{p.fees ? `${p.feeIsStarting ? 'From ' : ''}${feeINR(p.fees.opd)} · source-listed` : 'No comparable price available'} · checked {p.lastChecked}</small>{p.feeNote && <small>{p.feeNote}</small>}<a href={`/indore/${p.slug}/`}>View fee sources →</a></span></label>)}
 <p class="notice-box">Selecting “from” prices includes starting figures in the comparison; the result is not an average final consultation charge. Conflicting and missing prices are excluded, never treated as ₹0.</p></section>

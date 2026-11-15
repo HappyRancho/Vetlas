@@ -21,7 +21,7 @@ const stripSpecs = specSlugs
 
 const featured = providers.slice(0, 3);
 
-const petEmoji: Record<string, string> = {dog:"🐶",cat:"🐱",bird:"🦜",rabbit:"🐰",hamster:"🐹",cow:"🐮"};
+
 const pets = [
   { v: "dog", l: "Dogs", icon: "dog" },
   { v: "cat", l: "Cats", icon: "cat" },
@@ -34,7 +34,7 @@ const pets = [
 
 <BaseLayout
   title="Vetlas — find veterinary care in India, calmly"
-  description="Discover veterinary hospitals, clinics and doctors across India. Compare locations, specialities, facilities, fees and sample ratings — with every fact clearly labelled."
+  description="Discover veterinary hospitals, clinics and doctors across India. Compare locations, specialities, facilities, fees and sourced platform ratings — with every fact clearly labelled."
 >
   <div class="container home">
     <section class="hero" aria-label="Find veterinary care">
@@ -113,7 +113,7 @@ const pets = [
     <section class="home-section" aria-labelledby="featured-h">
       <div class="section-head">
         <div>
-          <p class="section-eyebrow">Indore pilot</p>
+          <p class="section-eyebrow">Discover Indore</p>
           <h2 id="featured-h">Featured facilities</h2>
           <p>Publicly sourced Indore clinics. Check details before visiting.</p>
         </div>
@@ -136,7 +136,7 @@ const pets = [
       <div class="pet-grid" role="list">
         {pets.map((p) => (
           <a class="pet-card" href={`/search/?pet=${p.v}`} role="listitem">
-            <span class="pet-icon" aria-hidden="true">{petEmoji[p.icon]}</span>
+            <span class="pet-icon" aria-hidden="true"><Icon name={p.icon} class="icon icon-lg" /></span>
             <span class="pet-label">{p.l}</span>
           </a>
         ))}

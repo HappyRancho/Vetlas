@@ -10,6 +10,8 @@ for (const p of dataset.facilities) {
   assert(!slugs.has(p.slug), `Duplicate provider slug: ${p.slug}`); slugs.add(p.slug);
   assert.equal(p.cityId, 'indore', `Unexpected pilot city: ${p.id}`);
   assert.notEqual(p.dataSource, 'sample', `Sample provider leaked into public data: ${p.id}`);
+  assert(p.imageUrl?.startsWith('/facilities/') && p.imageSourceUrl && p.imageOriginalUrl && p.imageAlt, `Missing attributed photo: ${p.id}`);
+  assert(readFileSync(new URL('../public' + p.imageUrl, import.meta.url)).length > 1000, `Empty facility image: ${p.id}`);
   assert(p.name && p.address && p.area, `Missing public identity: ${p.id}`);
   assert(p.evidence?.length, `Missing evidence: ${p.id}`);
   assert(/^\d{4}-\d{2}-\d{2}$/.test(p.lastChecked), `Missing research date: ${p.id}`);

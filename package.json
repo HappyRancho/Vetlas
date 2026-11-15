@@ -11,7 +11,12 @@
     "check": "astro check",
     "test:ratings": "node --test scripts/test-ratings.mjs",
     "check:directory": "node scripts/check-directory.mjs",
-    "test:browser": "node scripts/test-browser.cjs"
+    "test:browser": "node scripts/test-browser.cjs",
+    "test:costs": "node --test scripts/test-cost-votes.mjs",
+    "test:voting-api": "node scripts/test-voting-api.mjs",
+    "dev:worker": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "test:community-ui": "node scripts/test-community-ui.cjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.1.0",
@@ -22,6 +27,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/sitemap": "^3.2.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "wrangler": "^4.162.0"
   }
 }

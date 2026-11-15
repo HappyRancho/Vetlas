@@ -25,12 +25,6 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
 
 <article class={`facility-card${featured ? " facility-card-featured" : ""}`} style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
   <div class="facility-media"><FacilityMedia provider={provider} /></div>
-  {provider.imageSourceUrl && (
-    <p class="facility-photo-credit">
-      Illustrative photo · <a href={provider.imageSourceUrl} target="_blank" rel="noreferrer">source</a>
-    </p>
-  )}
-
   <div class="facility-body">
     <div class="facility-top">
       <TrustBadge level={provider.dataSource} />

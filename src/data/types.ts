@@ -68,6 +68,7 @@ export interface PlatformRating {
 
 export interface Provider {
   platformRatings?: PlatformRating[];
+  reviewEvidence?: { platform: string; summary: string; url: string; checkedAt: string }[];
   coordinateSource?: string;
   evidence?: { label: string; url: string }[];
   feeNote?: string;
@@ -96,6 +97,9 @@ export interface Provider {
   dataSource: DataSource;
   /** Optional future real facility photograph; absent records use the illustrated fallback. */
   imageUrl?: string;
+  imageAlt?: string;
+  imageOriginalUrl?: string;
+  imageCheckedAt?: string;
   imageCredit?: string;
   imageSourceUrl?: string;
   coordinates?: { lat: number; lng: number };
@@ -141,6 +145,9 @@ export interface Doctor {
   dataSource: DataSource;
   /** Optional future real doctor photograph; absent records use the initials fallback. */
   imageUrl?: string;
+  imageAlt?: string;
+  imageOriginalUrl?: string;
+  imageCheckedAt?: string;
   imageCredit?: string;
   imageSourceUrl?: string;
 }

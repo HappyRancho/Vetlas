@@ -8,12 +8,12 @@ const record = (places as Record<string, {placeId: string; sourceUrl: string; ch
 const apiKey = import.meta.env.PUBLIC_GOOGLE_MAPS_BROWSER_KEY;
 ---
 <div class="facility-photo" data-google-place={apiKey && record ? record.placeId : undefined} data-google-key={apiKey && record ? apiKey : undefined} data-provider-id={provider.id} data-provider-name={provider.name}>
-  <div data-photo-fallback><FacilityVisual type={provider.type} seed={provider.slug} large={large} imageUrl={provider.imageUrl} imageCredit={provider.imageCredit} /></div>
+  <div data-photo-fallback><FacilityVisual type={provider.type} seed={provider.slug} large={large} imageUrl={provider.imageUrl} imageCredit={provider.imageCredit} imageAlt={provider.imageAlt} /></div>
   <figure class:list={['google-facility-photo', {'is-large': large}]} data-google-photo hidden>
     <img data-photo-image alt={`Photo from the Google Maps listing for ${provider.name}`} loading="lazy" decoding="async" />
     <figcaption><span>Google Maps</span><span data-photo-credits></span></figcaption>
   </figure>
-  {provider.sources?.googleMaps && <a class="photo-source-link" href={provider.sources.googleMaps} target="_blank" rel="noopener noreferrer">View listing & photos on Google Maps ↗</a>}
+  {provider.imageSourceUrl ? <a class="photo-source-link" href={provider.imageSourceUrl} target="_blank" rel="noopener noreferrer">{provider.imageCredit} ↗</a> : provider.sources?.googleMaps && <a class="photo-source-link" href={provider.sources.googleMaps} target="_blank" rel="noopener noreferrer">View listing & photos on Google Maps ↗</a>}
 </div>
 <script>
   import { initializeGooglePlaces } from '../scripts/google-places';
