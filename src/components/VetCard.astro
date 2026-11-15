@@ -1,15 +1,16 @@
 ---
-import { providers, feeINR } from '@data';
-import Icon from './Icon.astro';
+import { providers } from '@data';
+import VetPortrait from './VetPortrait.astro';
+import { consultationLabel } from '../lib/visit-info.mjs';
 import type { Veterinarian } from '../data/veterinarians';
-interface Props { vet: Veterinarian; }
-const {vet}=Astro.props;
-const practice=providers.find(p=>vet.providerIds.includes(p.id));
+interface Props {vet:Veterinarian;practiceId?:string;}
+const {vet,practiceId}=Astro.props,practice=providers.find(p=>vet.providerIds.includes(p.id)&&(!practiceId||p.id===practiceId));
+const fee=practice?consultationLabel(practice):{amount:'Ask practice',caption:'Consultation charge'};
 ---
 <article class="vet-card">
- <div class="vet-card-top"><span class="vet-symbol"><Icon name="doctor" class="icon icon-xl" /></span><div><span class="eyebrow">Public-source profile</span><h3><a href={`/indore/veterinarians/${vet.slug}/`}>Dr. {vet.name}</a></h3><p>{vet.area}, Indore</p></div></div>
+ <div class="vet-card-top"><VetPortrait vet={vet}/><div><p class="vet-kicker">Veterinarian</p><h3><a href={`/indore/veterinarians/${vet.slug}/`}>Dr. {vet.name}</a></h3><p>{vet.area}</p></div></div>
  <p class="vet-focus">{vet.focus.join(' · ')}</p><p class="vet-practice">{vet.practice}</p>
- <p class="small muted">{vet.qualifications.length?vet.qualifications.join(' · '):'Qualifications not confirmed'} · Sources on profile</p>
- <div class="vet-card-bottom"><div><strong>{practice?.fees?`${practice.feeIsStarting?'From ':''}${feeINR(practice.fees.opd)}`:'Call to confirm'}</strong><small>{practice?.fees?'Listed practice consultation · indicative':'Consultation fee & availability'}</small></div><a class="btn btn-secondary" href={`/indore/veterinarians/${vet.slug}/`}>View doctor →</a></div>
+ {vet.qualifications.length>0&&<p class="vet-qualifications">{vet.qualifications.join(' · ').replace(/ — (clinic|Practo|university)-published/g,'')}</p>}
+ <div class="vet-card-bottom"><div><strong>{fee.amount}</strong><small>{fee.caption}{!practiceId&&vet.providerIds.length>1&&practice?` · ${practice.area}`:''}</small></div><a class="btn btn-secondary" href={`/indore/veterinarians/${vet.slug}/`}>View doctor →</a></div>
 </article>
-<style>.vet-card{height:100%;padding:1.1rem;background:linear-gradient(145deg,#fff,#f5fcfa);border:1px solid #d9ebe6;border-radius:22px;box-shadow:0 5px 18px #173f3b06;display:flex;flex-direction:column;gap:.65rem;min-width:0}.vet-card p{margin:0}.vet-card p.small{font-size:.73rem;line-height:1.5}.vet-card-top{display:flex;gap:.7rem;align-items:center}.vet-symbol{flex-shrink:0;display:grid;place-items:center;background:#dff4ee;color:#007c73;width:48px;height:48px;border-radius:16px}.vet-card h3{font-size:1.08rem;margin:.15rem 0;line-height:1.3}.vet-card .eyebrow{font-size:.62rem}.vet-card-top p,.vet-practice{font-size:.82rem;color:#50636d}.vet-focus{color:#007c73;font-size:.83rem;font-weight:600}.vet-card-bottom{display:flex;gap:.5rem;align-items:center;justify-content:space-between;margin-top:auto;padding-top:.7rem;border-top:1px solid #e4efea}.vet-card-bottom strong{font-size:.88rem}.vet-card-bottom small{display:block;font-size:.65rem;max-width:180px;color:#52666e}.vet-card-bottom .btn{font-size:.72rem;padding:.6rem .7rem;white-space:nowrap}</style>
+<style>.vet-card{height:100%;padding:14px;background:linear-gradient(145deg,#fff,#f5fcfa);border:1px solid #d9ebe6;border-radius:21px;box-shadow:0 5px 18px #173f3b06;display:flex;flex-direction:column;gap:7px;min-width:0}.vet-card p{margin:0}.vet-card-top{display:flex;gap:11px;align-items:center}.vet-card h3{font-size:16px;margin:2px 0;line-height:1.3}.vet-card .vet-kicker{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:#68867b}.vet-card-top p{font-size:11px;color:#50636d}.vet-focus{color:#007c73;font-size:11px;font-weight:600}.vet-practice{font-size:12px;color:#4e646b}.vet-qualifications{font-size:11px;color:#667b7c}.vet-card-bottom{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;border-top:1px solid #e4efea}.vet-card-bottom strong{font-size:16px;color:#006e63}.vet-card-bottom small{display:block;font-size:9px;max-width:180px;color:#52666e}.vet-card-bottom .btn{font-size:11px;padding:9px 12px;white-space:nowrap;min-height:40px}</style>

@@ -5,7 +5,6 @@ import FacilityCard from "../../components/FacilityCard.astro";
 import VetCard from "../../components/VetCard.astro";
 import { veterinarians } from "../../data/veterinarians";
 import UniversalSearch from "../../components/UniversalSearch.astro";
-import TrustBadge from "../../components/TrustBadge.astro";
 import { cities, providersByCity } from "@data";
 
 export function getStaticPaths() {
@@ -19,7 +18,6 @@ const { city } = Astro.props;
 const cityProviders = providersByCity(city.id);
 const cityDoctors = veterinarians.filter(v=>v.cityId===city.id);
 
-const profileCount = cityProviders.length + cityDoctors.length;
 
 const clinicCount = cityProviders.filter((p) => p.type === "clinic").length;
 const hospitalCount = cityProviders.length - clinicCount;
@@ -71,11 +69,7 @@ const jsonLd = {
       </div>
     </header>
 
-    <div class="notice-box mt-1 maxw-44">
-      <strong>Public-source directory.</strong> These profiles are drawn from public listings and are not
-      independently verified by Vetlas. Compare {profileCount} facility and doctor profiles; confirm fees, hours and availability with the practice.
-      {city.id === "indore" && <div class="list-inline mt-1"><a class="chip" href="/map/">Explore the clinic map →</a><a class="chip" href="/indore/veterinarians/">Compare veterinarians →</a></div>}
-    </div>
+    {city.id === "indore" && <div class="list-inline"><a class="chip" href="/map/">Explore 15 clinics on the map →</a><a class="chip" href="/indore/veterinarians/">Meet the veterinarians →</a></div>}
 
     <section class="section-first" aria-labelledby="search-h">
       <h2 class="visually-hidden" id="search-h">Search within {city.name} and beyond</h2>
@@ -88,7 +82,7 @@ const jsonLd = {
           <p class="section-eyebrow">Facilities</p>
           <h2 class="section-title section-title-sm" id="cp-h">Hospitals &amp; clinics in {city.name}</h2>
         </div>
-        <TrustBadge level="public" label="Public source" />
+
       </div>
       {cityProviders.length > 0 ? (
         <div class="facility-grid">
@@ -110,7 +104,7 @@ const jsonLd = {
           <p class="section-eyebrow">Doctors</p>
           <h2 class="section-title section-title-sm" id="cd-h">Veterinarians in {city.name}</h2>
         </div>
-        <TrustBadge level="public" label="Public source" />
+
       </div>
       {cityDoctors.length > 0 ? (
         <div class="doctor-grid">

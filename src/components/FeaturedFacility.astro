@@ -1,8 +1,8 @@
 ---
-import TrustBadge from "./TrustBadge.astro";
 import Icon from "./Icon.astro";
 import FacilityMedia from "./FacilityMedia.astro";
 import VetNames from "./VetNames.astro";
+import { consultationLabel } from '../lib/visit-info.mjs';
 import RatingSummary from "./RatingSummary.astro";
 import { cityById, specialtyById, type Provider } from "@data";
 
@@ -17,6 +17,7 @@ interface Props {
 }
 const { provider } = Astro.props;
 const city = cityById(provider.cityId);
+const fee = consultationLabel(provider);
 const typeLabel = provider.type === "hospital" ? "Hospital" : "Clinic";
 const services = provider.specialtyIds
   .map((id) => specialtyById(id)?.name)
@@ -39,12 +40,13 @@ const services = provider.specialtyIds
       <a href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
     </h3>
     <VetNames id={provider.id} />
-    <TrustBadge level={provider.dataSource} />
+
     <p class="ffac-area">{provider.area}</p>
     <RatingSummary provider={provider} compact />
     <ul class="ffac-tags" aria-label="Supported services">
       {services.map((s) => <li>{s}</li>)}
     </ul>
+    <div class="ffac-cost"><strong>{fee.amount}</strong><small>{fee.caption}</small></div>
     <a class="ffac-link" href={`/${city?.slug}/${provider.slug}/`}>
       View profile <Icon name="arrow" class="icon" />
     </a>

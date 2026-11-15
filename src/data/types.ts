@@ -67,6 +67,8 @@ export interface PlatformRating {
 }
 
 export interface Provider {
+  visitHours?: { openingHours?: string[];summary:string;schedule:{days:string;time:string}[];sourceUrl:string;sourceLabel:string;checkedAt:string;doctorSummary?:string;note?:string};
+  consultationListing?: {min:number;max:number;kind:string;note:string;sourceUrl:string};
   platformRatings?: PlatformRating[];
   reviewEvidence?: { platform: string; summary: string; url: string; checkedAt: string }[];
   coordinateSource?: string;
