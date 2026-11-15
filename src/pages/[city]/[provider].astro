@@ -1,4 +1,8 @@
 ---
+import MapPreview from "../../components/MapPreview.astro";
+import VetCard from "../../components/VetCard.astro";
+import { vetsForFacility } from "../../data/veterinarians";
+import { googleDirections } from "../../lib/map-links.mjs";
 import CostVote from "../../components/CostVote.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
@@ -63,6 +67,9 @@ const jsonLd = isFacility
       "@context": "https://schema.org",
       "@type": "VeterinaryCare",
       name: facility!.name,
+      "@id": new URL(`/${city.slug}/${facility!.slug}/`, Astro.site).href + '#facility',
+      ...(facility!.imageUrl ? { image: new URL(facility!.imageUrl, Astro.site).href } : {}),
+      ...(facility!.coordinates ? {geo:{"@type":"GeoCoordinates",latitude:facility!.coordinates.lat,longitude:facility!.coordinates.lng},hasMap:facility!.coordinateSource} : {}),
       url: new URL(`/${city.slug}/${facility!.slug}/`, Astro.site).href,
       telephone: facility!.phone,
       address: {
@@ -77,9 +84,10 @@ const jsonLd = isFacility
     }
   : {
       "@context": "https://schema.org",
-      "@type": "Physician",
+      "@type": "Person",
+      jobTitle: "Veterinarian",
       name: `Dr. ${vet!.name}`,
-      medicalSpecialty: specialtyById(vet!.primarySpecialtyId)?.name,
+      knowsAbout: specialtyById(vet!.primarySpecialtyId)?.name,
       knowsLanguage: vet!.languages,
       worksAt: doctorsProviders(vet!).map((p) => ({
         "@type": "VeterinaryCare",
@@ -228,6 +236,8 @@ const jsonLd = isFacility
           )}
         </section>
 
+        {facility && <section class="panel panel-follow"><h2>Location & map preview</h2><p>{facility.address}, {city.name}</p><MapPreview providerId={facility.id}/></section>}
+        {facility && vetsForFacility(facility.id).length > 0 && <section class="panel panel-follow"><h2>Listed veterinarians</h2><div class="doctor-grid">{vetsForFacility(facility.id).map(vet=><VetCard vet={vet}/>)}</div></section>}
         {isFacility && providersDoctors(facility!).length > 0 && (
           <section class="panel panel-follow animate-fade-up" style="animation-delay:120ms">
             <h2>Doctors at {facility!.name}</h2>
@@ -307,7 +317,7 @@ const jsonLd = isFacility
                 <div><dt>Phone</dt><dd>{facility!.phone ? <a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a> : "Not verified"}</dd></div>
                 <div><dt>Facilities</dt><dd class="soft fw-medium">{facility!.amenities.length ? facility!.amenities.join(", ") : "Not verified"}</dd></div>
                 {facility!.coordinates && (
-                  <div><dt>Directions</dt><dd>{facility!.coordinateSource && <p class="small">Provider-published coordinates · <a href={facility!.coordinateSource} target="_blank" rel="noreferrer">source</a>. Not independently confirmed.</p>}<a href={`https://www.google.com/maps/dir/?api=1&destination=${facility!.coordinates.lat},${facility!.coordinates.lng}`} target="_blank" rel="noreferrer">Open in Google Maps</a></dd></div>
+                  <div><dt>Directions</dt><dd>{facility!.coordinateSource && <p class="small">{facility!.mapLocation?.note} · <a href={facility!.coordinateSource} target="_blank" rel="noreferrer">source</a>. Not independently confirmed.</p>}<a href={googleDirections(facility!)} target="_blank" rel="noreferrer">Open in Google Maps</a></dd></div>
                 )}
               </>
             ) : (

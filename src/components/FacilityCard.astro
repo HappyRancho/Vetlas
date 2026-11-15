@@ -1,6 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import FacilityMedia from "./FacilityMedia.astro";
+import VetNames from "./VetNames.astro";
 import RatingSummary from "./RatingSummary.astro";
 import TrustBadge from "./TrustBadge.astro";
 import { cityById, specialtyById, feeINR, type Provider } from "@data";
@@ -34,6 +35,7 @@ const highlights = [...specs.slice(0, 1), ...provider.services.slice(0, 2)];
     <h3 class="facility-name">
       <a href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
     </h3>
+    <VetNames id={provider.id} />
 
     <p class="facility-location">
       <Icon name="pin" class="icon" />

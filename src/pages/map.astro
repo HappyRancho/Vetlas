@@ -1,12 +1,9 @@
 ---
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MapPreview from '../components/MapPreview.astro';
-import Icon from '../components/Icon.astro';
-import { cities, providers } from '@data';
+import CareMap from '../components/CareMap.astro';
 ---
-<BaseLayout title="Explore veterinary care on the map — Vetlas" description="Preview neighbourhoods and discover veterinary care across India." noindex>
- <div class="container map-page"><p class="eyebrow">Good care, closer to home</p><h1>A clearer path to care.</h1><p>Explore the area, find a clinic, and plan your visit.</p><MapPreview expanded />
- <div class="section-head"><h2>Explore by city</h2><a href="/search/">All facilities →</a></div>
- <div class="map-cities">{cities.map(c => <a href={`/search/?city=${c.slug}`}><Icon name="pin" class="icon"/><span><b>{c.name}</b><small>{providers.filter(p => p.cityId === c.id).length} listed facilities · {c.state}</small></span><Icon name="arrow" class="icon"/></a>)}</div>
- </div>
+<BaseLayout title="Indore veterinary clinic map — 15 locations, doctors & directions | Vetlas" description="Explore 15 Indore veterinary clinics on an interactive map. Filter by pet and service, find nearby care, compare listed fees and open sourced locations in Google Maps.">
+ <div class="container"><Breadcrumbs items={[{name:'Home',href:'/'},{name:'Indore',href:'/indore/'},{name:'Clinic map',href:'/map/'}]}/><header class="map-page-heading"><p class="eyebrow">Good care, closer to home</p><h1>Find veterinary care in Indore.</h1><p>15 Indore clinics. Compare locations, find your doctor and plan the visit.</p><a href="/indore/veterinarians/">Meet Indore’s veterinarians →</a></header><CareMap/></div>
 </BaseLayout>
+<style>.map-page-heading{margin:1.3rem 0}.map-page-heading h1{font-size:clamp(1.8rem,4.7vw,3rem);margin:.4rem 0}.map-page-heading p{font-size:.9rem}.map-page-heading>a{font-size:.85rem;color:#007d73}</style>

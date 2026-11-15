@@ -6,11 +6,9 @@ const base=process.env.VETLAS_TEST_URL || 'http://127.0.0.1:4323';
  const context=await browser.newContext();const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await context.route(/https?:\/\/(?!127\.0\.0\.1)/,r=>r.abort());
  for(const width of [320,390,430,768,1440]){await page.setViewportSize({width,height:900});for(const route of ['/','/search/','/indore/','/indore/myra-pet-clinic-usha-nagar/','/indore/royal-vet-clinic-kesharbagh/','/costs/','/review/','/map/']){await page.goto(base+route);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),route+' overflow '+width);}}
- await page.goto(base+'/search/');assert.equal(await page.locator('.discovery-result').count(),15);await page.locator('#filter-sort').selectOption('rating');
+ await page.goto(base+'/search/');assert.equal(await page.locator('.discovery-result').count(),23);await page.locator('#filter-sort').selectOption('rating');
  const first=await page.locator('.discovery-result').first().innerText();assert(first.includes('Kesharbagh') || first.includes('Happy Tails') || first.includes('Prime Vet'),first);
- await page.goto(base+'/map/?city=indore&clinic=indore-royal-ganeshganj');assert((await page.locator('#area-map').getAttribute('src')).includes('22.7186253'));assert((await page.locator('#map-status').textContent()).includes('provider-published'));
- await page.locator('#map-clinic').selectOption('indore-royal-kesharbagh');assert((await page.locator('#area-map').getAttribute('src')).includes('22.6788412'));
- await page.locator('#map-city').selectOption('delhi');assert.equal(await page.locator('#map-clinic').inputValue(),'');assert((await page.locator('#map-status').textContent()).includes('Area preview'));
+ await page.goto(base+'/map/?clinic=indore-royal-ganeshganj');assert((await page.locator('[data-selected-directions]').getAttribute('href')).includes('22.7186253'));
  await page.goto(base+'/indore/myra-pet-clinic-usha-nagar/');assert((await page.locator('[data-rating-value]').innerText()).includes('4.1/5'));assert.equal(await page.locator('[data-rating-sources]>li').count(),3);assert.equal(await page.locator('script[src*="maps.googleapis.com"]').count(),0);
  assert(!(await page.locator('script[type="application/ld+json"]').first().textContent()).includes('aggregateRating'));
  await page.goto(base+'/costs/');assert((await page.locator('#fee-average').textContent()).includes('₹200'));await page.locator('[data-fee="300"]').check();assert((await page.locator('#fee-average').textContent()).includes('₹250'));
@@ -35,5 +33,5 @@ const base=process.env.VETLAS_TEST_URL || 'http://127.0.0.1:4323';
   else assert.equal(await p.locator('[data-photo-fallback]').isVisible(),true);
   await ctx.close();
  }
- console.log('PASS: 15 records; all main pages at 320/390/430/768/1440; ratings/sort/source coverage; branch maps/city reset; fee comparison; Google mock success, no photo, API failure, broken image, attribution and unsafe-link handling; no JS errors.');await browser.close();
+ console.log('PASS: 15 facilities + 8 doctors; all main pages at 320/390/430/768/1440; ratings/sort/source coverage; sourced branch directions; fee comparison; Google mock success, no photo, API failure, broken image, attribution and unsafe-link handling; no JS errors.');await browser.close();
 })().catch(error=>{console.error(error);process.exit(1)});

@@ -1,5 +1,11 @@
 # Indore coverage phase — started 15 November 2026
 
+## Current map and veterinarian update — 15 November 2026
+
+Current coverage: 15 facilities, original sourced photos and external rating snapshots, persistent shared cost voting, 15 sourced map locations, eight source-attributed veterinarian profiles, searchable doctor aliases and clinic links. Map features include filters, selectable pins, nearby sorting, mobile list/map views, Google preview/directions and shared filter links. The dog/cat hero remains on every page. See [Practo public-content study and next phases](PRACTO-RESEARCH.md) for research limits, implementation and acceptance criteria. Earlier entries below are historical milestones, not current coverage counts.
+
+Outstanding: independent credential checks, B. P. Shukla appointment branch, Places API setup, published first-party review backend, clinic-confirmed appointment availability and wider city coverage.
+
 ## Production milestone
 
 PR #7 merged as `232f3c16a9841f23d23bca24498ee5c932f73e95`. Cloudflare production build `1d81313b-19f0-42e6-bc5d-0c375dc6951e` succeeded; version `8c3b9bf3-645a-4434-8780-dffe0b592a69`. Public site: https://vetlas.thatvetguy.net/.

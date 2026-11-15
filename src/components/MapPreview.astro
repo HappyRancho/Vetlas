@@ -1,74 +1,26 @@
 ---
-import { cities, providers } from "@data";
-interface Props { expanded?: boolean; }
-const { expanded = false } = Astro.props;
+import { providers } from '@data';
+import { googleDirections, googlePreview } from '../lib/map-links.mjs';
+interface Props { expanded?: boolean; providerId?: string; }
+const { expanded=false, providerId }=Astro.props;
+const available=providers.filter(p=>p.coordinates && (!providerId || p.id===providerId));
+const selected=available[0];
 ---
-<details class="directory-map" open={expanded}>
-  <summary><span>⌖ Map preview <small>Explore the area before you go</small></span><span>Open map →</span></summary>
-  <div class="map-content">
-    <div class="map-toolbar"><label>Explore city <select id="map-city">{cities.map(c => <option value={c.slug}>{c.name}</option>)}</select></label><button type="button" class="btn btn-primary" id="map-nearby">Use my location</button><a id="map-external" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" href="https://www.google.com/maps/search/veterinary+clinics+India">Open in Google Maps →</a></div>
-    <label class="map-clinic-label">Choose a clinic location <select id="map-clinic"><option value="">City / area preview</option>{providers.filter(p => p.coordinates).map(p => <option value={p.id} data-city={p.cityId} data-lat={p.coordinates!.lat} data-lng={p.coordinates!.lng}>{p.name}</option>)}</select></label>
-    <iframe id="area-map" title="City and neighbourhood map preview" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-    <p id="map-status" role="status">Area preview only. Clinic coordinates have not been independently confirmed.</p>
-  </div>
-</details>
+{selected && <details class="directory-map compact-map" open={expanded}>
+ <summary><span>Map preview <small>{providerId?selected.area:'15 sourced clinic locations in Indore'}</small></span><span>Explore →</span></summary>
+ <div class="map-content">
+  {available.length>1 && <label>Choose a facility<select data-preview-select>{available.map(p=><option value={p.id} data-frame={googlePreview(p)} data-directions={googleDirections(p)} data-note={p.mapLocation?.note}>{p.name} · {p.area}</option>)}</select></label>}
+  <iframe data-preview-frame data-src={googlePreview(selected)} title={`Google Maps location preview: ${selected.name}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  <p data-preview-note class="small muted">{selected.mapLocation?.note}</p>
+  <div class="list-inline"><a data-preview-directions class="btn btn-primary" href={googleDirections(selected)} target="_blank" rel="noreferrer">Google Maps directions →</a><a class="btn btn-secondary" href={`/map/?clinic=${selected.id}`}>Compare nearby care →</a></div>
+ </div>
+</details>}
 <script>
- const select = document.querySelector<HTMLSelectElement>('#map-city');
- const clinic = document.querySelector<HTMLSelectElement>('#map-clinic');
- const status = document.getElementById('map-status')!;
- const frame = document.querySelector<HTMLIFrameElement>('#area-map');
- const external = document.querySelector<HTMLAnchorElement>('#map-external');
- const details = document.querySelector<HTMLDetailsElement>('.directory-map');
- if(select && frame && external && details) {
-   const params = new URLSearchParams(location.search);
-   if(Array.from(select.options).some(o => o.value === params.get('city'))) select.value = params.get('city')!;
-   let area = params.get("q") || "";
-   let revision = 0;
-   if (clinic && Array.from(clinic.options).some(o => o.value === params.get('clinic'))) clinic.value = params.get('clinic')!;
-   function update() {
-     if(!select || !frame || !external || !details?.open) return;
-     revision++;
-     if (clinic) for (const option of Array.from(clinic.options)) option.hidden = Boolean(option.dataset.city && option.dataset.city !== select.value);
-     const selected = clinic?.selectedOptions[0];
-     if (selected?.dataset.city && selected.dataset.city !== select.value) clinic!.value = '';
-     const chosen = clinic?.selectedOptions[0];
-     if (chosen?.dataset.lat && chosen.dataset.lng) {
-       const q = `${chosen.dataset.lat},${chosen.dataset.lng}`;
-       frame.src = `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=16&output=embed`;
-       external.href = `https://www.google.com/maps/dir/?api=1&destination=${q}`;
-       status.textContent = `${chosen.textContent}: provider-published map location, not independently confirmed. Check the address before travelling.`;
-       return;
-     }
-     status.textContent = 'Area preview only. Choose a clinic for its provider-published location.';
-     const city = select.selectedOptions[0]?.textContent || 'India';
-     const q = `${area ? area + ", " : ""}${city}, India`;
-     const src = `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=12&output=embed`;
-     if(frame.src !== src) frame.src = src;
-     external.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('veterinary clinics ' + q)}`;
-   }
-   clinic?.addEventListener('change', update);
-   select.addEventListener('change', () => { area = ''; if (clinic) clinic.value = ''; update(); });
-   details.addEventListener('toggle', update);
-   document.addEventListener('directory:filtered', ((event: CustomEvent) => {
-     if(event.detail.city && Array.from(select.options).some(o => o.value === event.detail.city)) select.value = event.detail.city;
-     area = ''; if (clinic) clinic.value = ''; update();
-   }) as EventListener);
-   document.getElementById('map-nearby')?.addEventListener('click', () => {
-     const status = document.getElementById('map-status')!;
-     if (!navigator.geolocation) { status.textContent = 'Location is unavailable. Choose a city instead.'; return; }
-     status.textContent = 'Finding your location…';
-     const requestRevision = ++revision;
-     navigator.geolocation.getCurrentPosition(position => {
-       if (requestRevision !== revision) return;
-       if (clinic) clinic.value = '';
-       const q = `${position.coords.latitude},${position.coords.longitude}`;
-       frame.src = `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=14&output=embed`;
-       external.href = `https://www.google.com/maps/search/veterinary+clinics/@${q},14z`;
-       status.textContent = 'Your area preview. Open Google Maps to explore nearby clinics; directory listings are not location-verified.';
-     }, () => { if (requestRevision !== revision) return; status.textContent = 'Could not access your location. Choose a city to explore instead.'; }, { timeout: 10000, maximumAge: 60000 });
-   });
-   update();
- }
+ document.querySelectorAll<HTMLDetailsElement>('.compact-map').forEach(root=>{
+  const frame=root.querySelector<HTMLIFrameElement>('[data-preview-frame]')!;
+  const select=root.querySelector<HTMLSelectElement>('[data-preview-select]');
+  function update(){if(!root.open)return;const option=select?.selectedOptions[0];const src=option?.dataset.frame || frame.dataset.src!;if(frame.getAttribute('src')!==src)frame.src=src;if(option){root.querySelector<HTMLAnchorElement>('[data-preview-directions]')!.href=option.dataset.directions!;root.querySelector('[data-preview-note]')!.textContent=option.dataset.note!;frame.title=`Google Maps location preview: ${option.textContent}`;}}
+  root.addEventListener('toggle',update);select?.addEventListener('change',update);update();
+ });
 </script>
-
-<style>.map-clinic-label{display:grid;gap:.4rem;font-size:.8rem;margin:.7rem 0;color:#28635b}.map-clinic-label select{width:100%;min-height:44px;padding:.65rem;border:1px solid #cde6de;border-radius:12px;background:#f4fbf8;color:#123b36;font:inherit}</style>
+<style>.compact-map select{display:block;width:100%;min-height:44px;border:1px solid #cde6de;border-radius:12px;padding:.6rem;background:#f4fbf8;color:#123b36;font:inherit;margin:.5rem 0}.compact-map iframe{width:100%;height:280px;border:0;border-radius:15px}.compact-map .list-inline{flex-wrap:wrap}</style>
