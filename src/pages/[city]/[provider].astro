@@ -1,4 +1,5 @@
 ---
+import CostVote from "../../components/CostVote.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
 import TrustBadge from "../../components/TrustBadge.astro";
@@ -197,6 +198,7 @@ const jsonLd = isFacility
 
     <div class="profile-grid">
       <div>
+        {facility && <CostVote providerId={facility.id} />}
         <section class="panel animate-fade-up" style="animation-delay:60ms">
           <h2>About</h2>
           <p class="soft small">{isFacility ? facility!.about : vet!.about}</p>

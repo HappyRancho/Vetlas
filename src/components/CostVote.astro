@@ -1,0 +1,54 @@
+---
+import { providers } from '@data';
+import { COST_BANDS } from '../lib/cost-votes.mjs';
+import Icon from './Icon.astro';
+interface Props { providerId?: string; }
+const { providerId } = Astro.props;
+---
+<section class="cost-vote panel" data-cost-vote data-provider={providerId ?? providers[0].id} id="visit-costs">
+  <header><span class="vote-icon"><Icon name="wallet" class="icon icon-lg" /></span><div><p class="eyebrow">Pet parents helping pet parents</p><h2>What did your visit cost?</h2></div></header>
+  <p class="vote-intro">Share your <strong>total bill</strong>, including consultation, tests, treatment and medicine. Results are shared with everyone.</p>
+  {!providerId && <label class="vote-clinic-label">Choose a facility<select data-vote-clinic>{providers.map(p=><option value={p.id}>{p.name} · {p.area}</option>)}</select></label>}
+  <div class="vote-overview" aria-live="polite"><strong data-vote-average>Loading community costs…</strong><span data-vote-count></span><small data-vote-method></small></div>
+  <form data-vote-form>
+    <fieldset disabled data-vote-fields><legend>Your most recent visit in the past 12 months</legend>
+      <div class="vote-bands">{COST_BANDS.map(b=><label class="vote-band"><input type="radio" name="band" value={b.id} required /><span>{b.label}</span></label>)}</div>
+      <label class="vote-amount-label">Exact total, if you remember <span>(optional, ₹)</span><input type="number" name="amount" min="1" max="1000000" step="1" inputmode="numeric" placeholder="e.g. 1,850" /></label>
+      <label class="vote-consent"><input type="checkbox" name="consent" required /> This is a real visit I paid for in the past 12 months.</label>
+      <div class="vote-actions"><button class="btn btn-primary" type="submit" data-vote-submit>Share cost</button><button class="btn btn-secondary" type="button" data-vote-delete hidden>Remove my vote</button></div>
+    </fieldset>
+  </form>
+  <p class="vote-status" role="status" data-vote-status></p><button class="btn btn-secondary" type="button" data-vote-retry hidden>Retry loading</button>
+  <details class="vote-details"><summary>See ranges & how the average works</summary><div class="vote-distribution" data-vote-distribution></div><p>Exact bills are used when supplied; otherwise we use the midpoint of a selected range. Votes over ₹25,000 without an exact amount are counted in the chart but excluded from the average. These are anonymous, unverified reports, not clinic quotes. Small samples are labelled.</p><p>One current vote per browser and facility; submitting again updates it. Clearing cookies or using another device can allow another vote. We limit repeated submissions, but this is not verified-person voting. A first-party cookie remembers your vote. <a href="/privacy/">Privacy details</a>.</p></details>
+</section>
+<script>
+ import { COST_BANDS } from '../lib/cost-votes.mjs';
+ document.querySelectorAll<HTMLElement>('[data-cost-vote]').forEach(root=>{
+  const form=root.querySelector<HTMLFormElement>('[data-vote-form]')!,fields=root.querySelector<HTMLFieldSetElement>('[data-vote-fields]')!;
+  const clinic=root.querySelector<HTMLSelectElement>('[data-vote-clinic]'),status=root.querySelector<HTMLElement>('[data-vote-status]')!,retry=root.querySelector<HTMLButtonElement>('[data-vote-retry]')!,remove=root.querySelector<HTMLButtonElement>('[data-vote-delete]')!,submit=root.querySelector<HTMLButtonElement>('[data-vote-submit]')!;
+  let provider=root.dataset.provider!,generation=0,ready=false;
+  const money=(n:number)=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);
+  function paint(data:any){
+   root.querySelector('[data-vote-average]')!.textContent=data.estimatedAverage===null?(data.total?'No comparable average yet':'Be the first to share a visit cost'):`${money(data.estimatedAverage)} estimated average`;
+   root.querySelector('[data-vote-count]')!.textContent=`${data.total} community ${data.total===1?'vote':'votes'} · last 12 months${data.total>0&&data.total<10?' · small sample':''}`;
+   root.querySelector('[data-vote-method]')!.textContent=data.total?`${data.estimatedCount} votes in mean · ${data.exactCount} exact bills · ${data.midpointCount} range estimates${data.excludedOpenEnded?` · ${data.excludedOpenEnded} open-ended votes excluded`:''}`:'No invented or seeded votes.';
+   const chart=root.querySelector('[data-vote-distribution]')!;chart.replaceChildren();
+   for(const band of data.bands){const row=document.createElement('div');row.className='vote-chart-row';const label=document.createElement('span');label.textContent=band.label;const meter=document.createElement('meter');meter.min=0;meter.max=Math.max(data.total,1);meter.value=band.count;meter.setAttribute('aria-label',`${band.label}: ${band.count} votes`);const count=document.createElement('b');count.textContent=String(band.count);row.append(label,meter,count);chart.append(row);}
+   form.reset();if(data.mine){const radio=Array.from(form.querySelectorAll<HTMLInputElement>('[name=band]')).find(r=>r.value===data.mine.band);if(radio)radio.checked=true;(form.elements.namedItem('amount') as HTMLInputElement).value=data.mine.amount??'';}
+   remove.hidden=!data.mine;submit.textContent=data.mine?'Update my cost':'Share cost';
+  }
+  async function request(method='GET',body?:object){
+   const ticket=++generation;ready=false;fields.disabled=true;if(clinic)clinic.disabled=true;retry.hidden=true;
+   status.textContent=method==='GET'?'Loading shared results…':'Saving…';
+   try{const response=await fetch(`/api/cost-votes/${provider}`,{method,credentials:'same-origin',cache:'no-store',headers:body?{'Content-Type':'application/json'}:undefined,body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(15000)});const data=await response.json();if(ticket!==generation)return;if(!response.ok)throw new Error(data.error||'Could not save your vote.');paint(data);ready=true;fields.disabled=false;status.textContent=method==='POST'?'Your vote is saved and included in the shared results.':method==='DELETE'?'Your vote has been removed.':'Results are shared across visitors.';}
+   catch(error){if(ticket!==generation)return;status.textContent=error instanceof Error?error.message:'Unable to connect. Try again.';retry.hidden=false;root.querySelector('[data-vote-average]')!.textContent='Community costs temporarily unavailable';root.querySelector('[data-vote-count]')!.textContent='';root.querySelector('[data-vote-method]')!.textContent='Reload shared results to confirm whether your last change was saved.';}
+   finally{if(ticket===generation&&clinic)clinic.disabled=false;}
+  }
+  form.addEventListener('submit',event=>{event.preventDefault();if(!ready||!form.reportValidity())return;const data=new FormData(form);const band=COST_BANDS.find(b=>b.id===data.get('band'))!;const amount=data.get('amount')?Number(data.get('amount')):null;if(amount!==null&&(amount<band.min||amount>(band.max??1000000))){status.textContent='The exact amount must fit your selected range.';return;}void request('POST',{band:band.id,amount,consent:data.get('consent')==='on'});});
+  remove.addEventListener('click',()=>{if(ready)void request('DELETE');});retry.addEventListener('click',()=>void request());clinic?.addEventListener('change',()=>{provider=clinic.value;void request();});
+  void request();
+ });
+</script>
+<style>
+.cost-vote{margin:1.25rem 0;background:linear-gradient(135deg,#fff,#f1faf8);padding:clamp(1rem,3vw,1.5rem)}.cost-vote header{display:flex;align-items:center;gap:.75rem}.cost-vote h2{font-size:clamp(1.15rem,3vw,1.45rem);margin:.2rem 0}.cost-vote .eyebrow{font-size:.6rem}.vote-icon{display:grid;place-items:center;background:#d7f2e9;color:#006c62;width:44px;height:44px;border-radius:14px;flex-shrink:0}.vote-intro,.vote-details p{font-size:.8rem;line-height:1.65;color:#4c6663;margin:.8rem 0}.vote-overview{background:#e5f2fa;border:1px solid #c8dfed;border-radius:14px;padding:.9rem;display:grid;gap:.35rem;margin:1rem 0}.vote-overview strong{font-size:1.1rem;color:#164a67}.vote-overview span{font-size:.75rem}.vote-overview small{font-size:.68rem;color:#486578}.cost-vote fieldset{border:0;padding:0;margin:0;min-width:0}.cost-vote legend{font-size:.8rem;font-weight:600;margin-bottom:.7rem}.vote-bands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem}.vote-band{cursor:pointer;position:relative}.vote-band input{position:absolute;opacity:0;width:1px;height:1px}.vote-band span{display:grid;place-items:center;min-height:48px;padding:.6rem .25rem;background:#fff;border:1px solid #cee1dd;border-radius:12px;font-size:.78rem;font-weight:600;white-space:nowrap}.vote-band input:checked+span{background:#007e73;border-color:#007e73;color:white;box-shadow:0 3px 10px #007e7325}.vote-band input:focus-visible+span{outline:3px solid #d19e3c;outline-offset:2px}.vote-clinic-label,.vote-amount-label{display:block;font-size:.8rem;font-weight:600;margin:1rem 0}.vote-clinic-label select,.vote-amount-label input{width:100%;max-width:100%;padding:.75rem;border:1px solid #cee1dd;border-radius:12px;background:white;font:inherit;min-height:44px;margin-top:.5rem}.vote-amount-label span{font-weight:400;color:#637973}.vote-consent{display:flex;gap:.6rem;font-size:.75rem;line-height:1.5;margin:1rem 0;align-items:flex-start}.vote-consent input{width:18px;height:18px;flex-shrink:0;accent-color:#007e73}.vote-actions{display:flex;flex-wrap:wrap;gap:.6rem}.vote-actions button{min-height:44px}.vote-status{font-size:.78rem;color:#145e53;margin:.75rem 0;min-height:1.2em}.vote-details summary{font-size:.78rem;cursor:pointer;min-height:44px;padding:.8rem 0;color:#2e625b}.vote-chart-row{display:grid;grid-template-columns:100px 1fr 30px;gap:.6rem;align-items:center;font-size:.7rem;margin:.5rem 0}.vote-chart-row meter{width:100%;height:12px}.vote-chart-row b{text-align:right}fieldset:disabled{opacity:.55}.vote-actions [hidden]{display:none}@media(max-width:380px){.vote-bands{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>

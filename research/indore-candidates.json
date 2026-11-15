@@ -95,7 +95,7 @@
       "id": "my-pet-clinic-mehta",
       "name": "My Pet Clinic & Diagnostics \u2014 Dr. Hemant Mehta",
       "locality": "Scheme 94 / Vijay Nagar",
-      "status": "branch-confirmation-needed",
+      "status": "published-public-source",
       "observations": [
         {
           "field": "address",
@@ -131,13 +131,19 @@
           "source": "https://www.reddit.com/r/Indore/comments/1qwfe79/please_suggest_a_good_vet_for_my_cats/",
           "access": "search-index",
           "sourceType": "reddit"
+        },
+        {
+          "field": "current-address-resolution",
+          "value": "Current Google Maps and bdir.in match G3\u20136, D1, opposite Harsh Hyundai. Older EB137 profile fees and ratings excluded.",
+          "source": "https://www.google.com/maps/search/My%20Pet%20Clinic%20Dr%20Hemant%20Mehta%20Indore/",
+          "access": "browser-rendered",
+          "sourceType": "google-maps"
         }
       ],
       "nextActions": [
-        "Resolve older Mahalaxmi Nagar and behind-Radisson references against current branch",
-        "Corroborate fee with a recent clinic source",
-        "Match registration and practice relationship before adding a doctor profile"
-      ]
+        "Confirm move history and current fee with clinic"
+      ],
+      "publishedProviderId": "indore-my-pet"
     },
     {
       "id": "zigly-indore",
