@@ -9,6 +9,7 @@ const { path } = Astro.props;
 const nav = [
   { href: "/search/", label: "Find care" },
   { href: "/specialties/", label: "Specialities" },
+  { href: "/map/", label: "Explore map" },
   { href: "/locations/", label: "Cities" },
   { href: "/costs/", label: "Cost guide" },
 ];
@@ -18,9 +19,9 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
 
 <div class="beta-strip">
   <div class="container beta-strip-inner">
-    <span class="beta-tag">Indore pilot</span>
+    <span class="beta-tag">Directory preview</span>
     <p>
-      Public listings only — ratings and fees retain their original source —
+      Explore sample listings — real-world availability is not verified —
       <a href="/about/">read the data policy</a>.
     </p>
   </div>
@@ -29,7 +30,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="Vetlas home">
-      <span class="brand-mark"><Icon name="paw" class="icon" /></span>
+      <span class="brand-mark"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="3"/><path d="M8 25h9l5-14 7 27 5-13h7" stroke="#008c83" stroke-width="3" stroke-linejoin="round"/></svg></span>
       <span class="brand-word">
         Vetlas
         <small class="brand-by">by ThatVetGuy</small>

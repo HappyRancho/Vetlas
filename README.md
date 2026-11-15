@@ -88,3 +88,17 @@ Nothing in the repo requires paid credentials; everything runs locally out of th
 
 The dataset in `src/data/seed.ts` is fictional and for demo/testing only. Names, reviews,
 ratings, phone numbers and prices must never be mistaken for real-world providers.
+
+## Directory design and map preview
+
+The homepage uses a mint/teal responsive design, locally hosted generated pet artwork,
+city-aware search, category shortcuts and labelled featured sample facilities.
+Search supports live filtering, URL-backed filters, reset, saved facilities in browser
+local storage, and a collapsible map preview. `/map/` offers city/area previews, an
+opt-in geolocation action and links to nearby veterinary searches in Google Maps.
+
+The current seed dataset remains sample data. Maps show neighbourhoods/cities, not
+invented facility pins; real facility markers require validated coordinates. Map
+embeds require access to Google Maps. Call shortcuts appear only for non-sample
+records with a phone number. Saved facilities remain on the current browser.
+The generated `public/pet-hero.webp` is decorative brand artwork, not a facility photo.

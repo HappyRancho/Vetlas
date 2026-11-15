@@ -5,7 +5,7 @@ import UniversalSearch from "../components/UniversalSearch.astro";
 import FeaturedFacility from "../components/FeaturedFacility.astro";
 import { cities, providers, specialties } from "@data";
 
-const chipCities = cities.slice(0, 6);
+const chipCities = cities.slice(0, 5);
 
 const discovery = [
   { href: "/search/?type=hospital", label: "Hospitals", icon: "hospital", sub: `${providers.filter((p) => p.type === "hospital").length} listings` },
@@ -28,6 +28,7 @@ const featured = providers
   })
   .slice(0, 3);
 
+const petEmoji: Record<string, string> = {dog:"🐶",cat:"🐱",bird:"🦜",rabbit:"🐰",hamster:"🐹",cow:"🐮"};
 const pets = [
   { v: "dog", l: "Dogs", icon: "dog" },
   { v: "cat", l: "Cats", icon: "cat" },
@@ -45,11 +46,14 @@ const pets = [
   <div class="container home">
     <section class="hero" aria-label="Find veterinary care">
       <div class="hero-copy">
-        <h1 class="hero-title">Choose a vet with confidence.</h1>
+        <p class="hero-trust"><Icon name="shield" class="icon" /> Your veterinary care companion</p>
+        <h1 class="hero-title">Choose a vet<br />with <span>confidence.</span></h1>
         <p class="hero-sub">
           Discover veterinary hospitals, clinics and specialists across India.
         </p>
 
+        </div>
+      <div class="hero-search">
         <UniversalSearch variant="hero" />
 
         <div class="city-chips" role="group" aria-label="Filter results by city">
@@ -68,30 +72,7 @@ const pets = [
       </div>
 
       <div class="hero-media">
-        <figure class="hero-photo">
-          <img
-            src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&h=600&fit=crop&q=72&fm=jpg"
-            srcset="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=480&h=360&fit=crop&q=70&fm=jpg 480w, https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&h=600&fit=crop&q=72&fm=jpg 800w"
-            sizes="(min-width: 58em) 24vw, 45vw"
-            width="800"
-            height="600"
-            alt="A happy beagle looking into the camera"
-            fetchpriority="high"
-            decoding="async"
-          />
-        </figure>
-        <figure class="hero-photo">
-          <img
-            src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&h=600&fit=crop&q=72&fm=jpg"
-            srcset="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=480&h=360&fit=crop&q=70&fm=jpg 480w, https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&h=600&fit=crop&q=72&fm=jpg 800w"
-            sizes="(min-width: 58em) 24vw, 45vw"
-            width="800"
-            height="600"
-            alt="A ginger cat resting on a wooden floor"
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
+        <img class="hero-pets" src="/pet-hero.webp" width="850" height="944" alt="A happy golden retriever and tabby cat" fetchpriority="high" />
       </div>
     </section>
 
@@ -100,7 +81,7 @@ const pets = [
         <a class="discover-card" href={d.href}>
           <span class="discover-icon"><Icon name={d.icon} class="icon icon-lg" /></span>
           <span class="discover-label">{d.label}</span>
-          <span class="discover-sub">{d.sub}</span>
+          <Icon name="arrow" class="icon discover-arrow" />
         </a>
       ))}
     </nav>
@@ -111,8 +92,8 @@ const pets = [
         <h2 id="emergency-h">Need emergency veterinary care?</h2>
         <p>Find facilities advertising emergency and 24×7 services.</p>
       </div>
-      <a class="emergency-action" href="/search/?q=emergency">
-        Show now <Icon name="arrow" class="icon" />
+      <a class="emergency-action" href="/emergency/">
+        Find care <Icon name="arrow" class="icon" />
       </a>
     </section>
 
@@ -120,7 +101,7 @@ const pets = [
       <div class="section-head">
         <div>
           <p class="section-eyebrow">Speciality discovery</p>
-          <h2 id="specs-h">Popular specialities</h2>
+          <h2 id="specs-h">Explore by speciality</h2>
         </div>
         <a class="link-more" href="/specialties/">
           All {specialties.length} specialities <Icon name="arrow" class="icon" />
@@ -156,18 +137,20 @@ const pets = [
       <div class="section-head">
         <div>
           <p class="section-eyebrow">Pet-type discovery</p>
-          <h2 id="pets-h">Browse care by pet</h2>
+          <h2 id="pets-h">Find care for your pet</h2>
         </div>
       </div>
       <div class="pet-grid" role="list">
         {pets.map((p) => (
           <a class="pet-card" href={`/search/?pet=${p.v}`} role="listitem">
-            <span class="pet-icon"><Icon name={p.icon} class="icon icon-xl" /></span>
+            <span class="pet-icon" aria-hidden="true">{petEmoji[p.icon]}</span>
             <span class="pet-label">{p.l}</span>
           </a>
         ))}
       </div>
     </section>
+
+    <section class="home-map-teaser"><div><p class="eyebrow">A little closer to care</p><h2>Find your way to better care.</h2><p>Explore cities and neighbourhoods with a map preview.</p><a class="btn btn-primary" href="/map/">Explore the map <Icon name="arrow" class="icon" /></a></div><a class="mini-map" href="/map/" aria-label="Explore the veterinary directory map"><span class="map-road road-one"></span><span class="map-road road-two"></span><span class="map-pin"><Icon name="pin" class="icon" /></span><span class="map-caption">Explore your neighbourhood →</span></a></section>
 
     <section class="transparency" aria-labelledby="transparency-h">
       <span class="transparency-mark" aria-hidden="true"><Icon name="shield" class="icon icon-lg" /></span>
@@ -188,6 +171,12 @@ const pets = [
     const KEY = "vetlas-city";
 
     function apply(citySlug: string) {
+      const form = document.querySelector<HTMLFormElement>(".home form[data-universal-search]");
+      let input = form?.querySelector<HTMLInputElement>('input[name="city"]');
+      if (form && !input) { input = document.createElement("input"); input.type = "hidden"; input.name = "city"; form.appendChild(input); }
+      if (input) input.value = citySlug;
+      const filter = form?.querySelector<HTMLAnchorElement>("[data-usearch-filter]");
+      if (filter) { const url = new URL(filter.href); if(citySlug) url.searchParams.set("city", citySlug); else url.searchParams.delete("city"); filter.href = url.pathname + url.search; }
       chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.city === citySlug)));
       try {
         localStorage.setItem(KEY, citySlug);

@@ -20,13 +20,13 @@ const tone = tones[hash % tones.length];
 
 {imageUrl ? (
   <div class={`fac-visual fac-visual-photo${large ? " fac-visual-lg" : ""}`}>
-    <img src={imageUrl} alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling?.removeAttribute('hidden')" />
+    <img src={imageUrl} alt="" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.querySelector('.fac-photo-fallback')?.removeAttribute('hidden');this.nextElementSibling.style.display='none'" />
     <span class="fac-photo-label" title={imageCredit ?? "Openly licensed illustrative image"}>
       Illustrative photo
     </span>
     <div class="fac-photo-fallback" hidden aria-hidden="true">
       <Icon name={type === "hospital" ? "building" : "heart"} class="icon icon-xl" />
-      <span>Illustration fallback</span>
+      <span>Photo unavailable</span>
     </div>
   </div>
 ) : (
