@@ -45,7 +45,7 @@ const pets = [
   <div class="container home">
     <section class="hero" aria-label="Find veterinary care">
       <div class="hero-copy">
-        <h1 class="hero-title">Choose a vet with confidence.</h1>
+        <h1 class="hero-title">Choose a vet <span>with confidence.</span></h1>
         <p class="hero-sub">
           Discover veterinary hospitals, clinics and specialists across India.
         </p>
@@ -68,7 +68,7 @@ const pets = [
       </div>
 
       <div class="hero-media">
-        <figure class="hero-photo">
+        <figure class="hero-photo hero-photo-main">
           <img
             src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&h=600&fit=crop&q=72&fm=jpg"
             srcset="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=480&h=360&fit=crop&q=70&fm=jpg 480w, https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&h=600&fit=crop&q=72&fm=jpg 800w"
@@ -80,7 +80,7 @@ const pets = [
             decoding="async"
           />
         </figure>
-        <figure class="hero-photo">
+        <figure class="hero-photo hero-photo-accent">
           <img
             src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&h=600&fit=crop&q=72&fm=jpg"
             srcset="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=480&h=360&fit=crop&q=70&fm=jpg 480w, https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&h=600&fit=crop&q=72&fm=jpg 800w"
@@ -92,6 +92,8 @@ const pets = [
             decoding="async"
           />
         </figure>
+        <span class="hero-deco hero-deco-paw" aria-hidden="true"><Icon name="paw" class="icon" /></span>
+        <span class="hero-deco hero-deco-spark" aria-hidden="true"><Icon name="sparkle" class="icon" /></span>
       </div>
     </section>
 

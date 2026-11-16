@@ -52,7 +52,7 @@ const title = isFacility
   : `Dr. ${vet!.name} — ${specialtyById(vet!.primarySpecialtyId)?.name}, ${city.name}`;
 const description = isFacility
   ? `${facility!.name} is a ${facility!.type} in ${facility!.area}, ${city.name}. ${facility!.specialtyIds.map((s) => specialtyById(s)?.name).join(", ")}.`
-  : `Dr. ${vet!.name} is a ${specialtyById(vet!.primarySpecialtyId)?.name} vet in ${city.name} with ${vet!.experienceYears} years of experience. Consultation fee ${feeINR(vet!.consultationFee)}.`;
+  : `Dr. ${vet!.name} is a ${specialtyById(vet!.primarySpecialtyId)?.name} vet in ${city.name}${typeof vet!.experienceYears === "number" ? ` with ${vet!.experienceYears} years of experience` : ""}${typeof vet!.consultationFee === "number" ? `. Consultation fee ${feeINR(vet!.consultationFee)}` : ""}.`;
 
 const noindex = true; // sample dataset gate (spec §6)
 
@@ -126,7 +126,7 @@ const jsonLd = isFacility
               <p class="profile-meta">
                 {isFacility ? (
                   <>
-                    <span class="capitalize">{facility!.type}</span>
+                    <span>{facility!.type === "hospital" ? "Hospital" : facility!.type === "ngo" ? "NGO / Rescue" : facility!.type === "government" ? "Government facility" : facility!.type === "home-visit" ? "Home-visit service" : "Clinic"}</span>
                     <span class="dot">
                       <Icon name="pin" class="icon icon-inline" />
                       {facility!.area}, {city.name}
@@ -136,7 +136,9 @@ const jsonLd = isFacility
                 ) : (
                   <>
                     <span>{specialtyById(vet!.primarySpecialtyId)?.name}</span>
-                    <span class="dot">{vet!.experienceYears} years experience</span>
+                    {typeof vet!.experienceYears === "number" && (
+                      <span class="dot">{vet!.experienceYears} years experience</span>
+                    )}
                     <span class="dot">{city.name}</span>
                   </>
                 )}
@@ -176,8 +178,12 @@ const jsonLd = isFacility
               <p class="soft small">No review themes have been independently analysed yet.</p>
             )}
             <p class="muted small themes-footnote">
-              {isFacility ? (facility!.reviewCount ? `${facility!.reviewCount} public reviews listed` : "Review count not verified") : `${vet!.reviewCount} public reviews`} ·
-              {isFacility ? (facility!.rating ? `public rating ${facility!.rating.toFixed(1)}/5` : "rating not verified") : `public rating ${vet!.rating.toFixed(1)}/5`}
+              {isFacility
+                ? (facility!.reviewCount ? `${facility!.reviewCount} public reviews listed` : "Review count not verified")
+                : (typeof vet!.reviewCount === "number" ? `${vet!.reviewCount} public reviews` : "Review count not verified")} ·
+              {isFacility
+                ? (facility!.rating ? `public rating ${facility!.rating.toFixed(1)}/5` : "rating not verified")
+                : (typeof vet!.rating === "number" ? `public rating ${vet!.rating.toFixed(1)}/5` : "rating not verified")}
             </p>
           </div>
         </div>
@@ -186,7 +192,9 @@ const jsonLd = isFacility
       <div class="profile-actions">
         <span class="fee-pill">
           <Icon name="wallet" class="icon icon-md" />
-          {isFacility ? (facility!.fees ? `OPD ${feeINR(facility!.fees.opd)}` : "Fee not verified") : `Consultation ${feeINR(vet!.consultationFee)}`}
+          {isFacility
+            ? facility!.fees ? `OPD ${feeINR(facility!.fees.opd)}` : "Fee not verified"
+            : typeof vet!.consultationFee === "number" ? `Consultation ${feeINR(vet!.consultationFee)}` : "Fee not verified"}
         </span>
         {isFacility && facility!.fees && <TrustBadge level={feeTrust} label={`Fee: ${trustLabels[facility!.fees.trustLevel]}`} />}
         {isFacility && facility!.phone && (
@@ -306,18 +314,23 @@ const jsonLd = isFacility
                 <div><dt>Timings</dt><dd>{facility!.hours.open24 ? "24×7 listed — verify directly" : facility!.hours.open && facility!.hours.close ? `Daily ${facility!.hours.open}–${facility!.hours.close}` : "Not verified"}</dd></div>
                 <div><dt>Phone</dt><dd>{facility!.phone ? <a href={`tel:${facility!.phone.replace(/\s/g, "")}`}>{facility!.phone}</a> : "Not verified"}</dd></div>
                 <div><dt>Facilities</dt><dd class="soft fw-medium">{facility!.amenities.length ? facility!.amenities.join(", ") : "Not verified"}</dd></div>
-                {facility!.coordinates && (
+                {facility!.coordinates ? (
                   <div><dt>Directions</dt><dd><a href={`https://www.google.com/maps/dir/?api=1&destination=${facility!.coordinates.lat},${facility!.coordinates.lng}`} target="_blank" rel="noreferrer">Open in Google Maps</a></dd></div>
+                ) : (
+                  <div><dt>Directions</dt><dd><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${facility!.address}, ${city.name}`)}`} target="_blank" rel="noreferrer">Find on Google Maps (address search)</a></dd></div>
                 )}
               </>
             ) : (
               <>
-                <div><dt>Experience</dt><dd>{vet!.experienceYears} years</dd></div>
+                <div><dt>Experience</dt><dd>{typeof vet!.experienceYears === "number" ? `${vet!.experienceYears} years` : "Not verified"}</dd></div>
                 <div><dt>Languages</dt><dd class="soft fw-medium">{vet!.languages.join(", ")}</dd></div>
-                <div><dt>Data status</dt><dd><TrustBadge level="sample" /></dd></div>
+                <div><dt>Data status</dt><dd><TrustBadge level="public" /></dd></div>
               </>
             )}
           </dl>
+          {isFacility && facility!.hoursNote && (
+            <p class="small soft">{facility!.hoursNote}</p>
+          )}
           <p class="notice-box">
             Public listing data, last checked {facility?.lastChecked ?? "not available"}. Vetlas does
             not independently verify medical quality; confirm timings, fees and availability before visiting.
@@ -326,11 +339,24 @@ const jsonLd = isFacility
             <div class="source-links mt-1">
               <strong>Sources</strong>
               <div class="list-inline mt-05">
+                {facility!.sources?.website && <a class="chip chip-sm" href={facility!.sources.website} target="_blank" rel="noreferrer">Official website</a>}
                 {facility!.sources?.googleMaps && <a class="chip chip-sm" href={facility!.sources.googleMaps} target="_blank" rel="noreferrer">Google Maps</a>}
                 {facility!.sources?.justdial && <a class="chip chip-sm" href={facility!.sources.justdial} target="_blank" rel="noreferrer">Justdial</a>}
                 {facility!.sources?.instagram && <a class="chip chip-sm" href={facility!.sources.instagram} target="_blank" rel="noreferrer">Instagram</a>}
+                {facility!.sources?.practo && <a class="chip chip-sm" href={facility!.sources.practo} target="_blank" rel="noreferrer">Practo/Lybrate</a>}
+                {facility!.sources?.aggregate && <a class="chip chip-sm" href={facility!.sources.aggregate} target="_blank" rel="noreferrer">Directory snapshot</a>}
+                {facility!.sources?.directory && <a class="chip chip-sm" href={facility!.sources.directory} target="_blank" rel="noreferrer">Business directory</a>}
               </div>
             </div>
+          )}
+          {isFacility && facility!.evidence && (
+            <details class="mt-1">
+              <summary class="small"><strong>Research notes</strong></summary>
+              <p class="small soft mt-05">{facility!.evidence}</p>
+              {facility!.confidence && (
+                <p class="small soft">Confidence: <strong>{facility!.confidence}</strong> (how well-attested the record is, not a quality judgement).</p>
+              )}
+            </details>
           )}
           <a class="report-link mt-1" href={`mailto:hello@thatvetguy.net?subject=Report incorrect Vetlas listing: ${encodeURIComponent(doc.name)}`}>
             Report incorrect information

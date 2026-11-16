@@ -24,7 +24,7 @@ const services = provider.specialtyIds
 
 <article class="ffac">
   <a class="ffac-media" href={`/${city?.slug}/${provider.slug}/`} tabindex="-1" aria-hidden="true">
-    <FacilityVisual type={provider.type} seed={provider.slug} />
+    <FacilityVisual type={provider.type} seed={provider.slug} imageUrl={provider.imageUrl} imageCredit={provider.imageCredit} />
   </a>
   <div class="ffac-body">
     <p class="ffac-type">

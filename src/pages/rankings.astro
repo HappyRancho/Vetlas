@@ -43,8 +43,8 @@ const ranked: RankRow[] = [
       tag: specialtyById(d.primarySpecialtyId)?.name ?? "Veterinarian",
       citySlug: city?.slug ?? "",
       href: `/${city?.slug}/${d.slug}/`,
-      fee: d.consultationFee,
-      reviews: d.reviewCount,
+      fee: d.consultationFee ?? 0,
+      reviews: d.reviewCount ?? 0,
     };
   }),
 ].sort((a, b) => b.reviews - a.reviews);

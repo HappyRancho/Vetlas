@@ -3,13 +3,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
 import LocationPicker from "../../components/LocationPicker.astro";
 import TrustBadge from "../../components/TrustBadge.astro";
-import { cities, providers, doctors } from "@data";
+import { cities, cityPublishGate } from "@data";
 
 /** City index — shows publication gate status per city (spec §2). */
-const minFor = (c: (typeof cities)[number]) => (c.isMetro ? 30 : 15);
-const countFor = (c: (typeof cities)[number]) =>
-  providers.filter((p) => p.cityId === c.id).length + doctors.filter((d) => d.cityId === c.id).length;
-
+const gateFor = (slug: string) => cityPublishGate(cities.find((c) => c.slug === slug)!.id);
 const metros = cities.filter((c) => c.isMetro);
 const growing = cities.filter((c) => !c.isMetro);
 ---
@@ -40,8 +37,7 @@ const growing = cities.filter((c) => !c.isMetro);
       </div>
       <ul class="index-list">
         {metros.map((c) => {
-          const n = countFor(c);
-          const min = minFor(c);
+          const g = gateFor(c.slug);
           return (
             <li>
               <a class="index-row" href={`/${c.slug}/`}>
@@ -49,8 +45,8 @@ const growing = cities.filter((c) => !c.isMetro);
                   {c.name}
                   <span class="chip chip-xs">Metro</span>
                 </span>
-                <span class="index-meta">{c.state} · publish minimum {min} vetted profiles</span>
-                <span class="index-count">{n} public profiles</span>
+                <span class="index-meta">{c.state} · publish minimum {g.minimumVetted} vetted profiles</span>
+                <span class="index-count">{g.totalProfiles} public profiles</span>
                 <Icon name="arrow" class="icon index-arrow" />
               </a>
             </li>
@@ -68,14 +64,13 @@ const growing = cities.filter((c) => !c.isMetro);
       </div>
       <ul class="index-list">
         {growing.map((c) => {
-          const n = countFor(c);
-          const min = minFor(c);
+          const g = gateFor(c.slug);
           return (
             <li>
               <a class="index-row" href={`/${c.slug}/`}>
                 <span class="index-name">{c.name}</span>
-                <span class="index-meta">{c.state} · publish minimum {min} vetted profiles</span>
-                <span class="index-count">{n} public profiles</span>
+                <span class="index-meta">{c.state} · publish minimum {g.minimumVetted} vetted profiles</span>
+                <span class="index-count">{g.totalProfiles} public profiles</span>
                 <Icon name="arrow" class="icon index-arrow" />
               </a>
             </li>

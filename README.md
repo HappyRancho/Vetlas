@@ -50,11 +50,16 @@ sample data as verified real-world information.
 
 ```
 db/schema.sql               Cloudflare D1 schema v0.3 (improved: indexes, checks, seeds)
-src/data/                   Framework-agnostic data layer + sample dataset
+src/data/                   Framework-agnostic data layer
   types.ts                  Entity types incl. TrustLevel (mirrors schema)
   taxonomy.ts               Cities & specialities
-  seed.ts                   Sample providers, doctors, reviews, cost ranges
-  index.ts                  Lookup helpers (swap point for D1)
+  seed.ts                   SAMPLE dataset (fictional, clearly labelled)
+  pune.ts                   Pune & PCMC PUBLIC-SOURCE records (research batches 1–3)
+  index.ts                  Merged lookups, locality helpers, publication gate
+  search.ts                 Flat autocomplete index (merged data)
+  (swap point for D1)
+docs/                       Research plans & logs (Pune research record)
+scripts/check-data.ts       Data-integrity checks (npm run check:data)
 src/components/*.astro      Icon, TrustBadge, universal search, facility/doctor cards
 src/layouts/BaseLayout.astro  Head/SEO/header/footer, tiny vanilla-JS nav toggle
 src/pages/                  index, search, [city]/, [city]/[speciality]/,
@@ -68,10 +73,11 @@ public/                     robots.txt, llms.txt, favicon.svg
 
 ```bash
 npm install
-npm run dev        # local dev server
-npm run build      # static build → dist/ (174 pages)
-npm run preview    # serve the build locally
-npm run check      # astro type check (0 errors)
+npm run dev          # local dev server
+npm run build        # static build → dist/
+npm run preview      # serve the build locally
+npm run check        # astro type check (0 errors)
+npm run check:data   # data-integrity checks (slugs, links, gates, attribution)
 ```
 
 ## Deployment (free tier)

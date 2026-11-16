@@ -5,7 +5,7 @@ import FacilityCard from "../../components/FacilityCard.astro";
 import DoctorCard from "../../components/DoctorCard.astro";
 import UniversalSearch from "../../components/UniversalSearch.astro";
 import TrustBadge from "../../components/TrustBadge.astro";
-import { cities, providersByCity, doctorsByCity } from "@data";
+import { cities, providersByCity, doctorsByCity, cityPublishGate, areasByCity } from "@data";
 
 export function getStaticPaths() {
   return cities.map((city) => ({
@@ -17,6 +17,8 @@ export function getStaticPaths() {
 const { city } = Astro.props;
 const cityProviders = providersByCity(city.id);
 const cityDoctors = doctorsByCity(city.id);
+const gate = cityPublishGate(city.id);
+const localities = areasByCity(city.id);
 
 const profileCount = cityProviders.length + cityDoctors.length;
 
@@ -31,7 +33,8 @@ const headMeta = [
     : "",
 ].filter(Boolean).join(" · ");
 
-const noindex = true; // keep discovery pages noindex until source coverage is stronger
+// Publication gate: city pages stay noindex until enough vetted profiles exist.
+const noindex = !gate.indexable;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -71,16 +74,43 @@ const jsonLd = {
     </header>
 
     <div class="notice-box mt-1 maxw-44">
-      <strong>Indore pilot.</strong> These profiles are drawn from public listings and are not
-      independently verified by Vetlas. Vetlas publishes city pages for search engines only once
-      source coverage and review evidence are strong enough; {profileCount} records are currently
-      available for discovery.
+      <strong>Public-source directory.</strong> These profiles come from official websites, public
+      maps and directories (each record shows its sources and last-checked date) and are not
+      independently verified by Vetlas. City pages enter search indexes only once
+      {gate.minimumVetted} vetted profiles exist — {gate.vettedProfiles} so far;
+      {profileCount} public records are currently available for discovery.
     </div>
 
     <section class="section-first" aria-labelledby="search-h">
       <h2 class="visually-hidden" id="search-h">Search within {city.name} and beyond</h2>
       <UniversalSearch variant="compact" />
     </section>
+
+    {localities.length > 1 && (
+      <section class="section-compact" aria-labelledby="loc-h">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow">Neighbourhood coverage</p>
+            <h2 class="section-title section-title-sm" id="loc-h">Where the records are</h2>
+          </div>
+        </div>
+        <ul class="list-inline">
+          {localities.map((loc) => (
+            <li>
+              <span class="chip chip-lg">
+                <Icon name="pin" class="icon icon-sm" />
+                {loc.area}
+                <small class="soft">{loc.count}</small>
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p class="small soft mt-05">
+          Locality names reflect each record's researched address; counts are public records, not
+          an exhaustive census of veterinary care in {city.name}.
+        </p>
+      </section>
+    )}
 
     <section class="section-first" aria-labelledby="cp-h">
       <div class="section-head">

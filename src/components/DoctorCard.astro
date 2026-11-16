@@ -41,11 +41,13 @@ const tone = tones[hash % tones.length];
   <div class="doctor-body">
     <div class="doctor-top">
       <TrustBadge level={doctor.verified ? "verified" : "public"} label={doctor.verified ? undefined : "Public source"} />
-      <span class="rating-pill" title="Rating from a public listing">
-        <Icon name="sparkle" class="icon" />
-        {doctor.rating.toFixed(1)}
-        <small>{doctor.reviewCount} reviews</small>
-      </span>
+      {typeof doctor.rating === "number" && (
+        <span class="rating-pill" title="Rating from a public listing">
+          <Icon name="sparkle" class="icon" />
+          {doctor.rating.toFixed(1)}
+          <small>{doctor.reviewCount ?? 0} reviews</small>
+        </span>
+      )}
     </div>
 
     <h3 class="doctor-name">
@@ -55,8 +57,12 @@ const tone = tones[hash % tones.length];
 
     <p class="doctor-speciality">
       {primary?.name}
-      <span class="meta-sep">·</span>
-      {doctor.experienceYears} yrs experience
+      {typeof doctor.experienceYears === "number" && (
+        <>
+          <span class="meta-sep">·</span>
+          {doctor.experienceYears} yrs experience
+        </>
+      )}
     </p>
 
     <p class="doctor-place">
@@ -68,8 +74,14 @@ const tone = tones[hash % tones.length];
 
     <div class="doctor-footer">
       <div class="doctor-fee">
-        <b>{feeINR(doctor.consultationFee)}</b>
-        <span>consultation · public listing</span>
+        {typeof doctor.consultationFee === "number" ? (
+          <>
+            <b>{feeINR(doctor.consultationFee)}</b>
+            <span>consultation · public listing</span>
+          </>
+        ) : (
+          <span class="soft">Fee not verified</span>
+        )}
       </div>
       <a class="doctor-action" href={`/${city?.slug}/${doctor.slug}/`}>
         View profile <Icon name="arrow" class="icon" />

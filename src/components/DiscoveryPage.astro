@@ -46,7 +46,7 @@ const providerRows = providers.map((provider) => {
       provider.name, provider.type, provider.area, provider.address, city?.name, city?.state,
       ...specialtiesForProvider.map((specialty) => `${specialty?.name} ${specialty?.slug}`),
       ...provider.services, ...provider.species,
-    ].filter(Boolean).join(" ").toLowerCase(),
+    ].filter(Boolean).join(" ").toLowerCase().replace(/24\s*\/\s*7/g, "24/7 24x7"),
     provider,
   };
 });

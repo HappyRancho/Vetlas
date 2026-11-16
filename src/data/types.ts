@@ -43,7 +43,7 @@ export interface Specialty {
   icon: string;
 }
 
-export type ProviderType = "hospital" | "clinic";
+export type ProviderType = "hospital" | "clinic" | "ngo" | "government" | "home-visit";
 
 export interface ConsultationFee {
   /** Standard OPD / walk-in consultation, INR */
@@ -86,8 +86,23 @@ export interface Provider {
     justdial?: string;
     instagram?: string;
     website?: string;
+    practo?: string;
+    /** Review-aggregate snapshots (Sploot, Yappe, ProMallu) — Google-sourced ratings seen via a third party */
+    aggregate?: string;
+    /** Business directories (GullyDirectory, Timesmed, Petofy) */
+    directory?: string;
   };
   lastChecked?: string;
+  /**
+   * How well-attested the record is overall ("high" = official website or
+   * corroborated by ≥2 independent public sources). Displayed in the UI so
+   * thin records are never mistaken for vetted ones.
+   */
+  confidence?: "high" | "medium" | "low";
+  /** One-line research note: what was seen, from where, and what is unresolved. */
+  evidence?: string;
+  /** Full opening-hour detail when the daily window doesn't capture split/closed days. */
+  hoursNote?: string;
   reviewSummary?: {
     analysed: number;
     sentiment: "positive" | "mixed" | "negative" | "insufficient";
@@ -106,7 +121,8 @@ export interface Doctor {
   degrees: string[];
   /** Sample registration number format, clearly marked in UI when sample */
   registration?: string;
-  experienceYears: number;
+  /** Omitted when a real doctor's years of practice are not publicly documented. */
+  experienceYears?: number;
   cityId: string;
   primarySpecialtyId: string;
   secondarySpecialtyIds: string[];
@@ -114,13 +130,17 @@ export interface Doctor {
   species: string[];
   /** Slugs of providers the doctor practises at */
   providerSlugs: string[];
-  consultationFee: number;
+  consultationFee?: number;
   languages: string[];
   about: string;
-  rating: number;
-  reviewCount: number;
+  rating?: number;
+  reviewCount?: number;
   verified: boolean;
   dataSource: DataSource;
+  /** Per-record confidence for real (non-sample) doctors; see Provider.confidence */
+  confidence?: "high" | "medium" | "low";
+  /** One-line research note with source and unresolved questions. */
+  evidence?: string;
   /** Optional future real doctor photograph; absent records use the initials fallback. */
   imageUrl?: string;
   imageCredit?: string;

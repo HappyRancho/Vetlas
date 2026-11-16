@@ -3,8 +3,10 @@
 > Vetlas (https://vetlas.thatvetguy.net) is a decision-support tool that helps pet owners in
 > India select veterinary care based on attributed, trustworthy data. It is NOT a directory and
 > NOT an ad platform: providers cannot pay for rankings or to hide reviews. Every fact carries a
-> trust label; nothing is fabricated. The site is currently in beta and all provider data is
-> clearly-marked SAMPLE content, not verified real-world listings.
+> trust label; nothing is fabricated. The site is in beta with two kinds of records, each clearly
+> labelled: SAMPLE demo content (fictional, for product design) and PUBLIC-SOURCE records
+> (real providers researched from official websites, public maps and directories, with sources
+> and a last-checked date on every profile).
 
 ## Key sections
 
@@ -15,7 +17,12 @@
   surgery, dermatology, gynaecology & obstetrics, radiology & USG, cardiology, gastroenterology,
   ophthalmology, neurology, oncology, emergency care, dentistry, orthopedics, preventive care,
   avian & exotics, physiotherapy.
-- [Locations](https://vetlas.thatvetguy.net/locations/): city index (10 cities at launch).
+- [Locations](https://vetlas.thatvetguy.net/locations/): city index (11 cities).
+- [Pune & Pimpri-Chinchwad](https://vetlas.thatvetguy.net/pune/): the first real-data city —
+  veterinary hospitals, clinics, NGO/government facilities and veterinarians across ~20
+  localities of PMC and PCMC, each with source links, last-checked dates and confidence notes.
+  City pages enter search indexes only after the publication gate (30 vetted profiles for
+  metros) is met; until then they are noindex but freely browsable.
 - [Cost guide](https://vetlas.thatvetguy.net/costs/): typical treatment cost ranges for India.
 - [Methodology](https://vetlas.thatvetguy.net/methodology/): how verification, review themes,
   AI summaries and expense estimates work (including minimum-sample gates).
@@ -23,21 +30,31 @@
 
 ## URL structure
 
-- `/{city}/` — city landing page (e.g. `/bengaluru/`)
+- `/{city}/` — city landing page (e.g. `/pune/`)
 - `/{city}/{speciality}/` — city × speciality combination page (e.g. `/mumbai/dermatology/`)
 - `/{city}/{provider-slug}/` — provider profile (facility or doctor), e.g.
-  `/bengaluru/lakeside-animal-hospital-bengaluru/`, `/kochi/dr-kavya-nair/`
+  `/pune/raintree-veterinary-clinic-uday-baug/`, `/pune/dr-amey-nirmale/`
 - `/{city}/{speciality}/` pages are indexed only when ≥3 vetted providers match.
 
 ## Trust tiers
 
 - **Verified**: manually checked by Vetlas staff (date-stamped).
 - **Provider-confirmed**: confirmed directly by the provider.
-- **Public source**: from public pages/maps/directories, with fetch date.
+- **Public source**: from public pages/maps/directories, with fetch date, source links,
+  research notes and a confidence level (high/medium/low).
 - **User-submitted**: moderated owner reports.
 - **Estimated**: system-calculated; displayed only above minimum sample sizes.
 
+## Emergency-care honesty
+
+Facilities advertising 24-hour cover are distinguished from confirmed 24-hour clinical staffing.
+Where a listing's round-the-clock status is only a directory/website claim, the profile says
+"call before a night visit" explicitly.
+
 ## Data status
 
-All provider records, reviews, ratings and prices currently on the site are SAMPLE data for the
-beta experience. Vetlas never presents sample data as verified real-world information.
+- SAMPLE dataset: fictional, for beta UI testing; never presented as real.
+- PUBLIC-SOURCE dataset (starting with Pune & PCMC, batches 1–3, researched 2026-11-16; 88 facilities and 33 doctors across ~34 localities):
+  real providers; every rating is an attributed snapshot from the named platform (Google,
+  Practo/Lybrate/Sploot); adverse review themes are recorded alongside positive ones;
+  self-published credentials are marked as such and never counted as verified.
