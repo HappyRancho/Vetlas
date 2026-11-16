@@ -14,17 +14,17 @@ const { path, isCurrent } = Astro.props;
     <Icon name="home" class="icon icon-md" />
     <span>Home</span>
   </a>
-  <a href="/search/" aria-current={isCurrent("/search/") ? "page" : undefined}>
-    <Icon name="search" class="icon icon-md" />
-    <span>Search</span>
+  <a href="/map/" aria-current={isCurrent("/map/") ? "page" : undefined}>
+    <Icon name="pin" class="icon icon-md" />
+    <span>Map</span>
   </a>
   <a href="/specialties/" aria-current={isCurrent("/specialties/") ? "page" : undefined}>
     <Icon name="stethoscope" class="icon icon-md" />
     <span>Speciality</span>
   </a>
-  <a href="/rankings/" aria-current={isCurrent("/rankings/") ? "page" : undefined}>
-    <Icon name="podium" class="icon icon-md" />
-    <span>Rankings</span>
+  <a href="/indore/veterinarians/" aria-current={isCurrent("/indore/veterinarians/") ? "page" : undefined}>
+    <Icon name="doctor" class="icon icon-md" />
+    <span>Doctors</span>
   </a>
   <button class="bottom-more" type="button" aria-expanded="false" aria-controls="more-sheet" aria-haspopup="true">
     <Icon name="dots" class="icon icon-md" />

@@ -16,7 +16,24 @@ import sitemap from "@astrojs/sitemap";
 /** Pages that are indexable in the demo (everything gated by spec §2/§6 is excluded) */
 const INDEXABLE = [
   "/",
-  "/search/",
+  "/indore/",
+  "/map/",
+  "/indore/veterinarians/",
+  "/indore/myra-pet-clinic-usha-nagar/",
+  "/indore/dr-nigam-pet-clinic/",
+  "/indore/petvet-surya-dev-nagar/",
+  "/indore/dogsvilla-veterinary-services/",
+  "/indore/pet-matrix-tulsi-nagar/",
+  "/indore/royal-vet-clinic-ganeshganj/",
+  "/indore/royal-vet-clinic-kesharbagh/",
+  "/indore/happy-tails-navlakha/",
+  "/indore/my-pet-clinic-scheme-94/",
+  "/indore/animal-veterinary-hospital-silicon-city/",
+  "/indore/pets-mate-palsikar-colony/",
+  "/indore/petwell-annapurna-road/",
+  "/indore/prime-vet-mahalaxmi-nagar/",
+  "/indore/v-care-palsikar-colony/",
+  "/indore/petnvets-sheetal-nagar/",
   "/specialties/",
   "/locations/",
   "/costs/",
@@ -31,7 +48,7 @@ export default defineConfig({
       // Publication gates (spec §2, §6): only publish-worthy URLs are listed
       filter: (page) => {
         const path = new URL(page).pathname;
-        return INDEXABLE.includes(path);
+        return INDEXABLE.includes(path) || path.startsWith("/indore/veterinarians/");
       },
     }),
   ],

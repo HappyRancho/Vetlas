@@ -1,0 +1,257 @@
+{
+  "indore-myra-usha": {
+    "coordinates": {
+      "lat": 22.697707,
+      "lng": 75.8350332
+    },
+    "coordinateSource": "https://www.google.com/maps/place/MYRA+PET+CLINIC+%26+SURGERY+CENTRE/data=!4m7!3m6!1s0x3962fc4b4e6d0b35:0x7ea54050adc9f461!8m2!3d22.697707!4d75.8350332!16s%2Fg%2F11b6hn9448!19sChIJNQttTkv8YjkRYfTJrVBApX4",
+    "mapLocation": {
+      "plusCode": "7JJQMRXP+32",
+      "method": "google-place-link",
+      "precisionMeters": null,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/place/MYRA+PET+CLINIC+%26+SURGERY+CENTRE/data=!4m7!3m6!1s0x3962fc4b4e6d0b35:0x7ea54050adc9f461!8m2!3d22.697707!4d75.8350332!16s%2Fg%2F11b6hn9448!19sChIJNQttTkv8YjkRYfTJrVBApX4",
+      "placeId": "ChIJNQttTkv8YjkRYfTJrVBApX4",
+      "cid": "9125770935193433185",
+      "note": "Address and branch matched to the public Google listing. Position read from the branch Google Maps link; entrance position may differ."
+    }
+  },
+  "indore-nigam": {
+    "coordinates": {
+      "lat": 22.7145625,
+      "lng": 75.8920625
+    },
+    "coordinateSource": "https://www.google.com/maps/search/Dr+Nigam+Pet+Clinic+88+Tirupati+Indore/",
+    "mapLocation": {
+      "plusCode": "7JJQPV7R+RR",
+      "method": "google-plus-code",
+      "precisionMeters": 14,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/search/Dr+Nigam+Pet+Clinic+88+Tirupati+Indore/",
+      "placeId": null,
+      "cid": null,
+      "note": "Address and branch matched to the public Google listing. Pin is the centre of its published Plus Code cell (about 14 m); entrance position may differ."
+    }
+  },
+  "indore-petvet": {
+    "coordinates": {
+      "lat": 22.6815625,
+      "lng": 75.8285625
+    },
+    "coordinateSource": "https://www.google.com/maps/search/Petvet+18A+Surya+Dev+Nagar+Indore/",
+    "mapLocation": {
+      "plusCode": "7JJQMRJH+JC",
+      "method": "google-plus-code",
+      "precisionMeters": 14,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/search/Petvet+18A+Surya+Dev+Nagar+Indore/",
+      "placeId": null,
+      "cid": null,
+      "note": "Address and branch matched to the public Google listing. Pin is the centre of its published Plus Code cell (about 14 m); entrance position may differ."
+    }
+  },
+  "indore-dogsvilla": {
+    "coordinates": {
+      "lat": 22.7118125,
+      "lng": 75.9119375
+    },
+    "coordinateSource": "https://www.google.com/maps/search/Dogsvilla+Indore/",
+    "mapLocation": {
+      "plusCode": "7JJQPW66+PQ",
+      "method": "google-plus-code",
+      "precisionMeters": 14,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/search/Dogsvilla+Indore/",
+      "placeId": null,
+      "cid": null,
+      "note": "Address and branch matched to the public Google listing. Pin is the centre of its published Plus Code cell (about 14 m); entrance position may differ."
+    }
+  },
+  "pet-matrix-nipania": {
+    "coordinates": {
+      "lat": 22.7564352,
+      "lng": 75.9188705
+    },
+    "coordinateSource": "https://www.google.com/maps/place/PET+MATRIX+PET+CLINIC+%26+PET+SHOP/data=!4m7!3m6!1s0x39631d5f69562ab5:0x20dc7cf7c3c0658f!8m2!3d22.7564352!4d75.9188705!16s%2Fg%2F11c0rks7rf!19sChIJtSpWaV8dYzkRj2XAw_d83CA",
+    "mapLocation": {
+      "plusCode": "7JJQQW49+HG",
+      "method": "google-place-link",
+      "precisionMeters": null,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/place/PET+MATRIX+PET+CLINIC+%26+PET+SHOP/data=!4m7!3m6!1s0x39631d5f69562ab5:0x20dc7cf7c3c0658f!8m2!3d22.7564352!4d75.9188705!16s%2Fg%2F11c0rks7rf!19sChIJtSpWaV8dYzkRj2XAw_d83CA",
+      "placeId": "ChIJtSpWaV8dYzkRj2XAw_d83CA",
+      "cid": "2367904907672970639",
+      "note": "Address and branch matched to the public Google listing. Position read from the branch Google Maps link; entrance position may differ."
+    }
+  },
+  "indore-royal-ganeshganj": {
+    "coordinates": {
+      "lat": 22.7186253,
+      "lng": 75.8409981
+    },
+    "coordinateSource": "https://www.google.com/maps/place/ROYAL+VET+CLINIC/data=!4m7!3m6!1s0x3962fd115d041cd9:0xcef1a7a87439d9de!8m2!3d22.7186253!4d75.8409981!16s%2Fg%2F11xmnwcb8c!19sChIJ2RwEXRH9YjkR3tk5dKin8c4",
+    "mapLocation": {
+      "plusCode": "7JJQPR9R+F9",
+      "method": "google-place-link",
+      "precisionMeters": null,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/place/ROYAL+VET+CLINIC/data=!4m7!3m6!1s0x3962fd115d041cd9:0xcef1a7a87439d9de!8m2!3d22.7186253!4d75.8409981!16s%2Fg%2F11xmnwcb8c!19sChIJ2RwEXRH9YjkR3tk5dKin8c4",
+      "placeId": "ChIJ2RwEXRH9YjkR3tk5dKin8c4",
+      "cid": "14911884183146715614",
+      "note": "Address and branch matched to the public Google listing. Position read from the branch Google Maps link; entrance position may differ."
+    }
+  },
+  "indore-royal-kesharbagh": {
+    "coordinates": {
+      "lat": 22.6788412,
+      "lng": 75.8418031
+    },
+    "coordinateSource": "https://www.google.com/maps/place/Royal+vet+clinic+and+pet+shop/data=!4m7!3m6!1s0x3962fbe62fc54bfd:0xe2c85c8a9f2192c1!8m2!3d22.6788412!4d75.8418031!16s%2Fg%2F11n4mrxbfv!19sChIJ_UvFL-b7YjkRwZIhn4pcyOI",
+    "mapLocation": {
+      "plusCode": "7JJQMRHR+GP",
+      "method": "google-place-link",
+      "precisionMeters": null,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/place/Royal+vet+clinic+and+pet+shop/data=!4m7!3m6!1s0x3962fbe62fc54bfd:0xe2c85c8a9f2192c1!8m2!3d22.6788412!4d75.8418031!16s%2Fg%2F11n4mrxbfv!19sChIJ_UvFL-b7YjkRwZIhn4pcyOI",
+      "placeId": "ChIJ_UvFL-b7YjkRwZIhn4pcyOI",
+      "cid": "16341412998358864577",
+      "note": "Address and branch matched to the public Google listing. Position read from the branch Google Maps link; entrance position may differ."
+    }
+  },
+  "indore-happy-tails-navlakha": {
+    "coordinates": {
+      "lat": 22.6977293,
+      "lng": 75.8741943
+    },
+    "coordinateSource": "https://www.google.com/maps/place/Happy+Tails+Pet+Clinic/@22.6977293,75.8741943,17z/data=!3m1!4b1!4m6!3m5!1s0x3962fdee1cd8ae99:0x44a142c88e336cc2!8m2!3d22.6977293!4d75.8741943!16s%2Fg%2F11v78w7h1y?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D",
+    "mapLocation": {
+      "plusCode": "7JJQMVXF+3M",
+      "method": "google-place-link",
+      "precisionMeters": null,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/place/Happy+Tails+Pet+Clinic/@22.6977293,75.8741943,17z/data=!3m1!4b1!4m6!3m5!1s0x3962fdee1cd8ae99:0x44a142c88e336cc2!8m2!3d22.6977293!4d75.8741943!16s%2Fg%2F11v78w7h1y?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D",
+      "placeId": null,
+      "cid": "4945307294976142530",
+      "note": "Address and branch matched to the public Google listing. Position read from the branch Google Maps link; entrance position may differ."
+    }
+  },
+  "indore-my-pet": {
+    "coordinates": {
+      "lat": 22.7520625,
+      "lng": 75.9021875
+    },
+    "coordinateSource": "https://www.google.com/maps/search/My%20Pet%20Clinic%20Dr%20Hemant%20Mehta%20Indore/",
+    "mapLocation": {
+      "plusCode": "7JJQQW22+RV",
+      "method": "google-plus-code",
+      "precisionMeters": 14,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/search/My%20Pet%20Clinic%20Dr%20Hemant%20Mehta%20Indore/",
+      "placeId": null,
+      "cid": null,
+      "note": "Address and branch matched to the public Google listing. Pin is the centre of its published Plus Code cell (about 14 m); entrance position may differ."
+    }
+  },
+  "indore-animal-hospital": {
+    "coordinates": {
+      "lat": 22.6465519,
+      "lng": 75.8264861
+    },
+    "coordinateSource": "https://www.google.com/maps/dir//Animal+Veterinary+Hospital+%26+Surgery+Center,+Chaudhary+Market,+near+Silicon+City+Main+Road,+Indore,+Madhya+Pradesh+453331/@22.6404365,75.8417745,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3962fb5e27fda229:0xcafd6002286e0780!2m2!1d75.8264861!2d22.6465519?entry=ttu&g_ep=EgoyMDI2MDIwMS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D",
+    "mapLocation": {
+      "plusCode": "7JJQJRWG+JH",
+      "method": "provider-google-directions-link",
+      "precisionMeters": null,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/dir//Animal+Veterinary+Hospital+%26+Surgery+Center,+Chaudhary+Market,+near+Silicon+City+Main+Road,+Indore,+Madhya+Pradesh+453331/@22.6404365,75.8417745,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3962fb5e27fda229:0xcafd6002286e0780!2m2!1d75.8264861!2d22.6465519?entry=ttu&g_ep=EgoyMDI2MDIwMS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D",
+      "placeId": null,
+      "cid": "14626952727153739648",
+      "note": "Address and branch matched to the public Google listing. Position read from the branch Google Maps link; entrance position may differ."
+    }
+  },
+  "indore-pets-mate": {
+    "coordinates": {
+      "lat": 22.7045555,
+      "lng": 75.8559942
+    },
+    "coordinateSource": "https://www.google.com/maps/place/Pet%27s+Mate+Veterinary+Clinic/data=!4m7!3m6!1s0x3962fd508d05169d:0x1c5ee9b373c43ab1!8m2!3d22.7045555!4d75.8559942!16s%2Fg%2F11khrp6x0s!19sChIJnRYFjVD9YjkRsTrEc7PpXhw",
+    "mapLocation": {
+      "plusCode": "7JJQPV34+R9",
+      "method": "google-place-link",
+      "precisionMeters": null,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/place/Pet%27s+Mate+Veterinary+Clinic/data=!4m7!3m6!1s0x3962fd508d05169d:0x1c5ee9b373c43ab1!8m2!3d22.7045555!4d75.8559942!16s%2Fg%2F11khrp6x0s!19sChIJnRYFjVD9YjkRsTrEc7PpXhw",
+      "placeId": "ChIJnRYFjVD9YjkRsTrEc7PpXhw",
+      "cid": "2044328237823441585",
+      "note": "Address and branch matched to the public Google listing. Position read from the branch Google Maps link; entrance position may differ."
+    }
+  },
+  "indore-petwell": {
+    "coordinates": {
+      "lat": 22.6983125,
+      "lng": 75.8401875
+    },
+    "coordinateSource": "https://www.google.com/maps/search/PetWell%20Pet%20Clinic%20Surgery%20Center%20Indore/",
+    "mapLocation": {
+      "plusCode": "7JJQMRXR+83",
+      "method": "google-plus-code",
+      "precisionMeters": 14,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/search/PetWell%20Pet%20Clinic%20Surgery%20Center%20Indore/",
+      "placeId": null,
+      "cid": null,
+      "note": "Address and branch matched to the public Google listing. Pin is the centre of its published Plus Code cell (about 14 m); entrance position may differ."
+    }
+  },
+  "indore-prime-vet": {
+    "coordinates": {
+      "lat": 22.7594375,
+      "lng": 75.9121875
+    },
+    "coordinateSource": "https://www.google.com/maps/search/Prime%20Vet%20Clinic%20Mahalaxmi%20Indore/",
+    "mapLocation": {
+      "plusCode": "7JJQQW56+QV",
+      "method": "google-plus-code",
+      "precisionMeters": 14,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/search/Prime%20Vet%20Clinic%20Mahalaxmi%20Indore/",
+      "placeId": null,
+      "cid": null,
+      "note": "Address and branch matched to the public Google listing. Pin is the centre of its published Plus Code cell (about 14 m); entrance position may differ."
+    }
+  },
+  "indore-vcare": {
+    "coordinates": {
+      "lat": 22.7074375,
+      "lng": 75.8568125
+    },
+    "coordinateSource": "https://www.google.com/maps/search/V%20care%20Pet%20clinic%20surgery%20centre%20Palsikar%20Indore/",
+    "mapLocation": {
+      "plusCode": "7JJQPV44+XP",
+      "method": "google-plus-code",
+      "precisionMeters": 14,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/search/V%20care%20Pet%20clinic%20surgery%20centre%20Palsikar%20Indore/",
+      "placeId": null,
+      "cid": null,
+      "note": "Address and branch matched to the public Google listing. Pin is the centre of its published Plus Code cell (about 14 m); entrance position may differ."
+    }
+  },
+  "indore-petnvets": {
+    "coordinates": {
+      "lat": 22.7505625,
+      "lng": 75.9020625
+    },
+    "coordinateSource": "https://www.google.com/maps/search/PetnVets%20Indore/",
+    "mapLocation": {
+      "plusCode": "7JJQQW22+6R",
+      "method": "google-plus-code",
+      "precisionMeters": 14,
+      "checkedAt": "2026-11-15",
+      "sourceUrl": "https://www.google.com/maps/search/PetnVets%20Indore/",
+      "placeId": null,
+      "cid": null,
+      "note": "Address and branch matched to the public Google listing. Pin is the centre of its published Plus Code cell (about 14 m); entrance position may differ."
+    }
+  }
+}

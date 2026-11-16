@@ -51,7 +51,7 @@ const tone = tones[hash % tones.length];
     </div>
 
     <h3 class="doctor-name">
-      <a href={`/${city?.slug}/${doctor.slug}/`}>Dr. {doctor.name}</a>
+      <a href={`/${city?.slug}/veterinarians/${doctor.slug}/`}>Dr. {doctor.name}</a>
     </h3>
     <p class="doctor-quals">{doctor.degrees.join(" · ")}</p>
 
@@ -83,7 +83,7 @@ const tone = tones[hash % tones.length];
           <span class="soft">Fee not verified</span>
         )}
       </div>
-      <a class="doctor-action" href={`/${city?.slug}/${doctor.slug}/`}>
+      <a class="doctor-action" href={`/${city?.slug}/veterinarians/${doctor.slug}/`}>
         View profile <Icon name="arrow" class="icon" />
       </a>
     </div>

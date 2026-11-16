@@ -1,0 +1,176 @@
+{
+  "checkedAt": "2026-11-15",
+  "publicationPolicy": "Unresolved candidates stay out of the directory. Resolutions retain an evidence trail and published provider ID.",
+  "candidates": [
+    {
+      "id": "panacea-sudama-nagar",
+      "name": "Panacea Veterinary Clinic",
+      "locality": "Sudama Nagar",
+      "status": "address-conflict",
+      "observations": [
+        {
+          "field": "address",
+          "value": "3070-E, Sudama Nagar",
+          "source": "https://panacea-veterinary-clinic.ueniweb.com/legal-notice",
+          "access": "search-index",
+          "sourceType": "business-website"
+        },
+        {
+          "field": "address",
+          "value": "2729-E, Hawa Bangala Road, Sector E, Sudama Nagar",
+          "source": "https://doczone.in/madhya-pradesh/indore/veterinarian/panacea-veterinary-clinic-e179",
+          "access": "search-index",
+          "sourceType": "directory"
+        },
+        {
+          "field": "community-mention",
+          "value": "Mentioned in a cat-care discussion; not proof of a visit or medical quality.",
+          "source": "https://www.reddit.com/r/Indore/comments/1qwfe79/please_suggest_a_good_vet_for_my_cats/",
+          "access": "search-index",
+          "sourceType": "reddit"
+        },
+        {
+          "field": "listing",
+          "value": "Sudama Nagar listing discovered; direct Justdial access unavailable.",
+          "source": "https://www.justdial.com/Indore/Panacea-Veterinary-Clinic-Sudama-Nagar/0731PX731-X731-180710100027-N7R9_BZDET",
+          "access": "search-index",
+          "sourceType": "justdial"
+        }
+      ],
+      "nextActions": [
+        "Resolve current street number versus historical address",
+        "Distinguish Sudama Nagar from Scheme 54 and Airport Road branches",
+        "Confirm branch contact, consultation fee and coordinates"
+      ]
+    },
+    {
+      "id": "pet-matrix-nipania",
+      "name": "Pet Matrix Pet Clinic & Pet Shop",
+      "locality": "Nipania / Tulsi Nagar",
+      "status": "published-public-source",
+      "observations": [
+        {
+          "field": "address",
+          "value": "Shop 412, AA Main Road, near Saraswati Mandir, Tulsi Nagar",
+          "source": "https://www.bharatibiz.com/en/pet-matrix-pet-clinic-pet-shop-094240-91153",
+          "access": "search-index",
+          "sourceType": "directory"
+        },
+        {
+          "field": "address",
+          "value": "Shop 462, AA Main Road, near Saraswati Mandir, Tulsi Nagar",
+          "source": "https://www.bdir.in/p/best/in/veterinary-hospitals-in-indore-mp/MTAzNzY%3D",
+          "access": "search-index",
+          "sourceType": "directory"
+        },
+        {
+          "field": "website",
+          "value": "Page opened but provided no readable text; no facts extracted.",
+          "source": "https://petmatrixclinic.com/",
+          "access": "page-no-readable-content",
+          "sourceType": "business-website"
+        },
+        {
+          "field": "community-mention",
+          "value": "Mentioned in an avian-care thread; avian capability remains unconfirmed.",
+          "source": "https://www.reddit.com/r/Indore/comments/1llslm8",
+          "access": "search-index",
+          "sourceType": "reddit"
+        },
+        {
+          "field": "address-resolution",
+          "value": "Rendered official website lists 412-AA; used as current provider-published address, retaining older conflicting directory evidence.",
+          "source": "https://petmatrixclinic.com/",
+          "access": "browser-rendered",
+          "sourceType": "business-website"
+        }
+      ],
+      "nextActions": [
+        "Confirm species expertise before enabling bird/exotic filters",
+        "Obtain current fee and exact branch map evidence"
+      ],
+      "publishedProviderId": "pet-matrix-nipania"
+    },
+    {
+      "id": "my-pet-clinic-mehta",
+      "name": "My Pet Clinic & Diagnostics \u2014 Dr. Hemant Mehta",
+      "locality": "Scheme 94 / Vijay Nagar",
+      "status": "published-public-source",
+      "observations": [
+        {
+          "field": "address",
+          "value": "EB 137, SMJ Girls Hostel, Scheme 94, opposite Bombay Hospital",
+          "source": "https://www.timesmed.com/Hospital/Indore/my-pet-clinic-diagnostics-84559",
+          "access": "page",
+          "sourceType": "directory"
+        },
+        {
+          "field": "consultation-fee",
+          "value": "\u20b9200 listed; may vary by doctor. Not accepted into the public price cohort pending corroboration.",
+          "source": "https://www.timesmed.com/Hospital/Indore/my-pet-clinic-diagnostics-84559",
+          "access": "page",
+          "sourceType": "directory"
+        },
+        {
+          "field": "source-quality",
+          "value": "Page contains unrelated medical template material and implausible aggregate rating content. Do not import ratings or infer specialties from those sections.",
+          "source": "https://www.timesmed.com/Hospital/Indore/my-pet-clinic-diagnostics-84559",
+          "access": "page",
+          "sourceType": "directory"
+        },
+        {
+          "field": "listing",
+          "value": "Vijay Nagar listing uses opposite Harsh Hyundai / Bombay Hospital landmarks.",
+          "source": "https://www.justdial.com/Indore/My-Pet-Clinic-Diagnostics-Opposite-Harsh-Hyundai-Service-Center-Opposite-Bombay-Hospital-Vijay-Nagar/0731PX731-X731-170201223738-P5P7_BZDET",
+          "access": "search-index",
+          "sourceType": "justdial"
+        },
+        {
+          "field": "community-mention",
+          "value": "Discussed in a cat-care thread; use only as attributed community evidence.",
+          "source": "https://www.reddit.com/r/Indore/comments/1qwfe79/please_suggest_a_good_vet_for_my_cats/",
+          "access": "search-index",
+          "sourceType": "reddit"
+        },
+        {
+          "field": "current-address-resolution",
+          "value": "Current Google Maps and bdir.in match G3\u20136, D1, opposite Harsh Hyundai. Older EB137 profile fees and ratings excluded.",
+          "source": "https://www.google.com/maps/search/My%20Pet%20Clinic%20Dr%20Hemant%20Mehta%20Indore/",
+          "access": "browser-rendered",
+          "sourceType": "google-maps"
+        }
+      ],
+      "nextActions": [
+        "Confirm move history and current fee with clinic"
+      ],
+      "publishedProviderId": "indore-my-pet"
+    },
+    {
+      "id": "zigly-indore",
+      "name": "Zigly Pet Care \u2014 Indore candidate",
+      "locality": "Indore; branch unresolved",
+      "status": "local-vet-service-unconfirmed",
+      "observations": [
+        {
+          "field": "candidate-listing",
+          "value": "An Indore directory includes a Zigly entry, but this does not establish veterinary availability at that branch.",
+          "source": "https://nuzzy.co/places/in/indore/",
+          "access": "search-index",
+          "sourceType": "directory"
+        },
+        {
+          "field": "service-scope",
+          "value": "Brand website says vet consultations are offered at selected centres; no reviewed Indore branch page confirms local availability.",
+          "source": "https://zigly.com/",
+          "access": "search-index",
+          "sourceType": "business-website"
+        }
+      ],
+      "nextActions": [
+        "Find the official Indore branch page",
+        "Confirm veterinary service rather than retail/grooming only",
+        "Record address, branch phone and consultation fee"
+      ]
+    }
+  ]
+}

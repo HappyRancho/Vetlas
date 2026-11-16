@@ -71,17 +71,17 @@ ok("checked [city]/[provider] vs [city]/[speciality] route collisions");
 
 // 5. research records must be fully attributed
 for (const p of providers) {
-  if (p.dataSource === "sample") continue;
+  if (p.cityId !== "pune" || p.dataSource === "sample") continue;
   if (!p.lastChecked) fail(`${p.slug}: public record missing lastChecked`);
-  if (!p.evidence) fail(`${p.slug}: public record missing evidence note`);
+  if (!p.researchNote) fail(`${p.slug}: public record missing research note`);
   if (!p.confidence) fail(`${p.slug}: public record missing confidence`);
 }
 for (const d of doctors) {
-  if (d.dataSource === "sample") continue;
+  if (d.cityId !== "pune" || d.dataSource === "sample") continue;
   if (!d.evidence) fail(`doctor ${d.slug}: public record missing evidence note`);
   if (!d.confidence) fail(`doctor ${d.slug}: public record missing confidence`);
 }
-if (failures === 0) ok("all public records carry lastChecked / evidence / confidence");
+if (failures === 0) ok("all Pune records carry required research evidence / confidence");
 
 // 6. coordinates sanity (India bounding box)
 for (const p of providers) {

@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import DoctorCard from "../../../components/DoctorCard.astro";
+import { doctorsByCity } from "@data";
+const doctors = doctorsByCity("pune").sort((a,b)=>a.name.localeCompare(b.name));
+---
+<BaseLayout title="Veterinarians in Pune & Pimpri-Chinchwad | Vetlas" description="Browse publicly researched veterinarian profiles in Pune and Pimpri-Chinchwad, with practice associations and clearly attributed uncertainties." canonical="/pune/veterinarians/" noindex>
+  <div class="container">
+    <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Pune",href:"/pune/"},{name:"Veterinarians",href:"/pune/veterinarians/"}]}/>
+    <header class="page-head"><p class="eyebrow">Public-source professional directory</p><h1>Veterinarians in Pune & Pimpri-Chinchwad</h1><p>{doctors.length} researched profiles. Qualifications, credentials and current availability are not independently verified. Confirm the associated practice before travelling.</p></header>
+    <div class="doctor-grid">{doctors.map((doctor,index)=><DoctorCard doctor={doctor} index={index}/>)}</div>
+    <p class="notice-box mt-1">These are research entries, not clinical-quality rankings or confirmed appointments. Source notes and known gaps appear on the individual profiles.</p>
+  </div>
+</BaseLayout>

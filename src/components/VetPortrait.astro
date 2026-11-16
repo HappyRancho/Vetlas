@@ -1,0 +1,11 @@
+---
+import type { Veterinarian } from '../data/veterinarians';
+import Icon from './Icon.astro';
+interface Props {vet:Veterinarian;large?:boolean;}
+const {vet,large=false}=Astro.props;
+---
+<div class:list={['vet-portrait',{'vet-portrait-large':large}]}>
+ {vet.imageUrl?<img src={vet.imageUrl} alt={`Dr. ${vet.name}`} loading="lazy" width={large?160:72} height={large?160:72} style={`object-position:${vet.imagePosition||'center'}`} onerror="this.setAttribute('hidden','');this.parentElement.querySelector('[data-portrait-fallback]').removeAttribute('hidden')"/>:<Icon name="doctor" class="icon icon-xl"/>}
+ <span data-portrait-fallback hidden><Icon name="doctor" class="icon icon-xl"/></span>
+</div>
+<style>.vet-portrait{height:64px;width:64px;border-radius:18px;overflow:hidden;flex:none;display:grid;place-items:center;background:linear-gradient(130deg,#e1f4ea,#e9effc);color:#007f72;border:2px solid white;box-shadow:0 3px 12px #264e3d12}.vet-portrait img{width:100%;height:100%;object-fit:cover}.vet-portrait-large{width:115px;height:125px;border-radius:24px}.vet-portrait [hidden]{display:none}</style>

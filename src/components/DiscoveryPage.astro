@@ -1,10 +1,14 @@
 ---
+import { summarizeRatings } from "../lib/ratings.mjs";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "./Icon.astro";
 import UniversalSearch from "./UniversalSearch.astro";
 import FacilityCard from "./FacilityCard.astro";
+import VetCard from "./VetCard.astro";
+import { veterinarians, vetsForFacility } from "../data/veterinarians";
 import DoctorCard from "./DoctorCard.astro";
-import TrustBadge from "./TrustBadge.astro";
+import MapPreview from "./MapPreview.astro";
+
 import { cityById, specialtyById, cities, specialties, type Provider, type Doctor } from "@data";
 
 interface Props {
@@ -40,13 +44,13 @@ const providerRows = providers.map((provider) => {
     services: provider.services.join(" ").toLowerCase(),
     species: provider.species.join(" ").toLowerCase(),
     emergency: provider.hours.open24 || provider.services.some((service) => /emergency/i.test(service)),
-    rating: provider.rating ?? 0,
+    rating: summarizeRatings(provider.platformRatings).average ?? 0,
     fee: provider.fees?.opd ?? 0,
     search: [
       provider.name, provider.type, provider.area, provider.address, city?.name, city?.state,
       ...specialtiesForProvider.map((specialty) => `${specialty?.name} ${specialty?.slug}`),
-      ...provider.services, ...provider.species,
-    ].filter(Boolean).join(" ").toLowerCase().replace(/24\s*\/\s*7/g, "24/7 24x7"),
+      ...provider.services, ...provider.species, ...vetsForFacility(provider.id).flatMap(v=>[v.name,...v.aliases]),
+    ].filter(Boolean).join(" ").toLowerCase(),
     provider,
   };
 });
@@ -77,7 +81,8 @@ const doctorRows = doctors.map((doctor) => {
   };
 });
 
-const rows = [...providerRows, ...doctorRows];
+const vetRows = (mode==='all'||mode==='doctors'?veterinarians:[]).map(vet=>({kind:'veterinarian' as const,id:vet.id,name:`Dr. ${vet.name}`,type:'doctor',city:'indore',state:'Madhya Pradesh',locality:vet.area,specialty:'',services:'',species:'',emergency:false,rating:0,fee:0,search:[vet.name,...vet.aliases,vet.area,vet.practice,...vet.focus,'doctor veterinarian Indore Madhya Pradesh'].join(' ').toLowerCase(),vet}));
+const rows = [...providerRows, ...doctorRows, ...vetRows];
 const availableProviders = providerRows.filter((row) => row.provider);
 const serviceOptions = [...new Set(availableProviders.flatMap((row) => row.provider.services))]
   .sort((a, b) => a.localeCompare(b));
@@ -140,7 +145,7 @@ const isNoindex = true;
             <span>Sort</span>
             <select id="filter-sort">
               <option value="relevance">Best match</option>
-              <option value="rating">Rating (when listed)</option>
+              <option value="rating">Platform average (available sources)</option>
               <option value="name">Name A–Z</option>
               <option value="fee-asc">Consultation: low to high</option>
             </select>
@@ -154,6 +159,7 @@ const isNoindex = true;
       <div class="active-filter-chips" id="active-filter-chips" aria-label="Active filters"></div>
     </section>
 
+    <MapPreview />
     <ol class="discovery-results" id="discovery-results">
       {rows.map((row, index) => (
         <li
@@ -174,7 +180,7 @@ const isNoindex = true;
         >
           {row.kind === "facility"
             ? <FacilityCard provider={row.provider} index={index} />
-            : <DoctorCard doctor={row.doctor} index={index} />}
+            : row.kind === "veterinarian" ? <VetCard vet={row.vet} /> : <DoctorCard doctor={row.doctor} index={index} />}
         </li>
       ))}
     </ol>
@@ -186,7 +192,7 @@ const isNoindex = true;
       <button class="btn btn-primary" id="discovery-empty-clear" type="button">Clear filters</button>
     </div>
 
-    <p class="discovery-trust-note"><TrustBadge level="sample" label="Data status varies by listing" /> Sample and public records remain clearly labelled. Confirm details directly before visiting.</p>
+
   </div>
 </BaseLayout>
 
@@ -227,7 +233,7 @@ const isNoindex = true;
     if (params.get("sort")) controls.sort.value = params.get("sort");
     if (params.get("emergency") === "1") controls.emergency.checked = true;
 
-    const fixedMode = mode === "hospitals" ? "hospital" : mode === "clinics" ? "clinic" : mode === "doctors" ? "doctor" : (params.get("type") || "");
+    let fixedMode = mode === "hospitals" ? "hospital" : mode === "clinics" ? "clinic" : mode === "doctors" ? "doctor" : (params.get("type") || "");
     function updateUrl() {
       const next = new URLSearchParams();
       if (query) next.set("q", query);
@@ -281,7 +287,7 @@ const isNoindex = true;
         : controls.sort.value === "name"
           ? (a, b) => a.dataset.name.localeCompare(b.dataset.name)
           : controls.sort.value === "fee-asc"
-            ? (a, b) => Number(a.dataset.fee) - Number(b.dataset.fee)
+            ? (a, b) => (Number(a.dataset.fee) || Infinity) - (Number(b.dataset.fee) || Infinity)
             : (a, b) => Number(b.dataset.rating) - Number(a.dataset.rating);
       items.filter((item) => !item.hidden).sort(comparator).forEach((item) => resultList.appendChild(item));
       count.innerHTML = `<b>${shown}</b> ${shown === 1 ? "result" : "results"}${initialCount ? ` from ${initialCount} listings` : ""}`;
@@ -289,9 +295,14 @@ const isNoindex = true;
       resultList.hidden = shown === 0;
       renderChips();
       updateUrl();
+      document.dispatchEvent(new CustomEvent("directory:filtered", { detail: { city: controls.city.value, names: items.filter(item => !item.hidden).map(item => item.dataset.name) } }));
     }
     Object.values(controls).forEach((control) => control.addEventListener("change", apply));
     clear.addEventListener("click", () => {
+      query = ""; tokenQuery.splice(0);
+      if (mode === "all") fixedMode = "";
+      const input = document.querySelector('form[data-universal-search] input[name="q"]');
+      if (input) { input.value = ""; input.dispatchEvent(new Event("input", { bubbles: true })); }
       Object.values(controls).forEach((control) => {
         if (control.type === "checkbox") control.checked = false;
         else control.value = "";

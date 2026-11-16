@@ -54,7 +54,33 @@ export interface ConsultationFee {
   trustLevel: TrustLevel;
 }
 
+export interface PlatformRating {
+  platform: string;
+  score: number;
+  count?: number;
+  countLabel?: string;
+  kind: "platform" | "cross-web" | "republished";
+  checkedAt: string;
+  access: "search-index" | "page" | "api";
+  note?: string;
+  url: string;
+}
+
 export interface Provider {
+  visitHours?: { openingHours?: string[];summary:string;schedule:{days:string;time:string}[];sourceUrl:string;sourceLabel:string;checkedAt:string;doctorSummary?:string;note?:string};
+  consultationListing?: {min:number;max:number;kind:string;note:string;sourceUrl:string};
+  platformRatings?: PlatformRating[];
+  reviewEvidence?: { platform: string; summary: string; url: string; checkedAt: string }[];
+  coordinateSource?: string;
+  mapLocation?: { plusCode: string; method: string; precisionMeters: number | null; checkedAt: string; sourceUrl: string; placeId: string | null; cid: string | null; note: string };
+  evidence?: { label: string; url: string }[];
+  feeNote?: string;
+  feeIsStarting?: boolean;
+  hoursNote?: string;
+  /** Public-source research summary; separate from Indore structured evidence links. */
+  researchNote?: string;
+  /** Research confidence is not a quality or credential-verification rating. */
+  confidence?: "high" | "medium" | "low";
   id: string;
   slug: string;
   name: string;
@@ -78,6 +104,9 @@ export interface Provider {
   dataSource: DataSource;
   /** Optional future real facility photograph; absent records use the illustrated fallback. */
   imageUrl?: string;
+  imageAlt?: string;
+  imageOriginalUrl?: string;
+  imageCheckedAt?: string;
   imageCredit?: string;
   imageSourceUrl?: string;
   coordinates?: { lat: number; lng: number };
@@ -87,22 +116,10 @@ export interface Provider {
     instagram?: string;
     website?: string;
     practo?: string;
-    /** Review-aggregate snapshots (Sploot, Yappe, ProMallu) — Google-sourced ratings seen via a third party */
     aggregate?: string;
-    /** Business directories (GullyDirectory, Timesmed, Petofy) */
     directory?: string;
   };
   lastChecked?: string;
-  /**
-   * How well-attested the record is overall ("high" = official website or
-   * corroborated by ≥2 independent public sources). Displayed in the UI so
-   * thin records are never mistaken for vetted ones.
-   */
-  confidence?: "high" | "medium" | "low";
-  /** One-line research note: what was seen, from where, and what is unresolved. */
-  evidence?: string;
-  /** Full opening-hour detail when the daily window doesn't capture split/closed days. */
-  hoursNote?: string;
   reviewSummary?: {
     analysed: number;
     sentiment: "positive" | "mixed" | "negative" | "insufficient";
@@ -121,7 +138,6 @@ export interface Doctor {
   degrees: string[];
   /** Sample registration number format, clearly marked in UI when sample */
   registration?: string;
-  /** Omitted when a real doctor's years of practice are not publicly documented. */
   experienceYears?: number;
   cityId: string;
   primarySpecialtyId: string;
@@ -137,12 +153,13 @@ export interface Doctor {
   reviewCount?: number;
   verified: boolean;
   dataSource: DataSource;
-  /** Per-record confidence for real (non-sample) doctors; see Provider.confidence */
   confidence?: "high" | "medium" | "low";
-  /** One-line research note with source and unresolved questions. */
   evidence?: string;
   /** Optional future real doctor photograph; absent records use the initials fallback. */
   imageUrl?: string;
+  imageAlt?: string;
+  imageOriginalUrl?: string;
+  imageCheckedAt?: string;
   imageCredit?: string;
   imageSourceUrl?: string;
 }

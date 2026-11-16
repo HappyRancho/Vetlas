@@ -249,7 +249,11 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
     function syncFilter() {
       if (!filterLink) return;
       const v = input.value.trim();
-      filterLink.href = v ? `/search/?q=${encodeURIComponent(v)}` : "/search/";
+      const params = new URLSearchParams();
+      if (v) params.set("q", v);
+      const city = form.querySelector<HTMLInputElement>('input[name="city"]')?.value;
+      if (city) params.set("city", city);
+      filterLink.href = `/search/?${params}`;
     }
 
     function emit() {

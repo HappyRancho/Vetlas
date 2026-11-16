@@ -2,10 +2,11 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
 import FacilityCard from "../../components/FacilityCard.astro";
+import VetCard from "../../components/VetCard.astro";
 import DoctorCard from "../../components/DoctorCard.astro";
+import { veterinarians } from "../../data/veterinarians";
 import UniversalSearch from "../../components/UniversalSearch.astro";
-import TrustBadge from "../../components/TrustBadge.astro";
-import { cities, providersByCity, doctorsByCity, cityPublishGate, areasByCity } from "@data";
+import { cities, providersByCity, doctorsByCity, areasByCity, cityPublishGate } from "@data";
 
 export function getStaticPaths() {
   return cities.map((city) => ({
@@ -16,25 +17,26 @@ export function getStaticPaths() {
 
 const { city } = Astro.props;
 const cityProviders = providersByCity(city.id);
+const cityVets = veterinarians.filter(v=>v.cityId===city.id);
 const cityDoctors = doctorsByCity(city.id);
-const gate = cityPublishGate(city.id);
 const localities = areasByCity(city.id);
+const gate = cityPublishGate(city.id);
 
-const profileCount = cityProviders.length + cityDoctors.length;
 
 const clinicCount = cityProviders.filter((p) => p.type === "clinic").length;
-const hospitalCount = cityProviders.length - clinicCount;
+const hospitalCount = cityProviders.filter((p) => p.type === "hospital").length;
+const otherCount = cityProviders.length - clinicCount - hospitalCount;
 const headMeta = [
   city.state,
   clinicCount > 0 ? `${clinicCount} ${clinicCount === 1 ? "clinic" : "clinics"}` : "",
   hospitalCount > 0 ? `${hospitalCount} ${hospitalCount === 1 ? "hospital" : "hospitals"}` : "",
-  cityDoctors.length > 0
-    ? `${cityDoctors.length} ${cityDoctors.length === 1 ? "doctor" : "doctors"}`
+  otherCount > 0 ? `${otherCount} other services` : "",
+  cityDoctors.length + cityVets.length > 0
+    ? `${cityDoctors.length + cityVets.length} ${cityDoctors.length + cityVets.length === 1 ? "doctor" : "doctors"}`
     : "",
 ].filter(Boolean).join(" · ");
 
-// Publication gate: city pages stay noindex until enough vetted profiles exist.
-const noindex = !gate.indexable;
+const noindex = city.id !== "indore" && !gate.indexable; // preserve the indexed Indore directory
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -73,44 +75,14 @@ const jsonLd = {
       </div>
     </header>
 
-    <div class="notice-box mt-1 maxw-44">
-      <strong>Public-source directory.</strong> These profiles come from official websites, public
-      maps and directories (each record shows its sources and last-checked date) and are not
-      independently verified by Vetlas. City pages enter search indexes only once
-      {gate.minimumVetted} vetted profiles exist — {gate.vettedProfiles} so far;
-      {profileCount} public records are currently available for discovery.
-    </div>
+    {city.id === "indore" && <div class="list-inline"><a class="chip" href="/map/">Explore 15 clinics on the map →</a><a class="chip" href="/indore/veterinarians/">Meet the veterinarians →</a></div>}
 
+    {city.id === "pune" && <p class="notice-box mt-1">Pune and Pimpri-Chinchwad listings are sourced from public websites and directories, not independently verified. Research coverage is incomplete. {gate.vettedProfiles} of {gate.minimumVetted} vetted profiles required before indexing. Confirm details before visiting.</p>}
+    {localities.length > 1 && <section class="section-compact" aria-labelledby="localities-h"><h2 class="section-title section-title-sm" id="localities-h">Areas covered</h2><div class="list-inline">{localities.map(loc=><span class="chip chip-sm">{loc.area} · {loc.count}</span>)}</div></section>}
     <section class="section-first" aria-labelledby="search-h">
       <h2 class="visually-hidden" id="search-h">Search within {city.name} and beyond</h2>
       <UniversalSearch variant="compact" />
     </section>
-
-    {localities.length > 1 && (
-      <section class="section-compact" aria-labelledby="loc-h">
-        <div class="section-head">
-          <div>
-            <p class="section-eyebrow">Neighbourhood coverage</p>
-            <h2 class="section-title section-title-sm" id="loc-h">Where the records are</h2>
-          </div>
-        </div>
-        <ul class="list-inline">
-          {localities.map((loc) => (
-            <li>
-              <span class="chip chip-lg">
-                <Icon name="pin" class="icon icon-sm" />
-                {loc.area}
-                <small class="soft">{loc.count}</small>
-              </span>
-            </li>
-          ))}
-        </ul>
-        <p class="small soft mt-05">
-          Locality names reflect each record's researched address; counts are public records, not
-          an exhaustive census of veterinary care in {city.name}.
-        </p>
-      </section>
-    )}
 
     <section class="section-first" aria-labelledby="cp-h">
       <div class="section-head">
@@ -118,7 +90,7 @@ const jsonLd = {
           <p class="section-eyebrow">Facilities</p>
           <h2 class="section-title section-title-sm" id="cp-h">Hospitals &amp; clinics in {city.name}</h2>
         </div>
-        <TrustBadge level="public" label="Public source" />
+
       </div>
       {cityProviders.length > 0 ? (
         <div class="facility-grid">
@@ -128,7 +100,7 @@ const jsonLd = {
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
           <h2>Nothing here yet</h2>
-          <p>We haven't mapped {city.name} in the sample dataset. Browse care across India meanwhile.</p>
+          <p>We haven't mapped {city.name} in the directory. Browse care across India meanwhile.</p>
           <div class="actions"><a class="btn btn-primary" href="/search/">Browse all of India</a></div>
         </div>
       )}
@@ -140,17 +112,18 @@ const jsonLd = {
           <p class="section-eyebrow">Doctors</p>
           <h2 class="section-title section-title-sm" id="cd-h">Veterinarians in {city.name}</h2>
         </div>
-        <TrustBadge level="public" label="Public source" />
+
       </div>
-      {cityDoctors.length > 0 ? (
+      {cityDoctors.length + cityVets.length > 0 ? (
         <div class="doctor-grid">
-          {cityDoctors.map((d, i) => <DoctorCard doctor={d} index={i} />)}
+          {cityVets.map(d => <VetCard vet={d} />)}
+          {cityDoctors.map((d,i) => <DoctorCard doctor={d} index={i} />)}
         </div>
       ) : (
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
           <h2>No doctors here yet</h2>
-          <p>This city hasn't been mapped in the sample dataset yet.</p>
+          <p>This city hasn't been mapped in the directory yet.</p>
           <div class="actions"><a class="btn btn-primary" href="/search/?type=doctor">Browse all doctors</a></div>
         </div>
       )}

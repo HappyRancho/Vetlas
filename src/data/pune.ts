@@ -62,7 +62,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official website raintreevet.in (contact, emergency and facilities pages) states the 24-hour emergency room, night veterinarian and opening hours; Instagram handle raintreevet confirms the same. Emergency phone +91 8830207984 published on site. OPD review count not captured.",
     sources: { website: "https://raintreevet.in/", instagram: "https://www.instagram.com/raintreevet/" },
     lastChecked: CHECKED,
@@ -105,7 +105,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official site crown.vet (Aundh and Kharadi clinic pages): full address, both phone numbers, 24/7 claim, service list and Dr. Preeti as head vet. Company-wide emergency helpline +91-8062744111. Branch founding year 2016 is a company claim. Per-doctor credentials not published. Google snapshot (Sploot Aundh page, 2026-11-16): 4.4 from ~600 reviews.",
     sources: { website: "https://crown.vet/aundh-vet.asp" },
     lastChecked: CHECKED,
@@ -135,7 +135,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official site crown.vet/kharadi-vet.asp lists address, phones (+91 8062744110 / 7900196798) and Mon–Sun 11am–8pm timings. The address string references Shivane Road despite the Kharadi/behind-Zensar-IT-Park placement; verify the exact building on arrival. Alternative: the Kalyani Nagar 24/7 branch was not researched to address level in this pass.",
     sources: { website: "https://crown.vet/kharadi-vet.asp" },
     lastChecked: CHECKED,
@@ -162,7 +162,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official clinic page vetic.in/clinics/pune/aundh: full address, phone, hours and service pricing (consultation from ₹799, grooming from ₹1,099, blood tests from ₹200, vaccination from ₹750). Rating 4.9 is the brand page's own figure; independent review count not captured.",
     sources: { website: "https://vetic.in/clinics/pune/aundh" },
     lastChecked: CHECKED,
@@ -196,7 +196,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official clinic page vetic.in/clinics/pune/kalyani-nagar-pune ('Open 24X7 Hours', emergency FAQ) and the Sploot Pune index, which lists it as open 24 hours with 4.5 (627) Google reviews. Address from the official page; street-level landmark names on the page appear templated, so confirm on arrival. Google snapshot (Sploot Aundh page, 2026-11-16): 4.6 from ~658 reviews.",
     sources: { website: "https://vetic.in/clinics/pune/kalyani-nagar-pune" },
     lastChecked: CHECKED,
@@ -222,7 +222,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official clinic page vetic.in/clinics/pune/nibm-pune: address, hours, areas served and prices (consultation ₹799, grooming ₹1,099, blood tests ₹200, vaccination ₹750). Rating 4.9 is the brand page figure.",
     sources: { website: "https://vetic.in/clinics/pune/nibm-pune" },
     lastChecked: CHECKED,
@@ -249,7 +249,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official clinic page vetic.in/clinics/pune/wakad: full Thergaon address, hours, areas served and published prices. Rating 4.9 is the brand page figure.",
     sources: { website: "https://vetic.in/clinics/pune/wakad" },
     lastChecked: CHECKED,
@@ -287,7 +287,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official site auravets.in (About, Services, Visit pages) plus a Google Maps listing snippet (5.0 from 45 reviews; coordinates; daily 10am–8pm hours). Visiting-doctor roster published on the site; their qualifications are self-reported and not independently verified.",
     sources: { website: "https://www.auravets.in/", googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJC5NbRu3BwjsROipqNX2YCO4", instagram: "https://www.instagram.com/aura.vets/" },
     lastChecked: CHECKED,
@@ -331,7 +331,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official site shivrajpetclinicpune.com (fees ₹300/₹400, hours, lab turnaround, founder history) and a Google Maps listing snippet (4.5 from 343 reviews, coordinates, matching hours). Reviews on the maps snippet document spay surgery and exotic (rabbit) care experiences.",
     sources: { website: "https://www.shivrajpetclinicpune.com/", googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJ7-6uGT25wjsRlqwLOgoUQbs" },
     lastChecked: CHECKED,
@@ -376,7 +376,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official site thevetnest.com (address, hours, services, home-visit policy, new-client ₹400 offer valid to 31 Dec 2026, Dr. Niyati profile). Independent ratings not captured in this pass.",
     sources: { website: "https://thevetnest.com/" },
     lastChecked: CHECKED,
@@ -411,7 +411,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official site lifecareanimal.clinic: address, phone, 4.7 (130+) Google figure, doctor's credentials and diagnostic list. All doctor credentials are self-published; independent corroboration (e.g. council registration) not available in this pass.",
     sources: { website: "https://lifecareanimal.clinic/" },
     lastChecked: CHECKED,
@@ -453,7 +453,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official site metrovet.in (team, facilities, relocated Warje address, appointment-only evening timings, history as Vet for Pet 2004–2010). Unusual evening-only consultation window makes the opening-hours detail important.",
     sources: { website: "https://www.metrovet.in/" },
     lastChecked: CHECKED,
@@ -482,7 +482,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official site petcoverpune.com (address, phones 020-25396666 / 9822015318, emergency 8888352725, service list) and cross-listings on MyFurries/GullyDirectory naming Dr. Vinay S. Gorhe. Google listing snapshot (via Sploot/Nuzzy) shows 4.4 from ~1,200 reviews and Mon–Sat split hours; Lybrate lists a fee (₹300) that Vetlas has not verified.",
     sources: { website: "https://www.petcoverpune.com/", justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
@@ -510,7 +510,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Practo clinic page (address, Mon–Sat timings, fee ₹300–400, 5.0 from 282 patient stories, claimed profile) corroborated by GullyTails listing (same address, 24/7 emergency claim, home visits) and MyFurries listing. Sunday hours conflict across listings (GullyTails says Sunday closed; hours otherwise consistent).",
     sources: { practo: "https://www.practo.com/pune/clinic/petmax-clinic-erandwane" },
     lastChecked: CHECKED,
@@ -544,7 +544,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Google Maps listing snippet (4.2 from 144 reviews; address; split daily hours; coordinates). Reviews document both strong diagnostic outcomes and one complaint about clinic hygiene and a missed skin infection; both are retained in themes.",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJHXV8TeC5wjsR7e0sDQL0azg" },
     lastChecked: CHECKED,
@@ -580,7 +580,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Google Maps listing snippet (4.6 from 413 reviews; address; split daily hours; coordinates) plus the clinic's own site spcuvet.com. Dr. Raut's name appears in reviews; formal credentials not published.",
     sources: { website: "https://spcuvet.com/", googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJ6TbFJYPHwjsRNPtMN-SCgkg" },
     lastChecked: CHECKED,
@@ -613,7 +613,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Google Maps listing snippet (4.0 from 174 reviews; address; Mon–Fri 10am–1pm hours; coordinates) and the Sploot Nigdi area page confirming services (general consultation, vaccination) and hours. Fee figures are reviewer-reported, not official.",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJN2S3h-a5wjsR0M7Yvak2Mts" },
     lastChecked: CHECKED,
@@ -655,7 +655,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official site premiumpetsospital.com (address, phone, 24/7 claim, facilities list). No independent directory rating captured; treat staffing claims as advertised until confirmed.",
     sources: { website: "https://premiumpetshospital.com/" },
     lastChecked: CHECKED,
@@ -690,7 +690,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official site petaegisveterinaryhospital.com (address, phone 098901 24393, 24/7 emergency claim, service list, 2024 copyright). Cross-listed on GullyDirectory for both Kothrud (clinic) and Hingne Khurd (hospital) — the hospital address is used here.",
     sources: { website: "https://petaegisveterinaryhospital.com/" },
     lastChecked: CHECKED,
@@ -720,7 +720,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official site animalwelfarepune.com (history, address, phone 020-26444960, email swap2390@gmail.com, species scope). Community guides (dogwithblog) list the same address/phone with a 'not re-verified' caution; hours not published anywhere in this pass. Google listing titled 'Sir Manekji Mehta Veterinary Hospital (SPCA)' shares the same phone (020-2644 4960) and lists 2590 Chitragupt Colony, Katad Khana with 3.5/130, hours 10:00–17:00 Mon–Sat (Sunday closed) and coordinates — same campus/organisation, official hospital name recorded in the about text (data Nov 2026).",
     sources: { website: "https://www.animalwelfarepune.com/" },
     lastChecked: CHECKED,
@@ -754,7 +754,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official site bcspune.org (OPD/IPD/vaccination/ABC pages with published price list, address, Mon–Fri 10–6 hours, toll-free 1800-419-9005, email-admission policy). Purebred-pet charges are deliberately higher — stated policy, not a fee error.",
     sources: { website: "https://bcspune.org/" },
     lastChecked: CHECKED,
@@ -793,7 +793,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official site resqct.org (home, community-animals, FAQ and contact pages: 24-hour helpline scope, visit hours, office hours, pet-clinic appointment process, address). Helpline scope is critical: it is NOT a 24-hour pet-dog/cat emergency service.",
     sources: { website: "https://www.resqct.org/" },
     lastChecked: CHECKED,
@@ -819,7 +819,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Google Maps listing snippet (address, phone, coordinates, 'Open 24 hours' every day, categories Animal hospital / Emergency veterinarian / Surgeon). No rating captured; corroborating directory listing not found in this pass.",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJDzUUucbBwjsRdkXqeTp83dA" },
     lastChecked: CHECKED,
@@ -845,7 +845,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Pune index (4.9, 136 reviews, 'Open 24 hours', area Anand Nagar) and GullyDirectory listing carrying the full street address and service list. Phone number not captured in any accessible source this pass.",
     sources: { aggregate: "https://sploot.space/vets/city/pune" },
     lastChecked: CHECKED,
@@ -871,7 +871,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot Pune index only ('Tranquil Paws Veterinary Clinic — Baner, Pune — 4.8 (57) Google — Open 24 hours'). Address, phone and website not found in accessible sources this pass; research listed as pending in docs/RESEARCH-LOG-PUNE.md.",
     lastChecked: CHECKED,
   },
@@ -897,7 +897,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot clinic page updated Oct 2026 (address, phone, detailed weekly hours, 4.4 from 557 Google reviews, services) and MyFurries listing naming Dr. Milind Mhatre. NOTE: MyFurries gives a different address (Shop 4, Rajaram Apartment, South Main Road, KP) — the newer Sploot address is used; conflict recorded.",
     sources: { aggregate: "https://sploot.space/vets/complete-pet-care-clinic", justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
@@ -931,7 +931,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Lybrate Viman Nagar veterinarian page (Dr. Babasaheb Kalhapure, MVSc, 25 yrs, ₹250 at clinic, Pets Friends Clinic) and MyFurries listing (address on petsfriendclinic.com domain, phone 9850031090). Clinic's own website content not fetched this pass.",
     sources: { justdial: "https://www.myfurries.com/find-a-vet/pune", practo: "https://www.lybrate.com/pune/veterinarian/viman-nagar-pune" },
     lastChecked: CHECKED,
@@ -958,7 +958,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Lybrate listing (₹450 at clinic, 4.3 from 36 ratings, Fortune Plaza address) and Lybrate Viman Nagar page naming Dr. Anushree Ghaisas (MVSc, 14 yrs, Petville Pet Clinic, Kharadi, Mon slots 10:30–14:00 & 18:30–21:00).",
     sources: { practo: "https://www.lybrate.com/pune/clinics/veterinary-clinics" },
     lastChecked: CHECKED,
@@ -994,7 +994,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "PetCare.AI profile marked VERIFIED (full address, phone, working hours, service prices, 4.7 from 100+ Google reviews) and Lybrate Viman Nagar page listing Dr. Mahesh Brahmankar. The midday-only hours block looks truncated; treat the fee list as published-but-dateable.",
     sources: { website: "https://petcare.ai/vets/dr-mahesh-brahmankar-pune-8c2cac" },
     lastChecked: CHECKED,
@@ -1026,7 +1026,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Practo Viman Nagar search results listing both doctors at Pet Aid - Dog & Cat Clinic (Kalyani Nagar) with fees and experience. No street address or independent rating found this pass; pending follow-up research. Google snapshot (Sploot Aundh page, 2026-11-16): 4.4 from ~329 reviews.",
     sources: { practo: "https://www.practo.com/pune/veterinarian/viman-nagar" },
     lastChecked: CHECKED,
@@ -1053,7 +1053,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Practo (Pet's Heaven Pet Clinic, Magarpatta City, fee ₹300) and docindia.org (Dr. Bishakha Nath profile naming Pet's Heaven Pet Clinic). Street address not captured this pass; pending follow-up research.",
     sources: { practo: "https://www.lybrate.com/pune/clinics/veterinary-clinics", website: "https://www.docindia.org/india/mh/pune/veterinary" },
     lastChecked: CHECKED,
@@ -1079,7 +1079,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "dogwithblog Pune shelters & helplines guide (address, phone 9921881894, founder context) — an NGO-profile secondary source; cross-check against the organisation's own channels still pending.",
     sources: { website: "https://dogwithblog.in/pune-animal-shelters-and-emergency-helplines" },
     lastChecked: CHECKED,
@@ -1106,7 +1106,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Nigdi area page (All for Pets – Dr Satish Gore, 4.7 from 623) and MyFurries listing (Gurudwara Colony Nigdi address, phone 9145445009).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/nigdi", justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
@@ -1140,7 +1140,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Google Maps listing snippet (4.8 from 59 reviews; address; daily split hours; coordinates; dated review excerpts including serious negative experiences). Included because the adverse reviews are on the public record and material to pet-parent decisions.",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJH6F7uvbJwjsRaQxF3Ay7xfg" },
     lastChecked: CHECKED,
@@ -1174,7 +1174,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Google Maps listing snippet (4.6 from 20 reviews; address; 9am–9pm daily; coordinates; dated review excerpts, both praising and critical).",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJ2de59Fe5wjsRIBX8c0syPrU" },
     lastChecked: CHECKED,
@@ -1216,7 +1216,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot clinic page (rating snapshot, address variant 'Narayan Annaji Shinde Rd', coordinates, Mon–Sat 9–9 hours); Practo claimed clinic profile (5.0/418 stories, timings 10:30–16 + 18–21); Timesmed and Haduk (services, Dr. Sagar Bhongle, fee ₹250); Justdial insights include negative themes. Address discrepancy: Practo writes '21, Sunshree Suntek' while Timesmed/Haduk write '12'. Fee ₹250 per Timesmed/myUpchar.",
     sources: {
       practo: "https://www.practo.com/pune/clinic/animal-medical-services-kondhwa",
@@ -1256,7 +1256,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Sploot Hinjawadi area page (4.9/638 Google snapshot); aggregated Google-derived listing (address, phone, split hours, Tuesday closed, coordinates, women-owned attribute, review excerpts naming Dr. Abhishek).",
     sources: { aggregate: "https://promallu.com/toprated/india/the-pet-specialist-xw6emg" },
     lastChecked: CHECKED,
@@ -1287,7 +1287,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Hadapsar area page (4.9/461 Google snapshot, 'None of the 10 clinics we list in Hadapsar shows round-the-clock opening') and GullyDirectory listing (street address, service tags). Phone not captured on either snippet — call details pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/hadapsar", directory: "https://www.gullydirectory.com/pune/veterinarian" },
     lastChecked: CHECKED,
@@ -1318,7 +1318,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Hadapsar area page (4.8/519 Google snapshot) and GullyDirectory listing (DP Road, Gadital address, service tags). Phone and exact shop number not captured.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/hadapsar", directory: "https://www.gullydirectory.com/pune/veterinarian" },
     lastChecked: CHECKED,
@@ -1349,7 +1349,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot Hadapsar area page listing only (name, area, rating snapshot). Listing-request/contact details pending a dedicated pass.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/hadapsar" },
     lastChecked: CHECKED,
@@ -1380,7 +1380,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official Vetic clinic page (address, 10am–8pm hours, service list, 'areas served'); Sploot Hadapsar page (4.9/8 Google snapshot). Independent review volume still small.",
     sources: { website: "https://vetic.in/clinics/pune/hadapsar", aggregate: "https://sploot.space/vets/city/pune/area/hadapsar" },
     lastChecked: CHECKED,
@@ -1411,7 +1411,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Hadapsar page (4.3/103 snapshot); GullyDirectory (address variant 1, service tags); MyFurries (address variant 2, alvapetclinic.com, phone 7947203083 via platform). Own site not yet fetched.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/hadapsar", directory: "https://www.gullydirectory.com/pune/veterinarian", justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
@@ -1442,7 +1442,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot Wakad area page and Sploot city 'popular listings' (4.9/250 Google snapshot, name, area). Contact details pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/wakad" },
     lastChecked: CHECKED,
@@ -1473,7 +1473,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot Wakad area page (4.8/403 Google snapshot); Justdial Hinjewadi clinic roundup names 'Dr Devde's Pet Care Clinic & Diagnostic' among Wakad-side clinics. Address/phone pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/wakad" },
     lastChecked: CHECKED,
@@ -1504,7 +1504,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Wakad area page (4.6/296 Google snapshot, 'run by Earth Charitable Foundation'); GullyDirectory listing (Shree Mahakaleshwar Rd, Shankar Kalat Nagar address, rescue service tags).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/wakad", directory: "https://www.gullydirectory.com/pune/veterinarian" },
     lastChecked: CHECKED,
@@ -1538,7 +1538,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Google Maps derived listing (address, phone +91 93250 34315, 3.9/157, coordinates, open-24-hours daily, data as of 2026-11-04, critical review excerpt); Sploot Kothrud page ('GRB pet clinic (4)', 4.6/43, 'Open 24 hours'). Conflict unresolved. Sploot's Aundh area page also lists 'G. R. B. PET CLINIC' under Aundh (3.9/154, open 24 hours) — corroborating the Aundh placement; the separate Kothrud listing (4.6/43) may be a second listing or branch.",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJKw3Y9k2_wjsRQrLyfqlDeoc", aggregate: "https://sploot.space/vets/city/pune/area/kothrud" },
     lastChecked: CHECKED,
@@ -1569,7 +1569,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Kothrud page (4.7/105 Google snapshot); MyFurries listing (Nirmitee Heights address, phones).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/kothrud", justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
@@ -1601,7 +1601,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Kothrud page (4.1/67 snapshot); MyFurries listings for both 'Vets For Pets Clinic' and 'Samvedna Pet Clinic' (same Shiv Sai Apartment address, same 9960292239/7588516305 numbers, Dr. Khagol Chavan named).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/kothrud", justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
@@ -1635,7 +1635,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Google Maps derived listing (address, phone, 4.6/78, daily 10–9, coordinates, data as of 2026-11-05, review naming Dr. Hemant); Sploot Kothrud page (4.5/62 Google snapshot — count differs between snapshots, recorded as seen).",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJL9NQrl6_wjsRKzq4Htyds54" },
     lastChecked: CHECKED,
@@ -1666,7 +1666,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot Warje area page (4.7/319 Google snapshot, name, area); Yappe aggregate ('Pet passion Vet clinic & pet shop', NDA Rd, Warje Jakat Naka address, 262 reviews).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/warje" },
     lastChecked: CHECKED,
@@ -1697,7 +1697,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot city page popular-listings block (4.9/262 Google snapshot, name, area). Contact details pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune" },
     lastChecked: CHECKED,
@@ -1728,7 +1728,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot city page popular-listings block (4.9/100 Google snapshot, name, area). Contact details pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune" },
     lastChecked: CHECKED,
@@ -1759,7 +1759,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot city page popular-listings block (4.9/211 Google snapshot, name, area). Contact details pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune" },
     lastChecked: CHECKED,
@@ -1790,7 +1790,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot Bhosari area page (4.5/224 Google snapshot, name, area). Contact details pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/bhosari" },
     lastChecked: CHECKED,
@@ -1819,7 +1819,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Yappe Pune aggregate (793 reviews, Jacinta Villa address); GullyDirectory lists the same Jacinta Villa / NCL Colony address as an 'Animal Care Clinic · Aundh' with surgical/vaccination/emergency tags.",
     sources: { aggregate: "https://yappe.in/maharashtra/pune/animal-hospital", directory: "https://www.gullydirectory.com/pune/veterinarian" },
     lastChecked: CHECKED,
@@ -1850,7 +1850,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot city guide section on government veterinary hospitals (polyclinic history, May-2025 super-specialty opening, DAO phone); Yappe aggregate listing 'Government Veterinary Hospital, Pune University, Aundh' (657 reviews). Official government page not located this pass. Sploot's Aundh area page shows 'Government Veterinary Hospital' at 3.9 from 861 reviews — counts differ across snapshots; both recorded.",
     sources: { aggregate: "https://sploot.space/vets/city/pune", directory: "https://yappe.in/maharashtra/pune/animal-hospital" },
     lastChecked: CHECKED,
@@ -1881,7 +1881,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot Bhosari area page ('Animal government hospital PCMC', 4/108 Google snapshot, directions-only card). Contact details pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/bhosari" },
     lastChecked: CHECKED,
@@ -1912,7 +1912,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Sploot Kothrud area page (4.6/38 Google snapshot; listing title names Dr Biipin Sonar). Contact details pending.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/kothrud" },
     lastChecked: CHECKED,
@@ -1941,7 +1941,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Petofy Pune vet listing (name 'DR.VIVEK PANDE', Loop Rd, Indira Park CHS, Mahindra Society address); GullyDirectory 'Animedics Pet Health Care Center' listing shows the same Indira Park CHS address under a different name — possible prior name; treated as unresolved.",
     sources: { directory: "https://petofy.com/pune/pet-consultations", justdial: "https://www.gullydirectory.com/pune/veterinarian" },
     lastChecked: CHECKED,
@@ -1972,7 +1972,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Official site petpalaceclinic.com (address, phone, coordinates, 'managed by our super experienced veterinary doctor Mr Deepak Suryawanshi'); MyFurries cross-listing (petpalace.in).",
     sources: { website: "https://www.petpalaceclinic.com/" },
     lastChecked: CHECKED,
@@ -2003,7 +2003,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Kondhwa area page (4.5/215 Google snapshot); GullyDirectory and Petofy listings (Ahura Building address, service tags, Dr. Anjali Dave named). Phone not captured.",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/kondhwa", directory: "https://petofy.com/pune/pet-consultations" },
     lastChecked: CHECKED,
@@ -2033,7 +2033,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Google Maps derived listing (address, phone, 4.6/657, split hours, coordinates, dated surgical reviews, data as of 2026-11-04); GullyDirectory corroborates the Nandanvan Colina address; Yappe aggregate shows a second Katraj address ('13, Vaishnavi Empire, Pahelwan Thorla Pratap Path', 543 reviews) — possible second location, unresolved.",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJJSU96sTqwjsRaqVQPIJAV7k", aggregate: "https://yappe.in/maharashtra/pune/veterinarian", directory: "https://www.gullydirectory.com/pune/veterinarian" },
     lastChecked: CHECKED,
@@ -2068,7 +2068,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Google Maps derived listing (address, phone, 4.2/78, daily 10–14 hours, coordinates, dated reviews both praising and critical, data as of 2026-11-04).",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJ7ai329zrwjsRGuPgi4qtAZk" },
     lastChecked: CHECKED,
@@ -2103,7 +2103,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Google Maps derived listing (address, phone, 4.5/280, evening-only hours, coordinates, strongly mixed reviews, data as of 2026-11-04); own website drkatrepetclinic.com referenced in the listing but not fetched this pass.",
     sources: { googleMaps: "https://www.google.com/maps/place?q=place_id:ChIJD00TwpzqwjsRHXto1kmGOas" },
     lastChecked: CHECKED,
@@ -2134,7 +2134,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Yappe aggregate (557 reviews, Clover Heights / Wanowrie address); Sploot Erandwane page ('Manas, Dr Tulpule's Pet Care Clinic', 4.6/11); Practo Hadapsar veterinarian list (Dr. Deepak Tulpule, 33 yrs, 94% recommendation, 35 stories, ₹500).",
     sources: { aggregate: "https://yappe.in/maharashtra/pune/veterinarian", practo: "https://www.practo.com/pune/veterinarian/hadapsar" },
     lastChecked: CHECKED,
@@ -2166,7 +2166,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "Sploot Erandwane page (4.6/177 Google snapshot, name, area only).",
+    researchNote: "Sploot Erandwane page (4.6/177 Google snapshot, name, area only).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/erandwane" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2192,7 +2192,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Erandwane page (4.8/200 Google snapshot; listing title names Dr. Hatekar and Dr. Supriya).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/erandwane" },
     lastChecked: CHECKED,
@@ -2219,7 +2219,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "Sploot Erandwane page (4.9/15 Google snapshot, name, area only).",
+    researchNote: "Sploot Erandwane page (4.9/15 Google snapshot, name, area only).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/erandwane" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2245,7 +2245,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "Sploot Erandwane page (3.7/23 Google snapshot, name, area only).",
+    researchNote: "Sploot Erandwane page (3.7/23 Google snapshot, name, area only).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/erandwane" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2271,7 +2271,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "Sploot Aundh area page (5/117 Google snapshot, name, area only).",
+    researchNote: "Sploot Aundh area page (5/117 Google snapshot, name, area only).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/aundh" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2296,7 +2296,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "Sploot Aundh area page (4.9/43 Google snapshot, name, area only).",
+    researchNote: "Sploot Aundh area page (4.9/43 Google snapshot, name, area only).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/aundh" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2322,7 +2322,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence: "Sploot Aundh area page (4.7/29 Google snapshot; doctor named in the listing title).",
+    researchNote: "Sploot Aundh area page (4.7/29 Google snapshot; doctor named in the listing title).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/aundh" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2348,7 +2348,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Aundh area page (4.1/362 Google snapshot); Yappe aggregate (same Sakal Nagar address, 342 reviews — counts differ slightly across snapshots).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/aundh", directory: "https://yappe.in/maharashtra/pune/animal-hospital" },
     lastChecked: CHECKED,
@@ -2375,7 +2375,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "Sploot Bavdhan area page (4.9/169 Google snapshot, name, area only).",
+    researchNote: "Sploot Bavdhan area page (4.9/169 Google snapshot, name, area only).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/bavdhan" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2401,7 +2401,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "Sploot Bavdhan area page (4.8/319 Google snapshot, name, area only).",
+    researchNote: "Sploot Bavdhan area page (4.8/319 Google snapshot, name, area only).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/bavdhan" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2427,7 +2427,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Sploot Bavdhan area page (4.8/151 Google snapshot); GullyDirectory listing (Pentium Residency address, service tags).",
     sources: { aggregate: "https://sploot.space/vets/city/pune/area/bavdhan", directory: "https://www.gullydirectory.com/pune/veterinarian" },
     lastChecked: CHECKED,
@@ -2455,7 +2455,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "high",
-    evidence:
+    researchNote:
       "Official site sniffi.in (service list, coverage areas, WhatsApp/phone +91-9175129919, 'emergency care coming soon'); LinkedIn company page (founded 2025, 2–10 employees, Dr. Dhairya Thorat among employees); Tracxn company profile (founder Mohit Patil, 2025).",
     sources: { website: "https://www.sniffi.in/", instagram: "https://in.linkedin.com/company/sniffi" },
     lastChecked: CHECKED,
@@ -2480,7 +2480,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "MyFurries listing (name, Hariganga address, platform phone 7947196763). Experience claim not verified; no independent rating captured.",
     sources: { justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
@@ -2506,7 +2506,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "MyFurries listing (name 'Dr. Saagar MS' / 'Pet Home Visit', Bharti Vidyapeeth Road / Katraj Dairy address, phone 8007834937). Credentials not published.",
     sources: { justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
@@ -2531,7 +2531,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence: "GullyDirectory listing (address, service tags). No rating captured.",
+    researchNote: "GullyDirectory listing (address, service tags). No rating captured.",
     sources: { directory: "https://www.gullydirectory.com/pune/veterinarian" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2556,7 +2556,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "MyFurries listing (name, address, phone, ivcs.in website reference); Sploot Hadapsar page lists 'DR. DAHEKAR PET CLINIC & PET SHOP' (3/48 Google snapshot — low snapshot rating; review themes not analysed).",
     sources: { justdial: "https://www.myfurries.com/find-a-vet/pune", aggregate: "https://sploot.space/vets/city/pune/area/hadapsar" },
     lastChecked: CHECKED,
@@ -2581,7 +2581,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "MyFurries listing (name, Akshay Nagar address). No rating captured.",
+    researchNote: "MyFurries listing (name, Akshay Nagar address). No rating captured.",
     sources: { justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2608,7 +2608,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence:
+    researchNote:
       "Justdial listing (verified-business badge, 4.6/18, 'Open 24 Hrs' claim, phone 09035292402).",
     sources: { justdial: "https://www.justdial.com/Pune/Veterinary-Clinics-in-Katraj/nct-10519261/page-3" },
     lastChecked: CHECKED,
@@ -2635,7 +2635,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence: "Justdial listing (4.2/200, Parande Nagar Dighi address, phone 09035185020).",
+    researchNote: "Justdial listing (4.2/200, Parande Nagar Dighi address, phone 09035185020).",
     sources: { justdial: "https://www.justdial.com/Pune/Veterinary-Clinics-in-Katraj/nct-10519261/page-3" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2661,7 +2661,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence: "Justdial listing (4.7/177, Icon Main Road address, phone 09035193886).",
+    researchNote: "Justdial listing (4.7/177, Icon Main Road address, phone 09035193886).",
     sources: { justdial: "https://www.justdial.com/Pune/Veterinary-Clinics-in-Katraj/nct-10519261/page-3" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2686,7 +2686,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "medium",
-    evidence: "Justdial listing (4.7/103, Ganga Aashiyana Road address).",
+    researchNote: "Justdial listing (4.7/103, Ganga Aashiyana Road address).",
     sources: { justdial: "https://www.justdial.com/Pune/Veterinary-Clinics-in-Katraj/nct-10519261/page-3" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },
@@ -2711,7 +2711,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence:
+    researchNote:
       "Justdial Katraj-area page ('Dr. Nerlekars Vet For Pets Clinic · 335 Ratings', Padmavati Chavan Nagar Road, Dhankawadi); MyFurries names 'Dr. Amit D. Nerlekar' with a Vet For Pet listing. Rating value not visible in the snippet.",
     sources: { justdial: "https://www.justdial.com/Pune/Veterinarians-in-Katraj/nct-10519268" },
     lastChecked: CHECKED,
@@ -2737,7 +2737,7 @@ export const puneProviders: Provider[] = [
     verified: false,
     dataSource: "public",
     confidence: "low",
-    evidence: "MyFurries listing (address, phone, 9–9 hours, 'Dr. Gopinath'). No rating captured.",
+    researchNote: "MyFurries listing (address, phone, 9–9 hours, 'Dr. Gopinath'). No rating captured.",
     sources: { justdial: "https://www.myfurries.com/find-a-vet/pune" },
     lastChecked: CHECKED,
     reviewSummary: { analysed: 0, sentiment: "insufficient", positiveThemes: [], negativeThemes: [] },

@@ -1,0 +1,26 @@
+---
+import { providers } from '@data';
+import { googleDirections, googlePreview } from '../lib/map-links.mjs';
+interface Props { expanded?: boolean; providerId?: string; }
+const { expanded=false, providerId }=Astro.props;
+const available=providers.filter(p=>p.coordinates && (!providerId || p.id===providerId));
+const selected=available[0];
+---
+{selected && <details class="directory-map compact-map" open={expanded}>
+ <summary><span>Map preview <small>{providerId?selected.area:'15 sourced clinic locations in Indore'}</small></span><span>Explore →</span></summary>
+ <div class="map-content">
+  {available.length>1 && <label>Choose a facility<select data-preview-select>{available.map(p=><option value={p.id} data-frame={googlePreview(p)} data-directions={googleDirections(p)} data-note={p.mapLocation?.note}>{p.name} · {p.area}</option>)}</select></label>}
+  <iframe data-preview-frame data-src={googlePreview(selected)} title={`Google Maps location preview: ${selected.name}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  <p data-preview-note class="small muted">{selected.mapLocation?.note}</p>
+  <div class="list-inline"><a data-preview-directions class="btn btn-primary" href={googleDirections(selected)} target="_blank" rel="noreferrer">Google Maps directions →</a><a class="btn btn-secondary" href={`/map/?clinic=${selected.id}`}>Compare nearby care →</a></div>
+ </div>
+</details>}
+<script>
+ document.querySelectorAll<HTMLDetailsElement>('.compact-map').forEach(root=>{
+  const frame=root.querySelector<HTMLIFrameElement>('[data-preview-frame]')!;
+  const select=root.querySelector<HTMLSelectElement>('[data-preview-select]');
+  function update(){if(!root.open)return;const option=select?.selectedOptions[0];const src=option?.dataset.frame || frame.dataset.src!;if(frame.getAttribute('src')!==src)frame.src=src;if(option){root.querySelector<HTMLAnchorElement>('[data-preview-directions]')!.href=option.dataset.directions!;root.querySelector('[data-preview-note]')!.textContent=option.dataset.note!;frame.title=`Google Maps location preview: ${option.textContent}`;}}
+  root.addEventListener('toggle',update);select?.addEventListener('change',update);update();
+ });
+</script>
+<style>.compact-map select{display:block;width:100%;min-height:44px;border:1px solid #cde6de;border-radius:12px;padding:.6rem;background:#f4fbf8;color:#123b36;font:inherit;margin:.5rem 0}.compact-map iframe{width:100%;height:280px;border:0;border-radius:15px}.compact-map .list-inline{flex-wrap:wrap}</style>

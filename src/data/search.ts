@@ -1,4 +1,7 @@
-import { cities, specialties, providers, doctors, cityById, specialtyById } from "./index";
+import { veterinarians, vetsForFacility } from "./veterinarians";
+import { cities, specialties } from "./taxonomy";
+import { providers, doctors } from "./index";
+import { cityById, specialtyById } from "./index";
 
 export interface SearchEntry {
   kind: "city" | "specialty" | "facility" | "doctor";
@@ -13,6 +16,7 @@ export interface SearchEntry {
  * Every entry points at an existing static route. No network requests.
  */
 export const suggestionEntries: SearchEntry[] = [
+  ...veterinarians.map(v=>({kind:'doctor' as const,label:`Dr. ${v.name}`,sub:`${v.area} · Indore`,href:`/indore/veterinarians/${v.slug}/`,keywords:[v.name,...v.aliases,v.area,v.practice,...v.focus,'doctor veterinarian Indore'].join(' ').toLowerCase()})),
   ...cities.map((city) => ({
     kind: "city" as const,
     label: city.name,
@@ -37,7 +41,7 @@ export const suggestionEntries: SearchEntry[] = [
       href: `/${city?.slug}/${p.slug}/`,
       keywords: [
         p.name, p.area, city?.name, city?.state, p.type, ...specs,
-        ...p.services, ...p.species, ...p.amenities,
+        ...p.services, ...p.species, ...p.amenities, ...vetsForFacility(p.id).flatMap(v=>[v.name,...v.aliases]),
       ].filter(Boolean).join(" ").toLowerCase(),
     };
   }),
@@ -51,7 +55,7 @@ export const suggestionEntries: SearchEntry[] = [
       kind: "doctor" as const,
       label: `Dr. ${d.name}`,
       sub: `${primary?.name ?? "Veterinarian"} · ${city?.name ?? ""}`,
-      href: `/${city?.slug}/${d.slug}/`,
+      href: `/${city?.slug}/veterinarians/${d.slug}/`,
       keywords: [
         `Dr ${d.name}`, d.name, ...specs, city?.name, city?.state,
         ...d.degrees, ...d.species, ...d.languages, "doctor vet veterinarian",

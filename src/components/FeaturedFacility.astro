@@ -1,6 +1,9 @@
 ---
 import Icon from "./Icon.astro";
-import FacilityVisual from "./FacilityVisual.astro";
+import FacilityMedia from "./FacilityMedia.astro";
+import VetNames from "./VetNames.astro";
+import { consultationLabel } from '../lib/visit-info.mjs';
+import RatingSummary from "./RatingSummary.astro";
 import { cityById, specialtyById, type Provider } from "@data";
 
 /**
@@ -14,6 +17,7 @@ interface Props {
 }
 const { provider } = Astro.props;
 const city = cityById(provider.cityId);
+const fee = consultationLabel(provider);
 const typeLabel = provider.type === "hospital" ? "Hospital" : "Clinic";
 const services = provider.specialtyIds
   .map((id) => specialtyById(id)?.name)
@@ -23,9 +27,7 @@ const services = provider.specialtyIds
 ---
 
 <article class="ffac">
-  <a class="ffac-media" href={`/${city?.slug}/${provider.slug}/`} tabindex="-1" aria-hidden="true">
-    <FacilityVisual type={provider.type} seed={provider.slug} imageUrl={provider.imageUrl} imageCredit={provider.imageCredit} />
-  </a>
+  <div class="ffac-media"><FacilityMedia provider={provider} /></div>
   <div class="ffac-body">
     <p class="ffac-type">
       <Icon name={provider.type === "hospital" ? "hospital" : "building"} class="icon" />
@@ -37,10 +39,14 @@ const services = provider.specialtyIds
     <h3 class="ffac-name">
       <a href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
     </h3>
+    <VetNames id={provider.id} />
+
     <p class="ffac-area">{provider.area}</p>
+    <RatingSummary provider={provider} compact />
     <ul class="ffac-tags" aria-label="Supported services">
       {services.map((s) => <li>{s}</li>)}
     </ul>
+    <div class="ffac-cost"><strong>{fee.amount}</strong><small>{fee.caption}</small></div>
     <a class="ffac-link" href={`/${city?.slug}/${provider.slug}/`}>
       View profile <Icon name="arrow" class="icon" />
     </a>

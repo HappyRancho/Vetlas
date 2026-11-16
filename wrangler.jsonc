@@ -2,5 +2,28 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "vetlas",
   "compatibility_date": "2026-11-12",
-  "assets": { "directory": "./dist" }
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  },
+  "main": "worker/index.js",
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "COST_VOTES",
+        "class_name": "CostVotes"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "cost-votes-v1",
+      "new_sqlite_classes": [
+        "CostVotes"
+      ]
+    }
+  ]
 }

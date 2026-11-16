@@ -1,0 +1,12 @@
+---
+interface Props { items: {name:string;href:string}[]; }
+const {items}=Astro.props;
+const schema={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:items.map((item,i)=>({'@type':'ListItem',position:i+1,name:item.name,item:new URL(item.href,Astro.site).href}))};
+---
+<nav aria-label="Breadcrumb" class="crumbs">
+ <ol>{items.map((item, i) => (
+  <li>{i === items.length - 1 ? <span aria-current="page">{item.name}</span> : <a href={item.href}>{item.name}</a>}</li>
+ ))}</ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+<style>.crumbs ol{display:flex;flex-wrap:wrap;gap:.35rem;list-style:none;padding:0;margin:.7rem 0;font-size:.72rem;color:#56716e}.crumbs li+li:before{content:'/';padding-right:.35rem;color:#91aaa5}.crumbs a{color:#007c73}</style>
