@@ -32,15 +32,15 @@ const tone = tones[hash % tones.length];
       </>
     ) : <><span>{initials}</span><Icon name="stethoscope" class="doctor-avatar-icon" /></>}
   </div>
-  {doctor.imageSourceUrl && (
+  {doctor.imageUrl && doctor.imageSourceUrl && (
     <p class="doctor-photo-credit">
-      Illustrative photo · <a href={doctor.imageSourceUrl} target="_blank" rel="noreferrer">source</a>
+      Original photo · <a href={doctor.imageSourceUrl} target="_blank" rel="noreferrer">{doctor.imageCredit || "Photo source"}</a>
     </p>
   )}
 
   <div class="doctor-body">
     <div class="doctor-top">
-      <TrustBadge level={doctor.verified ? "verified" : "public"} label={doctor.verified ? undefined : "Public source"} />
+      <TrustBadge level={doctor.verified ? "verified" : doctor.dataSource === "user-submitted" ? "user-submitted" : "public"} label={doctor.verified ? undefined : doctor.dataSource === "user-submitted" ? "Submitted · unverified" : "Public source"} />
       {typeof doctor.rating === "number" && (
         <span class="rating-pill" title="Rating from a public listing">
           <Icon name="sparkle" class="icon" />
