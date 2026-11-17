@@ -2,8 +2,8 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import { doctorsByCity, doctorsProviders, specialtyById } from "@data";
-const allDoctors = doctorsByCity("pune");
 export function getStaticPaths() {
+  const allDoctors = doctorsByCity("pune");
   return allDoctors.map(doctor=>({params:{slug:doctor.slug},props:{doctor}}));
 }
 const {doctor} = Astro.props;
