@@ -14,13 +14,37 @@ const url = `/pune/veterinarians/${doctor.slug}/`;
 <BaseLayout title={`Dr. ${doctor.name} — Pune veterinarian | Vetlas`} description={`Public-source profile for Dr. ${doctor.name} in Pune or Pimpri-Chinchwad. Check reported practice affiliations, areas of care and research limitations.`} canonical={url} noindex>
   <div class="container vet-profile">
     <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Pune",href:"/pune/"},{name:"Veterinarians",href:"/pune/veterinarians/"},{name:`Dr. ${doctor.name}`,href:url}]}/>
-    <header class="page-head"><p class="eyebrow">Public-source professional profile · not independently credential-verified</p><h1>Dr. {doctor.name}</h1><p>{specialty?.name || "Veterinary care"} · Pune / Pimpri-Chinchwad</p></header>
+    <header class="page-head pune-vet-header">
+      <div class="pune-vet-portrait">
+        {doctor.imageUrl ? (
+          <><img src={doctor.imageUrl} alt={doctor.imageAlt || `Portrait of Dr. ${doctor.name}`} loading="eager" decoding="async" onerror="this.hidden=true;this.nextElementSibling?.removeAttribute('hidden')" /><span class="portrait-initials" hidden>{doctor.name.split(" ").map(part=>part[0]).slice(0,2).join("")}</span></>
+        ) : <span class="portrait-initials">{doctor.name.split(" ").map(part=>part[0]).slice(0,2).join("")}</span>}
+      </div>
+      <div>
+        <p class="eyebrow">{doctor.dataSource === "user-submitted" ? "User-submitted profile · practice association unconfirmed" : "Public-source professional profile · credentials not independently verified"}</p>
+        <h1>Dr. {doctor.name}</h1>
+        <p>{specialty?.name || "Veterinary care"} · Pune / Pimpri-Chinchwad</p>
+        {doctor.imageUrl && doctor.imageSourceUrl && <p class="pune-vet-photo-credit">Original photo: <a href={doctor.imageSourceUrl} target="_blank" rel="noopener noreferrer">{doctor.imageCredit || "Original source"}</a></p>}
+      </div>
+    </header>
     <section class="panel"><h2>Publicly documented care</h2><p>{doctor.about}</p>{doctor.degrees.length>0&&<p><strong>Reported qualifications:</strong> {doctor.degrees.join(" · ")} — source-claimed, not independently checked by Vetlas.</p>}
       {doctor.species.length>0&&<p><strong>Species:</strong> {doctor.species.join(", ")}</p>}
       {typeof doctor.consultationFee==="number"&&<p><strong>Published consultation fee:</strong> ₹{doctor.consultationFee} (confirm directly)</p>}
       {practices.length>0&&<><h2>Associated practices</h2><ul>{practices.map(p=><li><a href={`/pune/${p.slug}/`}>{p.name}</a> — {p.area}, Pune</li>)}</ul></>}
-      <h2>Research evidence and limitations</h2><p>{doctor.evidence || "Independent verification pending."}</p><p>Research confidence: {doctor.confidence || "not assessed"} (source coverage, not medical quality). Public-source research dated November 16, 2026. Call the practice to confirm current credentials, address, availability and fees.</p>
+      <h2>Research evidence and limitations</h2><p>{doctor.evidence || "Independent verification pending."}</p><p>Research confidence: {doctor.confidence || "not assessed"} (source coverage, not medical quality). Details are not independent confirmation of qualifications or practice association. Call the practice to confirm credentials, address, availability and fees.</p>
       <a href="/methodology/">How Vetlas evaluates evidence</a>
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .pune-vet-header{display:flex;align-items:center;gap:1.3rem;flex-wrap:wrap}
+  .pune-vet-header>div:last-child{flex:1;min-width:220px}
+  .pune-vet-portrait{width:155px;height:170px;display:grid;place-items:center;overflow:hidden;border-radius:20px;background:linear-gradient(135deg,#e4f2ef,#e9edf8);color:#315b55;border:1px solid #d7e8df;flex:none}
+  .pune-vet-portrait img{width:100%;height:100%;object-fit:cover}
+  .pune-vet-portrait .portrait-initials{font-weight:700;font-size:2.6rem;letter-spacing:-.05em}
+  .pune-vet-portrait [hidden]{display:none}
+  .pune-vet-photo-credit{font-size:.75rem;color:#55716c;margin-top:.55rem}
+  .pune-vet-photo-credit a{color:#08756b;text-decoration:underline}
+  @media(max-width:540px){.pune-vet-portrait{width:110px;height:125px;border-radius:15px}.pune-vet-header{gap:1rem}}
+</style>
