@@ -56,6 +56,14 @@
       "imageCredit": "Blue Cross Society of Pune — original website photo",
       "imageSourceUrl": "https://bcspune.org/",
       "imageCheckedAt": "2026-11-17"
+    },
+    "petaegis-veterinary-hospital-hingne-khurd": {
+      "imageUrl": "https://petaegisveterinaryhospital.com/wp-content/uploads/2024/09/384101999_696207985859563_7835091082822339206_n.jpg",
+      "imageAlt": "Veterinary clinician with a dog, photo published by Petaegis Veterinary Hospital; exact room not verified",
+      "imageOriginalUrl": "https://petaegisveterinaryhospital.com/wp-content/uploads/2024/09/384101999_696207985859563_7835091082822339206_n.jpg",
+      "imageCredit": "Petaegis Veterinary Hospital — original website photograph",
+      "imageSourceUrl": "https://petaegisveterinaryhospital.com/",
+      "imageCheckedAt": "2026-11-17"
     }
   },
   "doctors": {
@@ -97,6 +105,14 @@
       "imageOriginalUrl": "https://thevetnest.com/images/clinic/drniyati-with-laila.webp",
       "imageCredit": "The Vet Nest — original doctor photo",
       "imageSourceUrl": "https://thevetnest.com/",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "dr-pramod-raut": {
+      "imageUrl": "https://spcuvet.com/images/1.jpg",
+      "imageAlt": "Doctor portrait published by Sarvadnya Pet Care Unit",
+      "imageOriginalUrl": "https://spcuvet.com/images/1.jpg",
+      "imageCredit": "Sarvadnya Pet Care Unit — original doctor portrait",
+      "imageSourceUrl": "https://spcuvet.com/",
       "imageCheckedAt": "2026-11-17"
     }
   }
