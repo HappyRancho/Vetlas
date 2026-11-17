@@ -1,7 +1,11 @@
 ---
 import { vetsForFacility } from '../data/veterinarians';
+import { providers, providersDoctors } from '@data';
 const {id}=Astro.props;
 const vets=vetsForFacility(id);
+const provider=providers.find(p=>p.id===id);
+const puneVets=provider?.cityId==="pune" ? providersDoctors(provider) : [];
 ---
 {vets.length>0 && <p class="facility-vets">{vets.map((v,i)=><>{i>0?' · ':''}<a href={`/indore/veterinarians/${v.slug}/`}>Dr. {v.name}</a></>)}<span> · listed practitioner</span></p>}
+{puneVets.length>0 && <p class="facility-vets">{puneVets.map((d,i)=><>{i>0?' · ':''}<a href={`/pune/veterinarians/${d.slug}/`}>Dr. {d.name}</a></>)}<span> · {puneVets.some(d=>d.dataSource==="user-submitted")?"affiliation unconfirmed":"public-source association"}</span></p>}
 <style>.facility-vets{font-size:.76rem;line-height:1.5;color:#385a58;margin:.4rem 0}.facility-vets a{font-weight:650;color:#006c66}.facility-vets span{font-size:.66rem;color:#627975}</style>
