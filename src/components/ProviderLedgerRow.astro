@@ -17,7 +17,7 @@ const city = cityById(provider.cityId);
     <a class="ledger-name" href={`/${city?.slug}/${provider.slug}/`}>{provider.name}</a>
     <span class="ledger-meta">
       <span class="dot">{provider.area}, {city?.name}</span>
-      <span class="dot" style="text-transform:capitalize">{provider.type}</span>
+      <span class="dot">{provider.type === "hospital" ? "Hospital" : provider.type === "ngo" ? "NGO / Rescue" : provider.type === "government" ? "Government facility" : provider.type === "home-visit" ? "Home-visit service" : "Clinic"}</span>
       {provider.hours.open24 && <span class="dot" style="color:var(--teal);font-weight:600">Open 24×7</span>}
     </span>
     <span class="ledger-meta">

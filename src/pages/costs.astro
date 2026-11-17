@@ -1,7 +1,8 @@
 ---
 import CostVote from '../components/CostVote.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { providers, feeINR } from '@data';
+import { providers as allProviders, feeINR } from '@data';
+const providers = allProviders.filter(p => p.cityId === 'indore');
 ---
 <BaseLayout title="Indore vet consultation fees & visit cost planner — Vetlas" description="Compare attributed consultation prices, see source conflicts and plan additional veterinary expenses in Indore.">
 <div class="container cost-page"><p class="eyebrow">Know before you go · Indore</p><h1>A clearer idea of the cost.</h1><p>Select clinics to compare published consultation figures. These are source-listed prices, not confirmed quotes or a representative city average.</p>

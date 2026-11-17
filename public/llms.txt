@@ -15,3 +15,11 @@ Indore-first veterinary directory. Public-source research, not medical advice or
 Community total-visit cost voting: GET /api/cost-votes/{provider-id} returns a live aggregate with band counts and a midpoint-based estimated mean. Exact amounts override midpoints; open-ended votes without amounts are excluded from the mean. Values are anonymous self-reports, not verified invoices. Fewer than ten votes are labelled small samples. No synthetic votes are seeded. One current vote per browser/facility, with updates and deletion; not unique-person verification.
 
 All 15 facility records include sourced visitHours with schedule and observation date. Separate doctor sessions are not clinic opening hours. consultationListing contains conflicting or historical prices with explicit notes; these are excluded from fee averages. Five veterinarian portraits are identified by name on clinic websites or doctor directory pages, with source and original image URL preserved.
+
+## Pune & Pimpri-Chinchwad — public-source research (2026-11-16)
+
+- [Pune city directory](https://vetlas.thatvetguy.net/pune/): 88 researched facility records and 33 Pune/PCMC veterinarian profiles. They are public-source observations, not independently verified clinical quality or credentials.
+- [Pune veterinarian directory](https://vetlas.thatvetguy.net/pune/veterinarians/): individual practitioners and attributed practice associations.
+- [Pune research plan](https://github.com/HappyRancho/Vetlas/blob/main/docs/PUNE-DIRECTORY-PLAN.md) and [research log](https://github.com/HappyRancho/Vetlas/blob/main/docs/RESEARCH-LOG-PUNE.md) document access limitations, conflicting details and areas pending verification.
+
+Pune records include low-confidence candidates and information obtained from search snippets, not solely direct business websites. LinkedIn profiles were not accessible during research. Confirm locations, contact numbers, hours and emergency capability with each provider. The Pune city hub and unvetted profile pages are excluded from search indexing while their publication gates remain closed. The /map/, /costs/, /directory.json and /veterinarians.json endpoints remain Indore-specific.

@@ -3,9 +3,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Icon from "../../components/Icon.astro";
 import FacilityCard from "../../components/FacilityCard.astro";
 import VetCard from "../../components/VetCard.astro";
+import DoctorCard from "../../components/DoctorCard.astro";
 import { veterinarians } from "../../data/veterinarians";
 import UniversalSearch from "../../components/UniversalSearch.astro";
-import { cities, providersByCity } from "@data";
+import { cities, providersByCity, doctorsByCity, areasByCity, cityPublishGate } from "@data";
 
 export function getStaticPaths() {
   return cities.map((city) => ({
@@ -16,21 +17,26 @@ export function getStaticPaths() {
 
 const { city } = Astro.props;
 const cityProviders = providersByCity(city.id);
-const cityDoctors = veterinarians.filter(v=>v.cityId===city.id);
+const cityVets = veterinarians.filter(v=>v.cityId===city.id);
+const cityDoctors = doctorsByCity(city.id);
+const localities = areasByCity(city.id);
+const gate = cityPublishGate(city.id);
 
 
 const clinicCount = cityProviders.filter((p) => p.type === "clinic").length;
-const hospitalCount = cityProviders.length - clinicCount;
+const hospitalCount = cityProviders.filter((p) => p.type === "hospital").length;
+const otherCount = cityProviders.length - clinicCount - hospitalCount;
 const headMeta = [
   city.state,
   clinicCount > 0 ? `${clinicCount} ${clinicCount === 1 ? "clinic" : "clinics"}` : "",
   hospitalCount > 0 ? `${hospitalCount} ${hospitalCount === 1 ? "hospital" : "hospitals"}` : "",
-  cityDoctors.length > 0
-    ? `${cityDoctors.length} ${cityDoctors.length === 1 ? "doctor" : "doctors"}`
+  otherCount > 0 ? `${otherCount} other services` : "",
+  cityDoctors.length + cityVets.length > 0
+    ? `${cityDoctors.length + cityVets.length} ${cityDoctors.length + cityVets.length === 1 ? "doctor" : "doctors"}`
     : "",
 ].filter(Boolean).join(" · ");
 
-const noindex = city.id !== "indore"; // keep discovery pages noindex until source coverage is stronger
+const noindex = city.id !== "indore" && !gate.indexable; // preserve the indexed Indore directory
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -71,6 +77,8 @@ const jsonLd = {
 
     {city.id === "indore" && <div class="list-inline"><a class="chip" href="/map/">Explore 15 clinics on the map →</a><a class="chip" href="/indore/veterinarians/">Meet the veterinarians →</a></div>}
 
+    {city.id === "pune" && <p class="notice-box mt-1">Pune and Pimpri-Chinchwad listings are sourced from public websites and directories, not independently verified. Research coverage is incomplete. {gate.vettedProfiles} of {gate.minimumVetted} vetted profiles required before indexing. Confirm details before visiting.</p>}
+    {localities.length > 1 && <section class="section-compact" aria-labelledby="localities-h"><h2 class="section-title section-title-sm" id="localities-h">Areas covered</h2><div class="list-inline">{localities.map(loc=><span class="chip chip-sm">{loc.area} · {loc.count}</span>)}</div></section>}
     <section class="section-first" aria-labelledby="search-h">
       <h2 class="visually-hidden" id="search-h">Search within {city.name} and beyond</h2>
       <UniversalSearch variant="compact" />
@@ -106,9 +114,10 @@ const jsonLd = {
         </div>
 
       </div>
-      {cityDoctors.length > 0 ? (
+      {cityDoctors.length + cityVets.length > 0 ? (
         <div class="doctor-grid">
-          {cityDoctors.map(d => <VetCard vet={d} />)}
+          {cityVets.map(d => <VetCard vet={d} />)}
+          {cityDoctors.map((d,i) => <DoctorCard doctor={d} index={i} />)}
         </div>
       ) : (
         <div class="empty-state card">

@@ -55,7 +55,7 @@ export const suggestionEntries: SearchEntry[] = [
       kind: "doctor" as const,
       label: `Dr. ${d.name}`,
       sub: `${primary?.name ?? "Veterinarian"} · ${city?.name ?? ""}`,
-      href: `/${city?.slug}/${d.slug}/`,
+      href: `/${city?.slug}/veterinarians/${d.slug}/`,
       keywords: [
         `Dr ${d.name}`, d.name, ...specs, city?.name, city?.state,
         ...d.degrees, ...d.species, ...d.languages, "doctor vet veterinarian",

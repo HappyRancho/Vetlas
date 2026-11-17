@@ -43,7 +43,7 @@ export interface Specialty {
   icon: string;
 }
 
-export type ProviderType = "hospital" | "clinic";
+export type ProviderType = "hospital" | "clinic" | "ngo" | "government" | "home-visit";
 
 export interface ConsultationFee {
   /** Standard OPD / walk-in consultation, INR */
@@ -77,6 +77,10 @@ export interface Provider {
   feeNote?: string;
   feeIsStarting?: boolean;
   hoursNote?: string;
+  /** Public-source research summary; separate from Indore structured evidence links. */
+  researchNote?: string;
+  /** Research confidence is not a quality or credential-verification rating. */
+  confidence?: "high" | "medium" | "low";
   id: string;
   slug: string;
   name: string;
@@ -111,6 +115,9 @@ export interface Provider {
     justdial?: string;
     instagram?: string;
     website?: string;
+    practo?: string;
+    aggregate?: string;
+    directory?: string;
   };
   lastChecked?: string;
   reviewSummary?: {
@@ -131,7 +138,7 @@ export interface Doctor {
   degrees: string[];
   /** Sample registration number format, clearly marked in UI when sample */
   registration?: string;
-  experienceYears: number;
+  experienceYears?: number;
   cityId: string;
   primarySpecialtyId: string;
   secondarySpecialtyIds: string[];
@@ -139,13 +146,15 @@ export interface Doctor {
   species: string[];
   /** Slugs of providers the doctor practises at */
   providerSlugs: string[];
-  consultationFee: number;
+  consultationFee?: number;
   languages: string[];
   about: string;
-  rating: number;
-  reviewCount: number;
+  rating?: number;
+  reviewCount?: number;
   verified: boolean;
   dataSource: DataSource;
+  confidence?: "high" | "medium" | "low";
+  evidence?: string;
   /** Optional future real doctor photograph; absent records use the initials fallback. */
   imageUrl?: string;
   imageAlt?: string;
