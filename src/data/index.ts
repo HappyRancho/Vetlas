@@ -1,8 +1,15 @@
 import { cities, specialties } from "./taxonomy";
 import { indoreProviders } from "./indore";
 import { puneProviders, puneDoctors, puneLocalities } from "./pune";
-const providers: Provider[] = [...indoreProviders, ...puneProviders];
-const doctors: Doctor[] = [...puneDoctors];
+import punePhotos from "./pune-photos.json";
+// Display only sourced originals. Records without confirmed photos keep the existing fallback.
+const providers: Provider[] = [
+  ...indoreProviders,
+  ...puneProviders.map((p) => ({ ...p, ...(punePhotos.providers as Record<string, object>)[p.slug] })),
+];
+const doctors: Doctor[] = [
+  ...puneDoctors.map((d) => ({ ...d, ...(punePhotos.doctors as Record<string, object>)[d.slug] })),
+];
 const reviews: Review[] = [];
 const costEstimates: import("./types").CostEstimateItem[] = [];
 import type { City, Specialty, Provider, Doctor, Review, ReviewTheme } from "./types";

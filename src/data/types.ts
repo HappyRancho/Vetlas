@@ -88,6 +88,8 @@ export interface Provider {
   cityId: string;
   area: string;
   address: string;
+  /** Suppress navigation when the precise location is not yet established. */
+  locationUnconfirmed?: boolean;
   phone?: string;
   hours: { open24?: boolean; open?: string; close?: string };
   specialtyIds: string[];
