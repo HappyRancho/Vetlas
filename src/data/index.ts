@@ -157,37 +157,3 @@ export function cityPublishGate(cityId: string) {
     indexable: vetted >= minimum,
   };
 }
-
-export function feeINR(amount: number): string {
-  return `₹${amount.toLocaleString("en-IN")}`;
-}
-
-export function feeRangeINR(min: number, max: number): string {
-  return `₹${min.toLocaleString("en-IN")}–₹${max.toLocaleString("en-IN")}`;
-}
-
-/**
- * Derive review themes (mirrors the review_theme table in db/schema.sql):
- * count review tags across a review list, most-mentioned first.
- */
-export function deriveReviewThemes(list: Review[]): ReviewTheme[] {
-  const counts = new Map<string, number>();
-  for (const r of list) {
-    for (const tag of r.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
-  }
-  return [...counts.entries()]
-    .filter(([, n]) => n >= 1)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 6)
-    .map(([theme, reviewCount]) => ({ sentiment: "positive" as const, theme, reviewCount }));
-}
-
-/** Human-readable label for a trust level (mirrors db/schema.sql enum; kebab = badge class) */
-export const trustLabels: Record<string, string> = {
-  "sample": "Sample data",
-  "verified": "Verified by Vetlas",
-  "provider-confirmed": "Provider confirmed",
-  "public": "Public source",
-  "user-submitted": "User submitted",
-  "estimated": "Estimated (system-calculated)",
-};
