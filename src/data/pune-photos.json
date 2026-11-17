@@ -1,0 +1,103 @@
+{
+  "_note": "Original publicly hosted source photos, not AI-generated or stock placeholders. Attribution is provided; permission to republish should be reviewed before production. Remote images may fail or prohibit hotlinking; the UI retains its fallback. All URLs were visually matched to source pages 2026-11-17.",
+  "providers": {
+    "raintree-veterinary-clinic-uday-baug": {
+      "imageUrl": "https://i0.wp.com/raintreevet.in/wp-content/uploads/2021/07/Screenshot_20210303-104022_Instagram.jpg?fit=750%2C753&ssl=1",
+      "imageAlt": "Raintree clinician caring for a turtle, published on the Raintree website (not a storefront photo)",
+      "imageOriginalUrl": "https://i0.wp.com/raintreevet.in/wp-content/uploads/2021/07/Screenshot_20210303-104022_Instagram.jpg?fit=750%2C753&ssl=1",
+      "imageCredit": "Raintree Veterinary Clinic — original care photo",
+      "imageSourceUrl": "https://raintreevet.in/about-us-2/",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "crown-vet-aundh": {
+      "imageUrl": "https://crown.vet/assets/images/resources/au5.png",
+      "imageAlt": "Crown Vet Aundh storefront on Rajyog Creation building",
+      "imageOriginalUrl": "https://crown.vet/assets/images/resources/au5.png",
+      "imageCredit": "Crown Vet — Aundh clinic photo",
+      "imageSourceUrl": "https://crown.vet/aundh-vet.asp",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "crown-vet-kharadi": {
+      "imageUrl": "https://crown.vet/assets/img/_DSC0415.jpg",
+      "imageAlt": "Crown Vet Kharadi clinic waiting area and reception",
+      "imageOriginalUrl": "https://crown.vet/assets/img/_DSC0415.jpg",
+      "imageCredit": "Crown Vet — Kharadi clinic gallery",
+      "imageSourceUrl": "https://crown.vet/kharadi-vet.asp",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "shivraj-pet-clinic-lab-pimple-nilakh": {
+      "imageUrl": "https://www.shivrajpetclinicpune.com/images/p/clinic-storefront-shivraj-pet-clinic-960.jpg",
+      "imageAlt": "Original Shivraj Pet Clinic and Lab storefront in Pimple Nilakh",
+      "imageOriginalUrl": "https://www.shivrajpetclinicpune.com/images/p/clinic-storefront-shivraj-pet-clinic-960.jpg",
+      "imageCredit": "Shivraj Pet Clinic & Lab — storefront photo",
+      "imageSourceUrl": "https://www.shivrajpetclinicpune.com/",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "the-vet-nest-balewadi": {
+      "imageUrl": "https://thevetnest.com/images/clinic/entrance.webp",
+      "imageAlt": "The Vet Nest original clinic entrance and sign in Balewadi",
+      "imageOriginalUrl": "https://thevetnest.com/images/clinic/entrance.webp",
+      "imageCredit": "The Vet Nest — original clinic entrance photo",
+      "imageSourceUrl": "https://thevetnest.com/",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "vetic-pet-clinic-nibm": {
+      "imageUrl": "https://d3ekkvinch1ig5.cloudfront.net/dog-service/2025/05/image_1748511504.jpeg",
+      "imageAlt": "Photo of the Vetic NIBM clinic reception and pharmacy shelves",
+      "imageOriginalUrl": "https://d3ekkvinch1ig5.cloudfront.net/dog-service/2025/05/image_1748511504.jpeg",
+      "imageCredit": "DogPack — Vetic NIBM clinic listing photograph",
+      "imageSourceUrl": "https://www.dogpackapp.com/services/india/maharashtra/pune/vetic-pet-clinic-nibm",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "blue-cross-sunanda-das-animal-hospital-mundhwa": {
+      "imageUrl": "https://bcspune.org/wp-content/uploads/2024/04/IMG_1263-768x512.jpg",
+      "imageAlt": "Dog being cared for in a photograph published by Blue Cross Society of Pune; site location not shown",
+      "imageOriginalUrl": "https://bcspune.org/wp-content/uploads/2024/04/IMG_1263-768x512.jpg",
+      "imageCredit": "Blue Cross Society of Pune — original website photo",
+      "imageSourceUrl": "https://bcspune.org/",
+      "imageCheckedAt": "2026-11-17"
+    }
+  },
+  "doctors": {
+    "dr-shivaji-vidhate": {
+      "imageUrl": "https://www.shivrajpetclinicpune.com/images/p/dr-shivaji-portrait-shivraj-pet-clinic-960.jpg",
+      "imageAlt": "Dr. Shivaji B. Vidhate seated inside Shivraj Pet Clinic & Lab",
+      "imageOriginalUrl": "https://www.shivrajpetclinicpune.com/images/p/dr-shivaji-portrait-shivraj-pet-clinic-960.jpg",
+      "imageCredit": "Shivraj Pet Clinic & Lab — doctor portrait",
+      "imageSourceUrl": "https://www.shivrajpetclinicpune.com/",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "dr-pritesh-vidhate": {
+      "imageUrl": "https://www.shivrajpetclinicpune.com/images/p/dr-pritesh-microscope-shivraj-pet-clinic-634.jpg",
+      "imageAlt": "Dr. Pritesh Vidhate with a kitten beside a microscope",
+      "imageOriginalUrl": "https://www.shivrajpetclinicpune.com/images/p/dr-pritesh-microscope-shivraj-pet-clinic-634.jpg",
+      "imageCredit": "Shivraj Pet Clinic & Lab — doctor portrait",
+      "imageSourceUrl": "https://www.shivrajpetclinicpune.com/",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "dr-leila-fernandez": {
+      "imageUrl": "https://i0.wp.com/raintreevet.in/wp-content/uploads/2021/07/4-4.png?resize=1080%2C1080&ssl=1",
+      "imageAlt": "Dr. Leila Fernandez holding a green parakeet in a Raintree team photograph",
+      "imageOriginalUrl": "https://i0.wp.com/raintreevet.in/wp-content/uploads/2021/07/4-4.png?resize=1080%2C1080&ssl=1",
+      "imageCredit": "Raintree Veterinary Clinic — team portrait",
+      "imageSourceUrl": "https://raintreevet.in/718-2/",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "dr-phiroz-khambatta": {
+      "imageUrl": "https://i0.wp.com/raintreevet.in/wp-content/uploads/2024/12/dr-phiroz.png?resize=300%2C300&ssl=1",
+      "imageAlt": "Dr. Phiroz Khambatta sitting with dogs in a Raintree team portrait",
+      "imageOriginalUrl": "https://i0.wp.com/raintreevet.in/wp-content/uploads/2024/12/dr-phiroz.png?resize=300%2C300&ssl=1",
+      "imageCredit": "Raintree Veterinary Clinic — team portrait",
+      "imageSourceUrl": "https://raintreevet.in/718-2/",
+      "imageCheckedAt": "2026-11-17"
+    },
+    "dr-niyati-bajekal": {
+      "imageUrl": "https://thevetnest.com/images/clinic/drniyati-with-laila.webp",
+      "imageAlt": "Dr. Niyati Bajekal with a dog at The Vet Nest clinic",
+      "imageOriginalUrl": "https://thevetnest.com/images/clinic/drniyati-with-laila.webp",
+      "imageCredit": "The Vet Nest — original doctor photo",
+      "imageSourceUrl": "https://thevetnest.com/",
+      "imageCheckedAt": "2026-11-17"
+    }
+  }
+}
