@@ -2750,6 +2750,7 @@ export const puneProviders: Provider[] = [
     cityId: "pune",
     area: "Pune (locality unconfirmed)",
     address: "Pune, Maharashtra — exact street address not independently confirmed",
+    locationUnconfirmed: true,
     hours: {},
     specialtyIds: ["general", "surgery"],
     species: ["dog", "cat"],
