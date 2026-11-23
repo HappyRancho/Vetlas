@@ -18,5 +18,9 @@ export function comparisonFor(provider: Provider, providers: Provider[]) {
   if (peers.length < 2) return;
   const sorted = peers.sort((a,b) => a.fees!.opd-b.fees!.opd);
   const low = sorted[0], high = sorted[sorted.length-1];
-  return { low, high, count: peers.length, localOnly, amount: low.fees!.opd === high.fees!.opd ? 'Around ₹'+low.fees!.opd : '₹'+low.fees!.opd+'–₹'+high.fees!.opd };
+  const samePrice = low.fees!.opd === high.fees!.opd;
+  // Equal published figures give no observed spread. Show the planning allowance explicitly.
+  const lower = samePrice ? Math.floor(low.fees!.opd * 0.75 / 50) * 50 : low.fees!.opd;
+  const upper = samePrice ? Math.ceil(high.fees!.opd * 1.25 / 50) * 50 : high.fees!.opd;
+  return { low, high, count: peers.length, localOnly, samePrice, amount: '₹'+lower+'–₹'+upper };
 }
