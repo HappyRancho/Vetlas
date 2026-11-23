@@ -5,7 +5,16 @@ import { regionalProviders } from "./regional";
 const curatedPune = puneProviders.filter(p => p.confidence === "high" && p.dataSource === "public" && !p.locationUnconfirmed)
   .map(p => p.coordinates && !p.coordinateSource ? { ...p, coordinates: undefined } : p);
 import { withApprovedPhotos, facilitiesWithPhotos } from "./approved-photos";
-const providers: Provider[] = facilitiesWithPhotos([...indoreProviders, ...curatedPune, ...regionalProviders]);
+import consultationPrices from "./consultation-prices.json";
+const records = facilitiesWithPhotos([...indoreProviders, ...curatedPune, ...regionalProviders]);
+const providers: Provider[] = records.map(p => {
+  const rate = consultationPrices[p.id as keyof typeof consultationPrices];
+  if (p.id.includes("jivdaya-charitable")) return { ...p, species: [...new Set([...p.species, "dog","bird","cattle"])], feeNote: "Jivdaya publishes free treatment for unowned animals and birds." };
+  if (!rate) return p;
+  return { ...p, fees: { opd: rate.amount, trustLevel: "public" }, feeIsStarting: rate.starting,
+    feeNote: rate.starting ? "The branch publishes a starting price for a veterinary consultation." : "Consultation fee published on the branch listing.",
+    evidence: [...(p.evidence ?? []), { label: "Published consultation fee", url: rate.url }] };
+});
 import regionalDoctors from "./regional-doctors.json";
 const doctors: Doctor[] = withApprovedPhotos([...regionalDoctors as Doctor[], ...puneDoctors.filter(d => d.degrees.length && d.confidence === "high" && d.dataSource === "public" && curatedPune.some(p => d.providerSlugs.includes(p.slug)))]);
 const reviews: Review[] = [];

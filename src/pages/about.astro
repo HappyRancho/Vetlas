@@ -1,4 +1,5 @@
 ---
+import landmarks from "../data/landmarks.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 ---
@@ -80,4 +81,4 @@ import Icon from "../components/Icon.astro";
       </div>
     </div>
   </div>
-</BaseLayout>
+<section id="landmark-credits" class="container"><h2>City landmark photography</h2><p>Images are resized and cropped for the city directory.</p><ul>{Object.entries(landmarks).map(([city,p]) => <li><a href={p.source}>{p.name}</a> · {city} · {p.author} · <a href={p.license==="FAL" ? "https://artlibre.org/licence/lal/en/" : "https://creativecommons.org/licenses/"+(p.license.includes("SA")?"by-sa":"by")+"/"+p.license.split(" ").at(-1)+"/"}>{p.license}</a></li>)}</ul></section></BaseLayout>

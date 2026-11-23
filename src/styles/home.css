@@ -127,3 +127,16 @@
  .animal-rail span { max-width: 100%; width: clamp(38px,11vw,52px); }
  .animal-rail strong { font-size: clamp(.66rem,2.9vw,.82rem); }
 }
+.city-scroll a { padding: 4px 13px 4px 4px; }
+.city-scroll img { width: 42px; height: 32px; border-radius: 20px; object-fit: cover; }
+.animal-rail { grid-template-columns: repeat(4,minmax(0,1fr)); grid-auto-flow: row; gap: 7px; }
+.animal-rail a { background: white; border: 1px solid var(--edge); border-radius: 14px; padding: 10px 3px; }
+.animal-rail img { width: clamp(45px,9vw,68px); aspect-ratio: 1; height: auto; border-radius: 50%; object-fit: cover; }
+.practice-rail { display: grid; grid-template-columns: 1fr; grid-auto-flow: row; gap: 10px; overflow: visible; padding: 0; }
+.practice { display: grid; grid-template-columns: clamp(90px,22vw,210px) minmax(0,1fr); grid-template-rows: auto auto; padding: 10px; align-items: center; }
+.practice-shot { border-radius: 11px; overflow: hidden; }
+.practice-shot img { height: clamp(85px,13vw,136px); max-height: none; }
+.practice-detail { padding: 5px 14px; display: block; }
+.practice-info,.practice-price { margin: 4px 0 0; font-size: .83rem; line-height: 1.3; color:#395859; }
+.practice-price { font-weight: 650; }
+.practice .credit { grid-column:1/-1; padding:3px 0 0; }

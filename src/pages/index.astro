@@ -5,21 +5,19 @@ import Search from "../components/UniversalSearch.astro";
 import { cities, providers, specialties, cityById } from "@data";
 import { googleDirections } from "../lib/map-links.mjs";
 import "../styles/home.css";
+import { animalGroups } from "../data/animal-groups";
+import landmarks from "../data/landmarks.json";
+import { consultationLabel } from "../lib/visit-info.mjs";
 
 const links = [
   { label: "Hospitals", icon: "hospital", href: "/hospitals/" },
   { label: "Clinics", icon: "stethoscope", href: "/clinics/" },
   { label: "Specialities", icon: "heart", href: "/specialties/" },
-  { label: "Cost guide", icon: "wallet", href: "/costs/" }
+  { label: "Doctors", icon: "doctor", href: "/doctors/" }
 ];
-const pets = [
-  { id: "dog", label: "Dogs", glyph: "🐶" }, { id: "cat", label: "Cats", glyph: "🐱" },
-  { id: "bird", label: "Birds", glyph: "🦜" }, { id: "rabbit", label: "Rabbits", glyph: "🐰" },
-  { id: "hamster", label: "Hamsters", glyph: "🐹" }, { id: "turtle", label: "Turtles", glyph: "🐢" }
-].filter(pet => providers.some(p => p.species.includes(pet.id)));
 const serviceOrder = ["general","surgery","dermatology","orthopedics","ophthalmology","dentistry"];
 const services = serviceOrder.flatMap(id => specialties.filter(s => s.id === id && providers.some(p => p.specialtyIds.includes(id))));
-const featuredIds = ["mumbai-tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta","pnp01","chennai-madras-veterinary-college-teaching-hospital-tanuvas-vepery"];
+const featuredIds = ["mumbai-tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta","indore-myra-usha","pnp01","hyderabad-crown-vet-banjara-hills-banjara-hills-road-no-10","bengaluru-vetic-domlur-domlur","chennai-madras-veterinary-college-teaching-hospital-tanuvas-vepery"];
 const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
 ---
 <Layout title="Vetlas | Veterinary clinics, hospitals and specialists in India" description="Explore veterinary care in ten Indian cities. Find a practice by speciality or animal, compare facilities and get directions.">
@@ -36,7 +34,7 @@ const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
   </section>
   <nav class="city-strip" aria-label="City directories">
     <a class="all-cities" href="/locations/"><Icon name="pin"/>Cities</a>
-    <div class="city-scroll">{cities.map(c => <a href={'/'+c.slug+'/'}>{c.name}</a>)}</div>
+    <div class="city-scroll">{cities.map(c => <a href={'/'+c.slug+'/'}><img src={'/cities/'+c.id+'.webp'} alt={landmarks[c.id as keyof typeof landmarks].name} width="45" height="34"/>{c.name}</a>)}</div>
   </nav>
   <nav class="care-shortcuts" aria-label="Choose care">{links.map(link =>
     <a href={link.href}><span class="shortcut-icon"><Icon name={link.icon}/></span><strong>{link.label}</strong><Icon name="arrow" class="shortcut-arrow"/></a>
@@ -48,20 +46,20 @@ const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
       <a href={'/specialties/'+s.slug+'/'}><span><Icon name={s.icon}/></span><strong>{s.name}</strong></a>
     )}</nav>
   </section>
+  <section class="home-section animal-section" aria-labelledby="animal-title">
+    <div class="home-heading"><h2 id="animal-title">Care for your animal</h2></div>
+    <nav class="animal-rail" aria-label="Practices by animal">{animalGroups.map(group =>
+      <a href={'/search/?pet='+group.id}><img src={'/pets/'+group.photo+'.webp'} alt="" width="64" height="64"/><strong>{group.name}</strong></a>
+    )}</nav>
+  </section>
   <section class="home-section" aria-labelledby="facility-title">
     <div class="home-heading"><h2 id="facility-title">Featured facilities</h2><a href="/search/">Directory <Icon name="arrow"/></a></div>
     <div class="practice-rail">{featured.map(p => <article class="practice">
       <a class="practice-shot" href={'/'+p.cityId+'/'+p.slug+'/'} aria-label={'View '+p.name}><img src={p.imageUrl} alt={p.imageAlt} width="320" height="220" loading="lazy"/></a>
       <div class="practice-detail"><p class="practice-city"><Icon name="pin"/>{cityById(p.cityId)?.name} · {p.area}</p><h3><a href={'/'+p.cityId+'/'+p.slug+'/'}>{p.name}</a></h3>
-      <div class="practice-actions">{p.phone && <a href={'tel:'+p.phone.replace(/[^+\d]/g,"")}><Icon name="phone"/>Call</a>}<a href={googleDirections(p)}><Icon name="pin"/>Directions</a></div></div>
+      <p class="practice-info">{p.specialtyIds.slice(0,3).map(id=>specialties.find(s=>s.id===id)?.name).filter(Boolean).join(" · ")}</p>{(p.fees || p.consultationListing) && <p class="practice-price">{consultationLabel(p).amount} consultation</p>}<div class="practice-actions">{p.phone && <a href={'tel:'+p.phone.replace(/[^+\d]/g,"")}><Icon name="phone"/>Call</a>}<a href={googleDirections(p)}><Icon name="pin"/>Directions</a></div></div>
       <small class="credit"><a href={p.imageSourceUrl}>{p.imageCredit}</a>{p.imageLicenseUrl && <> · <a href={p.imageLicenseUrl}>Licence</a></>}</small>
     </article>)}</div>
-  </section>
-  <section class="home-section animal-section" aria-labelledby="animal-title">
-    <div class="home-heading"><h2 id="animal-title">Care for your animal</h2></div>
-    <nav class="animal-rail" aria-label="Practices by animal">{pets.map(pet =>
-      <a href={'/search/?pet='+pet.id}><span aria-hidden="true">{pet.glyph}</span><strong>{pet.label}</strong></a>
-    )}</nav>
   </section>
   <a class="evidence-link" href="/methodology/"><Icon name="shield"/><span>How we check facility details</span><Icon name="arrow"/></a>
 </div></div>

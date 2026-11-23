@@ -1,0 +1,257 @@
+{
+  "mumbai-vetic-andheri-andheri": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/andheri-west"
+  },
+  "bengaluru-vetic-domlur-domlur": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/domlur-bengaluru"
+  },
+  "bengaluru-vetic-bannerghatta-road-bannerghatta-road": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/banerghatta-bengaluru"
+  },
+  "bengaluru-vetic-hsr-layout-hsr-layout": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/hsr-bengaluru"
+  },
+  "bengaluru-vetic-kalyan-nagar-kalyan-nagar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/kalyannagar-bengaluru"
+  },
+  "mumbai-vetic-kandivali-kandivali": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/kandivali"
+  },
+  "bengaluru-vetic-whitefield-whitefield": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/whitefield-bengaluru"
+  },
+  "mumbai-vetic-chembur-chembur": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/chembur-mumbai"
+  },
+  "bengaluru-vetic-sadashiva-nagar-sadashiva-nagar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/sadashiva-nagar-bengaluru"
+  },
+  "bengaluru-vetic-nagarbhavi-nagarbhavi": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/nagarbhavi-bengaluru"
+  },
+  "bengaluru-vetic-electronic-city-electronic-city": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/electronic-city-bengaluru"
+  },
+  "bengaluru-vetic-banashankari-banashankari": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/banashankari-bengaluru"
+  },
+  "bengaluru-vetic-yelahanka-yelahanka": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/bengaluru/yelahanka-bengaluru"
+  },
+  "kolkata-vetic-salt-lake-salt-lake": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/kolkata/salt-lake"
+  },
+  "chennai-vetic-anna-nagar-anna-nagar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/chennai/anna-nagar"
+  },
+  "mumbai-vetic-borivali-borivali": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/borivali"
+  },
+  "mumbai-vetic-powai-powai": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/powai"
+  },
+  "mumbai-vetic-mulund-mulund": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/mulund"
+  },
+  "chennai-vetic-adyar-adyar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/chennai/adyar"
+  },
+  "kolkata-vetic-behala-behala": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/kolkata/behala"
+  },
+  "delhi-vetic-greater-kailash-1-greater-kailash-1": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/delhi/greater-kailash"
+  },
+  "delhi-vetic-defence-colony-defence-colony": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/delhi/defence-colony"
+  },
+  "delhi-vetic-pitampura-pitampura": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/delhi/pitampura"
+  },
+  "delhi-vetic-malviya-nagar-malviya-nagar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/delhi/malviya-nagar"
+  },
+  "hyderabad-vetic-hitec-city-hitec-city": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/hyderabad/hitec-city-hyderabad"
+  },
+  "hyderabad-vetic-manikonda-manikonda": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/hyderabad/manikonda"
+  },
+  "hyderabad-vetic-banjara-hills-banjara-hills": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/hyderabad/banjara-hills"
+  },
+  "pune-vetic-wakad-wakad": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/pune/wakad"
+  },
+  "hyderabad-vetic-kukatpally-kukatpally": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/hyderabad/kukatpally"
+  },
+  "delhi-vetic-anand-vihar-anand-vihar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/delhi/anand-vihar"
+  },
+  "delhi-vetic-vasant-kunj-vasant-kunj": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/delhi/vasant-kunj"
+  },
+  "delhi-vetic-dwarka-sector-17-dwarka-sector-17": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/delhi/sector-17"
+  },
+  "delhi-vetic-sda-market-sda-market": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/delhi/sda-market"
+  },
+  "mumbai-vetic-santacruz-santacruz": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/santacruz"
+  },
+  "mumbai-vetic-goregaon-goregaon": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/goregaon"
+  },
+  "hyderabad-vetic-himayat-nagar-himayat-nagar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/hyderabad/himayat-nagar-hyderabad"
+  },
+  "mumbai-vetic-lower-parel-lower-parel": {
+    "amount": 849,
+    "starting": true,
+    "url": "https://vetic.in/clinics/mumbai/lower-parel"
+  },
+  "chennai-vetic-porur-porur": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/chennai/porur"
+  },
+  "hyderabad-vetic-lb-nagar-lb-nagar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/hyderabad/lb-nagar"
+  },
+  "pune-vetic-hadapsar-hadapsar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/pune/hadapsar"
+  },
+  "chennai-vetic-t-nagar-t-nagar": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/chennai/t-nagar"
+  },
+  "chennai-vetic-ecr-ecr": {
+    "amount": 799,
+    "starting": true,
+    "url": "https://vetic.in/clinics/chennai/ecr-neelankarai"
+  },
+  "ahmedabad-furry-tales-veterinary-clinic-near-kashivishvanath-mandir-maninagar": {
+    "amount": 300,
+    "starting": false,
+    "url": "https://www.justdial.com/Ahmedabad/Furry-Tales-Veterinary-Clinic-Maninagar-Railway-Crossing-Maninagar/079PXX79-XX79-210322153228-D9A4_BZDET"
+  },
+  "bengaluru-shreyas-pet-hospital-1st-cross-kirloskar-colony-basaveshwara-nagar": {
+    "amount": 300,
+    "starting": false,
+    "url": "https://www.justdial.com/Bangalore/Shreyas-Pet-Hospital-Near-Shankarmath-Signal-Basaveshwara-Nagar/080P5161529_BZDET"
+  },
+  "chennai-k-k-pet-clinic-gurusamy-nagar-extension-3-mugalivakkam": {
+    "amount": 200,
+    "starting": false,
+    "url": "https://www.justdial.com/Chennai/K-K-Pet-Clinic-Mugalivakam-Mugalivakkam/044PXX44-XX44-240302192258-S9Y2_BZDET"
+  },
+  "kolkata-furry-tails-street-0004-new-town-action-area-1": {
+    "amount": 500,
+    "starting": false,
+    "url": "https://www.justdial.com/Kolkata/Furry-Tails-Near-By-3-No-Tank-New-Town-Action-Area-1/033PXX33-XX33-250526145458-A9B9_BZDET"
+  },
+  "kolkata-dr-newton-bala-vet-pulse-naktala-road-regent-estate": {
+    "amount": 500,
+    "starting": false,
+    "url": "https://www.justdial.com/Kolkata/Dr-Newton-Bala-Vet-Pulse-Near-By-Barobhut-Math-Regent-Estate/033PXX33-XX33-240625202121-Z6K6_BZDET"
+  },
+  "kolkata-pets-heaven-the-animal-hospital-east-mall-road-mall-road": {
+    "amount": 300,
+    "starting": false,
+    "url": "https://www.justdial.com/Kolkata/Pets-Heaven-The-Animal-Hospital-Behind-Dumdum-Club-Mall-Road/033PXX33-XX33-180126133506-T7M4_BZDET"
+  },
+  "kolkata-dua-s-fur-family-muzaffar-ahmadstreet-park-street": {
+    "amount": 400,
+    "starting": false,
+    "url": "https://www.justdial.com/Kolkata/Duas-Fur-Family-Near-By-Ripon-St-Dharamtalla-Park-Street/033PXX33-XX33-260905220832-N5T5_BZDET"
+  },
+  "pune-pet-doc-vet-clinic-pancard-club-road-baner": {
+    "amount": 350,
+    "starting": false,
+    "url": "https://www.justdial.com/Pune/Pet-Doc-Vet-Clinic-Near-Cellars-Wine-Shop-Baner/020PXX20-XX20-170309150958-M9D3_BZDET"
+  },
+  "pune-dr-nerlekars-vet-for-pets-clinic-padmavati-chavan-nagar-road-dhankawadi": {
+    "amount": 250,
+    "starting": false,
+    "url": "https://www.justdial.com/Pune/Dr-Nerlekars-Vet-For-Pets-Clinic-Near-Winkar-Sabhagruha-Dhankawadi/020PXX20-XX20-120228154750-Y3Z7_BZDET"
+  }
+}

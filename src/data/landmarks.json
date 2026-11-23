@@ -1,0 +1,62 @@
+{
+  "pune": {
+    "source": "https://commons.wikimedia.org/wiki/File:Front_view_of_Shaniwar_Wada_illuminated.jpg",
+    "author": "DesiBoy101",
+    "license": "CC BY 4.0",
+    "name": "Shaniwar Wada"
+  },
+  "bengaluru": {
+    "source": "https://commons.wikimedia.org/wiki/File:Vidhana_Soudha_%28Bengaluru%29_-_Panoramic_view.jpg",
+    "author": "iMahesh",
+    "license": "CC BY-SA 4.0",
+    "name": "Vidhana Soudha"
+  },
+  "kolkata": {
+    "source": "https://commons.wikimedia.org/wiki/File:Victoria_Memorial_situated_in_Kolkata.jpg",
+    "author": "Subhrajyoti07",
+    "license": "CC BY-SA 4.0",
+    "name": "Victoria Memorial"
+  },
+  "mumbai": {
+    "source": "https://commons.wikimedia.org/wiki/File:Mumbai_03-2016_30_Gateway_of_India.jpg",
+    "author": "A.Savin",
+    "license": "FAL",
+    "name": "Gateway of India"
+  },
+  "jaipur": {
+    "source": "https://commons.wikimedia.org/wiki/File:East_facade_Hawa_Mahal_Jaipur_from_ground_level_%28July_2022%29_-_img_01.jpg",
+    "author": "Chainwit.",
+    "license": "CC BY-SA 4.0",
+    "name": "Hawa Mahal"
+  },
+  "ahmedabad": {
+    "source": "https://commons.wikimedia.org/wiki/File:GANDHI_ASHRAM_03.jpg",
+    "author": "Umar",
+    "license": "CC BY-SA 3.0",
+    "name": "Sabarmati Ashram"
+  },
+  "indore": {
+    "source": "https://commons.wikimedia.org/wiki/File:Indore_Rajwada01.jpg",
+    "author": "DeepakNigam",
+    "license": "CC BY-SA 4.0",
+    "name": "Rajwada"
+  },
+  "hyderabad": {
+    "source": "https://commons.wikimedia.org/wiki/File:Charminar_Hyderabad_1.jpg",
+    "author": "DidierTais",
+    "license": "CC BY-SA 3.0",
+    "name": "Charminar"
+  },
+  "chennai": {
+    "source": "https://commons.wikimedia.org/wiki/File:Chennai_Central.jpg",
+    "author": "jamal haider from india",
+    "license": "CC BY-SA 2.0",
+    "name": "Chennai Central"
+  },
+  "delhi": {
+    "source": "https://commons.wikimedia.org/wiki/File:Delhi_fort.jpg",
+    "author": "PerSona77",
+    "license": "CC BY-SA 3.0",
+    "name": "Red Fort"
+  }
+}

@@ -1,5 +1,12 @@
 ---
 import DiscoveryPage from "../components/DiscoveryPage.astro";
-import { doctors } from "@data";
+import Layout from "../layouts/BaseLayout.astro";
+import { doctors, providers, cityById } from "@data";
+import { veterinarians } from "../data/veterinarians";
+const teams = providers.filter(p => p.name.startsWith("Crown Vet") || p.name === "Tata Trusts Small Animal Hospital");
 ---
-<DiscoveryPage title="Find a veterinarian" eyebrow="Practitioner directory" description="Compare published qualifications and practice affiliations. Contact the practice to confirm the doctor’s next session." doctors={doctors} mode="doctors" />
+{doctors.length || veterinarians.length ? <DiscoveryPage title="Find a veterinarian" eyebrow="Practitioner directory" description="Compare published qualifications and practice affiliations." doctors={doctors} mode="doctors" /> :
+<Layout title="Find a veterinarian by practice" description="Meet veterinary teams on their official websites, find a branch and check which doctor is available.">
+<div class="container atlas"><header class="city-mast"><p class="kicker">Doctors</p><h1>Find a veterinarian</h1><p>Browse the hospital’s clinical team, then contact your branch to check the doctor’s next session.</p></header>
+<div class="team-directory">{teams.map(p=><article class="panel"><p class="kicker">{cityById(p.cityId)?.name} · {p.area}</p><h2>{p.name}</h2><a href={p.name.startsWith("Crown Vet") ? "https://crown.vet/team.asp" : "https://sahmumbai.com/team"}>Meet the hospital team ↗</a><a href={'/'+p.cityId+'/'+p.slug+'/'}>Branch details →</a></article>)}</div></div></Layout>}
+<style>.team-directory{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}.team-directory article{padding:16px}.team-directory h2{font-size:1.13rem;margin:6px 0}.team-directory a{display:inline-flex;align-items:center;min-height:42px;margin-right:12px;font-size:.85rem}</style>

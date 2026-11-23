@@ -1,4 +1,5 @@
 ---
+import { animalGroups } from "../data/animal-groups";
 import { summarizeRatings } from "../lib/ratings.mjs";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "./Icon.astro";
@@ -139,7 +140,7 @@ const isNoindex = mode === "all" || rows.length === 0;
           </label>
           <label class="filter-select">
             <span>Pet type</span>
-            <select id="filter-pet"><option value="">All pets</option>{petOptions.map((pet) => <option value={pet}>{pet[0].toUpperCase() + pet.slice(1)}</option>)}</select>
+            <select id="filter-pet"><option value="">All pets</option>{animalGroups.map(group => <option value={group.id} data-members={group.members.join("|")}>{group.name}</option>)}{petOptions.map((pet) => <option value={pet}>{pet[0].toUpperCase() + pet.slice(1)}</option>)}</select>
           </label>
           <label class="filter-select">
             <span>Sort</span>
@@ -276,7 +277,11 @@ const isNoindex = mode === "all" || rows.length === 0;
         if (visible && controls.locality.value) visible = data.locality === controls.locality.value;
         if (visible && controls.specialty.value) visible = data.specialty.split(" ").includes(controls.specialty.value);
         if (visible && controls.service.value) visible = data.services.includes(controls.service.value);
-        if (visible && controls.pet.value) visible = data.species.split(" ").includes(controls.pet.value);
+        if (visible && controls.pet.value) {
+          const species = data.species.split(" ");
+          const members = (controls.pet.selectedOptions[0]?.dataset.members || controls.pet.value).split("|");
+          visible = members.some(member => species.includes(member));
+        }
         if (visible && controls.emergency.checked) visible = data.emergency === "true";
         if (visible && searchTokens.length) visible = searchTokens.every((token) => data.search.includes(token));
         item.hidden = !visible;
