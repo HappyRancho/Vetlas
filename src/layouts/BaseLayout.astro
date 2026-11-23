@@ -3,6 +3,7 @@ import "../styles/global.css";
 import "../styles/directory.css";
 import "../styles/polish.css";
 import "../styles/atlas.css";
+import "../styles/notebook.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/inter";
 import SiteHeader from "../components/SiteHeader.astro";
@@ -31,7 +32,7 @@ const isCurrent = (href: string) =>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#102443" />
+    <meta name="theme-color" content="#eaf8ff" />
     <title>{title.includes("Vetlas") ? title : title + " | Vetlas"}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}

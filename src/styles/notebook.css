@@ -1,0 +1,72 @@
+:root {
+  --paper: #eaf8ff;
+  --ink: #163750;
+  --forest: #163750;
+  --body: #405c70;
+  --rule: #accbd9;
+  --display: "Bricolage Grotesque Variable", system-ui, sans-serif;
+}
+body { background: var(--paper); }
+.site-header { border-bottom: 2px solid var(--ink); }
+.container { max-width: 1100px; }
+.notebook { padding-block: 18px; }
+.finder, .guide-sheet, .callout {
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+  background: white;
+  box-shadow: 2px 3px 0 #bdd6e2;
+}
+.finder { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) 32%; align-items: center; background: #f9fdff; }
+.finder-intro { padding: clamp(16px, 2.5vw, 30px); min-width: 0; }
+.notebook-label { display: flex; align-items: center; gap: 7px; font-size: .76rem; font-weight: 650; color: #375a73; margin: 0; }
+.notebook .icon { width: 19px; height: 19px; flex-shrink: 0; }
+.finder h1 { font: 760 clamp(2rem, 4.8vw, 3.9rem)/1.08 var(--display); letter-spacing: -.06em; color: var(--ink); margin: 6px 0; }
+.finder h1 em { font-style: normal; white-space: nowrap; background: linear-gradient(177deg, transparent 68%, #b7e6fa 69% 88%, transparent 89%); }
+.finder-intro > p:not(.notebook-label) { margin: 0 0 12px; color: var(--body); }
+.finder-pets { width: 100%; height: clamp(150px, 19vw, 215px); object-fit: contain; align-self: end; }
+.finder .usearch { margin: 0; max-width: 100%; }
+.finder .usearch-field { border: 1.5px solid var(--ink); box-shadow: 2px 2px 0 #cadfe9; background: white; }
+.guide-columns { display: grid; grid-template-columns: 1.7fr 1fr 1fr; align-items: start; gap: 12px; margin-block: 14px; }
+.guide-sheet { min-width: 0; overflow: hidden; }
+.guide-sheet h2 { display: flex; gap: 9px; align-items: center; padding: 10px 14px; margin: 0; background: #ceeafe; border-bottom: 1px solid var(--rule); color: var(--ink); font: 720 1.15rem/1.2 var(--display); letter-spacing: -.035em; }
+.city-sheet h2 { background: #dcf0e3; }
+.care-sheet h2 { background: #f9ebc0; }
+.hospital-entry { display: grid; grid-template-columns: 34% minmax(0,1fr); gap: 12px; padding: 12px; }
+.hospital-entry figure { margin: 0; }
+.hospital-entry img { width: 100%; height: auto; border-radius: 6px; display: block; }
+.hospital-entry figcaption { font-size: .64rem; line-height: 1.4; padding-top: 4px; overflow-wrap: anywhere; }
+.hospital-entry h3 { font: 700 1.05rem/1.17 var(--display); margin: 4px 0; }
+.hospital-entry p:not(.notebook-label), .callout p { margin: 5px 0; font-size: .8rem; line-height: 1.4; color: var(--body); }
+.notebook a { color: var(--ink); }
+.guide-row, .contact-tabs a, .callout a { display: flex; align-items: center; gap: 6px; min-height: 42px; }
+.guide-row { justify-content: space-between; padding: 8px 14px; font-size: .86rem; }
+.guide-row + .guide-row { border-top: 1px dashed var(--rule); }
+.contact-tabs { display: flex; flex-wrap: wrap; gap: 0 12px; }
+.contact-tabs a, .callout a { text-decoration: underline; text-underline-offset: 3px; font-size: .79rem; font-weight: 650; }
+.contact-tabs .icon, .guide-row .icon { width: 15px; height: 15px; }
+.callout { background: #fff2e8; padding: 9px 14px; display: flex; align-items: center; gap: 12px; }
+.callout p { margin: 0; }
+.callout a { margin-left: auto; }
+.guide-row:hover, .guide-row:focus-visible { background: #eff9ff; }
+.page-head, .discovery-hero, .clinic-profile .clinic-heading { background: #f9fdff; border: 1px solid var(--rule); }
+.city-mast h1, .page-head h1, .discovery-hero h1, .clinic-profile .clinic-heading h1, .vet-profile h1 { font-family: var(--display); font-weight: 740; letter-spacing: -.045em; }
+.panel, .listing, .result-summary, .clinic-identity, .specialty-card { box-shadow: 1px 2px 0 #c7dfe9; }
+@media (max-width: 840px) {
+  .guide-columns { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .guide-sheet:first-child { grid-column: 1/-1; }
+  .hospital-entry { grid-template-columns: minmax(85px, 135px) 1fr; }
+}
+@media (max-width: 600px) {
+  .notebook { padding-block: 10px; }
+  .finder { display: block; }
+  .finder-intro { padding: 14px; }
+  .finder h1 { max-width: 72%; font-size: clamp(1.9rem, 7.8vw, 2.6rem); }
+  .finder-pets { position: absolute; top: 8px; right: 6px; width: 24%; height: 73px; z-index: -1; }
+  .finder-intro > p:not(.notebook-label) { font-size: .84rem; }
+  .guide-columns { gap: 9px; margin-block: 10px; }
+  .guide-sheet h2 { padding: 9px; font-size: 1rem; gap: 5px; }
+  .guide-row { padding-inline: 9px; }
+  .hospital-entry { grid-template-columns: 29% minmax(0,1fr); gap: 9px; padding: 10px; }
+  .callout { display: grid; grid-template-columns: auto 1fr; gap: 1px 8px; }
+  .callout a { grid-column: 2; margin: 0; }
+}
