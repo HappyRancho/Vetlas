@@ -1,4 +1,5 @@
 ---
+import Wordmark from "./Wordmark.astro";
 import Icon from "./Icon.astro";
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 const { path } = Astro.props;
 
 const nav = [
-  { href: "/search/", label: "Find care" },
+  { href: "/search/", label: "Directory" },
   { href: "/specialties/", label: "Specialities" },
   { href: "/locations/", label: "Cities" },
   { href: "/doctors/", label: "Veterinarians" },
@@ -19,13 +20,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="Vetlas home">
-      <span class="brand-mark"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="3"/><path d="M8 25h9l5-14 7 27 5-13h7" stroke="#008c83" stroke-width="3" stroke-linejoin="round"/></svg></span>
-      <span class="brand-word">
-        Vetlas
-        <small class="brand-by">by ThatVetGuy</small>
-      </span>
-    </a>
+    <Wordmark />
 
     <nav class="site-nav" aria-label="Primary">
       {nav.map((item) => (
@@ -39,7 +34,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
       <a class="header-icon-link" href="/about/" aria-label="About Vetlas and the data policy">
         <Icon name="info" class="icon icon-md" />
       </a>
-      <a class="btn btn-primary header-cta" href="/search/">Find care</a>
+      <a class="urgent-link" href="/emergency/"><Icon name="siren" class="icon"/> Emergency</a>
     </div>
   </div>
 </header>

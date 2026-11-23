@@ -1,29 +1,24 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
-import UniversalSearch from "../components/UniversalSearch.astro";
+import Search from "../components/UniversalSearch.astro";
 import { cities, providers, specialties } from "@data";
-const routes = [
-  ["hospital","Hospitals","Inpatient & referral care","/hospitals/"],
-  ["building","Clinics","Consultations & checkups","/clinics/"],
-  ["doctor","Veterinarians","Qualifications & practices","/doctors/"],
-  ["siren","Emergency care","Find a facility to call","/emergency/"]
-];
-const feature = providers.find(p => p.imageUrl && p.cityId === "chennai")!;
+const hospital = providers.find(p => p.imageUrl && p.cityId === "chennai");
+const available = cities.filter(c => providers.some(p => p.cityId === c.id));
+const services = specialties.filter(s => providers.some(p => p.specialtyIds.includes(s.id)));
 ---
-<Layout title="Vetlas | Find veterinary clinics, hospitals and specialists in India" description="Find local veterinary care across ten Indian cities. Compare branch addresses, published services, practitioner qualifications and emergency contacts.">
-<div class="container atlas">
-  <section class="atlas-hero">
-    <div class="atlas-copy"><p class="kicker"><span></span> India’s veterinary directory</p>
-      <h1>Find the right care<br/>for <em>your companion.</em></h1>
-      <p>Find veterinary facilities with sourced practice information and authentic photography.</p>
-      <UniversalSearch variant="hero" />
-    </div>
-    <div class="atlas-art"><img src="/pet-hero-medium.webp" srcset="/pet-hero-small.webp 350w, /pet-hero-medium.webp 620w, /pet-hero.webp 850w" sizes="(max-width:650px) 34vw, 400px" width="850" height="944" alt="A golden retriever beside a tabby cat" fetchpriority="high"/></div>
-  </section>
-  <nav class="care-paths" aria-label="Find care by type">{routes.map(([icon,name,desc,url])=><a href={url}><span class="route-icon"><Icon name={icon} class="icon"/></span><span><strong>{name}</strong><small>{desc}</small></span><span aria-hidden="true">↗</span></a>)}</nav>
-  <section class="atlas-section"><div class="atlas-title"><div><p class="kicker">Local directories</p><h2>Care in your city</h2></div><a href="/locations/">All cities →</a></div>
-  <div class="atlas-cities">{cities.map(c=><a href={'/'+c.slug+'/'}><strong>{c.name}</strong><small>{providers.filter(p=>p.cityId===c.id).length} facilities</small><span aria-hidden="true">↗</span></a>)}</div></section>
-  <div class="atlas-split"><section class="specialty-panel"><p class="kicker">Areas of care</p><h2>Find a speciality</h2><div class="atlas-chips">{specialties.filter(s=>providers.some(p=>p.specialtyIds.includes(s.id))).slice(0,8).map(s=><a href={'/specialties/'+s.slug+'/'}>{s.name}</a>)}</div><a href="/specialties/">Browse specialities →</a></section>
-  <section class="campus"><img src={feature.imageUrl} alt={feature.imageAlt} width="800" height="600" loading="lazy"/><div><p class="kicker">Teaching hospital · Chennai</p><h2><a href={'/chennai/'+feature.slug+'/'}>Madras Veterinary College</a></h2><a href={'/chennai/'+feature.slug+'/'}>Visit information →</a><small><a href={feature.imageSourceUrl}>Photo by சத்திரத்தான்</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · resized</small></div></section></div>
+<Layout title="Vetlas | Veterinary clinics, hospitals and specialists in India" description="Explore veterinary facilities with branch photography, sourced practice information and directions.">
+<div class="container field-guide">
+<section class="editorial-hero">
+  <div class="editorial-intro"><p class="folio">Veterinary directory <span>India</span></p>
+    <h1>Find your<br/><em>veterinarian.</em></h1>
+    <p class="intro-copy">Find the practice, check its services and plan your pet’s visit.</p>
+    <Search variant="hero"/>
+    <nav class="quick-look" aria-label="Browse care"><a href="/hospitals/">Hospitals ↗</a><a href="/specialties/">Specialities ↗</a><a href="/locations/">Cities ↗</a></nav>
+  </div>
+  {hospital && <figure class="cover-story"><a href={'/chennai/'+hospital.slug+'/'} aria-label={'View '+hospital.name}><img src={hospital.imageUrl} alt={hospital.imageAlt} width="800" height="600" fetchpriority="high"/></a><figcaption><div><p>Teaching hospital · Vepery, Chennai</p><a href={'/chennai/'+hospital.slug+'/'}>Madras Veterinary College <span>↗</span></a></div><small><a href={hospital.imageSourceUrl}>சத்திரத்தான்</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · resized</small></figcaption></figure>}
+</section>
+<section class="index-band"><div><span class="section-sign"><Icon name="pin" class="icon"/></span><h2>Browse by city</h2></div><nav aria-label="Published cities">{available.map(c=><a href={'/'+c.slug+'/'}>{c.name}<span>↗</span></a>)}<a href="/locations/">City coverage <span>→</span></a></nav></section>
+<section class="index-band"><div><span class="section-sign"><Icon name="stethoscope" class="icon"/></span><h2>Areas of care</h2></div><nav aria-label="Available specialities">{services.slice(0,4).map(s=><a href={'/specialties/'+s.slug+'/'}>{s.name}<span>↗</span></a>)}</nav></section>
+<aside class="urgent-strip"><Icon name="siren" class="icon"/><div><strong>Need urgent care?</strong><p>Call ahead to confirm the facility can receive your pet.</p></div><a href="/emergency/">Find emergency care →</a></aside>
 </div></Layout>
