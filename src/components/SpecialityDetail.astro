@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DirectoryHeader from "./DirectoryHeader.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import FacilityCard from "./FacilityCard.astro";
+import DoctorCard from "./DoctorCard.astro";
+import UniversalSearch from "./UniversalSearch.astro";
+import {cities,providersBySpecialty,doctorsBySpecialty,type City,type Specialty} from "@data";
+import {visitNotes} from "../data/speciality-visits";
+import "../styles/specialities.css";
+interface Props {specialty: Specialty; city?: City}
+const {specialty:s, city} = Astro.props;
+const providers = providersBySpecialty(s.id).filter(p=>!city || p.cityId===city.id);
+const doctors = doctorsBySpecialty(s.id).filter(d=>!city || d.cityId===city.id);
+const covered = cities.filter(c=>providers.some(p=>p.cityId===c.id)||doctors.some(d=>d.cityId===c.id));
+const path = city ? `/${city.slug}/${s.slug}/` : `/specialties/${s.slug}/`;
+const national = `/specialties/${s.slug}/`;
+const title = city ? s.name+" in "+city.name : s.name;
+const links=[...providers.map(p=>({name:p.name,path:`/${p.cityId}/${p.slug}/`})),...doctors.map(d=>({name:"Dr. "+d.name,path:`/${d.cityId}/veterinarians/${d.slug}/`}))];
+const schema={"@context":"https://schema.org","@type":"CollectionPage",name:title,url:new URL(path,Astro.site),description:s.description,mainEntity:{"@type":"ItemList",numberOfItems:links.length,itemListElement:links.map((l,i)=>({"@type":"ListItem",position:i+1,name:l.name,url:new URL(l.path,Astro.site)}))}};
+const guide=s.id==="emergency"?{href:"/emergency/",label:"Find emergency contacts"}:s.id==="vaccination"?{href:"/care-guide/preventive-care-visit-checklist/",label:"Preventive visit checklist"}:["oncology","ophthalmology","imaging"].includes(s.id)?{href:"/care-guide/#referral",label:"Plan a referral"}:{href:"/care-guide/caring-for-a-sick-pet-at-home/",label:"Care after a vet visit"};
+---
+<BaseLayout title={title+" | Veterinary care on Vetlas"} description={s.description+" Explore listed practices, prepare for an appointment and find local contacts."} canonical={path} noindex={!links.length}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+  <div class="container spec-directory">
+    <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Specialities",href:"/specialties/"},...(city?[{name:s.name,href:national}]:[]),{name:city?city.name:s.name,href:path}]}/>
+    <DirectoryHeader label={s.tagline} title={title} description={s.description}>
+      <div class="spec-links">
+        {providers.length>0 && <a href="#facilities">{providers.length} {providers.length===1?"facility":"facilities"}</a>}
+        {doctors.length>0 && <a href="#clinicians">{doctors.length} {doctors.length===1?"veterinarian":"veterinarians"}</a>}
+        {city && <a href={`/${city.slug}/`}>All care in {city.name}</a>}
+      </div>
+    </DirectoryHeader>
+    {!city && covered.length>0 && <section class="spec-section"><h2>Find care by city</h2>
+      <nav class="spec-links" aria-label="Local speciality directories">{covered.map(c=><a href={`/${c.slug}/${s.slug}/`}>{c.name}</a>)}</nav>
+    </section>}
+    <section class="visit-brief"><img src={`/specialities/${s.id}.webp`} alt="" width="260" height="220"/>
+      <div><h2>Prepare for your visit</h2><h3>What to bring</h3><p>{visitNotes[s.id].bring}</p><h3>Ask when you call</h3><p>{visitNotes[s.id].ask}</p><a href={guide.href}>{guide.label}</a></div>
+    </section>
+    {providers.length>0 && <section id="facilities" class="spec-section"><h2>Clinics &amp; hospitals</h2><div class="facility-grid">{providers.map((p,i)=><FacilityCard provider={p} index={i}/>)}</div></section>}
+    {doctors.length>0 && <section id="clinicians" class="spec-section"><h2>Veterinarians</h2><div class="doctor-grid">{doctors.map((d,i)=><DoctorCard doctor={d} index={i}/>)}</div></section>}
+    {!links.length && <p class="spec-empty">Vetlas has no published listings for this speciality yet. <a href="/specialties/general-practice/">Find a general practice to discuss a referral.</a></p>}
+    <section class="spec-section"><h2>Search for other care</h2><UniversalSearch variant="compact"/></section>
+  </div>
+</BaseLayout>

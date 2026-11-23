@@ -1,6 +1,85 @@
+export const shampooGuide = {
+  slug: "five-vet-recommended-dog-shampoos", group: "preventive", topic: "Coat care",
+  title: "Five dog shampoos a vet recommends", seoTitle: "Five vet-recommended dog shampoos for different coat care needs", shortTitle: "Five vet-recommended dog shampoos",
+  description: "An unscented wash, an oatmeal formula or a quick clean between baths? Match the bottle to your dog’s skin and routine.",
+  image: "/guides/dog-bath.webp", alt: "A small white dog rests its chin in a person’s hand during a bath",
+  credit: "Andrew Vargas", photoSource: "https://commons.wikimedia.org/wiki/File:Washing_a_dog_in_a_bath_tub.jpg",
+  license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  intro: "A muddy walk, a dog that dislikes the tub and a coat that feels dry after every wash call for different choices. These five options come from Betterpet’s published shampoo review, in which veterinarian Dr. Alleyne assessed the formulas. Here’s where each one fits.",
+  takeaway: "Start with your reason for bathing. For a routine wash, check the exact formula and age range on the bottle. If scratching keeps your dog awake, or you see sore patches, hair loss or broken skin, book a skin examination before trying another shampoo.",
+  sections: [
+    { id: "sensitive-skin", title: "Natural Dog Company Sensitive Skin Shampoo", paragraphs: [
+      "For a dog whose coat feels dry after a bath, this is the oatmeal wash to discuss with your vet. Dr. Alleyne singled out its colloidal oatmeal. If your dog has reacted to a previous wash, take a photo of both ingredient lists to the clinic so you can compare them."
+    ] },
+    { id: "unscented", title: "Pure and Natural Pet Hypoallergenic Organic Shampoo", paragraphs: [
+      "Choose this one if you want an unscented rinse-off wash. That is a practical preference when your dog shares your bedding or you dislike perfume on your hands. A dog can still react to an unscented product, so check the label for ingredients your vet has asked you to avoid."
+    ] },
+    { id: "oatmeal-aloe", title: "Earthbath Oatmeal & Aloe Shampoo", paragraphs: [
+      "Betterpet’s review highlights the combination of oatmeal and aloe for dry skin. This is a rinse-off option for owners who like a scented bath. Earthbath sells several formulations, so check the fragrance and ingredients on the particular bottle you are buying."
+    ] },
+    { id: "waterless", title: "Vet’s Best Waterless Dog Bath", paragraphs: [
+      "A waterless wash is handy when a full bath is difficult. Dr. Alleyne highlighted it for quick clean-ups and dogs reluctant to get in the tub. Follow the bottle’s directions for applying it to the coat. If the fur is caked with mud, a thorough rinse is the more practical choice."
+    ] },
+    { id: "lavender", title: "4-Legger Organic Oatmeal Dog Shampoo", paragraphs: [
+      "For a dirty coat that needs a rinse-off wash, Betterpet’s reviewers liked the cleaning performance of this oatmeal formula. The version they reviewed contains lavender. If you or your dog are sensitive to lavender, the unscented option above is a better fit."
+    ] }
+  ],
+  checklist: ["A photo of the exact shampoo and ingredient label", "Your dog’s age and any previous skin reactions", "The name of any spot-on flea or tick treatment so your vet can advise on bath timing"],
+  source: "Betterpet · Product review with Dr. Alleyne’s assessment of each shampoo", sourceUrl: "https://www.betterpet.com/learn/best-dog-shampoos",
+  next: "Find a veterinary dermatology service", nextUrl: "/specialties/dermatology/"
+};
 export const ownerArticles = [
+  shampooGuide,
   {
-    slug: "understanding-pet-behaviour", title: "When your pet starts acting differently",
+    slug:"caring-for-a-sick-pet-at-home", group:"sick", title:"Bringing a sick pet home from the clinic", shortTitle:"Home care after a vet visit", topic:"Recovery at home",
+    description:"Set up a quiet recovery space, keep track of medicines and observations, and know when to call the clinic again.",
+    image:"/guides/sick-pet-at-home.webp", alt:"Illustration of an owner watching a dog resting at home beside a water bowl and notebook",
+    intro:"The hardest part of a discharge conversation can come a few hours later, when someone asks whether your dog ate or when your cat last had its medicine. One written plan, shared by everyone caring for your pet, makes those questions easier to answer.",
+    takeaway:"Before leaving, ask what improvement should look like, when to expect it, what needs an earlier call, and who answers after hours.",
+    sections:[
+      {id:"set-up",title:"Set up the first evening",paragraphs:[
+        "Follow the clinic’s instructions for food, water, exercise and rest. Put bedding somewhere quiet and easy to reach. Keep an unsteady pet away from stairs, and give a recovering cat an easy route to its litter tray.",
+        "Have one person collect the discharge notes, medicine labels and follow-up details. Read back the plan with the clinic before you leave, especially if two family members will share care."
+      ]},
+      {id:"care-log",title:"Keep a simple care log",paragraphs:[
+        "Make a row for the time, food and water taken, urine or stool, comfort and activity, and medicines actually given. Use observations you can see. “Ate a quarter of dinner and walked to the bowl unaided” is more useful at follow-up than “a little better.”",
+        "Record a medicine after giving it. If a dose was missed, spat out or vomited, call the prescribing clinic for advice before repeating it. Keep the original packaging and avoid giving human pain medicines or another pet’s prescription."
+      ]},
+      {id:"when-to-call",title:"Separate a follow-up question from an emergency",paragraphs:[
+        "Call the treating clinic if your pet is getting worse, cannot take a prescribed medicine, or misses the improvement milestone you agreed. Give the time the change began and read the latest entry from your care log.",
+        "Difficulty breathing, collapse, heavy bleeding, or repeated attempts to urinate with little or no urine need urgent veterinary attention. Contact an emergency service and arrange transport immediately. The notebook can wait."
+      ]}
+    ],
+    checklist:["Discharge instructions and original medicine packs","Your care log and any changes since the visit","The follow-up appointment and after-hours contact"],
+    source:"Merck Veterinary Manual · When to see a veterinarian",sourceUrl:"https://www.merckvetmanual.com/multimedia/table/when-to-see-a-veterinarian",
+    next:"Find emergency care",nextUrl:"/emergency/"
+  },
+  {
+    slug:"preventive-care-visit-checklist",group:"preventive",title:"Plan a preventive visit before your pet is unwell",shortTitle:"Preventive visit checklist",topic:"Preventive care",
+    description:"Build a visit around your dog or cat’s age, daily routine, vaccine record and exposure to ticks, other animals and travel.",
+    image:"/guides/preventive-visit.webp",alt:"Illustration of a cat at a wellness visit while its owner and veterinarian review its health record",
+    intro:"A puppy that meets neighbourhood dogs and an older cat that lives indoors have different routines. A preventive appointment is a chance to describe an ordinary week and agree on the care that fits your animal.",
+    takeaway:"Take the vaccine record, dates of parasite treatments and a list of everyday habits. Leave with the next steps and their dates in writing.",
+    sections:[
+      {id:"records",title:"Gather records, even if they are incomplete",paragraphs:[
+        "Bring dated vaccination entries, including rabies vaccination, along with previous illnesses, medicines, diet and recent weights. If you have adopted an animal with an unknown history, tell the clinic what you know. Your vet can plan the next steps without guessing an earlier dose.",
+        "Note whether your pet goes outdoors, meets other animals, stays in boarding, or travels between places. Mention other animals in the household and any recent tick or flea exposure."
+      ]},
+      {id:"appointment",title:"Make room for the everyday checks",paragraphs:[
+        "Ask for a weight and body-condition check, an oral examination and advice about skin, coat and mobility. Mention changes that have crept in gradually, such as leaving hard food behind or hesitating on stairs.",
+        "Discuss vaccines and parasite prevention for your pet’s species, age and exposure. Ask which product is appropriate, what its label covers and when the next dose is due. Products intended for dogs can be unsafe for cats."
+      ]},
+      {id:"calendar",title:"Leave with a calendar you can use",paragraphs:[
+        "Write down the next appointment, vaccination or parasite-control date your vet recommends. Keep a photo of the updated record and ask whom to call if you notice a reaction or if plans change before travel.",
+        "If your pet becomes unwell ahead of a routine appointment, call the clinic with the symptoms. They can help decide whether your pet needs to be seen sooner."
+      ]}
+    ],
+    checklist:["Vaccination record and parasite-control product names","Recent weight, usual food and current medicines","Boarding, travel, outdoor activity and animal contact"],
+    source:"WSAVA vaccination guidelines for dogs and cats", sourceUrl:"https://wsava.org/global-guidelines/vaccination-guidelines/",
+    next:"Find preventive care", nextUrl:"/specialties/preventive-care/"
+  },
+  {
+    slug: "understanding-pet-behaviour", group:"sick", title: "When your pet starts acting differently",
     topic:"Behaviour", shortTitle:"Understanding pet behaviour",
     description:"Hiding, pacing or pulling away can be easy to miss. Here’s how to describe a change in your dog or cat and decide when to call the clinic.",
     image:"/guides/cat-at-window.webp", alt:"A cat sitting beside a window in the afternoon light",
@@ -26,7 +105,7 @@ export const ownerArticles = [
     next:"Find a general practice", nextUrl:"/specialties/general-practice/"
   },
   {
-    slug:"pet-nutrition-basics", title:"What goes into your pet’s bowl?",
+    slug:"pet-nutrition-basics", group:"preventive", title:"What goes into your pet’s bowl?",
     topic:"Nutrition", shortTitle:"Pet nutrition basics",
     description:"A one-day food diary can make the next nutrition discussion with your vet more useful. Start with meals, then count the little extras.",
     image:"/guides/meal-bowl.webp", alt:"Dry dog food served in a white bowl",
@@ -53,8 +132,8 @@ export const ownerArticles = [
   }
 ];
 export const guideChapters = [
-  {label:"Specialist referrals",detail:"Cancer and eye care", icon:"stethoscope",href:"/care-guide/#referral"},
-  {label:"Teaching hospitals", detail:"University clinics",icon:"hospital",href:"/care-guide/#teaching"},
-  {label:"Private care networks",detail:"Find a branch",icon:"building",href:"/care-guide/#networks"},
-  {label:"Wildlife & rescue",detail:"Local points of contact",icon:"bird",href:"/care-guide/#rescue"}
+  {label:"Specialist referrals",detail:"Cancer and eye care", icon:"stethoscope",image:"/guides/cover-referral.webp",href:"/care-guide/#referral"},
+  {label:"Teaching hospitals", detail:"University clinics",icon:"hospital",image:"/guides/cover-teaching.webp",href:"/care-guide/#teaching"},
+  {label:"Private care networks",detail:"Find a branch",icon:"building",image:"/guides/cover-networks.webp",href:"/care-guide/#networks"},
+  {label:"Wildlife & rescue",detail:"Local points of contact",icon:"paw",image:"/pets/kanha-chital.webp",href:"/care-guide/#rescue"}
 ];

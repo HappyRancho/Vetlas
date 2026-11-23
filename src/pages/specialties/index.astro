@@ -1,60 +1,56 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import DirectoryHeader from "../../components/DirectoryHeader.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Icon from "../../components/Icon.astro";
-import TrustBadge from "../../components/TrustBadge.astro";
-import {
-  specialties, providersBySpecialty, doctorsBySpecialty,
-} from "@data";
+import {specialties,providersBySpecialty,doctorsBySpecialty} from "@data";
+import {specialityGroups} from "../../data/speciality-visits";
+import "../../styles/specialities.css";
 
-const withCount = specialties.map((specialty) => ({
-  specialty,
-  count: providersBySpecialty(specialty.id).length + doctorsBySpecialty(specialty.id).length,
-}));
+const rows = specialties.map(s=>{
+  const places=providersBySpecialty(s.id), vets=doctorsBySpecialty(s.id);
+  return {...s,count:places.length+vets.length,cities:new Set([...places,...vets].map(p=>p.cityId)).size};
+});
+const schema={"@context":"https://schema.org","@type":"CollectionPage",name:"Veterinary specialities in India",url:new URL("/specialties/",Astro.site),mainEntity:{"@type":"ItemList",numberOfItems:rows.length,itemListElement:rows.map((s,i)=>({"@type":"ListItem",position:i+1,name:s.name,url:new URL(`/specialties/${s.slug}/`,Astro.site)}))}};
 ---
-
-<BaseLayout
-  title="All veterinary specialities — Vetlas"
-  description="Explore veterinary specialities in India — medicine, surgery, dermatology, gynaecology & obstetrics, cardiology, gastroenterology, ophthalmology, neurology and oncology."
-  canonical="/specialties/"
->
-  <div class="container">
-    <header class="page-head animate-fade-up">
-      <p class="eyebrow"><Icon name="stethoscope" class="icon icon-md" /> Speciality directory</p>
-      <h1 class="mt-05">Find the right kind of vet</h1>
-      <p>
-        Not sure who to see? Each speciality explains what it covers and lists the hospitals,
-        clinics and doctors who practise it. Start broad, then narrow by city.
-      </p>
-      <div class="mt-75"><TrustBadge level="public" label="Public listings" /></div>
-    </header>
-
-    <ul class="specialty-grid mt-2 pb-1">
-      {withCount.map(({ specialty, count }) => (
-        <li>
-          <a class="specialty-card" href={`/specialties/${specialty.slug}/`}>
-            <span class="specialty-icon"><Icon name={specialty.icon} class="icon icon-md" /></span>
-            <span class="specialty-copy">
-              <b>{specialty.name}</b>
-              <span>{specialty.tagline} · {count} public listings</span>
-            </span>
-            <Icon name="arrow" class="icon specialty-arrow" />
-          </a>
-        </li>
-      ))}
-    </ul>
-
-    <section class="section" aria-labelledby="city-h">
-      <div class="section-head">
-        <div>
-          <p class="section-eyebrow">Another way in</p>
-          <h2 class="section-title section-title-sm" id="city-h">Prefer to browse by city?</h2>
-        </div>
-        <a class="link-more" href="/locations/">All cities <Icon name="arrow" class="icon" /></a>
+<BaseLayout title="Veterinary specialities in India | Vetlas" description="Explore veterinary specialities by the care your animal needs. Find local clinics and veterinarians, questions to ask and what to bring." canonical="/specialties/">
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+  <div class="container spec-directory">
+    <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Specialities",href:"/specialties/"}]}/>
+    <DirectoryHeader label="Speciality directory" title="Find the right kind of vet" description="Explore care by the reason for your visit, then choose a city to see local clinics and veterinarians.">
+      <label class="spec-search" hidden><Icon name="search"/><span class="visually-hidden">Filter specialities</span><input type="search" placeholder="Search by speciality or concern, e.g. skin" autocomplete="off"/></label>
+    </DirectoryHeader>
+    <div class="spec-help"><a href="/specialties/general-practice/"><Icon name="stethoscope"/>Start with a general vet</a><a href="/emergency/"><Icon name="siren"/>Find urgent care</a></div>
+    {specialityGroups.map(group=><section class="spec-section" data-speciality-group>
+      <h2>{group.name}</h2><div class="spec-index">
+        {group.ids.map(id=>rows.find(s=>s.id===id)!).map(s=><a class="spec-link" href={`/specialties/${s.slug}/`} data-terms={[s.name,s.tagline,s.description].join(" ").toLowerCase()}>
+          <img src={`/specialities/${s.id}.webp`} alt="" width="90" height="90" loading="lazy"/>
+          <span><strong>{s.name}</strong><span>{s.tagline}</span><small>{s.count ? `${s.count} ${s.count===1?"listing":"listings"} · ${s.cities} ${s.cities===1?"city":"cities"}` : "Visit preparation guide"}</small></span><Icon name="arrow"/>
+        </a>)}
       </div>
-      <p class="soft small">
-        City pages group every hospital, clinic and doctor by location, with facilities and
-        consultation fees at a glance.
-      </p>
-    </section>
+    </section>)}
+    <p class="spec-empty" data-filter-empty hidden>No specialities match that search. <button type="button">Show all specialities</button></p>
+    <p class="visually-hidden" role="status" data-filter-status></p>
+    <nav class="spec-links" aria-label="Browse locations"><a href="/locations/">Browse all cities</a></nav>
   </div>
 </BaseLayout>
+<script>
+ const field=document.querySelector<HTMLInputElement>('.spec-search input')!;
+ const groups=document.querySelectorAll<HTMLElement>('[data-speciality-group]');
+ const empty=document.querySelector<HTMLElement>('[data-filter-empty]')!;
+ const status=document.querySelector<HTMLElement>('[data-filter-status]')!;
+ function filter() {
+   const words=field.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+   let matches=0;
+   for(const group of groups) {
+     const cards=Array.from(group.querySelectorAll<HTMLElement>('[data-terms]'));
+     for(const card of cards) card.hidden=!words.every(word=>card.dataset.terms!.includes(word));
+     const count=cards.filter(card=>!card.hidden).length;
+     group.hidden=count===0;matches+=count;
+   }
+   empty.hidden=matches>0;status.textContent=matches+' matching specialities';
+ }
+ field.parentElement!.hidden=false;
+ field.addEventListener('input',filter);
+ empty.querySelector('button')!.addEventListener('click',()=>{field.value='';filter();field.focus();});
+</script>

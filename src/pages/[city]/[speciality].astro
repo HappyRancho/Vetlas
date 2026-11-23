@@ -1,19 +1,9 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Icon from "../../components/Icon.astro";
-import FacilityCard from "../../components/FacilityCard.astro";
-import DoctorCard from "../../components/DoctorCard.astro";
-import UniversalSearch from "../../components/UniversalSearch.astro";
-import TrustBadge from "../../components/TrustBadge.astro";
+import SpecialityDetail from "../../components/SpecialityDetail.astro";
 import {
   cities, specialties, providersByCity, doctorsByCity,
 } from "@data";
 
-/**
- * City × speciality combination landing page (spec §6).
- * SEO gate: published (indexable) only when ≥3 vetted providers match —
- * otherwise the page still renders but is marked noindex.
- */
 export function getStaticPaths() {
   return cities.flatMap((city) =>
     specialties.filter(s => providersByCity(city.id).some(p => p.specialtyIds.includes(s.id)) || doctorsByCity(city.id).some(d => d.primarySpecialtyId === s.id || d.secondarySpecialtyIds.includes(s.id))).map((specialty) => ({
@@ -23,93 +13,5 @@ export function getStaticPaths() {
   );
 }
 
-const { city, specialty } = Astro.props;
-
-const cityProviders = providersByCity(city.id).filter((p) =>
-  p.specialtyIds.includes(specialty.id)
-);
-const cityDoctors = doctorsByCity(city.id).filter(
-  (d) => d.primarySpecialtyId === specialty.id || d.secondarySpecialtyIds.includes(specialty.id)
-);
-
-const noindex = cityProviders.length + cityDoctors.length === 0;
 ---
-
-<BaseLayout
-  title={`${specialty.name} in ${city.name}`}
-  description={`${specialty.description} Find ${specialty.name.toLowerCase()} clinics and doctors in ${city.name}, ${city.state} on Vetlas.`}
-  noindex={noindex}
-  canonical={`/${city.slug}/${specialty.slug}/`}
->
-  <div class="container">
-    <a class="back-link mt-15" href={`/${city.slug}/`}>
-      <Icon name="back" class="icon icon-md" /> Veterinary care in {city.name}
-    </a>
-
-    <header class="page-head page-head-row page-head-row-top animate-fade-up">
-      <span class="card-icon card-icon-lg">
-        <Icon name={specialty.icon} class="icon icon-xl" />
-      </span>
-      <div>
-        <p class="eyebrow">{specialty.tagline}</p>
-        <h1>{specialty.name} in {city.name}</h1>
-        <p class="soft head-desc">{specialty.description}</p>
-      </div>
-    </header>
-
-
-    <section class="section-first" aria-labelledby="search-h">
-      <h2 class="visually-hidden" id="search-h">Search for other care</h2>
-      <UniversalSearch variant="compact" />
-    </section>
-
-    <section class="section-first" aria-labelledby="cs-p">
-      <div class="section-head">
-        <div>
-          <p class="section-eyebrow">Facilities</p>
-          <h2 class="section-title section-title-sm" id="cs-p">{specialty.name} clinics &amp; hospitals</h2>
-        </div>
-        <TrustBadge level="public" label="Public sources" />
-      </div>
-      {cityProviders.length > 0 ? (
-        <div class="facility-grid">
-          {cityProviders.map((p, i) => <FacilityCard provider={p} index={i} />)}
-        </div>
-      ) : (
-        <div class="empty-state card">
-          <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
-          <h2>No matches here yet</h2>
-          <p>We haven't listed a {specialty.name.toLowerCase()} facility in {city.name} in this directory.</p>
-          <div class="actions">
-            <a class="btn btn-primary" href={`/specialties/${specialty.slug}/`}>See all of India</a>
-            <a class="btn btn-secondary" href={`/${city.slug}/`}>All care in {city.name}</a>
-          </div>
-        </div>
-      )}
-    </section>
-
-    <section class="section-compact" aria-labelledby="cs-d">
-      <div class="section-head">
-        <div>
-          <p class="section-eyebrow">Doctors</p>
-          <h2 class="section-title section-title-sm" id="cs-d">{specialty.name} doctors</h2>
-        </div>
-        <TrustBadge level="public" label="Public sources" />
-      </div>
-      {cityDoctors.length > 0 ? (
-        <div class="doctor-grid">
-          {cityDoctors.map((d, i) => <DoctorCard doctor={d} index={i} />)}
-        </div>
-      ) : (
-        <div class="empty-state card">
-          <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
-          <h2>No doctors listed yet</h2>
-          <p>No {specialty.name.toLowerCase()} doctors in {city.name} in this directory. Check back soon.</p>
-          <div class="actions">
-            <a class="btn btn-primary" href="/search/?type=doctor">Browse all doctors</a>
-          </div>
-        </div>
-      )}
-    </section>
-  </div>
-</BaseLayout>
+<SpecialityDetail city={Astro.props.city} specialty={Astro.props.specialty}/>

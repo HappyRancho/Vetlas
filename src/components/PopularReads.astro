@@ -1,0 +1,99 @@
+---
+import { finds } from "../data/popular-finds";
+import { shampooGuide as lead } from "../data/owner-guides";
+
+const leadUrl = `/care-guide/${lead.slug}/`;
+const headlines: Record<string, (count: number) => string> = {
+  "veterinary-hospitals": count => `How ${count} animal hospitals compare on public ratings`,
+  "vet-clinics": count => `Inside the shortlist of ${count} rated vet clinics`,
+  "veterinarians": count => `Meet ${count} veterinarians practising across India`,
+  "veterinary-surgery": count => `Planning a surgical referral? Start with these ${count} vets`
+};
+---
+<section class="home-section press" aria-labelledby="popular-finds">
+  <header>
+    <div class="edition-line">
+      <h2 id="popular-finds">Popular reads</h2>
+      <time datetime="2026-11-23">23 November 2026</time>
+    </div>
+    <div class="masthead">ThatVetGuy</div>
+    <div class="edition-line press-folio"><span>Pet health &amp; veterinary care</span><span>India edition</span></div>
+  </header>
+  <article class="lead">
+    <div class="lead-copy">
+      <p class="desk">Coat care</p>
+      <h3><a href={leadUrl}>{lead.title}</a></h3>
+      <p class="standfirst">{lead.description}</p>
+      <a class="read-link" href={leadUrl} aria-label={`Read the guide: ${lead.title}`}>Read the guide <span aria-hidden="true">→</span></a>
+    </div>
+    <figure>
+      <a href={leadUrl} aria-label={lead.title}><img src={lead.image} alt={lead.alt} width="799" height="531" loading="lazy"/></a>
+      <figcaption>Photo: <a href={lead.photoSource}>{lead.credit}</a> · <a href={lead.licenseUrl}>{lead.license}</a> · cropped</figcaption>
+    </figure>
+  </article>
+  <nav aria-label="More headlines" class="briefs">
+    {finds.map(f => <a href={f.href}>
+      <span class="desk">{f.label}</span>
+      <strong>{headlines[f.slug](f.entries.length)}</strong>
+    </a>)}
+  </nav>
+</section>
+<style>
+@font-face {
+  font-family: VetlasPress;
+  src: url('/fonts/UnifrakturMaguntia-Book.ttf') format('truetype');
+  font-display: swap;
+}
+.press {
+  background: #fffdf5;
+  color: #25241e;
+  border: 1px solid #b7b4a4;
+  border-top: 4px solid #343b33;
+  padding: clamp(12px, 2.8vw, 32px);
+  box-shadow: 0 3px 0 -1px #e5e1d2, 0 4px 0 -1px #b9b7a7, 0 8px 18px #24352f12;
+}
+.edition-line { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.edition-line h2 { font: 720 .88rem/1.2 var(--display); margin: 0; color: #793b29; }
+.edition-line time, .press-folio, .desk, figcaption { font-family: var(--display); }
+.edition-line time, .press-folio { font-size: .74rem; color: #48483d; }
+.masthead {
+  font: 400 clamp(3.3rem, 9vw, 5.5rem)/1 VetlasPress, Georgia, serif;
+  text-align: center; padding: 9px 0 3px; color: #1b211c;
+}
+.press-folio { border-top: 3px double #343b33; border-bottom: 1px solid #79796c; padding-block: 4px; }
+.lead {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+  gap: clamp(12px, 2.6vw, 32px); padding-block: clamp(13px, 2vw, 24px);
+}
+.desk { display: block; color: #793b29; font-size: .73rem; font-weight: 750; margin: 0 0 5px; }
+.lead h3 { margin: 0; font: 700 clamp(1.9rem, 4.6vw, 3.9rem)/1.01 Georgia, serif; letter-spacing: -.046em; text-wrap: balance; }
+.standfirst { font: 400 clamp(.99rem, 1.55vw, 1.2rem)/1.36 Georgia, serif; margin: 10px 0 0; max-width: 48ch; }
+.lead figure { margin: 0; min-width: 0; }
+.lead figure > a { display: block; }
+.lead img { display: block; width: 100%; height: auto; aspect-ratio: 2.05; object-fit: cover; object-position: center 48%; }
+.lead figcaption { margin-top: 4px; color: #555448; font-size: .68rem; line-height: 1.35; }
+.lead figcaption a { text-decoration: underline; text-underline-offset: 2px; }
+.press .read-link { display: inline-flex; gap: 7px; align-items: center; min-height: 44px; font: 720 .85rem var(--display); color: #773e2b; }
+.briefs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 3px double #54594e; }
+.briefs a { display: block; padding: 12px; min-width: 0; }
+.briefs a + a { border-left: 1px solid #c6c4b5; }
+.briefs a:first-child { padding-left: 0; }
+.briefs strong { display: block; font: 700 clamp(1.05rem, 2vw, 1.48rem)/1.09 Georgia, serif; letter-spacing: -.025em; }
+.press a:focus-visible { outline: 3px solid #286c73; outline-offset: 2px; }
+.press a:hover, .briefs a:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 620px) {
+  .lead { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); align-items: start; gap: 6px 12px; }
+  .lead-copy { display: contents; }
+  .lead-copy .desk, .lead h3 { grid-column: 1 / -1; }
+  .lead-copy .desk { margin: 0; }
+  .lead h3 { text-wrap: pretty; margin-bottom: 3px; }
+  .standfirst { grid-column: 1; margin: 0; }
+  .lead figure { grid-column: 2; grid-row: 3 / 5; }
+  .lead img { aspect-ratio: 1.3; }
+  .lead .read-link { grid-column: 1; grid-row: 4; justify-self: start; }
+  .briefs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .briefs a { padding: 10px; }
+  .briefs a:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .briefs a:nth-child(n+3) { border-top: 1px solid #c6c4b5; }
+}
+</style>

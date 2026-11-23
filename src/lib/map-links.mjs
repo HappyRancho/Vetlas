@@ -3,8 +3,8 @@ export function googleDirections(provider,mode='driving') {
  if(provider.mapLocation?.placeId)params.set('destination_place_id',provider.mapLocation.placeId);
  return `https://www.google.com/maps/dir/?${params}`;
 }
-export function googlePreview(provider) {
- const params=new URLSearchParams({output:'embed',z:'16',hl:'en'});
+export function googlePreview(provider,zoom=16) {
+ const params=new URLSearchParams({output:'embed',z:String(zoom),hl:'en'});
  if(provider.mapLocation?.cid)params.set('cid',provider.mapLocation.cid);
  else params.set('q',`${provider.coordinates.lat},${provider.coordinates.lng}`);
  return `https://maps.google.com/maps?${params}`;

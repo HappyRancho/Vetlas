@@ -7,6 +7,7 @@ export const GET: APIRoute = ({ site }) => new Response([
   ...cities.map(c => "- ["+c.name+"]("+new URL(c.slug+"/", site)+") · "+providersByCity(c.id).length+" facilities"),
   ...ownerArticles.map(a => `- [${a.title}](${new URL("care-guide/"+a.slug+"/",site)}) · ${a.description}`),
   ...finds.map(f => `- [${f.title}](${new URL(f.href,site)}) · ${f.method}`),
+  "- [Veterinary specialities]("+new URL("specialties/",site)+") · Browse care by speciality, prepare for a visit, and find local facilities and doctors.",
   "- [Directory tools]("+new URL("more/",site)+")",
   "- [Animal owner and referral guide]("+new URL("care-guide/",site)+")",
   "- [Veterinarian profiles]("+new URL("veterinarians.json",site)+")",

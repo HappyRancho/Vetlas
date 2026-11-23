@@ -1,21 +1,22 @@
 ---
-import Icon from './Icon.astro';
 import {ownerArticles, guideChapters} from '../data/owner-guides';
+const groups = [
+  {label:"Sick & recovering",items:ownerArticles.filter(a=>a.group==="sick")},
+  {label:"Preventive care",items:ownerArticles.filter(a=>a.group==="preventive")}
+];
 ---
-<nav class="guide-shelf" aria-label="Animal owner guides">
-  {ownerArticles.map(a=><a class="story-card" href={'/care-guide/'+a.slug+'/'}>
-    <img src={a.image} alt="" loading="lazy" width="360" height="200"/>
+{groups.map(group=><section class="guide-group"><h2>{group.label}</h2><nav aria-label={group.label}>
+  {group.items.map(a=><a class="article-link" href={'/care-guide/'+a.slug+'/'}>
+    <img src={a.image} alt="" loading="lazy" width="240" height="152"/>
     <span><small>{a.topic}</small><strong>{a.title}</strong></span>
   </a>)}
-  {guideChapters.map(c=><a class="chapter-card" href={c.href}><span class="chapter-symbol"><Icon name={c.icon}/></span><span><strong>{c.label}</strong><small>{c.detail}</small></span></a>)}
-</nav>
+</nav></section>)}
+<nav class="care-referrals" aria-label="Referral guide chapters">{guideChapters.map(c=><a href={c.href}>{c.label}</a>)}</nav>
 <style>
-.guide-shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.guide-shelf a{min-width:0;text-decoration:none;border:1px solid #c6dad1;border-radius:15px;background:white;color:#1b423c;overflow:hidden}
-.story-card{display:grid;grid-template-columns:minmax(90px,40%) 1fr;align-items:center}.story-card img{width:100%;height:138px;object-fit:cover;object-position:50% 53%}
-.story-card>span{padding:12px}.story-card strong{display:block;font:600 clamp(1.05rem,2vw,1.6rem)/1.12 Georgia,serif}.story-card small{display:block;margin-bottom:5px;color:#416b57;font-weight:700;font-size:.8rem}
-.chapter-card{display:flex;gap:9px;align-items:center;padding:9px}.chapter-symbol{display:grid;place-items:center;width:36px;height:39px;flex:none;border-radius:12px;background:#e3f0e7;color:#246659}
-.chapter-card:nth-child(2n) .chapter-symbol{background:#f8ead9;color:#825b31}.chapter-symbol :global(svg){width:21px;height:21px}.chapter-card strong,.chapter-card small{display:block}.chapter-card strong{font:690 .96rem/1.18 var(--display)}.chapter-card small{font-size:.8rem;line-height:1.2;color:#506960;margin-top:3px}
-.guide-shelf a:hover strong{text-decoration:underline;text-underline-offset:3px}
-@media(max-width:600px){.story-card{display:flex;flex-direction:column;align-items:stretch}.story-card img{height:100px}.story-card>span{padding:9px}.chapter-card{gap:6px;padding:8px}.chapter-symbol{width:26px;height:32px}.chapter-card strong{font-size:.88rem}.chapter-card small{font-size:.76rem}}
+.guide-group nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.article-link{display:grid;grid-template-columns:minmax(80px,32%) 1fr;align-items:center;border:1px solid var(--rule);border-radius:13px;overflow:hidden;background:white;color:var(--ink);text-decoration:none}
+.article-link img{width:100%;height:100%;min-height:100px;object-fit:cover}.article-link span{padding:10px}
+.article-link small,.article-link strong{display:block}.article-link small{font-size:.82rem;color:var(--teal);margin-bottom:5px}.article-link strong{font:600 1.15rem/1.18 Georgia,serif}
+.care-referrals{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}.care-referrals a{display:inline-flex;align-items:center;min-height:42px;padding:6px 11px;border:1px solid var(--rule);border-radius:10px;background:white;color:var(--teal);font-weight:650}
+@media(max-width:650px){.guide-group nav{grid-template-columns:1fr}}
 </style>

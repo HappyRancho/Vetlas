@@ -1,0 +1,87 @@
+---
+import Icon from "./Icon.astro";
+import { ownerArticles, guideChapters } from "../data/owner-guides";
+const id = "guides-title";
+const title = "Guide for animal owners";
+const articles = ownerArticles.map(a=>({group:a.group,title:a.title,detail:a.topic,image:a.image,href:`/care-guide/${a.slug}/`}));
+const chapters = guideChapters.map(c=>({title:c.label,detail:c.detail,image:c.image,href:c.href}));
+const sections = [
+  {name:"Sick & recovering", items:articles.filter(a=>a.group==="sick")},
+  {name:"Preventive care", items:articles.filter(a=>a.group==="preventive")},
+  {name:"Referrals", items:chapters}
+];
+---
+<section class="home-section reading-shelf" data-kind="guides" aria-labelledby={id}>
+  <div class="shelf-heading">
+    <span class="shelf-icon"><Icon name="book"/></span>
+    <h2 id={id}>{title}</h2>
+    <a href="/care-guide/">All guides</a>
+  </div>
+  <vetlas-shelf>
+    <div class="shelf-tabs" aria-label={title} hidden>
+      {sections.map((s,i)=><button type="button" id={`${id}-tab-${i}`} aria-controls={`${id}-panel-${i}`}>{s.name}</button>)}
+    </div>
+    {sections.map((s,i)=><div class="shelf-panel" id={`${id}-panel-${i}`}>
+      <h3 class="fallback-title">{s.name}</h3>
+      <div class="cover-grid">
+        {s.items.map(item=><a class="shelf-item guide-teaser" href={item.href} aria-label={item.title}>
+          <img src={item.image} alt="" width="420" height="250" loading="lazy"/>
+          <span class="story-copy"><small>{item.detail}</small><strong>{item.title}</strong></span>
+        </a>)}
+      </div>
+    </div>)}
+  </vetlas-shelf>
+</section>
+<script>
+ class VetlasShelf extends HTMLElement {
+   connectedCallback() {
+     if (this.dataset.ready) return;
+     const tabs = Array.from(this.querySelectorAll<HTMLButtonElement>('.shelf-tabs button'));
+     const panels = Array.from(this.querySelectorAll<HTMLElement>('.shelf-panel'));
+     const bar = this.querySelector<HTMLElement>('.shelf-tabs')!;
+     const select = (index:number) => {
+       tabs.forEach((tab,i) => {
+         tab.tabIndex = i === index ? 0 : -1;
+         tab.setAttribute('aria-selected',String(i === index));
+         panels[i].hidden = i !== index;
+       });
+     };
+     tabs.forEach((tab,i) => {
+       tab.setAttribute('role','tab');
+       panels[i].setAttribute('role','tabpanel');
+       panels[i].setAttribute('aria-labelledby', tab.id);
+       tab.addEventListener('click',()=>select(i));
+       tab.addEventListener('keydown',event=>{
+         const positions: Record<string,number> = {ArrowRight:(i+1)%tabs.length,ArrowLeft:(i+tabs.length-1)%tabs.length,Home:0,End:tabs.length-1};
+         const next=positions[event.key];
+         if(next===undefined) return;
+         event.preventDefault(); select(next); tabs[next].focus();
+       });
+     });
+     bar.setAttribute('role','tablist');bar.hidden=false;
+     select(0);this.dataset.ready='true';
+   }
+ }
+ if (!customElements.get('vetlas-shelf')) customElements.define('vetlas-shelf',VetlasShelf);
+</script>
+<style>
+.reading-shelf{padding:clamp(14px,2.4vw,24px);border:1px solid #b4cecf;border-radius:20px;background:#e0eeef;box-shadow:0 4px 15px #234b3710}
+.shelf-heading{display:flex;align-items:center;gap:12px;margin-bottom:14px}.shelf-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#e5f1ea;color:#216b57}
+.shelf-icon :global(svg){width:24px;height:24px}.shelf-heading h2{margin:0;font:740 clamp(1.23rem,2.7vw,1.8rem)/1.12 var(--display);letter-spacing:-.035em;color:var(--deep)}
+.shelf-heading a{margin-left:auto;display:inline-flex;align-items:center;min-height:40px;color:#216956;font-size:.85rem;font-weight:700;white-space:nowrap}
+vetlas-shelf{display:block}.shelf-tabs{display:flex;padding:3px;border-radius:12px;background:#ecf3ef;margin-bottom:14px}.shelf-tabs[hidden],.shelf-panel[hidden],vetlas-shelf[data-ready] .fallback-title{display:none}
+.shelf-tabs button{flex:1;min-height:42px;padding:5px 8px;border:0;border-radius:9px;background:transparent;color:#2a4941;font:680 .94rem/1.18 var(--display);cursor:pointer}
+.shelf-tabs button[aria-selected=true]{background:#176354;color:white;box-shadow:0 2px 4px #184b3724}
+.shelf-item:focus-visible,.shelf-tabs button:focus-visible{outline:3px solid #347caf;outline-offset:2px}
+.cover-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(8px,1.5vw,16px)}
+.shelf-item{min-width:0;display:flex;flex-direction:column;color:var(--ink)}
+.guide-teaser{border:1px solid #b4ceca;border-radius:13px;overflow:hidden;background:#fff;box-shadow:0 2px 5px #24484712}
+.guide-teaser img{display:block;width:100%;height:auto;aspect-ratio:1.65;object-fit:cover}
+.story-copy{display:grid;gap:5px;padding:10px 12px}.story-copy small{color:#386b57;font:660 .79rem/1.2 var(--display)}
+.story-copy strong{font:600 clamp(1.05rem,2vw,1.45rem)/1.16 Georgia,serif;letter-spacing:-.018em}
+.shelf-item:hover strong{text-decoration:underline;text-underline-offset:3px}
+[data-kind="guides"] .shelf-icon { color: #fff; background: #32676b; }
+[data-kind="guides"] .shelf-tabs { background: #c4dcda; }
+@media(max-width:600px){.cover-grid{grid-template-columns:1fr}.guide-teaser{display:grid;grid-template-columns:minmax(88px,34%) 1fr;align-items:center}.guide-teaser img{height:88px;align-self:center;object-fit:cover}.story-copy{padding:9px 11px}}
+@media(max-width:380px){.reading-shelf{padding:12px}.cover-grid{gap:7px}.shelf-heading{gap:8px}.shelf-heading a{font-size:.8rem}}
+</style>
