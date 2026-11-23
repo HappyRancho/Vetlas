@@ -7,8 +7,7 @@ import ListingActions from "../components/ListingActions.astro";
 import CityTicker from "../components/CityTicker.astro";
 import FacilityMap from "../components/FacilityMap.astro";
 import RatingSummary from "../components/RatingSummary.astro";
-import PopularReads from "../components/PopularReads.astro";
-import HomeReadingShelf from "../components/HomeReadingShelf.astro";
+import EditorialShelf from "../components/EditorialShelf.astro";
 import "../styles/home.css";
 import { animalGroups } from "../data/animal-groups";
 
@@ -83,8 +82,8 @@ const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
     </section>
   </div>
   <FacilityMap/>
-  <HomeReadingShelf/>
-  <PopularReads/>
+  <EditorialShelf desk="guides"/>
+  <EditorialShelf desk="reads"/>
   <section class="home-section home-facilities" aria-labelledby="facility-title">
     <div class="home-heading index-heading"><Icon name="hospital"/><h2 id="facility-title">Featured facilities</h2><a href="/search/">Directory <Icon name="arrow"/></a></div>
     <div class="practice-rail">{featured.map(p => <article class="practice">

@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import {features,type Feature} from "../data/editorial";
+interface Props { article:Feature }
+const {article:a}=Astro.props;
+const paper=a.desk==="reads";
+const hub=paper?"/reads/":"/care-guide/";
+const hubName=paper?"Popular reads":"Care guide";
+const Picture=a.picture;
+const license=Picture.license?.includes("/") ? Picture.license.split("/") : null;
+const Content=a.document.Content;
+const urgentGuides=["cat-straining-to-urinate","heatstroke-on-a-walk","possible-poisoning-cat","dog-seizure-first-minutes"];
+const urgent=urgentGuides.includes(a.slug);
+const sections=a.document.getHeadings().filter(h=>h.depth===2);
+const minutes=Math.max(1,Math.ceil(a.document.rawContent().split(/\s+/).length/190));
+const referenceKeys=new Set(a.references.map(r=>r.url));
+const others=features.filter(x=>x.href!==a.href);
+const related=others.map(x=>({x,score:x.references.filter(r=>referenceKeys.has(r.url)).length*3+Number(x.topic===a.topic)*2+Number(x.image===a.image)})).sort((l,r)=>r.score-l.score);
+const schema={"@context":"https://schema.org","@type":"BlogPosting",headline:a.title,description:a.description,image:new URL(a.image,Astro.site),mainEntityOfPage:new URL(a.href,Astro.site),inLanguage:"en-IN",datePublished:"2026-11-24",dateModified:"2026-11-24",author:{"@type":"Organization",name:"Vetlas",url:new URL("/about/",Astro.site)},articleSection:a.topic,citation:a.references.map(r=>new URL(r.url,Astro.site).href)};
+---
+<Layout title={a.title} description={a.description} image={a.image} article>
+ <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+ <article class:list={["container","feature-story",paper?"press-story":"field-story"]}>
+  <Breadcrumbs items={[{name:"Home",href:"/"},{name:hubName,href:hub},{name:a.title,href:a.href}]}/>
+  <header class="feature-cover">
+    <div class="cover-words">
+      <p class="feature-section">{paper?"THAT VET GUY":"Vetlas care guide"} <span> / {a.topic}</span></p>
+      <h1>{a.title}</h1><p class="feature-deck">{a.description}</p>
+      <p class="feature-byline"><a href="/about/">Vetlas editorial</a> · <time datetime="2026-11-24">24 November 2026</time> · {minutes} min read</p>
+      {urgent && <a class="story-emergency" href="/emergency/">Find emergency veterinary care →</a>}
+    </div>
+    <figure><img src={Picture.src} srcset={Picture.srcset} sizes="(max-width:650px) 95vw, 440px" alt={Picture.alt} width="640" height="420" fetchpriority="high"/>
+      <figcaption>{Picture.source ? <a href={Picture.source}>{Picture.credit}</a> : Picture.credit}{license ? <> · <a href={`https://creativecommons.org/licenses/${Picture.license}/`}>{license[0].toUpperCase()} {license[1]}</a> · cropped</> : Picture.license && <> · {Picture.license}</>}</figcaption>
+    </figure>
+  </header>
+  <div class="feature-layout">
+   <nav class="feature-contents" aria-label="In this article"><strong>In this article</strong>{sections.map(h=><a href={'#'+h.slug}>{h.text}</a>)}<a href="#references">References</a></nav>
+   <div class="feature-text"><Content/>
+    <section id="references" class="feature-refs"><h2>References</h2><ul>{a.references.map(r=><li><a href={r.url}>{r.title}</a></li>)}</ul></section>
+    <aside class="feature-next"><strong>Continue reading</strong><a href={related[0].x.href}>{related[0].x.title} →</a><a href={hub}>{paper?"All newspaper editions":"All care guides"} →</a></aside>
+   </div>
+  </div>
+ </article>
+</Layout>

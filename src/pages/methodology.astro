@@ -17,6 +17,7 @@ import Icon from "../components/Icon.astro";
       </p>
     </header>
 
+    <nav class="policy-jumps" aria-label="Methods by topic"><a href="#doctor-evidence">Doctor profiles</a><a href="#map-evidence">Map pins</a><a href="#platform-ratings-method">Ratings &amp; photos</a><a href="#expense-estimates">Cost estimates</a></nav>
     <div class="doc mt-25 pb-1">
       <div class="doc-block" id="doctor-evidence"><h2>Veterinarian profiles & identity</h2><p>Profiles require a named practitioner, a documented qualification and an identifiable practice. Profiles link to practice and professional sources. Call the branch for the current consulting schedule.</p></div>
       <div class="doc-block" id="map-evidence"><h2>Map locations & nearby care</h2><p>All 15 mapped Indore facilities have a sourced branch location. Where a public Google Maps place link provides place geometry, we use that location rather than the map camera centre. Other pins use the centre of the branch’s published Plus Code cell, about 14 metres across. Animal Veterinary Hospital uses the destination in its website’s Google directions link. Sources, methods, Plus Codes and check dates are included in the public dataset. Entrances and current premises are not independently surveyed.</p><p>The comparison map uses OpenStreetMap with attribution; selected-clinic previews and routing open Google Maps. Nearby sorting uses straight-line distance from a location you choose to share with your browser. Vetlas does not send that location to its server or include it in shared view links. External map providers receive normal map requests; Google Maps handles directions and any location permission within its own service. Map tiles are loaded only for the visible map; no offline or bulk downloads are made.</p></div>
@@ -42,7 +43,7 @@ import Icon from "../components/Icon.astro";
         <p>Public-review notes summarize a small, explicitly labelled selection of visible accounts and link to the source. They do not establish recurring themes, verified visits or medical outcomes. Reddit discussions remain attributed community anecdotes. First-party Vetlas reviews are separate; none have been published. Future recurring-theme analysis will require stored review evidence and a stated sample size.</p>
       </div>
 
-      <div class="doc-block">
+      <div class="doc-block" id="expense-estimates">
         <h2><Icon name="wallet" class="icon icon-lg" /> Expense estimates</h2>
         <p>Published consultation fees are separate from community reports of the total visit bill, which includes consultation, medicine, tests and treatment. Unknown and conflicting fees are excluded from listed-fee averages.</p>
         <p>Visitors can report ₹1–1,000, ₹1,001–2,500, ₹2,501–5,000, ₹5,001–10,000, ₹10,001–25,000 or ₹25,001+. An optional exact total must fall within the chosen range. The estimated mean uses exact totals where available and range midpoints otherwise. Open-ended votes without an exact amount count in the distribution but are excluded from the mean.</p>

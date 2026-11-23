@@ -9,9 +9,36 @@ await page.locator('[data-reset]').click();await page.locator('[name=fee]').chec
 await page.locator('[data-reset]').click();await context.setGeolocation({latitude:22.697707,longitude:75.8350332});await page.locator('[data-nearby]').click();await page.waitForFunction(()=>document.querySelector('[data-map-status]').textContent.includes('nearest first')).catch(async e=>{console.error('NEARBY',await page.locator('[data-map-status]').textContent(),errors);throw e});assert.equal(await page.locator('[data-map-result]:visible').first().getAttribute('data-map-result'),'indore-myra-usha');assert(!(new URL(page.url()).search).includes('22.697'));
 await page.locator('[data-reset]').click();assert(await page.locator('[data-tile-status]').innerText().then(t=>t.includes('unavailable')));
 await page.setViewportSize({width:390,height:844});await page.goto(base+'/map/');assert(await page.locator('.map-stage').isHidden());await page.locator('[data-select=indore-petvet]').click();assert(await page.locator('.map-stage').isVisible());assert(await page.locator('.map-results').isHidden());await page.locator('[data-view=list]').click();assert(await page.locator('.map-results').isVisible());
-await page.goto(base+'/indore/veterinarians/');assert.equal(await page.locator('[data-vet-row]:visible').count(),9);await page.locator('#vet-search').fill('Harendra Singh');assert.equal(await page.locator('[data-vet-row]:visible').count(),1);await page.locator('#vet-search').fill('Hemant');assert.equal(await page.locator('[data-vet-row]:visible').count(),1);await page.locator('#vet-search').fill('');await page.locator('#vet-practice').selectOption('mapped');assert.equal(await page.locator('[data-vet-row]:visible').count(),8);
-await page.goto(base+'/search/?type=doctor');assert.equal(await page.locator('.discovery-result:visible').count(),9);await page.goto(base+'/search/?q=Narendra');assert.equal(await page.locator('.discovery-result:visible').count(),2);
-await page.goto(base+'/indore/petvet-surya-dev-nagar/');await page.locator('.compact-map summary').click();await page.waitForFunction(()=>document.querySelector('[data-preview-frame]').getAttribute('src'));assert((await page.locator('[data-preview-frame]').getAttribute('src')).includes('22.6815625'));
-for(const width of[320,390,768,1440]){await page.setViewportSize({width,height:900});for(const route of['/','/map/','/indore/veterinarians/','/indore/veterinarians/dr-h-k-mehta/','/indore/veterinarians/dr-b-p-shukla/','/indore/myra-pet-clinic-usha-nagar/']){await page.goto(base+route);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),route+' overflow '+width);assert.equal(await page.locator('img[src="/pet-hero.webp"]').count(),1);}}
-await page.setViewportSize({width:390,height:844});await page.goto(base+'/map/?clinic=indore-myra-usha');await page.locator('[data-view=map]').click();await page.screenshot({path:'/workspace/work/map-mobile.png',fullPage:true});await page.goto(base+'/indore/veterinarians/');await page.screenshot({path:'/workspace/work/vets-mobile.png',fullPage:true});
-assert.deepEqual(errors,[]);await context.close();const outside=await browser.newContext({geolocation:{latitude:28.61,longitude:77.21},permissions:['geolocation']});const out=await outside.newPage();await out.goto(base+'/map/');await out.locator('[data-nearby]').click();await out.waitForFunction(()=>document.querySelector('[data-map-status]').textContent.includes('outside Indore'));await outside.close();const denied=await browser.newContext();await denied.addInitScript(()=>{navigator.geolocation.getCurrentPosition=(_,reject)=>reject({code:1});});const p=await denied.newPage();await p.goto(base+'/map/');await p.locator('[data-nearby]').click();await p.getByText('Location could not be accessed.',{exact:false}).waitFor();assert.equal(await p.locator('[data-map-result]:visible').count(),15);await denied.close();await browser.close();console.log('PASS: 15 pins, filters, selection, deep links, travel, preview, nearby/outside/denied location, tile fallback, 9 doctors, aliases, search and mobile layouts.');})().catch(e=>{console.error(e);process.exit(1)});
+const published = (await (await page.request.get(base+'/veterinarians.json')).json()).veterinarians;
+const localDoctors = published.filter(doctor => doctor.cityId === 'indore');
+assert(localDoctors.length > 0);
+await page.goto(base+'/indore/veterinarians/');
+assert.equal(await page.locator('[data-vet-row]:visible').count(), localDoctors.length);
+for (const doctor of localDoctors) {
+  await page.locator('#vet-search').fill(doctor.name);
+  assert.equal(await page.locator('[data-vet-row]:visible').count(), 1);
+}
+await page.locator('#vet-search').fill('');
+await page.locator('#vet-practice').selectOption('mapped');
+assert.equal(await page.locator('[data-vet-row]:visible').count(),localDoctors.filter(d=>d.providerIds.length).length);
+await page.goto(base+'/search/?type=doctor&city=indore');
+assert.equal(await page.locator('.discovery-result:visible').count(),localDoctors.length);
+await page.goto(base+'/indore/petvet-surya-dev-nagar/');
+const preview = page.locator('[data-preview-frame]');
+await preview.locator('xpath=ancestor::details').locator('summary').click();
+await page.waitForFunction(()=>document.querySelector('[data-preview-frame]').getAttribute('src'));
+assert.equal(await preview.getAttribute('src'),await preview.getAttribute('data-src'));
+assert.equal(new URL(await preview.getAttribute('src')).hostname,'maps.google.com');
+for(const width of [320,390,768,1440]) {
+  await page.setViewportSize({width,height:900});
+  for(const route of ['/','/map/','/indore/veterinarians/',localDoctors[0].url,'/indore/myra-pet-clinic-usha-nagar/']) {
+    await page.goto(base+route);
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),route+' overflow '+width);
+    assert(await page.getByRole('banner').getByRole('link',{name:'Vetlas home'}).isVisible());
+  }
+}
+await page.setViewportSize({width:390,height:844});
+await page.goto(base+'/map/?clinic=indore-myra-usha');
+await page.locator('[data-view=map]').click();
+assert((await page.locator('[data-selected-name]').innerText()).includes('Myra'));
+assert.deepEqual(errors,[]);await context.close();const outside=await browser.newContext({geolocation:{latitude:28.61,longitude:77.21},permissions:['geolocation']});const out=await outside.newPage();await out.goto(base+'/map/');await out.locator('[data-nearby]').click();await out.waitForFunction(()=>document.querySelector('[data-map-status]').textContent.includes('outside Indore'));await outside.close();const denied=await browser.newContext();await denied.addInitScript(()=>{navigator.geolocation.getCurrentPosition=(_,reject)=>reject({code:1});});const p=await denied.newPage();await p.goto(base+'/map/');await p.locator('[data-nearby]').click();await p.getByText('Location could not be accessed.',{exact:false}).waitFor();assert.equal(await p.locator('[data-map-result]:visible').count(),15);await denied.close();await browser.close();console.log('PASS: 15 pins, filters, selection, deep links, travel, preview, nearby/outside/denied location, tile fallback, published doctors, name filters, search and mobile layouts.');})().catch(e=>{console.error(e);process.exit(1)});

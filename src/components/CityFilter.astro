@@ -1,0 +1,23 @@
+---
+interface Props {label:string; placeholder:string; target:string;}
+const {label,placeholder,target}=Astro.props;
+---
+<div class="city-filter" hidden data-city-filter={target}>
+ <label>{label}<input type="search" aria-controls={target} placeholder={placeholder}/></label>
+ <span role="status" aria-live="polite"></span>
+</div>
+<script>
+ for(const filter of document.querySelectorAll<HTMLElement>('[data-city-filter]')){
+   const list=document.getElementById(filter.dataset.cityFilter!);
+   const rows=[...list?.querySelectorAll<HTMLElement>('[data-city-match]')??[]];
+   if(!rows.length)continue;
+   const field=filter.querySelector('input')!,status=filter.querySelector('[role=status]')!;
+   filter.hidden=false;
+   field.addEventListener('input',()=>{
+     const q=field.value.trim().toLowerCase();
+     let n=0;
+     for(const row of rows){row.hidden=!row.dataset.cityMatch!.toLowerCase().includes(q); if(!row.hidden)n++;}
+     status.textContent=!q?'':n?`${n} ${n===1?'match':'matches'}`:'No matches. Clear the search to see all options.';
+   });
+ }
+</script>

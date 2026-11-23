@@ -1,0 +1,8 @@
+---
+import FeatureStory from "../../components/FeatureStory.astro";
+import { reads } from "../../data/editorial";
+export function getStaticPaths() {
+  return reads.map(article=>({params:{slug:article.slug},props:{article}}));
+}
+---
+<FeatureStory article={Astro.props.article}/>

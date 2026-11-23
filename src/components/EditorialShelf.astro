@@ -1,0 +1,14 @@
+---
+import EditorialGrid from "./EditorialGrid.astro";
+import {guides,reads,shampooCover} from "../data/editorial";
+interface Props { desk: "guides"|"reads" }
+const {desk} = Astro.props;
+const paper=desk==="reads";
+const titles=paper?["indore-hospital-or-clinic","rabies-after-bite","dental-x-rays","food-label","anaesthesia-recovery"]:[];
+const items=paper?[shampooCover,...titles.map(slug=>reads.find(a=>a.slug===slug)!)]:guides.slice(0,6);
+---
+<section class:list={["home-section","editorial-shelf",paper?"press-shelf":"field-shelf"]} aria-labelledby={paper?"popular-finds":"guides-title"}>
+  <h2 id={paper?"popular-finds":"guides-title"}>{paper?"Popular reads":"Guide for animal owners"}</h2>
+  <EditorialGrid items={items} paper={paper} label={paper?"Featured newspaper editions":"Featured care guides"}/>
+  <a class="shelf-more" href={paper?"/reads/":"/care-guide/"}>{paper?"Explore all reads":"Explore all guides"} <span aria-hidden="true">→</span></a>
+</section>

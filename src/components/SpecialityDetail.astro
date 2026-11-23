@@ -6,6 +6,7 @@ import FacilityCard from "./FacilityCard.astro";
 import DoctorCard from "./DoctorCard.astro";
 import UniversalSearch from "./UniversalSearch.astro";
 import {cities,providersBySpecialty,doctorsBySpecialty,type City,type Specialty} from "@data";
+import {features} from "../data/editorial";
 import {visitNotes} from "../data/speciality-visits";
 import "../styles/specialities.css";
 interface Props {specialty: Specialty; city?: City}
@@ -18,7 +19,15 @@ const national = `/specialties/${s.slug}/`;
 const title = city ? s.name+" in "+city.name : s.name;
 const links=[...providers.map(p=>({name:p.name,path:`/${p.cityId}/${p.slug}/`})),...doctors.map(d=>({name:"Dr. "+d.name,path:`/${d.cityId}/veterinarians/${d.slug}/`}))];
 const schema={"@context":"https://schema.org","@type":"CollectionPage",name:title,url:new URL(path,Astro.site),description:s.description,mainEntity:{"@type":"ItemList",numberOfItems:links.length,itemListElement:links.map((l,i)=>({"@type":"ListItem",position:i+1,name:l.name,url:new URL(l.path,Astro.site)}))}};
-const guide=s.id==="emergency"?{href:"/emergency/",label:"Find emergency contacts"}:s.id==="vaccination"?{href:"/care-guide/preventive-care-visit-checklist/",label:"Preventive visit checklist"}:["oncology","ophthalmology","imaging"].includes(s.id)?{href:"/care-guide/#referral",label:"Plan a referral"}:{href:"/care-guide/caring-for-a-sick-pet-at-home/",label:"Care after a vet visit"};
+const bySpeciality: Record<string,string> = {
+  general:"reading-a-vet-estimate",cardiology:"count-sleeping-breaths",dentistry:"dental-x-rays",
+  dermatology:"elimination-diet-household",emergency:"dog-seizure-first-minutes",exotics:"rabbit-stops-eating",
+  gastroenterology:"diarrhoea-record-for-the-vet",imaging:"ultrasound-or-xray",internal:"what-urine-reveals",
+  neurology:"dog-seizure-first-minutes",orthopedics:"older-dog-home-mobility",physiotherapy:"pain-without-a-yelp",
+  surgery:"checking-a-surgical-incision",vaccination:"reconstruct-vaccination-record"
+};
+const story=features.find(a=>a.slug===bySpeciality[s.id]);
+const guide=story?{href:story.href,label:story.title}:{href:"/care-guide/#referral",label:"Plan a specialist referral"};
 ---
 <BaseLayout title={title+" | Veterinary care on Vetlas"} description={s.description+" Explore listed practices, prepare for an appointment and find local contacts."} canonical={path} noindex={!links.length}>
   <script type="application/ld+json" set:html={JSON.stringify(schema)}/>

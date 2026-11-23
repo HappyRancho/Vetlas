@@ -20,7 +20,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
 
 <header class="site-header">
   <div class="container header-inner">
-    <Wordmark />
+    <div class="brand-stamp"><Wordmark /><span class="brand-purpose">Veterinary directory</span></div>
 
     <nav class="site-nav" aria-label="Primary">
       {nav.map((item) => (
@@ -31,8 +31,8 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
     </nav>
 
     <div class="header-actions">
-      <a class="header-icon-link" href="/about/" aria-label="About Vetlas and the data policy">
-        <Icon name="info" class="icon icon-md" />
+      <a class="header-icon-link" href="/search/" aria-label="Search veterinary care">
+        <Icon name="search" class="icon icon-md" />
       </a>
       <a class="urgent-link" href="/emergency/"><Icon name="siren" class="icon"/> Emergency</a>
     </div>

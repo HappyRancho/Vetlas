@@ -16,7 +16,7 @@ const schema = {
   dateModified:"2026-11-23",citation:a.sourceUrl,articleSection:a.topic,timeRequired:`PT${minutes}M`
 };
 ---
-<Layout title={"seoTitle" in a ? a.seoTitle : a.shortTitle+" for dog and cat owners"} description={a.description} image={a.image}>
+<Layout title={"seoTitle" in a ? a.seoTitle : a.shortTitle+" for dog and cat owners"} description={a.description} image={a.image} article>
 <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
 <article class="container journal">
   <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Care guide",href:"/care-guide/"},{name:a.shortTitle,href:path}]}/>

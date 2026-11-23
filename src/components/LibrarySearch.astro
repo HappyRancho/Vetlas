@@ -1,0 +1,35 @@
+---
+import EditorialGrid from "./EditorialGrid.astro";
+import type { Cover } from "../data/editorial";
+interface Props {items:Cover[];paper?:boolean}
+const {items,paper=false}=Astro.props;
+const schema={
+  "@context":"https://schema.org","@type":"CollectionPage",
+  name:paper?"Popular reads":"Vetlas care guide",url:new URL(Astro.url.pathname,Astro.site),
+  mainEntity:{"@type":"ItemList",numberOfItems:items.length,itemListElement:items.map((item,i)=>({
+    "@type":"ListItem",position:i+1,name:item.title,url:new URL(item.href,Astro.site)
+  }))}
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+<div class="editorial-library" data-library>
+  <label hidden class="library-filter">Find {paper?"a story":"a guide"}<input type="search" placeholder={paper?"Search by headline or subject":"Search by symptom, animal or topic"}/></label>
+  <p class="library-status" role="status" hidden></p>
+  <EditorialGrid items={items} paper={paper} label={paper?"Popular Reads archive":"Guide library"}/>
+</div>
+<script>
+ for (const shelf of document.querySelectorAll<HTMLElement>('[data-library]')) {
+   const label=shelf.querySelector('label')!;
+   const input=shelf.querySelector('input')!;
+   const status=shelf.querySelector<HTMLElement>('[role=status]')!;
+   const cards=[...shelf.querySelectorAll<HTMLElement>('[data-search]')];
+   label.hidden=false;
+   input.addEventListener('input',()=>{
+     const terms=input.value.trim().toLowerCase().split(/\s+/);
+     for(const card of cards) card.hidden=!terms.every(t=>card.dataset.search!.toLowerCase().includes(t));
+     const n=cards.filter(c=>!c.hidden).length;
+     status.hidden=!input.value.trim();
+     status.textContent=n ? `${n} ${n===1?'match':'matches'}` : 'No matches. Try another word or clear your search.';
+   });
+ }
+</script>

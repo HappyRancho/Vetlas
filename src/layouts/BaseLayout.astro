@@ -5,6 +5,10 @@ import "../styles/polish.css";
 import "../styles/atlas.css";
 import "../styles/notebook.css";
 import "../styles/identity.css";
+import "../styles/editorial.css";
+import "../styles/interiors.css";
+import {pageFamily} from "../data/page-family";
+import ReadingCompanion from "../components/ReadingCompanion.astro";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/inter";
 import displayFontUrl from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url";
@@ -19,11 +23,13 @@ interface Props {
   noindex?: boolean;
   canonical?: string;
   image?: string;
+  article?: boolean;
 }
-const { title, description, noindex = false, canonical, image } = Astro.props;
+const { title, description, noindex = false, canonical, image, article = false } = Astro.props;
 const siteUrl = Astro.site ?? Astro.url;
 const canonicalUrl = canonical ? new URL(canonical, siteUrl) : new URL(Astro.url.pathname, siteUrl);
 const path = Astro.url.pathname;
+const family = pageFamily(path);
 
 const isCurrent = (href: string) =>
   href === "/" ? path === "/" : path === href || path.startsWith(href);
@@ -45,7 +51,7 @@ const isCurrent = (href: string) =>
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site guide" />
     <meta property="og:locale" content="en_IN" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={article ? "article" : "website"} />
     <meta property="og:site_name" content="Vetlas" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -68,13 +74,14 @@ const isCurrent = (href: string) =>
       )
     }
   </head>
-  <body>
+  <body data-family={family}>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <SiteHeader path={path} />
 
     <main id="main">
       <slot />
+      <ReadingCompanion family={family}/>
     </main>
 
     <SiteFooter />

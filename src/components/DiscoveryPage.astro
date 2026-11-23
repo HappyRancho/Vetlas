@@ -105,6 +105,7 @@ const isNoindex = mode === "all" || rows.length === 0;
       <UniversalSearch variant="page" />
     </DirectoryHeader>
 
+    {mode==="emergency" && <details class="call-brief"><summary>What to tell the emergency team</summary><p>Lead with the symptom, your animal’s species and when it began. Say if your pet is struggling to breathe, has collapsed or cannot pass urine. Ask whether the team can receive your pet now and which entrance to use.</p><a href="/map/">Open the Indore clinic map →</a></details>}
     <section class="discovery-shell" aria-label="Filter results">
       <div class="discovery-filter-head">
         <div>

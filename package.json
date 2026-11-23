@@ -12,6 +12,7 @@
     "check:data": "esbuild scripts/check-data.ts --bundle --platform=node --format=esm --outfile=node_modules/.cache/check-data.mjs --log-level=error && node node_modules/.cache/check-data.mjs",
     "test:ratings": "node --test scripts/test-ratings.mjs",
     "check:directory": "node scripts/check-directory.mjs",
+    "test:editorial": "node scripts/test-editorial-ui.cjs",
     "test:browser": "node scripts/test-browser.cjs",
     "test:costs": "node --test scripts/test-cost-votes.mjs",
     "test:voting-api": "node scripts/test-voting-api.mjs",

@@ -1,0 +1,20 @@
+---
+import type {pageFamily} from "../data/page-family";
+interface Props {family:ReturnType<typeof pageFamily>}
+const {family}=Astro.props;
+const features={
+  directory:["Comparing two practices?","Check what a quoted fee covers before choosing a branch.","/reads/reading-a-vet-estimate/","Read the estimate guide","/specialities/directory.webp"],
+  urgent:["On the way to a clinic","Call ahead with the symptom, when it began and the animal’s species.","/care-guide/","Browse first-aid guides","/specialities/emergency.webp"],
+  places:["Preparing for the trip","A familiar carrier and a spare liner can make a cat’s journey easier.","/guides/cat-carrier-visit/","Plan the journey","/editorial/carrier.webp"],
+  people:["Preparing for a referral","Bring the clinical question, earlier reports and the medicines your pet is taking.","/care-guide/#referral","Read the referral guide","/guides/cover-referral.webp"],
+  doctor:["Before the appointment","Take your pet’s timeline, medicine labels and any report from the referring clinic.","/care-guide/#referral","Prepare for a referral","/guides/cover-referral.webp"],
+  practice:["After the consultation","Keep the discharge plan, observations and medicine times together.","/care-guide/caring-for-a-sick-pet-at-home/","Care after a vet visit","/guides/sick-pet-at-home.webp"],
+
+  tools:["Browse the newspaper","Read about diagnostic tests, treatment choices and care in Indian cities.","/reads/","Explore Popular Reads","/editorial/rabies-history.webp"],
+  review:["Describing the cost of a visit","Separate the consultation, tests, treatment and follow-up when sharing an estimate.","/reads/reading-a-vet-estimate/","Understanding the estimate","/specialities/general.webp"],
+  information:["Find a branch","Compare care by city, animal and speciality, then contact the practice directly.","/search/","Search the directory","/specialities/directory.webp"],
+};
+const row=family in features ? features[family as keyof typeof features] : undefined;
+---
+{row && <aside class="container route-companion"><a href={row[2]}><img src={row[4]} width="154" height="99" alt="" loading="lazy"/>
+ <span><strong>{row[0]}</strong><span>{row[1]}</span></span><b>{row[3]} →</b></a></aside>}

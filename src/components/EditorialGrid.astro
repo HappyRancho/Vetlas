@@ -1,0 +1,23 @@
+---
+import type { Cover } from "../data/editorial";
+interface Props { items: Cover[]; paper?: boolean; label: string }
+const {items,paper=false,label} = Astro.props;
+function headline(title:string) {
+  const words = title.split(" ");
+  const split = Math.max(1, words.length - (words.length > 7 ? 3 : 2));
+  return [words.slice(0,split).join(" "),words.slice(split).join(" ")];
+}
+---
+<nav class:list={["edition-grid", { "newspaper-grid":paper }]} aria-label={label}>
+ {items.map(a => <a class={paper ? "front-page" : "field-card"} href={a.href} aria-label={a.title} data-search={a.title+" "+a.topic+" "+a.description+" "+(a.keywords ?? "")}>
+   {paper ? <>
+     <span class="paper-mast" aria-hidden="true">THAT VET GUY</span>
+     <strong class="paper-title">{headline(a.title)[0]} <em>{headline(a.title)[1]}</em></strong>
+     <span class="paper-desk">{a.topic}</span>
+     <img src={a.image} srcset={a.srcset} sizes="(max-width: 700px) 45vw, (max-width: 1100px) 47vw, 535px" alt="" width="460" height="246" loading="lazy" decoding="async"/>
+   </> : <>
+     <img src={a.image} srcset={a.srcset} sizes="(max-width: 700px) 45vw, (max-width: 1100px) 47vw, 535px" alt="" width="460" height="250" loading="lazy" decoding="async"/>
+     <span class="field-copy"><small>{a.topic}</small><strong>{a.title}</strong></span>
+   </>}
+ </a>)}
+</nav>

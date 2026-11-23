@@ -1,0 +1,12 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import LibrarySearch from "../../components/LibrarySearch.astro";
+import { reads, shampooCover, shortlists } from "../../data/editorial";
+const items=[shampooCover,...reads,...shortlists];
+---
+<Layout title="Popular Reads | That Vet Guy veterinary newspaper" description="Explore original reporting and explainers on pet health, treatment choices, diagnostic tests and finding veterinary care in India.">
+ <div class="container reads-archive"><Breadcrumbs items={[{name:"Home",href:"/"},{name:"Popular reads",href:"/reads/"}]}/>
+ <header class="archive-mast"><span>THAT VET GUY</span><h1>Popular reads</h1><p>Pet health, the decisions behind treatment and the people who provide care.</p></header>
+ <LibrarySearch items={items} paper/></div>
+</Layout>

@@ -8,7 +8,7 @@ const items = [
   { label: "Home", href: "/", icon: "home", active: !segment },
   { label: "Find", href: "/search/", icon: "search", active: ["search","hospitals","clinics","doctors","specialists","specialties","emergency","map"].includes(segment) },
   { label: "City", href: "/locations/", icon: "pin", active: segment === "locations" || cities.some(c => c.slug === segment) },
-  { label: "Guide", href: "/care-guide/", icon: "book", active: segment === "care-guide" },
+  { label: "Guide", href: "/care-guide/", icon: "book", active: ["care-guide","guides","reads","finds"].includes(segment) },
   { label: "More", href: "/more/", icon: "dots", active: ["more","about","methodology","review","privacy","rankings"].includes(segment) }
 ];
 ---

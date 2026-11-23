@@ -1,0 +1,221 @@
+{
+  "anaesthesia": {
+    "src": "/editorial/anaesthesia.webp",
+    "alt": "A veterinary team preparing a working dog for anaesthesia",
+    "credit": "U.S. Marine Corps",
+    "source": "https://commons.wikimedia.org/wiki/File:USMC-12393.jpg",
+    "license": "Public domain",
+    "srcset": "/editorial/thumbs/anaesthesia.webp 420w, /editorial/anaesthesia.webp 950w"
+  },
+  "bandage": {
+    "src": "/editorial/bandage.webp",
+    "alt": "A spaniel resting with a bandaged foot",
+    "credit": "Coronado Animal Hospital",
+    "source": "https://commons.wikimedia.org/wiki/File:20070114_dog_with_bandaged_foot.jpg",
+    "license": "by-sa/2.5",
+    "srcset": "/editorial/thumbs/bandage.webp 420w, /editorial/bandage.webp 950w"
+  },
+  "cardiology": {
+    "src": "/specialities/cardiology.webp",
+    "alt": "A clinician reviewing a cardiac ultrasound",
+    "credit": "Vetlas editorial illustration"
+  },
+  "carrier": {
+    "src": "/editorial/carrier.webp",
+    "alt": "A cat inside a soft-sided carrier",
+    "credit": "Tyler Vigen",
+    "source": "https://commons.wikimedia.org/wiki/File:Cat_in_soft_side_cat_carrier.jpg",
+    "license": "by/4.0",
+    "srcset": "/editorial/thumbs/carrier.webp 322w, /editorial/carrier.webp 582w"
+  },
+  "cat-at-window": {
+    "src": "/guides/cat-at-window.webp",
+    "alt": "A cat resting beside a window",
+    "credit": "Astraeides",
+    "source": "https://commons.wikimedia.org/wiki/File:Cat_looking_out_the_window_curiously.jpg",
+    "license": "by-sa/4.0",
+    "srcset": "/editorial/thumbs/cat-at-window.webp 315w, /guides/cat-at-window.webp 645w"
+  },
+  "cockatiel": {
+    "src": "/editorial/cockatiel.webp",
+    "alt": "A male cockatiel perched on a branch",
+    "credit": "Ganatron",
+    "source": "/about/#animal-photo-credits"
+  },
+  "collar": {
+    "src": "/editorial/collar.webp",
+    "alt": "A dog wearing a protective Elizabethan collar",
+    "credit": "Louise Docker (aussiegall)",
+    "source": "https://commons.wikimedia.org/wiki/File:Kelpie_wearing_an_Elizabethan_collar.jpg",
+    "license": "by/2.0",
+    "srcset": "/editorial/thumbs/collar.webp 280w, /editorial/collar.webp 507w"
+  },
+  "dental": {
+    "src": "/editorial/dental.webp",
+    "alt": "Calculus on a dog’s teeth, viewed from the side",
+    "credit": "Uwe Gille",
+    "source": "https://commons.wikimedia.org/wiki/File:Zahnstein-Hund.jpg",
+    "license": "by-sa/3.0",
+    "srcset": "/editorial/thumbs/dental.webp 420w, /editorial/dental.webp 950w"
+  },
+  "dentistry": {
+    "src": "/specialities/dentistry.webp",
+    "alt": "A veterinary dental examination",
+    "credit": "Vetlas editorial illustration"
+  },
+  "dermatology": {
+    "src": "/specialities/dermatology.webp",
+    "alt": "A clinician examines a pet’s skin",
+    "credit": "Vetlas editorial illustration"
+  },
+  "directory": {
+    "src": "/specialities/directory.webp",
+    "alt": "A dog and cat at a veterinary desk",
+    "credit": "Vetlas editorial illustration"
+  },
+  "domestic-tabby": {
+    "src": "/editorial/domestic-tabby.webp",
+    "alt": "A resting domestic shorthair cat",
+    "credit": "Andrewwforsale",
+    "source": "/about/#animal-photo-credits",
+    "srcset": "/editorial/thumbs/domestic-tabby.webp 420w, /editorial/domestic-tabby.webp 760w"
+  },
+  "emergency": {
+    "src": "/specialities/emergency.webp",
+    "alt": "Veterinary emergency care",
+    "credit": "Vetlas editorial illustration"
+  },
+  "flea": {
+    "src": "/editorial/flea.webp",
+    "alt": "False-colour electron micrograph of an adult flea",
+    "credit": "CDC / Janice Haney Carr",
+    "source": "https://commons.wikimedia.org/wiki/File:Flea_Scanning_Electron_Micrograph_False_Color.jpg",
+    "license": "Public domain",
+    "srcset": "/editorial/thumbs/flea.webp 325w, /editorial/flea.webp 589w"
+  },
+  "gastroenterology": {
+    "src": "/specialities/gastroenterology.webp",
+    "alt": "Veterinary abdominal assessment",
+    "credit": "Vetlas editorial illustration"
+  },
+  "general": {
+    "src": "/specialities/general.webp",
+    "alt": "A dog being examined in a clinic",
+    "credit": "Vetlas editorial illustration"
+  },
+  "imaging": {
+    "src": "/specialities/imaging.webp",
+    "alt": "Veterinary diagnostic imaging",
+    "credit": "Vetlas editorial illustration"
+  },
+  "indian-dog": {
+    "src": "/editorial/indian-dog.webp",
+    "alt": "An Indian dog in Howrah",
+    "credit": "Biswarup Ganguly",
+    "source": "/about/#animal-photo-credits",
+    "srcset": "/editorial/thumbs/indian-dog.webp 420w, /editorial/indian-dog.webp 760w"
+  },
+  "insulin": {
+    "src": "/editorial/insulin.webp",
+    "alt": "An insulin pen with its component parts shown",
+    "credit": "PerPlex",
+    "source": "https://commons.wikimedia.org/wiki/File:Insulin_pen.JPG",
+    "license": "Public domain",
+    "srcset": "/editorial/thumbs/insulin.webp 420w, /editorial/insulin.webp 950w"
+  },
+  "internal": {
+    "src": "/specialities/internal.webp",
+    "alt": "A veterinarian examines a cat",
+    "credit": "Vetlas editorial illustration"
+  },
+  "kibble": {
+    "src": "/editorial/kibble.webp",
+    "alt": "A cat eating dry food from a bowl",
+    "credit": "irrational cat",
+    "source": "https://commons.wikimedia.org/wiki/File:Catdryfood.jpg",
+    "license": "by-sa/2.0",
+    "srcset": "/editorial/thumbs/kibble.webp 315w, /editorial/kibble.webp 570w"
+  },
+  "lop-rabbit": {
+    "src": "/editorial/lop-rabbit.webp",
+    "alt": "A Holland Lop rabbit",
+    "credit": "SirDukeOfAwe",
+    "source": "/about/#animal-photo-credits"
+  },
+  "meal-bowl": {
+    "src": "/guides/meal-bowl.webp",
+    "alt": "Dry dog food served in a white bowl",
+    "credit": "James Redekop",
+    "source": "https://commons.wikimedia.org/wiki/File:Dog_food_in_a_bowl.jpg",
+    "license": "by-sa/2.0",
+    "srcset": "/editorial/thumbs/meal-bowl.webp 420w, /guides/meal-bowl.webp 860w"
+  },
+  "myra": {
+    "src": "/facilities/indore-myra-usha.webp",
+    "alt": "Myra Pet Clinic & Surgery Centre in Usha Nagar, Indore",
+    "credit": "Myra Pet Clinic",
+    "source": "https://www.myrapetclinic.co.in/",
+    "srcset": "/editorial/thumbs/myra.webp 420w, /facilities/indore-myra-usha.webp 1000w"
+  },
+  "neurology": {
+    "src": "/specialities/neurology.webp",
+    "alt": "A veterinarian observes a dog walking",
+    "credit": "Vetlas editorial illustration"
+  },
+  "orthopedics": {
+    "src": "/specialities/orthopedics.webp",
+    "alt": "A veterinarian examines a limb radiograph",
+    "credit": "Vetlas editorial illustration"
+  },
+  "rabies-history": {
+    "src": "/editorial/rabies-history.webp",
+    "alt": "People holding treatment cards outside the Pasteur Institute Hospital in Kasauli, circa 1910",
+    "credit": "Wellcome Collection",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Pasteur_Institute_Hospital%2C_Kasauli%2C_India_Wellcome_V0030176.jpg",
+    "license": "by/4.0",
+    "srcset": "/editorial/thumbs/rabies-history.webp 420w, /editorial/rabies-history.webp 950w"
+  },
+  "resting": {
+    "src": "/guides/sick-pet-at-home.webp",
+    "alt": "An owner watching a dog resting beside its water bowl",
+    "credit": "Vetlas editorial illustration",
+    "srcset": "/editorial/thumbs/resting.webp 420w, /guides/sick-pet-at-home.webp 960w"
+  },
+  "shelf": {
+    "src": "/editorial/shelf.webp",
+    "alt": "Shelves of packaged pet food at a supermarket",
+    "credit": "Jeffrey O. Gustafson",
+    "source": "https://commons.wikimedia.org/wiki/File:Pet_Food_Aisle.jpg",
+    "license": "by-sa/2.0",
+    "srcset": "/editorial/thumbs/shelf.webp 420w, /editorial/shelf.webp 950w"
+  },
+  "tablets": {
+    "src": "/editorial/tablets.webp",
+    "alt": "Coated human ibuprofen tablets, including a broken tablet",
+    "credit": "Ragesoss",
+    "source": "https://commons.wikimedia.org/wiki/File:200mg_ibuprofen_tablets.jpg",
+    "license": "by-sa/3.0",
+    "srcset": "/editorial/thumbs/tablets.webp 420w, /editorial/tablets.webp 960w"
+  },
+  "tick": {
+    "src": "/editorial/tick.webp",
+    "alt": "A brown dog tick on a leaf",
+    "credit": "U.S. federal government image via Wikimedia Commons",
+    "source": "https://commons.wikimedia.org/wiki/File:Rhipicephalus_sanguineus.jpg",
+    "license": "Public domain",
+    "srcset": "/editorial/thumbs/tick.webp 300w, /editorial/tick.webp 542w"
+  },
+  "urine": {
+    "src": "/editorial/urine.webp",
+    "alt": "Urine specimens illustrating different colours and clarity",
+    "credit": "R. Lehmann",
+    "source": "https://commons.wikimedia.org/wiki/File:Urine_samples_of_varying_colour_and_clarity.jpg",
+    "license": "by/4.0",
+    "srcset": "/editorial/thumbs/urine.webp 420w, /editorial/urine.webp 950w"
+  },
+  "vaccination": {
+    "src": "/specialities/vaccination.webp",
+    "alt": "A pet receiving preventive care",
+    "credit": "Vetlas editorial illustration"
+  }
+}
