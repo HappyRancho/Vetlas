@@ -1,6 +1,6 @@
 ---
 import Icon from "./Icon.astro";
-import { suggestionEntries } from "@data/search";
+
 
 interface Props {
   variant?: "hero" | "page" | "compact";
@@ -65,12 +65,8 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
     </button>
   </div>
   <div class="usearch-panel" id={`${uid}-panel`} role="listbox" aria-label="Search suggestions" hidden></div>
-  <p class="usearch-hint">
-    Try <button type="button" class="usearch-example" data-q="Dermatology in Bengaluru">Dermatology in Bengaluru</button>
-    or <button type="button" class="usearch-example" data-q="24×7 hospital Mumbai">24×7 hospital Mumbai</button>
-  </p>
 </form>
-<script type="application/json" id={`${uid}-data`} set:html={JSON.stringify(suggestionEntries)} />
+
 
 <script>
   type Entry = {
@@ -111,13 +107,6 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
       .trim();
   }
 
-  function mentions(entry: Entry, query: string) {
-    const label = normalize(entry.label);
-    if (query.includes(label)) return true;
-    const anchor = label.split(" ").find((token) => token.length >= 4);
-    return anchor ? query.split(" ").includes(anchor) : false;
-  }
-
   function rank(entry: Entry, rawQuery: string) {
     if (!rawQuery) return 0;
     const query = normalize(rawQuery);
@@ -136,16 +125,11 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
     const input = form.querySelector<HTMLInputElement>('input[name="q"]')!;
     const panel = form.querySelector<HTMLElement>(".usearch-panel")!;
     const clear = form.querySelector<HTMLButtonElement>(".usearch-clear")!;
-    const dataId = form.dataset.suggestions;
-    const dataNode = dataId ? document.getElementById(dataId) : null;
-    if (!dataNode) return;
-
     let entries: Entry[] = [];
-    try {
-      entries = JSON.parse(dataNode.textContent || "[]") as Entry[];
-    } catch {
-      entries = [];
-    }
+    let loading: Promise<void> | undefined;
+    const load = () => loading ??= fetch("/suggestions.json")
+      .then(response => response.json()).then(data => { entries = data; if (document.activeElement === input) draw(input.value); })
+      .catch(() => { loading = undefined; });
 
     let active = -1;
     let options: HTMLElement[] = [];
@@ -173,19 +157,6 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
         .map((item) => item.entry);
 
       if (raw) {
-        const nearCity = entries.find((e) => e.kind === "city" && mentions(e, q));
-        const nearSpec = entries.find((e) => e.kind === "specialty" && mentions(e, q));
-        if (nearCity && nearSpec) {
-          const citySlug = nearCity.href.replace(/^\//, "").replace(/\/$/, "");
-          const specSlug = nearSpec.href.replace(/^\/specialties\//, "").replace(/\/$/, "");
-          matches.unshift({
-            kind: "specialty",
-            label: `${nearSpec.label} in ${nearCity.label}`,
-            sub: "City × speciality page",
-            href: `/${citySlug}/${specSlug}/`,
-            keywords: "",
-          });
-        }
         matches.unshift({
           kind: "search",
           label: `Search for “${raw}”`,
@@ -261,7 +232,7 @@ const uid = id ?? `us-${Math.random().toString(36).slice(2, 8)}`;
       syncFilter();
     }
 
-    input.addEventListener("focus", () => draw(input.value));
+    input.addEventListener("focus", () => { load(); draw(input.value); });
     input.addEventListener("input", () => {
       draw(input.value);
       updateClear();

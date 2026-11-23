@@ -1,7 +1,11 @@
-import { veterinarians } from '../data/veterinarians';
-import { providers as allProviders } from '../data';
-const providers = allProviders.filter(p => p.cityId === 'indore');
-import { summarizeRatings } from '../lib/ratings.mjs';
+import { providers,providersDoctors } from "../data";
+import { vetsForFacility } from "../data/veterinarians";
+import { summarizeRatings } from "../lib/ratings.mjs";
 export function GET() {
- return new Response(JSON.stringify({version:5,scope:'Indore directory',checked:'2026-11-15',limitations:'Public-source facts, not independent clinical verification. Unknown fields omitted. Platform rating snapshots retain source, access method and observation date; counts are never pooled. Original public-source photo URLs, credits and check dates are included. Google Maps score observations are dated snapshots; optional live Places access requires configuration. Community costs are live at /api/cost-votes/{provider-id} and are unverified reports, not listed consultation fees. Location provenance, Plus Codes and coordinate methods are included for all 15 facilities; pins are not independently surveyed. Doctor identity and qualification caveats are explicit in /veterinarians.json. Historical and conflicting consultationListing fees are excluded from numeric comparisons.',veterinariansDataset:'/veterinarians.json',facilities:providers.map(p => ({...p, veterinarianProfiles:veterinarians.filter(v=>v.providerIds.includes(p.id)).map(v=>({name:v.name,url:`/indore/veterinarians/${v.slug}/`})), platformRatingSummary:{...summarizeRatings(p.platformRatings),method:"equal-platform-mean",coverage:"available sources only; overlap possible; not unique-reviewer average"}}))},null,2),{headers:{'Content-Type':'application/json; charset=utf-8'}});
+  const facilities = providers.map(p => ({
+    ...p, url: `/${p.cityId}/${p.slug}/`,
+    veterinarianProfiles: [...vetsForFacility(p.id), ...providersDoctors(p)].map(d=>({name:d.name,url:`/${p.cityId}/veterinarians/${d.slug}/`})),
+    platformRatingSummary: summarizeRatings(p.platformRatings)
+  }));
+  return Response.json({version:6,scope:"Published ten-city directory",facilities});
 }

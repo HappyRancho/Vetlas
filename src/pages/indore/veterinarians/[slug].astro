@@ -10,7 +10,7 @@ export function getStaticPaths(){return veterinarians.map(vet=>({params:{slug:ve
 const {vet}=Astro.props;
 const practices=providers.filter(p=>vet.providerIds.includes(p.id));
 const path=`/indore/veterinarians/${vet.slug}/`;
-const schema={'@context':'https://schema.org','@type':'Person','@id':new URL(path,Astro.site).href+'#person',name:`Dr. ${vet.name}`,alternateName:vet.aliases,url:new URL(path,Astro.site).href,jobTitle:'Veterinarian',image:vet.imageUrl?new URL(vet.imageUrl,Astro.site).href:undefined,description:vet.about,subjectOf:vet.sources.filter(s=>s.access!=='user-confirmed').map(s=>({'@type':'WebPage',url:s.url,name:s.label}))};
+const schema={'@context':'https://schema.org','@type':'Person','@id':new URL(path,Astro.site).href+'#person',name:`Dr. ${vet.name}`,alternateName:vet.aliases,url:new URL(path,Astro.site).href,jobTitle:'Veterinarian',workLocation:practices.map(p=>({'@id':new URL('/indore/'+p.slug+'/#facility',Astro.site).href})),image:vet.imageUrl?new URL(vet.imageUrl,Astro.site).href:undefined,description:vet.about,subjectOf:vet.sources.filter(s=>s.access!=='user-confirmed').map(s=>({'@type':'WebPage',url:s.url,name:s.label}))};
 ---
 <BaseLayout title={`Dr. ${vet.name}, veterinarian in Indore — practice & fees | Vetlas`} description={`Find Dr. ${vet.name} in ${vet.area}, Indore. Read sourced practice details, published qualifications, consultation information and appointment guidance.`} canonical={path}>
  <script type="application/ld+json" set:html={JSON.stringify(schema)} />

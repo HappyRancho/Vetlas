@@ -3,11 +3,11 @@ import { summarizeRatings } from "../lib/ratings.mjs";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "./Icon.astro";
 import UniversalSearch from "./UniversalSearch.astro";
-import FacilityCard from "./FacilityCard.astro";
+
 import VetCard from "./VetCard.astro";
 import { veterinarians, vetsForFacility } from "../data/veterinarians";
 import DoctorCard from "./DoctorCard.astro";
-import MapPreview from "./MapPreview.astro";
+
 
 import { cityById, specialtyById, cities, specialties, type Provider, type Doctor } from "@data";
 
@@ -87,13 +87,13 @@ const availableProviders = providerRows.filter((row) => row.provider);
 const serviceOptions = [...new Set(availableProviders.flatMap((row) => row.provider.services))]
   .sort((a, b) => a.localeCompare(b));
 const petOptions = [
-  ...new Set([...rows.flatMap((row) => row.species.split(" ").filter(Boolean)), "farm"]),
+  ...new Set(rows.flatMap((row) => row.species.split(" ").filter(Boolean))),
 ].sort((a, b) => a.localeCompare(b));
 const localityOptions = [...new Set(availableProviders.map((row) => row.locality))]
   .sort((a, b) => a.localeCompare(b));
 const stateOptions = [...new Set(availableProviders.map((row) => row.state))]
   .sort((a, b) => a.localeCompare(b));
-const isNoindex = true;
+const isNoindex = mode === "all" || rows.length === 0;
 ---
 
 <BaseLayout title={`${title} — Vetlas`} description={description} noindex={isNoindex}>
@@ -159,7 +159,7 @@ const isNoindex = true;
       <div class="active-filter-chips" id="active-filter-chips" aria-label="Active filters"></div>
     </section>
 
-    <MapPreview />
+
     <ol class="discovery-results" id="discovery-results">
       {rows.map((row, index) => (
         <li
@@ -179,7 +179,7 @@ const isNoindex = true;
           data-search={row.search}
         >
           {row.kind === "facility"
-            ? <FacilityCard provider={row.provider} index={index} />
+            ? <article class="result-summary"><p class="kicker">{row.provider.type} · {row.city}</p><h2><a href={`/${row.city}/${row.provider.slug}/`}>{row.name}</a></h2><p>{row.locality} · {row.provider.hoursNote ? row.provider.hoursNote.split(" · ")[0].slice(0,64) : row.provider.hours.open24 ? "24-hour service" : "Check hours with practice"}</p><div class="listing-actions"><a href={`/${row.city}/${row.provider.slug}/`}>View practice →</a>{row.provider.phone && <a href={`tel:${row.provider.phone.replace(/[^+\d]/g,"")}`}>Call</a>}</div></article>
             : row.kind === "veterinarian" ? <VetCard vet={row.vet} /> : <DoctorCard doctor={row.doctor} index={index} />}
         </li>
       ))}
@@ -220,7 +220,7 @@ const isNoindex = true;
     const params = new URLSearchParams(window.location.search);
     let query = (params.get("q") || "").trim().toLowerCase();
     const normalize = (value) => value.toLowerCase().replace(/×/g, "x").replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\s+/g, " ").trim();
-    const tokenQuery = normalize(query).split(" ").filter((token) => !["a", "an", "and", "at", "for", "in", "me", "near", "of", "the", "to", "with", "vet", "vets", "veterinary"].includes(token));
+    let tokenQuery = normalize(query).split(" ").filter((token) => !["a", "an", "and", "at", "for", "in", "me", "near", "of", "the", "to", "with", "vet", "vets", "veterinary"].includes(token));
     const selected = (key) => controls[key]?.value || "";
     const labelFor = (key, value) => controls[key]?.selectedOptions?.[0]?.textContent || value;
 
@@ -299,7 +299,7 @@ const isNoindex = true;
     }
     Object.values(controls).forEach((control) => control.addEventListener("change", apply));
     clear.addEventListener("click", () => {
-      query = ""; tokenQuery.splice(0);
+      query = ""; tokenQuery = [];
       if (mode === "all") fixedMode = "";
       const input = document.querySelector('form[data-universal-search] input[name="q"]');
       if (input) { input.value = ""; input.dispatchEvent(new Event("input", { bubbles: true })); }

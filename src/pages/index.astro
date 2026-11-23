@@ -1,204 +1,29 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import Layout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import UniversalSearch from "../components/UniversalSearch.astro";
-import VetPortrait from "../components/VetPortrait.astro";
-import { veterinarians } from "../data/veterinarians";
-import FeaturedFacility from "../components/FeaturedFacility.astro";
 import { cities, providers, specialties } from "@data";
-
-const chipCities = cities.slice(0, 5);
-
-const discovery = [
-  { photo:"/facilities/indore-animal-hospital.webp", href: "/search/?type=hospital", label: "Hospitals", icon: "hospital", sub: `${providers.filter((p) => p.type === "hospital").length} listings` },
-  { photo:"/facilities/indore-royal-kesharbagh.webp", href: "/search/?type=clinic", label: "Clinics", icon: "building", sub: `${providers.filter((p) => p.type === "clinic").length} listings` },
-  { photo:"/doctors/narendra-chouhan.webp", href: "/indore/veterinarians/", label: "Doctors", icon: "doctor", sub: "Browse by speciality" },
-  { photo:"/doctors/rashmi-khandelwal.webp", href: "/specialties/", label: "Specialists", icon: "stethoscope", sub: `${specialties.length} areas of care` },
+const routes = [
+  ["hospital","Hospitals","Inpatient & referral care","/hospitals/"],
+  ["building","Clinics","Consultations & checkups","/clinics/"],
+  ["doctor","Veterinarians","Qualifications & practices","/doctors/"],
+  ["siren","Emergency care","Find a facility to call","/emergency/"]
 ];
-
-const specSlugs = ["general-practice", "surgery", "dermatology", "orthopedics", "ophthalmology", "dentistry"];
-const stripSpecs = specSlugs
-  .map((slug) => specialties.find((s) => s.slug === slug))
-  .filter((s): s is NonNullable<typeof s> => Boolean(s));
-
-const featured = providers.slice(0, 3);
-
-
-const pets = [
-  { v: "dog", l: "Dogs", icon: "dog" },
-  { v: "cat", l: "Cats", icon: "cat" },
-  { v: "bird", l: "Birds", icon: "bird" },
-  { v: "rabbit", l: "Rabbits", icon: "rabbit" },
-  { v: "hamster", l: "Small pets", icon: "hamster" },
-  { v: "farm", l: "Farm animals", icon: "cow" },
-];
+const feature = providers.find(p => p.imageUrl && p.cityId === "chennai")!;
 ---
-
-<BaseLayout
-  title="Vetlas — find veterinary care in India, calmly"
-  description="Discover veterinary hospitals, clinics and doctors across India. Compare locations, specialities, facilities, fees and sourced platform ratings — with every fact clearly labelled."
->
-  <div class="container home">
-    <section class="hero" aria-label="Find veterinary care">
-      <div class="hero-copy">
-        <p class="hero-trust"><Icon name="shield" class="icon" /> Your veterinary care companion</p>
-        <h1 class="hero-title">Choose a vet<br />with <span>confidence.</span></h1>
-        <p class="hero-sub">
-          Discover veterinary clinics and care in Indore.
-        </p>
-
-        </div>
-      <div class="hero-search">
-        <UniversalSearch variant="hero" />
-
-        <div class="city-chips" role="group" aria-label="Filter results by city">
-          <button type="button" class="city-chip" data-city="" data-name="India" aria-pressed="true">
-            <Icon name="pin" class="icon icon-sm" /> All India
-          </button>
-          {chipCities.map((c) => (
-            <button type="button" class="city-chip" data-city={c.slug} data-name={c.name} aria-pressed="false">
-              <Icon name="pin" class="icon icon-sm" /> {c.name}
-            </button>
-          ))}
-          <a class="city-chip-more" href="/locations/">
-            All {cities.length} cities <Icon name="arrow" class="icon icon-sm" />
-          </a>
-        </div>
-      </div>
-
-      <div class="hero-media">
-        <img class="hero-pets" src="/pet-hero.webp" width="850" height="944" alt="A happy golden retriever and tabby cat" fetchpriority="high" />
-      </div>
-    </section>
-
-    <nav class="discover" aria-label="Browse care by type">
-      {discovery.map((d) => (
-        <a class="discover-card" href={d.href}>
-          <img class="discover-photo" src={d.photo} alt="" width="43" height="43" loading="lazy"/>
-          <span class="discover-label">{d.label}</span>
-          <Icon name="arrow" class="icon discover-arrow" />
-        </a>
-      ))}
-    </nav>
-
-    <section class="emergency" aria-labelledby="emergency-h">
-      <span class="emergency-icon" aria-hidden="true"><Icon name="siren" class="icon icon-lg" /></span>
-      <div class="emergency-copy">
-        <h2 id="emergency-h">Need emergency veterinary care?</h2>
-        <p>Find facilities advertising emergency and 24×7 services.</p>
-      </div>
-      <a class="emergency-action" href="/emergency/">
-        Find care <Icon name="arrow" class="icon" />
-      </a>
-    </section>
-
-    <section class="home-section" aria-labelledby="specs-h">
-      <div class="section-head">
-        <div>
-          <p class="section-eyebrow">Speciality discovery</p>
-          <h2 id="specs-h">Explore by speciality</h2>
-        </div>
-        <a class="link-more" href="/specialties/">
-          All {specialties.length} specialities <Icon name="arrow" class="icon" />
-        </a>
-      </div>
-      <div class="spec-strip" role="list">
-        {stripSpecs.map((s) => (
-          <a class="spec-chip" href={`/specialties/${s.slug}/`} role="listitem">
-            <span class="spec-chip-icon"><Icon name={s.icon} class="icon icon-md" /></span>
-            <span class="spec-chip-label">{s.name}</span>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <section class="home-section" aria-labelledby="featured-h">
-      <div class="section-head">
-        <div>
-          <p class="section-eyebrow">Discover Indore</p>
-          <h2 id="featured-h">Featured facilities</h2>
-          <p>Timings, doctors and costs — together.</p>
-        </div>
-        <a class="link-more" href="/search/">
-          See all in search <Icon name="arrow" class="icon" />
-        </a>
-      </div>
-      <div class="featured-grid">
-        {featured.map((p) => <FeaturedFacility provider={p} />)}
-      </div>
-    </section>
-
-    <section class="home-section" aria-labelledby="vets-h"><div class="section-head"><h2 id="vets-h">Meet Indore’s veterinarians</h2><a class="link-more" href="/indore/veterinarians/">View all {veterinarians.length} →</a></div><div class="home-vets">{veterinarians.slice(0,3).map(vet=><a href={`/indore/veterinarians/${vet.slug}/`}><VetPortrait vet={vet}/><span><strong>Dr. {vet.name}</strong><small>{vet.area}</small></span><Icon name="arrow" class="icon"/></a>)}</div><p class="small muted">Find the person behind your pet’s care.</p></section>
-    <section class="home-section" aria-labelledby="pets-h">
-      <div class="section-head">
-        <div>
-          <p class="section-eyebrow">Pet-type discovery</p>
-          <h2 id="pets-h">Find care for your pet</h2>
-        </div>
-      </div>
-      <div class="pet-grid" role="list">
-        {pets.map((p) => (
-          <a class="pet-card" href={`/search/?pet=${p.v}`} role="listitem">
-            <span class="pet-icon" aria-hidden="true"><img src={`/pets/${p.icon}.webp`} alt="" width="52" height="52" loading="lazy"/></span>
-            <span class="pet-label">{p.l}</span>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <section class="home-map-teaser"><div><h2>Find care nearby</h2><p>15 clinics. Clear directions. Easier visits.</p><a class="btn btn-primary" href="/map/">Explore the map <Icon name="arrow" class="icon" /></a></div><a class="mini-map" href="/map/" aria-label="Explore the veterinary directory map"><span class="map-road road-one"></span><span class="map-road road-two"></span><span class="map-pin"><Icon name="pin" class="icon" /></span><span class="map-caption">Explore your neighbourhood →</span></a></section>
-
-    <section class="transparency" aria-labelledby="transparency-h">
-      <span class="transparency-mark" aria-hidden="true"><Icon name="shield" class="icon icon-lg" /></span>
-      <h2 id="transparency-h">A little more transparency. A better decision.</h2>
-      <p>
-        Know the care, costs and choices before you visit.
-      </p>
-      <div class="transparency-actions">
-        <a class="btn btn-primary" href="/methodology/">Learn more →</a>
-
-      </div>
-    </section>
-  </div>
-
-  <script>
-    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".city-chip"));
-    const KEY = "vetlas-city";
-
-    function apply(citySlug: string) {
-      const form = document.querySelector<HTMLFormElement>(".home form[data-universal-search]");
-      let input = form?.querySelector<HTMLInputElement>('input[name="city"]');
-      if (form && !input) { input = document.createElement("input"); input.type = "hidden"; input.name = "city"; form.appendChild(input); }
-      if (input) input.value = citySlug;
-      const filter = form?.querySelector<HTMLAnchorElement>("[data-usearch-filter]");
-      if (filter) { const url = new URL(filter.href); if(citySlug) url.searchParams.set("city", citySlug); else url.searchParams.delete("city"); filter.href = url.pathname + url.search; }
-      chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.city === citySlug)));
-      try {
-        localStorage.setItem(KEY, citySlug);
-      } catch {
-        /* storage unavailable */
-      }
-      document.querySelectorAll<HTMLAnchorElement>(".discover-card").forEach((a) => {
-        const href = new URL(a.href);
-        if (citySlug) href.searchParams.set("city", citySlug);
-        else href.searchParams.delete("city");
-        a.setAttribute("href", `${href.pathname}${href.search}`);
-      });
-    }
-
-    chips.forEach((c) => {
-      c.addEventListener("click", () => apply(c.dataset.city ?? ""));
-    });
-
-    try {
-      const saved = localStorage.getItem(KEY);
-      const chip = saved ? chips.find((c) => c.dataset.city === saved) : undefined;
-      if (saved && chip) apply(saved);
-      else apply("indore");
-    } catch {
-      /* storage unavailable */
-    }
-  </script>
-</BaseLayout>
-
-<style>.home-vets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem}.home-vets>a{display:flex;align-items:center;gap:.6rem;border:1px solid #d6ebe3;border-radius:16px;background:linear-gradient(130deg,#e8f8f1,#f1f5ff);padding:.8rem;color:#007d73}.home-vets span{flex:1;min-width:0}.home-vets strong{font-size:.78rem;color:#173e42;display:block}.home-vets small{display:block;font-size:.66rem;color:#566e72;margin-top:.2rem}@media(max-width:650px){.home-vets{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px;scroll-snap-type:x proximity}.home-vets>a{flex:0 0 230px;padding:9px;scroll-snap-align:start}.home-vets strong{font-size:.76rem}.home-vets small{font-size:.65rem}}</style>
+<Layout title="Vetlas | Find veterinary clinics, hospitals and specialists in India" description="Find local veterinary care across ten Indian cities. Compare branch addresses, published services, practitioner qualifications and emergency contacts.">
+<div class="container atlas">
+  <section class="atlas-hero">
+    <div class="atlas-copy"><p class="kicker"><span></span> India’s veterinary directory</p>
+      <h1>Find the right care<br/>for <em>your companion.</em></h1>
+      <p>Explore clinics, hospitals and veterinary specialists across ten Indian cities.</p>
+      <UniversalSearch variant="hero" />
+    </div>
+    <div class="atlas-art"><img src="/pet-hero-medium.webp" srcset="/pet-hero-small.webp 350w, /pet-hero-medium.webp 620w, /pet-hero.webp 850w" sizes="(max-width:650px) 34vw, 400px" width="850" height="944" alt="A golden retriever beside a tabby cat" fetchpriority="high"/></div>
+  </section>
+  <nav class="care-paths" aria-label="Find care by type">{routes.map(([icon,name,desc,url])=><a href={url}><span class="route-icon"><Icon name={icon} class="icon"/></span><span><strong>{name}</strong><small>{desc}</small></span><span aria-hidden="true">↗</span></a>)}</nav>
+  <section class="atlas-section"><div class="atlas-title"><div><p class="kicker">Local directories</p><h2>Care in your city</h2></div><a href="/locations/">All cities →</a></div>
+  <div class="atlas-cities">{cities.map(c=><a href={'/'+c.slug+'/'}><strong>{c.name}</strong><small>{providers.filter(p=>p.cityId===c.id).length} facilities</small><span aria-hidden="true">↗</span></a>)}</div></section>
+  <div class="atlas-split"><section class="specialty-panel"><p class="kicker">Areas of care</p><h2>Find a speciality</h2><div class="atlas-chips">{specialties.filter(s=>providers.some(p=>p.specialtyIds.includes(s.id))).slice(0,8).map(s=><a href={'/specialties/'+s.slug+'/'}>{s.name}</a>)}</div><a href="/specialties/">Browse specialities →</a></section>
+  <section class="campus"><img src={feature.imageUrl} alt={feature.imageAlt} width="800" height="600" loading="lazy"/><div><p class="kicker">Teaching hospital · Chennai</p><h2><a href={'/chennai/'+feature.slug+'/'}>Madras Veterinary College</a></h2><a href={'/chennai/'+feature.slug+'/'}>Visit information →</a><small><a href={feature.imageSourceUrl}>Photo by சத்திரத்தான்</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · resized</small></div></section></div>
+</div></Layout>

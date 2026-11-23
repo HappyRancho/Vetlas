@@ -16,7 +16,7 @@ const year = new Date().getFullYear();
         A calmer way to find veterinary care in India. Discover hospitals, clinics and doctors,
         compare what matters, and choose with confidence.
       </p>
-      <p class="footer-fineprint">Indore & Pune · public sources · free to explore</p>
+      <p class="footer-fineprint">10 city directories · public sources · free to explore</p>
     </div>
     <nav class="footer-col" aria-label="Popular specialities">
       <h2>Specialities</h2>
@@ -29,7 +29,7 @@ const year = new Date().getFullYear();
     <nav class="footer-col" aria-label="Cities">
       <h2>Cities</h2>
       <ul>
-        {cities.slice(0, 6).map((c) => (
+        {cities.map((c) => (
           <li><a href={`/${c.slug}/`}>Vets in {c.name}</a></li>
         ))}
       </ul>

@@ -93,15 +93,11 @@ for (const p of providers) {
 }
 ok("checked coordinates against India bounding box");
 
-// 7. publication gate sanity
+if (cities.length !== 10) fail("Directory must cover ten cities");
 for (const city of cities) {
-  const inCity = providers.filter((p) => p.cityId === city.id).length + doctors.filter((d) => d.cityId === city.id).length;
-  const min = city.isMetro ? 30 : 15;
-  if (inCity > 0 && inCity < min) {
-    console.log(`• gate: ${city.name} has ${inCity} public profiles (indexable needs ${min} vetted) — stays noindex`);
-  }
+  const count = providers.filter(p => p.cityId === city.id).length;
+  if (count < 10 || count > 20) fail(city.name + ": expected 10–20 published facilities");
 }
-
 // 8. fee / rating sanity for public records
 for (const p of providers) {
   if (p.fees && p.fees.opd < 0) fail(`${p.slug}: negative OPD fee`);

@@ -16,8 +16,7 @@ export function getStaticPaths() {
 const { specialty } = Astro.props;
 const providerList = providersBySpecialty(specialty.id);
 const doctorList = doctorsBySpecialty(specialty.id);
-const vettedCount = 0; // sample dataset
-const noindex = vettedCount < 3; // spec §6: combination pages need ≥3 vetted providers
+const noindex = providerList.length + doctorList.length === 0;
 
 const cityLinks = cities.filter((city) =>
   providerList.some((p) => p.cityId === city.id) || doctorList.some((d) => d.cityId === city.id)
@@ -45,7 +44,7 @@ const cityLinks = cities.filter((city) =>
         <p class="soft head-desc">{specialty.description}</p>
         <div class="profile-tags">
           <TrustBadge level="public" label="Public-source listings" />
-          <span class="chip chip-sm">Across {cities.length} cities</span>
+          <span class="chip chip-sm">{cityLinks.length} cities with listings</span>
         </div>
       </div>
     </header>

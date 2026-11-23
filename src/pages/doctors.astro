@@ -1,3 +1,5 @@
 ---
-return Astro.redirect("/indore/veterinarians/", 301);
+import DiscoveryPage from "../components/DiscoveryPage.astro";
+import { doctors } from "@data";
 ---
+<DiscoveryPage title="Find a veterinarian" eyebrow="Practitioner directory" description="Compare published qualifications and practice affiliations. Contact the practice to confirm the doctor’s next session." doctors={doctors} mode="doctors" />

@@ -22,12 +22,12 @@ const records=facilities.map(p=>({...p,href:`/indore/${p.slug}/`,preview:googleP
  <p class="map-results-status" role="status" data-map-status>{facilities.length} clinics · sourced locations · confirm hours before travelling</p>
  <div class="care-map-grid" data-mobile-view="list">
   <div class="map-results" aria-label="Clinic results"><p data-map-empty hidden class="notice-box">No matching clinics. Try another service or clear a filter.</p>{facilities.map((p,i)=><article data-map-result={p.id} class="map-result">
-   <div class="map-result-head"><img src={p.imageUrl} alt={p.imageAlt||p.name} width="64" height="64" loading="lazy"/><div><span class="map-number">{i+1}</span><h2><a href={`/indore/${p.slug}/`}>{p.name}</a></h2><p>{p.area}</p></div></div>
+   <div class="map-result-head">{p.imageUrl && <img src={p.imageUrl} alt={p.imageAlt||p.name} width="64" height="64" loading="lazy"/>}<div><span class="map-number">{i+1}</span><h2><a href={`/indore/${p.slug}/`}>{p.name}</a></h2><p>{p.area}</p></div></div>
    <VetNames id={p.id}/><RatingSummary provider={p} compact/>
    <p class="map-result-meta"><strong>{consultationLabel(p).amount} · {consultationLabel(p).caption}</strong><span data-distance></span></p>
    <p class="small muted">{hoursLabel(p)}</p>
    <div class="map-result-actions"><button type="button" data-select={p.id} aria-pressed="false">Show on map</button>{p.phone&&<a href={`tel:${p.phone.replace(/[^+\d]/g,'')}`}>Call</a>}<a href={googleDirections(p)} target="_blank" rel="noreferrer">Directions →</a><a href={`/indore/${p.slug}/`}>Details →</a></div>
-   <a class="map-photo-credit" href={p.imageSourceUrl} target="_blank" rel="noreferrer">Photo: {p.imageCredit}</a>
+   {p.imageUrl && <a class="map-photo-credit" href={p.imageSourceUrl} target="_blank" rel="noreferrer">Photo: {p.imageCredit}</a>}
   </article>)}</div>
   <div class="map-stage">
    <div class="map-canvas" id="clinic-map" role="region" aria-label="Interactive map of Indore veterinary clinics" tabindex="0"><p data-map-loading>Loading map… Clinic details and Google Maps directions are available in the list.</p></div>

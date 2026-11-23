@@ -18,14 +18,14 @@ import Icon from "../components/Icon.astro";
     </header>
 
     <div class="doc mt-25 pb-1">
-      <div class="doc-block" id="doctor-evidence"><h2>Veterinarian profiles & identity</h2><p>Eight Indore veterinarian profiles are listed alphabetically, not ranked by clinical quality. Names, practice associations and published qualifications carry public source links and an access method. A search-index observation is labelled separately from a directly reviewed page. We do not infer a doctor’s rating from a clinic’s score or promise appointment availability.</p><p>The H. K. Mehta / Hemant Mehta name match was confirmed by the directory requester on 15 November 2026; independent identity confirmation remains pending. Harendra Singh Rajput is a requester-provided search alias for the public-source name Harendra Rajput. B. P. Shukla’s professional sources are listed, but a current private consulting location has not been confirmed and is not pinned.</p></div>
-      <div class="doc-block" id="map-evidence"><h2>Map locations & nearby care</h2><p>All 15 facilities have a sourced branch location. Where a public Google Maps place link provides place geometry, we use that location rather than the map camera centre. Other pins use the centre of the branch’s published Plus Code cell, about 14 metres across. Animal Veterinary Hospital uses the destination in its website’s Google directions link. Sources, methods, Plus Codes and check dates are included in the public dataset. Entrances and current premises are not independently surveyed.</p><p>The comparison map uses OpenStreetMap with attribution; selected-clinic previews and routing open Google Maps. Nearby sorting uses straight-line distance from a location you choose to share with your browser. Vetlas does not send that location to its server or include it in shared view links. External map providers receive normal map requests; Google Maps handles directions and any location permission within its own service. Map tiles are loaded only for the visible map; no offline or bulk downloads are made.</p></div>
+      <div class="doc-block" id="doctor-evidence"><h2>Veterinarian profiles & identity</h2><p>Profiles require a named practitioner, a documented qualification and an identifiable practice. Profiles link to practice and professional sources. Call the branch for the current consulting schedule.</p></div>
+      <div class="doc-block" id="map-evidence"><h2>Map locations & nearby care</h2><p>All 15 mapped Indore facilities have a sourced branch location. Where a public Google Maps place link provides place geometry, we use that location rather than the map camera centre. Other pins use the centre of the branch’s published Plus Code cell, about 14 metres across. Animal Veterinary Hospital uses the destination in its website’s Google directions link. Sources, methods, Plus Codes and check dates are included in the public dataset. Entrances and current premises are not independently surveyed.</p><p>The comparison map uses OpenStreetMap with attribution; selected-clinic previews and routing open Google Maps. Nearby sorting uses straight-line distance from a location you choose to share with your browser. Vetlas does not send that location to its server or include it in shared view links. External map providers receive normal map requests; Google Maps handles directions and any location permission within its own service. Map tiles are loaded only for the visible map; no offline or bulk downloads are made.</p></div>
       <div class="doc-block" id="platform-ratings-method">
         <h2>Platform ratings & facility photos</h2>
         <p>Scores show an equal-weight arithmetic mean of the available 1–5 platform ratings, rounded to one decimal. Each platform contributes once; we keep the most recently checked snapshot. One source is labelled as one platform. Missing sources are excluded, never zero. We do not claim complete platform coverage.</p>
         <p>Counts remain attached to their original source. People may review on multiple sites, and Justdial may already combine ratings from across the web. The mean is a convenience comparison, not an independent reviewer average or a measure of medical quality. Reposted ratings and unverified clinic claims are excluded. Reddit discussion votes are not star ratings.</p>
         <p>Every static score links to its source and states when and how we observed it. Search-index snapshots can be old; checking a result does not establish that the platform score is current. Manually observed Google Maps scores are dated snapshots. When configured, the separate Places integration can replace a Google snapshot with its live score. We do not emit combined external ratings as schema.org aggregateRating.</p>
-        <p>Each published facility has an original public-source photo matched to its listing or clinic website. Photo credits link to the source, and original image URLs and check dates are retained in the dataset. Photos are optimized for fast loading; their date may be older than our check date. Sources retain ownership. The optional Places integration requires a reviewed Place ID, displays supplied photographer credits, and does not persist API photos.</p>
+        <p>Hosted photographs require a documented reuse licence or permission. Captions link to the source. The optional Google Places integration displays attributable photos from a configured listing.</p>
       </div>
       <div class="doc-block">
         <h2><Icon name="badge" class="icon icon-lg" /> Verification logic</h2>
@@ -50,27 +50,7 @@ import Icon from "../components/Icon.astro";
         <p>Shared storage keeps one current vote per browser and facility. Updates replace an earlier vote and deletion removes it. Cookies can be cleared, so this is not unique-person verification. Daily network limits reduce repeat submissions. <a href="/privacy/">Privacy and retention →</a></p>
       </div>
 
-      <div class="doc-block">
-        <h2><Icon name="pin" class="icon icon-lg" /> City publication gates</h2>
-        <p>
-          Indore is a public-source directory with 15 facilities. Wider rollout targets are: Tier 1 cities
-          need <strong>≥30 vetted profiles</strong> (target 80–100), Tier 2 need
-          <strong>≥15</strong> (target 40–50), Tier 3 need <strong>≥5</strong> (target 10–20).
-          Other cities below the minimum stay noindexed.
-        </p>
-      </div>
-
-      <div class="doc-block">
-        <h2><Icon name="search" class="icon icon-lg" /> Search & indexability</h2>
-        <p>
-          Combination pages (city × speciality) are indexed only with <strong>≥3 vetted
-          providers</strong>; thin profiles are noindexed until they meet quality bars. URL
-          structure is lowercase and hyphenated: <code>/{'{'}city{'}'}/</code>,
-          <code>/{'{'}city{'}'}/{'{'}speciality{'}'}/</code>,
-          <code>/{'{'}city{'}'}/{'{'}provider{'}'}/</code>.
-        </p>
-      </div>
-
+      <div class="doc-block"><h2>How facilities are selected</h2><p>Each city directory includes 10–20 identifiable practices with published branch and location evidence. The selection covers different neighbourhoods and care settings. Inclusion reflects the available documentation. Published hours and branch services can change. Ask the clinic about equipment, the attending veterinarian and emergency intake before travelling.</p><p>Local speciality pages link to matching facilities and practitioners. Only published, indexable pages appear in the sitemap.</p></div>
       <div class="doc-block">
         <h2><Icon name="info" class="icon icon-lg" /> Zero dark patterns</h2>
         <p>

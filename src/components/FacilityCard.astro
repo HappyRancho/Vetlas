@@ -1,30 +1,29 @@
 ---
 import Icon from './Icon.astro';
-import FacilityMedia from './FacilityMedia.astro';
+import { googleDirections } from '../lib/map-links.mjs';
 import VetNames from './VetNames.astro';
 import RatingSummary from './RatingSummary.astro';
 import { cityById, specialtyById, type Provider } from '@data';
 import { consultationLabel, hoursLabel } from '../lib/visit-info.mjs';
 interface Props { provider: Provider; featured?: boolean; index?: number; }
-const {provider,featured=false,index=0}=Astro.props;
+const {provider}=Astro.props;
 const city=cityById(provider.cityId),href=`/${city?.slug}/${provider.slug}/`,fee=consultationLabel(provider);
 const specs=provider.specialtyIds.map(id=>specialtyById(id)?.name).filter(Boolean);
 const highlights=[...new Set([...specs.slice(0,1),...provider.services.filter(s=>s!=='Consultation')])].slice(0,3);
 ---
-<article class:list={['facility-card','care-card',{'facility-card-featured':featured}]} style={`--card-accent:${['#007c73','#4278b9','#9368a3','#b47736'][index%4]}`}>
- <div class="care-card-main">
-  <div class="facility-media"><FacilityMedia provider={provider}/></div>
-  <div class="facility-body">
-   <div class="facility-top"><span class="care-kind">{provider.type==='hospital'?'Hospital':provider.type==='ngo'?'NGO / Rescue':provider.type==='government'?'Government':provider.type==='home-visit'?'Home visit':'Clinic'}</span><RatingSummary provider={provider} compact/></div>
-   <h3 class="facility-name"><a href={href}>{provider.name}</a></h3>
-   <p class="facility-location"><Icon name="pin" class="icon"/>{provider.area}</p>
-   <VetNames id={provider.id}/>
-   <ul class="facility-tags" aria-label="Services">{highlights.map(item=><li>{item}</li>)}</ul>
+<article class="listing">
+  <div class="listing-heading">
+    {provider.imageUrl && <img class="listing-photo" src={provider.imageUrl} alt={provider.imageAlt} width="80" height="60" loading="lazy" />}
+    <p class="kicker">{provider.type === "ngo" ? "Animal welfare" : provider.type} · {city?.name}</p>
+    <h3><a href={href}>{provider.name}</a></h3>
+    <p class="listing-area"><Icon name="pin" class="icon"/>{provider.area}</p>
   </div>
- </div>
- <div class="care-visit"><span class="care-hours"><Icon name="clock" class="icon"/>{hoursLabel(provider)}</span>{provider.visitHours?.doctorSummary&&<span class="care-doctor-hours">Doctor: {provider.visitHours.doctorSummary}</span>}</div>
- <div class="facility-footer"><div class="facility-fee"><b>{fee.amount}</b><span>{fee.caption}</span></div><a class="facility-action" href={href}>View details <Icon name="arrow" class="icon"/></a></div>
- <div class="quick-actions"><button class="save-facility" type="button" data-save={provider.id} aria-pressed="false" aria-label={`Save ${provider.name}`}><Icon name="heart" class="icon"/><span data-save-label>Save</span></button>{provider.phone&&<a class="btn btn-primary" href={`tel:${provider.phone.replace(/[^+\d]/g,'')}`}><Icon name="phone" class="icon"/>Call clinic</a>}{!provider.locationUnconfirmed&&<a class="btn btn-secondary" href={provider.cityId === "indore" ? `/map/?clinic=${provider.id}` : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${provider.name}, ${provider.address}, ${city?.name}`)}`}><Icon name="pin" class="icon"/>Directions</a>}</div>
+  {highlights.length>0 && <p class="listing-services">{highlights.join(" · ")}</p>}
+  <VetNames id={provider.id}/>
+  {provider.platformRatings?.length && <RatingSummary provider={provider} compact/>}
+  <div class="listing-visit"><span>{provider.hoursNote && !provider.visitHours && !provider.hours.open ? provider.hoursNote.split(" · ")[0].slice(0,64) : hoursLabel(provider)}</span>{provider.fees && <strong>{fee.amount}</strong>}</div>
+  <div class="listing-actions"><a href={href}>Details →</a>{provider.phone && <a href={`tel:${provider.phone.replace(/[^+\d]/g,"")}`}>Call</a>}{!provider.locationUnconfirmed && <a href={googleDirections(provider)}>Directions</a>}
+    <button type="button" data-save={provider.id} aria-pressed="false" aria-label={`Save ${provider.name}`}><Icon name="heart" class="icon"/><span data-save-label>Save</span></button></div>
 </article>
 <script>
  const key='vetlas-saved';

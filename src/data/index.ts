@@ -1,15 +1,12 @@
 import { cities, specialties } from "./taxonomy";
 import { indoreProviders } from "./indore";
 import { puneProviders, puneDoctors, puneLocalities } from "./pune";
-import punePhotos from "./pune-photos.json";
-// Display only sourced originals. Records without confirmed photos keep the existing fallback.
-const providers: Provider[] = [
-  ...indoreProviders,
-  ...puneProviders.map((p) => ({ ...p, ...(punePhotos.providers as Record<string, object>)[p.slug] })),
-];
-const doctors: Doctor[] = [
-  ...puneDoctors.map((d) => ({ ...d, ...(punePhotos.doctors as Record<string, object>)[d.slug] })),
-];
+import { regionalProviders } from "./regional";
+const curatedPune = puneProviders.filter(p => p.confidence === "high" && p.dataSource === "public" && !p.locationUnconfirmed)
+  .map(p => p.coordinates && !p.coordinateSource ? { ...p, coordinates: undefined } : p);
+const providers: Provider[] = [...indoreProviders, ...curatedPune, ...regionalProviders];
+import regionalDoctors from "./regional-doctors.json";
+const doctors: Doctor[] = [...regionalDoctors as Doctor[], ...puneDoctors.filter(d => d.degrees.length && d.confidence === "high" && d.dataSource === "public" && curatedPune.some(p => d.providerSlugs.includes(p.slug)))];
 const reviews: Review[] = [];
 const costEstimates: import("./types").CostEstimateItem[] = [];
 import type { City, Specialty, Provider, Doctor, Review, ReviewTheme } from "./types";
@@ -137,30 +134,4 @@ export function areasByCity(cityId: string): { area: string; count: number }[] {
   return [...counts.entries()]
     .map(([area, count]) => ({ area, count }))
     .sort((a, b) => b.count - a.count || a.area.localeCompare(b.area));
-}
-
-/**
- * Publication gate (README "publication gates" / spec §2): a city page becomes
- * indexable once it holds enough *vetted* profiles (Vetlas-verified or
- * provider-confirmed). Public-source research records do not count as vetted,
- * so gates stay closed until verification passes run — by design.
- */
-export function cityPublishGate(cityId: string) {
-  const city = cityById(cityId);
-  const p = providers.filter((x) => x.cityId === cityId);
-  const d = doctors.filter((x) => x.cityId === cityId);
-  const total = p.length + d.length;
-  const vetted =
-    p.filter((x) => x.verified || x.dataSource === "provider-confirmed").length +
-    d.filter((x) => x.verified || x.dataSource === "provider-confirmed").length;
-  const minimum = city?.isMetro ? 30 : 15;
-  return {
-    city,
-    providers: p,
-    doctors: d,
-    totalProfiles: total,
-    vettedProfiles: vetted,
-    minimumVetted: minimum,
-    indexable: vetted >= minimum,
-  };
 }

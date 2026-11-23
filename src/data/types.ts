@@ -133,6 +133,7 @@ export interface Provider {
 }
 
 export interface Doctor {
+  sourceUrls?: {label:string; url:string}[];
   id: string;
   slug: string;
   name: string;

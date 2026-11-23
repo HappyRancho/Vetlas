@@ -1,0 +1,166 @@
+[
+  {
+    "id": "dr-hiren-thakkar",
+    "slug": "dr-hiren-thakkar",
+    "name": "Hiren Thakkar",
+    "prefix": "Dr.",
+    "cityId": "ahmedabad",
+    "degrees": [
+      "BVSc & AH",
+      "MVSc in Veterinary Surgery and Radiology"
+    ],
+    "primarySpecialtyId": "surgery",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "sneh-pet-clinic-thaltej"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Sneh Pet Clinic in Thaltej is the published practice association for Dr. Hiren Thakkar.",
+    "dataSource": "public",
+    "verified": false,
+    "evidence": "The linked professional listing identifies the practitioner and reports the qualifications shown here.",
+    "sourceUrls": [
+      {
+        "label": "Practitioner and qualifications",
+        "url": "https://www.practo.com/ahmedabad/doctor/dr-hiren-thakkar-veterinarian"
+      }
+    ]
+  },
+  {
+    "id": "dr-v-arun",
+    "slug": "dr-v-arun",
+    "name": "V. Arun",
+    "prefix": "Dr.",
+    "cityId": "chennai",
+    "degrees": [
+      "MVSc",
+      "PhD"
+    ],
+    "primarySpecialtyId": "dermatology",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "sks-veterinary-hospital-abiramapuram-abiramapuram"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "SKS Veterinary Hospital, Abiramapuram in Abiramapuram is the published practice association for Dr. V. Arun.",
+    "dataSource": "public",
+    "verified": false,
+    "evidence": "The linked professional listing identifies the practitioner and reports the qualifications shown here.",
+    "sourceUrls": [
+      {
+        "label": "Practitioner and qualifications",
+        "url": "https://www.skspethospital.com/our-doctors/"
+      }
+    ]
+  },
+  {
+    "id": "dr-mehak-nazar",
+    "slug": "dr-mehak-nazar",
+    "name": "Mehak Nazar",
+    "prefix": "Dr.",
+    "cityId": "bengaluru",
+    "degrees": [
+      "PhD in Medicine"
+    ],
+    "primarySpecialtyId": "internal",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "supertails-kalyan-nagar-kalyan-nagar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Supertails+ Kalyan Nagar in Kalyan Nagar is the published practice association for Dr. Mehak Nazar.",
+    "dataSource": "public",
+    "verified": false,
+    "evidence": "The linked professional listing identifies the practitioner and reports the qualifications shown here.",
+    "sourceUrls": [
+      {
+        "label": "Practitioner and qualifications",
+        "url": "https://supertails.com/pages/kalyan-nagar-clinic"
+      }
+    ]
+  },
+  {
+    "id": "dr-harish-karumanchi",
+    "slug": "dr-harish-karumanchi",
+    "name": "Harish Karumanchi",
+    "prefix": "Dr.",
+    "cityId": "bengaluru",
+    "degrees": [
+      "BVSc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "supertails-kalyan-nagar-kalyan-nagar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Supertails+ Kalyan Nagar in Kalyan Nagar is the published practice association for Dr. Harish Karumanchi.",
+    "dataSource": "public",
+    "verified": false,
+    "evidence": "The linked professional listing identifies the practitioner and reports the qualifications shown here.",
+    "sourceUrls": [
+      {
+        "label": "Practitioner and qualifications",
+        "url": "https://supertails.com/pages/kalyan-nagar-clinic"
+      }
+    ]
+  },
+  {
+    "id": "dr-hemanth-srinivas-annamdevara",
+    "slug": "dr-hemanth-srinivas-annamdevara",
+    "name": "Hemanth Srinivas Annamdevara",
+    "prefix": "Dr.",
+    "cityId": "bengaluru",
+    "degrees": [
+      "BVSc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "supertails-kalyan-nagar-kalyan-nagar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Supertails+ Kalyan Nagar in Kalyan Nagar is the published practice association for Dr. Hemanth Srinivas Annamdevara.",
+    "dataSource": "public",
+    "verified": false,
+    "evidence": "The linked professional listing identifies the practitioner and reports the qualifications shown here.",
+    "sourceUrls": [
+      {
+        "label": "Practitioner and qualifications",
+        "url": "https://supertails.com/pages/kalyan-nagar-clinic"
+      }
+    ]
+  },
+  {
+    "id": "dr-kunal-dev-sharma",
+    "slug": "dr-kunal-dev-sharma",
+    "name": "Kunal Dev Sharma",
+    "prefix": "Dr.",
+    "cityId": "delhi",
+    "degrees": [
+      "MRCVS (reported professional membership)"
+    ],
+    "primarySpecialtyId": "orthopedics",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "maxpetz-east-of-kailash-east-of-kailash"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "MaxPetZ East of Kailash in East of Kailash is the published practice association for Dr. Kunal Dev Sharma.",
+    "dataSource": "public",
+    "verified": false,
+    "evidence": "The linked professional listing identifies the practitioner and reports the qualifications shown here.",
+    "sourceUrls": [
+      {
+        "label": "Practitioner and qualifications",
+        "url": "https://www.maxpetz.com/health-hub/east-of-kailash/"
+      }
+    ]
+  }
+]

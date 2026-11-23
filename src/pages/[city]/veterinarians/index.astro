@@ -1,0 +1,9 @@
+---
+import Layout from "../../../layouts/BaseLayout.astro";
+import DoctorCard from "../../../components/DoctorCard.astro";
+import { cities, doctorsByCity } from "@data";
+export function getStaticPaths(){return cities.filter(c=>doctorsByCity(c.id).length).map(city=>({params:{city:city.slug},props:{city}}));}
+const {city}=Astro.props;
+---
+<Layout title={'Veterinarians in '+city.name} description={'Explore published veterinary qualifications and practice affiliations in '+city.name+'. Find a branch to contact for an appointment.'}>
+<div class="container atlas"><header class="city-mast"><a href={'/'+city.slug+'/'}>← {city.name} directory</a><h1>Veterinarians in {city.name}</h1></header><div class="doctor-grid">{doctorsByCity(city.id).map(doctor=><DoctorCard doctor={doctor}/>)}</div></div></Layout>

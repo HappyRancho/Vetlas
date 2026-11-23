@@ -16,7 +16,7 @@ import {
  */
 export function getStaticPaths() {
   return cities.flatMap((city) =>
-    specialties.map((specialty) => ({
+    specialties.filter(s => providersByCity(city.id).some(p => p.specialtyIds.includes(s.id)) || doctorsByCity(city.id).some(d => d.primarySpecialtyId === s.id || d.secondarySpecialtyIds.includes(s.id))).map((specialty) => ({
       params: { city: city.slug, speciality: specialty.slug },
       props: { city, specialty },
     }))
@@ -32,9 +32,7 @@ const cityDoctors = doctorsByCity(city.id).filter(
   (d) => d.primarySpecialtyId === specialty.id || d.secondarySpecialtyIds.includes(specialty.id)
 );
 
-const vettedCount = 0; // sample dataset: nothing is vetted yet
-const indexable = vettedCount >= 3; // spec §6 threshold
-const noindex = !indexable;
+const noindex = cityProviders.length + cityDoctors.length === 0;
 ---
 
 <BaseLayout
@@ -59,12 +57,6 @@ const noindex = !indexable;
       </div>
     </header>
 
-    {!indexable && (
-      <p class="notice-box mt-15 maxw-44">
-        <strong>Demo combination page.</strong> This city × speciality page is kept out of search
-        results until at least 3 vetted providers match. The care shown below is sample data.
-      </p>
-    )}
 
     <section class="section-first" aria-labelledby="search-h">
       <h2 class="visually-hidden" id="search-h">Search for other care</h2>
@@ -87,7 +79,7 @@ const noindex = !indexable;
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="search" class="icon icon-xl" /></span>
           <h2>No matches here yet</h2>
-          <p>We haven't listed a {specialty.name.toLowerCase()} facility in {city.name} in the sample dataset.</p>
+          <p>We haven't listed a {specialty.name.toLowerCase()} facility in {city.name} in this directory.</p>
           <div class="actions">
             <a class="btn btn-primary" href={`/specialties/${specialty.slug}/`}>See all of India</a>
             <a class="btn btn-secondary" href={`/${city.slug}/`}>All care in {city.name}</a>
@@ -112,7 +104,7 @@ const noindex = !indexable;
         <div class="empty-state card">
           <span class="icon-wrap"><Icon name="doctor" class="icon icon-xl" /></span>
           <h2>No doctors listed yet</h2>
-          <p>No {specialty.name.toLowerCase()} doctors in {city.name} in the sample dataset. Check back soon.</p>
+          <p>No {specialty.name.toLowerCase()} doctors in {city.name} in this directory. Check back soon.</p>
           <div class="actions">
             <a class="btn btn-primary" href="/search/?type=doctor">Browse all doctors</a>
           </div>

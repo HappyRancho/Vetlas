@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import "../styles/directory.css";
 import "../styles/polish.css";
+import "../styles/atlas.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/inter";
 import SiteHeader from "../components/SiteHeader.astro";
@@ -19,26 +20,26 @@ const { title, description, noindex = false, canonical } = Astro.props;
 const siteUrl = Astro.site ?? Astro.url;
 const canonicalUrl = canonical ? new URL(canonical, siteUrl) : new URL(Astro.url.pathname, siteUrl);
 const path = Astro.url.pathname;
-const currentCity = path.startsWith("/pune/") ? {slug:"pune", name:"Pune"} : {slug:"indore", name:"Indore"};
 
 const isCurrent = (href: string) =>
   href === "/" ? path === "/" : path === href || path.startsWith(href);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f7faf8" />
-    <title>{title}</title>
+    <title>{title.includes("Vetlas") ? title : title + " | Vetlas"}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site guide" />
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Vetlas" />
     <meta property="og:title" content={title} />
@@ -67,7 +68,6 @@ const isCurrent = (href: string) =>
     <SiteHeader path={path} />
 
     <main id="main">
-      {path !== '/' && <div class="page-welcome container"><div><a href={`/${currentCity.slug}/`} class="eyebrow">Your {currentCity.name} care directory</a><p>Better choices.<br /><strong>Happier companions.</strong></p></div><img src="/pet-hero.webp" width="850" height="944" alt="A golden retriever and tabby cat" class="inner-page-pets" decoding="async" /></div>}
       <slot />
     </main>
 

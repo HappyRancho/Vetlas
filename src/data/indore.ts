@@ -3,7 +3,7 @@ import { additionalIndoreProviders } from './indore-expansion';
 import { newIndoreProviders } from './indore-additions';
 import visitDetails from './visit-details.json';
 import locations from './facility-locations.json';
-import photos from './facility-photos.json';
+
 import { reviewEvidence } from './review-evidence';
 import { platformRatings } from './platform-ratings';
 // Public-source research checked 2026-11-15. Platform snapshots retain their provenance.
@@ -15,4 +15,4 @@ const originalProviders: Provider[] = [
  {id:'indore-dogsvilla',slug:'dogsvilla-veterinary-services',name:'Dogsvilla Veterinary Services',type:'clinic',cityId:'indore',area:'Pipliyahana',address:'RCM 1/3, Scheme 140, Pipliyahana Road, near Narayani Hospital, Indore 452016',phone:'+918819817773',hours:{},specialtyIds:['general','vaccination'],species:['dog','cat'],services:['Consultation','Vaccination','Basic diagnostics','Deworming'],amenities:[],verified:false,dataSource:'public',lastChecked:'2026-11-15',fees:{opd:300,trustLevel:'public'},feeNote:'Consultation starts at ₹300; diagnostics, vaccination and treatment charged separately.',feeIsStarting:true,hoursNote:'Website lists general hours 9 AM–8 PM and consultation walk-ins 10 AM–6 PM. Confirm clinic availability.',about:'Dogsvilla advertises an in-house clinic for dogs and cats. The veterinary page lists consultation from ₹300. Its 24/7 on-call support is described for boarding residents; this is not treated as a public 24-hour hospital.',sources:{website:'https://www.dogsvilla.com/services/veterinary/',googleMaps:'https://www.google.com/maps/search/?api=1&query=Dogsvilla+Scheme+140+Indore'},evidence:[{label:'Clinic website: consultation starting fee and service limits',url:'https://www.dogsvilla.com/services/veterinary/'},{label:'Contact page: facility address and phone',url:'https://www.dogsvilla.com/contact/'}]}
 ];
 
-export const indoreProviders: Provider[] = [...originalProviders, ...additionalIndoreProviders, ...newIndoreProviders].map(p => ({ ...p, ...(visitDetails as Record<string, object>)[p.id], ...locations[p.id as keyof typeof locations], evidence: [...(p.evidence ?? []), {label:'Branch map location: Google Maps listing or provider directions link',url:locations[p.id as keyof typeof locations].coordinateSource}], ...(photos as Record<string, object>)[p.id], reviewEvidence: reviewEvidence[p.id], platformRatings: platformRatings[p.id] }));
+export const indoreProviders: Provider[] = [...originalProviders, ...additionalIndoreProviders, ...newIndoreProviders].map(p => ({ ...p, ...(visitDetails as Record<string, object>)[p.id], ...locations[p.id as keyof typeof locations], evidence: [...(p.evidence ?? []), {label:'Branch map location: Google Maps listing or provider directions link',url:locations[p.id as keyof typeof locations].coordinateSource}],  reviewEvidence: reviewEvidence[p.id], platformRatings: platformRatings[p.id] }));
