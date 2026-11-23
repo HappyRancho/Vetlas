@@ -1485,7 +1485,7 @@ a.chip { min-height: var(--tap); }
 .notice-box strong { color: var(--amber-ink); }
 
 /* ---------- Profile pages ---------- */
-.profile-header { overflow: hidden; margin-top: 1rem; animation: fade-up 0.45s ease-out both; }
+.profile-header { overflow: hidden; margin-top: 1rem; }
 .profile-band { padding: 1.4rem 1.1rem; }
 @media (min-width: 40em) { .profile-band { padding: 1.8rem 1.6rem; } }
 .profile-band.teal { background: linear-gradient(150deg, var(--surface-blue), var(--surface-mint)); }
