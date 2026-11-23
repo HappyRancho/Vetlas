@@ -14,11 +14,11 @@ const services = specialties.filter(s => providers.some(p => p.specialtyIds.incl
     <h1>Find your<br/><em>veterinarian.</em></h1>
     <p class="intro-copy">Find the practice, check its services and plan your pet’s visit.</p>
     <Search variant="hero"/>
-    <nav class="quick-look" aria-label="Browse care"><a href="/hospitals/">Hospitals ↗</a><a href="/specialties/">Specialities ↗</a><a href="/locations/">Cities ↗</a></nav>
+    <nav class="quick-look" aria-label="Browse care"><a href="/hospitals/">Hospitals →</a><a href="/specialties/">Specialities →</a><a href="/locations/">Cities →</a></nav>
   </div>
-  {hospital && <figure class="cover-story"><a href={'/chennai/'+hospital.slug+'/'} aria-label={'View '+hospital.name}><img src={hospital.imageUrl} alt={hospital.imageAlt} width="800" height="600" fetchpriority="high"/></a><figcaption><div><p>Teaching hospital · Vepery, Chennai</p><a href={'/chennai/'+hospital.slug+'/'}>Madras Veterinary College <span>↗</span></a></div><small><a href={hospital.imageSourceUrl}>சத்திரத்தான்</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · resized</small></figcaption></figure>}
+  {hospital && <figure class="cover-story"><a href={'/chennai/'+hospital.slug+'/'} aria-label={'View '+hospital.name}><img src={hospital.imageUrl} alt={hospital.imageAlt} width="800" height="600" fetchpriority="high"/></a><figcaption><div><p>Teaching hospital · Vepery, Chennai</p><a href={'/chennai/'+hospital.slug+'/'}>Madras Veterinary College <span>→</span></a></div><small><a href={hospital.imageSourceUrl}>Chathirathan</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · resized</small></figcaption></figure>}
 </section>
-<section class="index-band"><div><span class="section-sign"><Icon name="pin" class="icon"/></span><h2>Browse by city</h2></div><nav aria-label="Published cities">{available.map(c=><a href={'/'+c.slug+'/'}>{c.name}<span>↗</span></a>)}<a href="/locations/">City coverage <span>→</span></a></nav></section>
-<section class="index-band"><div><span class="section-sign"><Icon name="stethoscope" class="icon"/></span><h2>Areas of care</h2></div><nav aria-label="Available specialities">{services.slice(0,4).map(s=><a href={'/specialties/'+s.slug+'/'}>{s.name}<span>↗</span></a>)}</nav></section>
+<section class="index-band"><div><span class="section-sign"><Icon name="pin" class="icon"/></span><h2>Browse by city</h2></div><nav aria-label="Published cities">{available.map(c=><a href={'/'+c.slug+'/'}>{c.name}<span>→</span></a>)}<a href="/locations/">City coverage <span>→</span></a></nav></section>
+<section class="index-band"><div><span class="section-sign"><Icon name="stethoscope" class="icon"/></span><h2>Areas of care</h2></div><nav aria-label="Available specialities">{services.slice(0,4).map(s=><a href={'/specialties/'+s.slug+'/'}>{s.name}<span>→</span></a>)}</nav></section>
 <aside class="urgent-strip"><Icon name="siren" class="icon"/><div><strong>Need urgent care?</strong><p>Call ahead to confirm the facility can receive your pet.</p></div><a href="/emergency/">Find emergency care →</a></aside>
 </div></Layout>
