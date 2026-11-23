@@ -5,8 +5,9 @@ import Search from "../components/UniversalSearch.astro";
 import { cities, providers, specialties } from "@data";
 import { googleDirections } from "../lib/map-links.mjs";
 
-const hospital = providers.find(p => p.imageUrl && p.cityId === "chennai");
-const available = cities.filter(c => providers.some(p => p.cityId === c.id));
+const hospital = providers.find(p => p.id === "chennai-madras-veterinary-college-teaching-hospital-tanuvas-vepery");
+const locations = [...cities].sort((a,b) => a.name.localeCompare(b.name));
+const pets = [{id:"dog", label:"Dogs"}, {id:"cat",label:"Cats"}, {id:"bird",label:"Birds"}, {id:"rabbit",label:"Rabbits"}, {id:"hamster",label:"Hamsters"}].filter(pet => providers.some(p => p.species.includes(pet.id)));
 const services = specialties.filter(s => providers.some(p => p.specialtyIds.includes(s.id)));
 ---
 <Layout title="Vetlas | Veterinary clinics, hospitals and specialists in India" description="Find veterinary care by city or speciality. See facility photographs, check emergency coverage, call the hospital and get directions.">
@@ -15,30 +16,37 @@ const services = specialties.filter(s => providers.some(p => p.specialtyIds.incl
     <div class="finder-intro">
       <p class="notebook-label"><Icon name="paw"/> Veterinary directory · India</p>
       <h1 id="finder-title">Find care for <em>your pet.</em></h1>
-      <p>Look up a hospital, city or speciality.</p>
-      <Search variant="hero" id="find-care"/>
+      <p>Search by practice, neighbourhood or speciality.</p>
+
     </div>
-    <img class="finder-pets" src="/pet-hero-small.webp" alt="" width="420" height="280"/>
+    <img class="finder-pets" src="/pet-hero-small.webp" srcset="/pet-hero-small.webp 350w, /pet-hero-medium.webp 620w" sizes="(max-width:640px) 35vw, 300px" alt="" width="350" height="389" fetchpriority="high"/>
+    <div class="home-search"><Search variant="hero" id="find-care"/></div>
+  </section>
+  <nav class="care-menu" aria-label="Choose care">
+    <a href="/clinics/"><Icon name="stethoscope"/><span><strong>Find a clinic</strong><small>Consultations & routine care</small></span></a>
+    <a href="/hospitals/"><Icon name="hospital"/><span><strong>Find a hospital</strong><small>Hospital services & directions</small></span></a>
+    <a href="/specialties/"><Icon name="heart"/><span><strong>Speciality care</strong><small>Explore by clinical service</small></span></a>
+  </nav>
+  <aside class="callout"><Icon name="siren"/><div><strong>Need emergency care?</strong><p>Call ahead to confirm the hospital can receive your pet.</p></div><a href="/emergency/">Emergency directory →</a></aside>
+  <section class="guide-sheet city-sheet"><h2><Icon name="pin"/> Choose your city</h2>
+    <nav class="city-picker" aria-label="City directories">{locations.map(c => <a href={'/'+c.slug+'/'}><strong>{c.name}</strong><small>{providers.filter(p=>p.cityId===c.id).length} facilities</small><Icon name="arrow"/></a>)}</nav>
   </section>
   <div class="guide-columns">
     <section class="guide-sheet">
-      <h2><Icon name="hospital"/> Hospital directory</h2>
+      <h2><Icon name="hospital"/> Inside a teaching hospital</h2>
       {hospital && <article class="hospital-entry">
         <figure><a href={'/chennai/'+hospital.slug+'/'}><img src={hospital.imageUrl} alt={hospital.imageAlt} width="800" height="600"/></a>
           <figcaption><a href={hospital.imageSourceUrl}>{hospital.imageCredit}</a> · <a href={hospital.imageLicenseUrl}>Licence</a></figcaption>
         </figure>
         <div><p class="notebook-label">Vepery · Chennai</p><h3><a href={'/chennai/'+hospital.slug+'/'}>{hospital.name}</a></h3>
-        <p>{hospital.hoursNote}</p><nav class="contact-tabs" aria-label="Hospital contact">{hospital.phone && <a href={'tel:'+hospital.phone}><Icon name="phone"/>Call hospital</a>}<a href={googleDirections(hospital)}><Icon name="pin"/>Directions</a></nav></div>
+        <p>{hospital.about}</p><p><strong>{hospital.hoursNote}</strong></p><nav class="contact-tabs" aria-label="Hospital contact">{hospital.phone && <a href={'tel:'+hospital.phone}><Icon name="phone"/>Call hospital</a>}<a href={googleDirections(hospital)}><Icon name="pin"/>Directions</a></nav></div>
       </article>}
     </section>
-    <section class="guide-sheet city-sheet"><h2><Icon name="pin"/> City directory</h2>
-      {available.map(c=><a class="guide-row" href={'/'+c.slug+'/'}><strong>{c.name}</strong><Icon name="arrow"/></a>)}
-      <a class="guide-row" href="/locations/">Coverage across {cities.length} cities<Icon name="arrow"/></a>
-    </section>
     <section class="guide-sheet care-sheet"><h2><Icon name="stethoscope"/> Areas of care</h2>
-      {services.map(s=><a class="guide-row" href={'/specialties/'+s.slug+'/'}>{s.name}<Icon name="arrow"/></a>)}
+      {services.slice(0,5).map(s=><a class="guide-row" href={'/specialties/'+s.slug+'/'}>{s.name}<Icon name="arrow"/></a>)}
+      <a class="guide-row" href="/specialties/">Browse all specialities<Icon name="arrow"/></a>
     </section>
   </div>
-  <aside class="callout"><Icon name="siren"/><div><strong>Need emergency care?</strong><p>Call ahead to confirm the hospital can receive your pet.</p></div><a href="/emergency/">Emergency directory →</a></aside>
+  <section class="guide-sheet pet-guide"><h2><Icon name="paw"/> Find care for your animal</h2><nav class="pet-list" aria-label="Practices by animal">{pets.map(pet => <a href={'/search/?pet='+pet.id}><img src={'/pets/'+pet.id+'.webp'} width="54" height="54" alt="" loading="lazy"/>{pet.label}</a>)}</nav></section>
 </div>
 </Layout>

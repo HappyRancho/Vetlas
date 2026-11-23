@@ -12,8 +12,8 @@ const specs=provider.specialtyIds.map(id=>specialtyById(id)?.name).filter(Boolea
 const highlights=[...new Set([...specs.slice(0,1),...provider.services.filter(s=>s!=='Consultation')])].slice(0,3);
 ---
 <article class="listing">
+  {provider.imageUrl && <figure class="branch-picture"><img src={provider.imageUrl} alt={provider.imageAlt} width="420" height="260" loading="lazy"/><figcaption>{provider.imageCredit}</figcaption></figure>}
   <div class="listing-heading">
-    {provider.imageUrl && <img class="listing-photo" src={provider.imageUrl} alt={provider.imageAlt} width="80" height="60" loading="lazy" />}
     <p class="kicker">{provider.type === "ngo" ? "Animal welfare" : provider.type} · {city?.name}</p>
     <h3><a href={href}>{provider.name}</a></h3>
     <p class="listing-area"><Icon name="pin" class="icon"/>{provider.area}</p>

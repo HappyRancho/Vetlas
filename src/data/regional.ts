@@ -1,9 +1,10 @@
 import entries from "./regional-facilities.json";
+import additional from "./additional-branches.json";
 import type { Provider } from "./types";
 
-export const regionalProviders: Provider[] = entries.map(entry => {
+export const regionalProviders: Provider[] = [...entries, ...additional].map(entry => {
   const slug = (entry.name + "-" + entry.area).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-$/, "");
-  const directorySource = entry.source.includes("myfurries.com");
+  const directorySource = /myfurries[.]com|justdial[.]com|sploot[.]space/.test(entry.source);
   const emergency = entry.services.includes("Emergency care");
   const college = entry.name.startsWith("Madras Veterinary College");
   return {
@@ -15,6 +16,7 @@ export const regionalProviders: Provider[] = entries.map(entry => {
     about: college ? "The teaching hospital at the Madras Veterinary College campus in Vepery offers outpatient consultations and round-the-clock emergency care for large and small animals." :
       entry.name.includes("Jivdaya") ? "The Ambawadi hospital treats unowned domestic animals and injured wildlife. Contact the trust about eligibility and intake before bringing an animal." :
       entry.name + " is listed in " + entry.area + ". " + (emergency ? "The published branch information describes emergency care. Call ahead to confirm the team can receive your pet." : "Check the linked branch information for appointments and current clinical services."),
+    ...(entry.city === "pune" ? { confidence: "medium" as const, researchNote: "Branch details are listed in the linked sources." } : {}),
     lastChecked: "2026-11-23", sources: directorySource ? { directory: entry.source } : { website: entry.source },
     evidence: [{ label: directorySource ? "Local practice listing" : "Provider or institution", url: entry.source }, { label: "Branch and location reference", url: entry.corroboration }],
 

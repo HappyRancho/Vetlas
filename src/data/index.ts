@@ -4,8 +4,8 @@ import { puneProviders, puneDoctors, puneLocalities } from "./pune";
 import { regionalProviders } from "./regional";
 const curatedPune = puneProviders.filter(p => p.confidence === "high" && p.dataSource === "public" && !p.locationUnconfirmed)
   .map(p => p.coordinates && !p.coordinateSource ? { ...p, coordinates: undefined } : p);
-import { withApprovedPhotos } from "./approved-photos";
-const providers: Provider[] = withApprovedPhotos([...indoreProviders, ...curatedPune, ...regionalProviders]);
+import { withApprovedPhotos, facilitiesWithPhotos } from "./approved-photos";
+const providers: Provider[] = facilitiesWithPhotos([...indoreProviders, ...curatedPune, ...regionalProviders]);
 import regionalDoctors from "./regional-doctors.json";
 const doctors: Doctor[] = withApprovedPhotos([...regionalDoctors as Doctor[], ...puneDoctors.filter(d => d.degrees.length && d.confidence === "high" && d.dataSource === "public" && curatedPune.some(p => d.providerSlugs.includes(p.slug)))]);
 const reviews: Review[] = [];

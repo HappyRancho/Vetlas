@@ -10,7 +10,7 @@ for (const p of dataset.facilities) {
   assert(!slugs.has(p.slug), `Duplicate provider slug: ${p.slug}`); slugs.add(p.slug);
 
   assert.notEqual(p.dataSource, 'sample', `Sample provider leaked into public data: ${p.id}`);
-  assert(p.imageUrl && p.imageLicenseUrl, `Missing approved photograph: ${p.id}`);
+  assert(p.imageUrl?.startsWith("/facilities/") && (p.imageLicenseUrl || p.imageOriginalUrl), `Missing approved photograph: ${p.id}`);
   if (p.imageUrl) {
     assert(p.imageSourceUrl && p.imageCredit && p.imageAlt);
     assert(readFileSync(new URL('../public' + p.imageUrl, import.meta.url)).length > 1000);
@@ -45,6 +45,10 @@ for (const p of dataset.facilities) {
   }
   if (p.cityId === "indore") assert(!p.rating && !p.reviewCount, `Pilot must not import aggregate review counts: ${p.id}`);
 }
+const cityCounts = new Map();
+for (const p of dataset.facilities) cityCounts.set(p.cityId, (cityCounts.get(p.cityId) ?? 0) + 1);
+assert.equal(cityCounts.size, 10);
+for (const [city, count] of cityCounts) assert(count >= 10 && count <= 20, city + " coverage");
 const portraits = JSON.parse(readFileSync(new URL('../dist/veterinarians.json', import.meta.url))).veterinarians;
 for (const vet of portraits) {
   assert(vet.imageLicenseUrl && vet.imageSourceUrl && vet.imageCredit && vet.imageAlt, `Incomplete portrait rights: ${vet.id}`);

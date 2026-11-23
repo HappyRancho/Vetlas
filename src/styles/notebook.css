@@ -70,3 +70,64 @@ body { background: var(--paper); }
   .callout { display: grid; grid-template-columns: auto 1fr; gap: 1px 8px; }
   .callout a { grid-column: 2; margin: 0; }
 }
+
+.care-menu, .city-picker { display: grid; gap: 12px; }
+.care-menu { grid-template-columns: repeat(3,minmax(0,1fr)); margin: 20px 0; }
+.care-menu a, .city-picker a { display: flex; align-items: center; gap: 12px; padding: 16px; background: white; border: 1px solid var(--rule); border-radius: 12px; }
+.care-menu a:nth-child(2) { background: #f4fbf6; }
+.care-menu a:last-child { background: #fff4eb; }
+.care-menu .icon { width: 25px; height: 25px; }
+.care-menu small, .city-picker small { display: block; color: var(--body); font-size: .83rem; line-height: 1.5; }
+.city-picker { grid-template-columns: repeat(5,minmax(0,1fr)); padding: 16px; }
+.city-picker a { position: relative; display: block; padding: 11px 26px 11px 12px; }
+.city-picker .icon { position: absolute; right: 8px; top: 14px; width: 13px; }
+.city-picker a:hover, .care-menu a:hover { border-color: var(--ink); }
+.notebook .guide-columns { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); margin-block: 22px; gap: 18px; }
+.notebook .guide-sheet h2 { padding: 15px 18px; font-size: 1.27rem; }
+.notebook .hospital-entry { padding: 18px; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 16px; }
+.notebook .hospital-entry h3 { font-size: 1.28rem; }
+.notebook .hospital-entry p:not(.notebook-label), .listing .listing-services { font-size: .92rem; }
+.notebook .guide-row { min-height: 48px; font-size: .94rem; }
+.atlas .listing, .discovery-results .result-summary { padding: 18px; gap: 8px; }
+.listing h3, .result-summary h2 { font-size: 1.15rem; }
+@media(max-width: 840px) {
+  .city-picker { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .notebook .guide-sheet:first-child { grid-column: auto; }
+}
+@media(max-width: 640px) {
+  .care-menu { grid-template-columns: 1fr; gap: 7px; margin: 14px 0; }
+  .care-menu a { padding: 12px 15px; }
+  .city-picker { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; padding: 12px; }
+  .notebook .guide-columns, .notebook .hospital-entry { grid-template-columns: 1fr; }
+  .hospital-entry figure { max-width: 400px; }
+  .notebook .guide-columns { margin-block: 16px; }
+}
+
+.clinic-profile .clinic-identity.source-photo, .discovery-results .result-summary.source-photo { display: block; }
+.source-photo .listing-actions { margin-top: 8px; }
+.notebook .finder { overflow: visible; padding: clamp(18px, 3vw, 36px); gap: 0 1rem; background: radial-gradient(ellipse at 90% 28%, #c2e7ec, transparent 46%), #f5fbfc; }
+.notebook .finder-intro { padding: 0; align-self: center; }
+.notebook .finder h1 { max-width: 15ch; }
+.notebook .finder-pets { grid-column: 2; grid-row: 1 / 3; align-self: end; height: clamp(180px, 21vw, 270px); position: static; width: 100%; }
+.home-search { position: relative; z-index: 3; min-width: 0; }
+.notebook .callout { margin: 18px 0; background: #fff0e9; }
+.pet-list { display: flex; flex-wrap: wrap; padding: 14px; gap: 12px; }
+.pet-list a { display: grid; gap: 4px; justify-items: center; min-width: 66px; font-weight: 600; }
+.pet-list img { width: 54px; height: 54px; object-fit: contain; border-radius: 50%; background: #e5f3f5; }
+@media(max-width:640px) {
+ .notebook .finder { display: grid; grid-template-columns: minmax(0, 1fr) 34%; padding: 16px; gap: 12px 0; }
+ .notebook .finder h1 { max-width: none; }
+ .notebook .finder-pets { grid-row: 1; height: auto; max-height: 162px; z-index: 0; }
+ .notebook .home-search { grid-column: 1/-1; }
+ .notebook .care-menu { grid-template-columns: repeat(3,minmax(0,1fr)); }
+ .notebook .care-menu a { flex-direction: column; gap: 7px; align-items: flex-start; padding: 12px 9px; line-height: 1.25; }
+ .care-menu small { display: none; }
+ .pet-list { gap: 12px 5px; }
+}
+
+.branch-picture { margin: 0; overflow: hidden; }
+.branch-picture img { display: block; width: 100%; height: 160px; object-fit: contain; background: #f1f6f9; border-radius: 9px; }
+.branch-picture figcaption { margin-top: 3px; font-size: .68rem; color: var(--body); }
+
+.discovery-result .result-summary > .result-picture { grid-column: 1; grid-row: 1/5; margin: 0; align-self: center; }
+.result-picture figcaption { font-size: .66rem; color: var(--body); line-height: 1.3; overflow-wrap: anywhere; }

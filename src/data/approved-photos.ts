@@ -16,3 +16,29 @@ export function withApprovedPhotos<T extends { id: string }>(records: T[]) {
     return photo ? [{ ...record, ...photo }] : [];
   });
 }
+
+import branchPhotos from "./branch-photo-links.json";
+import indorePhotos from "./facility-photos.json";
+import punePhotos from "./pune-photos.json";
+import type { Provider } from "./types";
+
+export function facilitiesWithPhotos(records: Provider[]): Provider[] {
+  const links = new Map<string, { url: string; source: string; caption?: string }>(Object.entries(branchPhotos));
+  for (const [key, photo] of Object.entries({ ...indorePhotos, ...punePhotos.providers })) {
+    links.set(key, { url: photo.imageOriginalUrl, source: photo.imageSourceUrl });
+  }
+  return records.flatMap<Provider>(record => {
+    if (approved[record.id]) return [{ ...record, ...approved[record.id] }];
+    const link = links.get(record.id) ?? links.get(record.slug);
+    if (!link) return [];
+    const credit = new URL(link.source).hostname.replace(/^www\./, "");
+    return [{
+      ...record,
+      imageUrl: "/facilities/" + record.id + ".webp",
+      imageAlt: link.caption ?? record.imageAlt ?? ("Photo from the listing for " + record.name + ", " + record.area),
+      imageCredit: link.caption ? link.caption + " · " + credit : credit,
+      imageSourceUrl: link.source,
+      imageOriginalUrl: link.url
+    }];
+  });
+}
