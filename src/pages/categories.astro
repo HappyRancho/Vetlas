@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Icon from "../components/Icon.astro";
+const sections = [
+ { heading:"Specialist care", cards:[
+ ["Eye care","Ophthalmology","/specialities/ophthalmology.webp","/specialties/ophthalmology/"],
+ ["Cancer care","Oncology","/specialities/oncology.webp","/specialties/oncology/"],
+ ["Bones & joints","Orthopaedics","/specialities/orthopedics.webp","/specialties/orthopedics/"],
+ ["General medicine","Consultations & check-ups","/specialities/general.webp","/specialties/general-practice/"],
+ ["Skin & ears","Dermatology","/specialities/dermatology.webp","/specialties/dermatology/"],
+ ["Diagnostics","Imaging services","/specialities/imaging.webp","/specialties/diagnostic-imaging/"]]},
+ {heading:"Facilities & field care",cards:[
+ ["Teaching hospitals","University clinics","/guides/cover-teaching.webp","/care-guide/#teaching"],
+ ["Large animals","Cattle & buffalo","/pets/gir-cattle.webp","/search/?pet=livestock"],
+ ["Wildlife","Rescue contacts","/pets/kanha-chital.webp","/care-guide/#rescue"],
+ ["Exotic pets","Species-specific practices","/pets/lop-rabbit.webp","/search/?pet=exotic-pets"],
+ ["Surgery","Operations & referrals","/specialities/surgery.webp","/specialties/surgery/"],
+ ["Home visits & MVUs","At-home care","/editorial/carrier.webp","#mobile-care"]]}
+];
+const cards=sections.flatMap(s=>s.cards);
+const schema={"@context":"https://schema.org","@type":"CollectionPage",name:"Veterinary care categories",url:new URL("/categories/",Astro.site),mainEntity:{"@type":"ItemList",numberOfItems:cards.length,itemListElement:cards.map(([name,,,href],i)=>({"@type":"ListItem",position:i+1,name,url:new URL(href,new URL("/categories/",Astro.site))}))}};
+---
+<Layout title="Veterinary care categories in India" description="Find eye care, oncology, orthopaedics, diagnostic imaging, home visits, wildlife rescue and veterinary teaching hospitals by care category.">
+<script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+<div class="container category-page"><Breadcrumbs items={[{name:"Home",href:"/"},{name:"Categories",href:"/categories/"}]}/>
+<header><h1>Find care by category</h1><p>Start with the care your animal needs.</p></header>
+<div class="category-shelves">{sections.map(section=><section><h2>{section.heading}</h2><div class="category-grid">{section.cards.map(([label,description,image,href])=><a href={href}>
+<img src={image} alt="" width="320" height="170" loading="lazy"/><span><strong>{label}</strong><small>{description}</small></span><Icon name="arrow"/></a>)}</div></section>)}</div>
+<section id="mobile-care"><h2>Care at your doorstep</h2><p><a href="/search/?q=home+visit">Find home-visit practices</a> and confirm their travel radius and visit charge. For livestock, the government’s mobile veterinary unit programme uses <a href="tel:1962">1962</a>. Ask the state call centre about dispatch to your village. <a href="https://www.dahd.gov.in/en/schemes-programmes/lhdcp">Programme details</a></p></section>
+<a class="category-all" href="/specialties/">Browse all veterinary specialities →</a></div>
+</Layout>
+<style>
+#mobile-care{margin-top:14px;padding:14px 18px;background:#eff5f9;border:1px solid #c7d7df;border-radius:14px;scroll-margin-top:80px}#mobile-care h2{font:700 1.2rem var(--display);margin:0}#mobile-care a{text-decoration:underline;color:#225a54}.category-page{padding-bottom:1.5rem}.category-page header{margin:10px 0 20px}.category-page h1{font:720 clamp(2rem,5vw,3.7rem)/1.03 var(--display);letter-spacing:-.05em;margin:0;color:#173e36}.category-page p{margin:6px 0;color:#3e6056}
+.category-shelves{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.category-shelves section{align-self:start;padding:clamp(10px,2vw,20px);border-radius:20px;background:#eef7f2;border:1px solid #c5dcd2}.category-shelves section+section{background:#fbf5e9;border-color:#e0d4ba}
+.category-shelves h2{margin:2px 0 12px;font:680 clamp(1.25rem,2.2vw,1.65rem) var(--display)}.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.category-grid a{display:grid;grid-template-columns:1fr auto;align-items:center;overflow:hidden;border:1px solid #c7d6cf;border-radius:12px;background:#fff;color:#22463b;text-decoration:none}.category-grid a:hover strong{text-decoration:underline}.category-grid img{grid-column:1/-1;width:100%;height:clamp(92px,13vw,150px);object-fit:cover}.category-grid span{display:grid;gap:3px;padding:10px}.category-grid strong{font:700 1rem/1.15 var(--display)}.category-grid small{color:#506259;font-size:.77rem}.category-grid :global(svg){width:15px;margin-right:8px}.category-all{display:inline-flex;align-items:center;margin-top:12px;min-height:44px;color:#1b594c;font-weight:650}
+@media(max-width:760px){.category-shelves{grid-template-columns:1fr}.category-grid img{height:clamp(90px,26vw,156px)}}
+</style>

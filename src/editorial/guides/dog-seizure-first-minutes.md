@@ -1,6 +1,6 @@
 ---
-title: "The first minutes of a dog’s seizure"
-description: "Know what to time, what to move and when to leave for emergency care."
+title: "What to do in the first minutes of a dog’s seizure"
+description: "Time the seizure, clear nearby hazards and recognise when your dog needs emergency care."
 topic: "First aid"
 art: "neurology"
 references: ["seizure"]

@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import LibrarySearch from "../components/LibrarySearch.astro";
+import {healthExplainers} from "../data/editorial";
+---
+<Layout title="Pet health explainers | That Vet Guy" description="Explore the science behind veterinary imaging, medicines, nutrition and preventive care. Read practical explanations with veterinary references.">
+<div class="container reads-archive"><Breadcrumbs items={[{name:"Home",href:"/"},{name:"Pet health archive",href:"/pet-health/"}]}/>
+<header class="archive-mast"><span>THAT VET GUY</span><h1>Pet health archive</h1><p>What a test can tell you, how a treatment works and what to ask at your next visit.</p></header>
+<LibrarySearch items={healthExplainers} paper name="Pet health archive"/><a href="/reads/" class="archive-link">Browse the national shortlists →</a></div>
+</Layout>

@@ -9,10 +9,11 @@ const { path } = Astro.props;
 
 const nav = [
   { href: "/search/", label: "Directory" },
-  { href: "/specialties/", label: "Specialities" },
-  { href: "/locations/", label: "Cities" },
+  { href: "/categories/", label: "Categories" },
+
   { href: "/care-guide/", label: "Care guide" },
   { href: "/doctors/", label: "Veterinarians" },
+  { href: "/more/", label: "More" },
 ];
 
 const isCurrent = (href: string) => path === href || path.startsWith(href);
@@ -24,7 +25,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
 
     <nav class="site-nav" aria-label="Primary">
       {nav.map((item) => (
-        <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+        <a href={item.href} data-more-trigger={item.href==="/more/" ? "" : undefined} aria-current={isCurrent(item.href) ? "page" : undefined}>
           {item.label}
         </a>
       ))}

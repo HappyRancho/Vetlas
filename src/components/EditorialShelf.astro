@@ -1,11 +1,10 @@
 ---
 import EditorialGrid from "./EditorialGrid.astro";
-import {guides,reads,shampooCover} from "../data/editorial";
+import {guides,popularEditions} from "../data/editorial";
 interface Props { desk: "guides"|"reads" }
 const {desk} = Astro.props;
 const paper=desk==="reads";
-const titles=paper?["indore-hospital-or-clinic","rabies-after-bite","dental-x-rays","food-label","anaesthesia-recovery"]:[];
-const items=paper?[shampooCover,...titles.map(slug=>reads.find(a=>a.slug===slug)!)]:guides.slice(0,6);
+const items=paper?popularEditions:guides.slice(0,6);
 ---
 <section class:list={["home-section","editorial-shelf",paper?"press-shelf":"field-shelf"]} aria-labelledby={paper?"popular-finds":"guides-title"}>
   <h2 id={paper?"popular-finds":"guides-title"}>{paper?"Popular reads":"Guide for animal owners"}</h2>

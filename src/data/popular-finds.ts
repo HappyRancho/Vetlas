@@ -9,7 +9,7 @@ const facilityEntries = (hospital: boolean) => providers
   .filter(row => row.rating !== null)
   .sort((a,b) => b.rating! - a.rating! || a.p.name.localeCompare(b.p.name))
   .slice(0,10)
-  .map(({p,rating}) => ({ name:p.name, city:p.cityId, href:`/${p.cityId}/${p.slug}/`, detail:`${rating!.toFixed(1)}/5 · ${p.area}` }));
+  .map(({p,rating}) => ({ name:p.name, city:p.cityId, image:p.imageUrl, href:`/${p.cityId}/${p.slug}/`, detail:`${rating!.toFixed(1)}/5 · ${p.area}` }));
 
 const clinicians = [
   ...doctors.map(d=>({name:"Dr. "+d.name,city:d.cityId,href:`/${d.cityId}/veterinarians/${d.slug}/`,detail:d.degrees.join(" · ") || specialtyById(d.primarySpecialtyId)?.name || "Veterinarian",surgery:[d.primarySpecialtyId,...d.secondarySpecialtyIds].includes("surgery")})),

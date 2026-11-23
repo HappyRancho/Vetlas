@@ -6,19 +6,19 @@ const groups = cities.map(city => ({
   city, branches: providers.filter(p => p.cityId === city.id && p.coordinates && p.coordinateSource && !p.locationUnconfirmed)
 })).filter(g => g.branches.length);
 const cityZoom = 12;
-const first = groups[0]?.branches[0];
+const indiaPreview = "https://maps.google.com/maps?output=embed&hl=en&q=India&z=4";
 ---
-{first && <section class="home-section" aria-labelledby="map-title">
+{groups.length > 0 && <section class="home-section" aria-labelledby="map-title">
   <div class="home-heading index-heading"><Icon name="pin"/><h2 id="map-title">Find on map</h2><a href="/locations/">All cities</a></div>
   <div class="facility-map" data-facility-map>
-    <iframe src={googlePreview(first, cityZoom)} title={'Google Maps · '+first.name} loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src={indiaPreview} data-india={indiaPreview} title="Google Maps · India" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
     <div class="map-desk">
       <div class="map-fields">
-        <label>City<select data-city>{groups.map(g=><option value={g.city.id}>{g.city.name}</option>)}</select></label>
-        <label>Facility<select data-branch>{groups.map(g=><optgroup label={g.city.name} data-city-id={g.city.id}>{g.branches.map(p=><option value={p.id} data-name={p.name} data-address={p.address} data-preview={googlePreview(p, cityZoom)} data-profile={`/${p.cityId}/${p.slug}/`} data-route={googleDirections(p)}>{p.name}</option>)}</optgroup>)}</select></label>
+        <label>City<select data-city><option value="">Choose a city</option>{groups.map(g=><option value={g.city.id} data-name={g.city.name}>{g.city.name}</option>)}</select></label>
+        <label>Facility<select data-branch disabled><option value="">Choose a facility</option>{groups.map(g=><optgroup label={g.city.name} data-city-id={g.city.id}>{g.branches.map(p=><option value={p.id} data-name={p.name} data-address={p.address} data-preview={googlePreview(p, cityZoom)} data-profile={`/${p.cityId}/${p.slug}/`} data-route={googleDirections(p)}>{p.name}</option>)}</optgroup>)}</select></label>
       </div>
-      <div class="map-branch" aria-live="polite"><Icon name="pin"/><div><h3>{first.name}</h3><p>{first.address}</p></div></div>
-      <div class="map-actions"><a data-profile href={`/${first.cityId}/${first.slug}/`}>Facility details</a><a data-route href={googleDirections(first)}><Icon name="directions"/>Directions</a></div>
+      <div class="map-branch" aria-live="polite"><Icon name="pin"/><div><h3>India</h3><p>Choose a city, then a facility to see its location.</p></div></div>
+      <div class="map-actions" hidden><a data-profile>Facility details</a><a data-route><Icon name="directions"/>Directions</a></div>
     </div>
   </div>
 </section>}
@@ -30,17 +30,27 @@ const first = groups[0]?.branches[0];
    const groups = Array.from(branch.querySelectorAll('optgroup'));
    const frame = map.querySelector('iframe')!;
    function showBranch() {
-     const data = branch.selectedOptions[0].dataset;
-     if (frame.getAttribute('src') !== data.preview) frame.src = data.preview!;
-     frame.title = 'Google Maps · '+data.name;
-     map!.querySelector('h3')!.textContent = data.name!;
-     map!.querySelector('.map-branch p')!.textContent = data.address!;
-     map!.querySelector<HTMLAnchorElement>('a[data-profile]')!.href = data.profile!;
-     map!.querySelector<HTMLAnchorElement>('a[data-route]')!.href = data.route!;
+     const pin = branch.selectedOptions[0]?.dataset;
+     const cityName = city.selectedOptions[0]?.dataset.name;
+     const overview = cityName ? 'https://maps.google.com/maps?output=embed&hl=en&z=11&q='+encodeURIComponent(cityName+', India') : frame.dataset.india!;
+     const url = pin?.preview || overview;
+     if(frame.getAttribute('src') !== url) frame.src=url;
+     const place = pin?.name || cityName || 'India';
+     frame.title = 'Google Maps · '+place;
+     map!.querySelector('h3')!.textContent = place;
+     map!.querySelector('.map-branch p')!.textContent = pin?.address || (cityName ? 'Choose a facility to see its pin and directions.' : 'Choose a city, then a facility to see its location.');
+     map!.querySelector<HTMLElement>('.map-actions')!.hidden = !pin?.profile;
+     for(const key of ['profile','route']){
+       const link=map!.querySelector<HTMLAnchorElement>('a[data-'+key+']')!;
+       if(pin?.[key]) link.href=pin[key]!;
+       else link.removeAttribute('href');
+     }
    }
    function showCity() {
-     const group = groups.find(g=>g.dataset.cityId===city.value)!;
-     branch.replaceChildren(group);
+     const group = groups.find(g=>g.dataset.cityId===city.value);
+     branch.replaceChildren(new Option('Choose a facility',''));
+     if(group) branch.append(group);
+     branch.disabled = !group;
      branch.selectedIndex = 0;
      showBranch();
    }
@@ -55,6 +65,6 @@ const first = groups[0]?.branches[0];
 .map-fields{display:grid;grid-template-columns:minmax(85px,.6fr) minmax(0,1fr);gap:8px}.map-fields label{display:grid;gap:4px;color:#45655a;font-weight:650;font-size:.84rem}.map-fields select{min-width:0;width:100%;min-height:44px;padding:6px 8px;border:1px solid #bfd4ca;border-radius:10px;background:white;color:var(--ink);font:inherit}
 .map-branch{display:flex;align-items:flex-start;gap:8px}.map-branch :global(svg){flex:none;color:var(--teal);width:20px;height:20px}
 .map-branch h3{font:720 1.12rem/1.22 var(--display);margin:0}.map-branch p{font-size:.87rem;color:var(--body);line-height:1.45;margin:4px 0 0}
-.facility-map .map-actions{display:flex;gap:8px;margin:0}.map-actions a{display:inline-flex;align-items:center;gap:5px;background:#e5f2eb;padding:8px 13px;border-radius:10px;min-height:42px;font-weight:650;font-size:.88rem}.map-actions a[data-route]{background:#155b53;color:white}.map-actions :global(svg){width:16px;height:16px}
+.facility-map .map-actions[hidden]{display:none}.facility-map .map-actions{display:flex;gap:8px;margin:0}.map-actions a{display:inline-flex;align-items:center;gap:5px;background:#e5f2eb;padding:8px 13px;border-radius:10px;min-height:42px;font-weight:650;font-size:.88rem}.map-actions a[data-route]{background:#155b53;color:white}.map-actions :global(svg){width:16px;height:16px}
 @media(max-width:850px){.map-desk{grid-template-columns:minmax(0,1fr);padding:13px 15px}.facility-map iframe{height:clamp(270px,58vw,330px)}.map-fields{grid-template-columns:minmax(82px,.48fr) minmax(0,1fr)}.map-desk{gap:10px}}
 </style>

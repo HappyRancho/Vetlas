@@ -1,12 +1,14 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+import ArticleContents from "./ArticleContents.astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
-import {features,type Feature} from "../data/editorial";
+import {features,healthExplainers,type Feature} from "../data/editorial";
 interface Props { article:Feature }
 const {article:a}=Astro.props;
 const paper=a.desk==="reads";
-const hub=paper?"/reads/":"/care-guide/";
-const hubName=paper?"Popular reads":"Care guide";
+const archived=healthExplainers.some(item=>item.slug===a.slug);
+const hub=archived?"/pet-health/":paper?"/reads/":"/care-guide/";
+const hubName=archived?"Pet health archive":paper?"Popular reads":"Care guide";
 const Picture=a.picture;
 const license=Picture.license?.includes("/") ? Picture.license.split("/") : null;
 const Content=a.document.Content;
@@ -17,11 +19,11 @@ const minutes=Math.max(1,Math.ceil(a.document.rawContent().split(/\s+/).length/1
 const referenceKeys=new Set(a.references.map(r=>r.url));
 const others=features.filter(x=>x.href!==a.href);
 const related=others.map(x=>({x,score:x.references.filter(r=>referenceKeys.has(r.url)).length*3+Number(x.topic===a.topic)*2+Number(x.image===a.image)})).sort((l,r)=>r.score-l.score);
-const schema={"@context":"https://schema.org","@type":"BlogPosting",headline:a.title,description:a.description,image:new URL(a.image,Astro.site),mainEntityOfPage:new URL(a.href,Astro.site),inLanguage:"en-IN",datePublished:"2026-11-24",dateModified:"2026-11-24",author:{"@type":"Organization",name:"Vetlas",url:new URL("/about/",Astro.site)},articleSection:a.topic,citation:a.references.map(r=>new URL(r.url,Astro.site).href)};
+const schema={"@context":"https://schema.org","@type":"BlogPosting","@id":new URL(a.href+"#article",Astro.site),publisher:{"@type":"Organization",name:"ThatVetGuy",url:new URL("/about/",Astro.site)},timeRequired:`PT${minutes}M`,headline:a.title,description:a.description,image:new URL(a.image,Astro.site),mainEntityOfPage:new URL(a.href,Astro.site),inLanguage:"en-IN",datePublished:"2026-11-24",dateModified:"2026-11-24",author:{"@type":"Organization",name:"Vetlas",url:new URL("/about/",Astro.site)},articleSection:a.topic,citation:a.references.map(r=>new URL(r.url,Astro.site).href)};
 ---
-<Layout title={a.title} description={a.description} image={a.image} article>
+<Layout title={a.title} description={a.description} image={a.image} imageAlt={Picture.alt} article>
  <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
- <article class:list={["container","feature-story",paper?"press-story":"field-story"]}>
+ <article id="article" class:list={["container","feature-story",paper?"press-story":"field-story"]}>
   <Breadcrumbs items={[{name:"Home",href:"/"},{name:hubName,href:hub},{name:a.title,href:a.href}]}/>
   <header class="feature-cover">
     <div class="cover-words">
@@ -35,10 +37,10 @@ const schema={"@context":"https://schema.org","@type":"BlogPosting",headline:a.t
     </figure>
   </header>
   <div class="feature-layout">
-   <nav class="feature-contents" aria-label="In this article"><strong>In this article</strong>{sections.map(h=><a href={'#'+h.slug}>{h.text}</a>)}<a href="#references">References</a></nav>
+   <ArticleContents sections={[...sections,{slug:"references",text:"References"}]}/>
    <div class="feature-text"><Content/>
     <section id="references" class="feature-refs"><h2>References</h2><ul>{a.references.map(r=><li><a href={r.url}>{r.title}</a></li>)}</ul></section>
-    <aside class="feature-next"><strong>Continue reading</strong><a href={related[0].x.href}>{related[0].x.title} →</a><a href={hub}>{paper?"All newspaper editions":"All care guides"} →</a></aside>
+    <aside class="feature-next"><strong>Continue reading</strong><a href={related[0].x.href}>{related[0].x.title} →</a><a href={hub}>{hubName} →</a></aside>
    </div>
   </div>
  </article>

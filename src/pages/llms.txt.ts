@@ -6,6 +6,8 @@ import { cities,providersByCity } from "../data";
 export const GET: APIRoute = ({ site }) => new Response([
   "# Vetlas", "Veterinary care directories for ten Indian cities. Sources and check dates appear on facility profiles. Opening hours describe published schedules. Confirm urgent availability directly.",
   ...cities.map(c => "- ["+c.name+"]("+new URL(c.slug+"/", site)+") · "+providersByCity(c.id).length+" facilities"),
+  "- [Care categories]("+new URL("categories/",site)+") · Twelve routes to specialty, institutional and field care.",
+  "- [Pet health archive]("+new URL("pet-health/",site)+") · Veterinary tests, treatment decisions and clinical explainers.",
   "- [Popular reads]("+new URL("reads/",site)+") · Veterinary newspaper and directory shortlists.",
   ...features.map(a => `- [${a.title}](${new URL(a.href,site)}) · ${a.description}`),
   ...ownerArticles.map(a => `- [${a.title}](${new URL("care-guide/"+a.slug+"/",site)}) · ${a.description}`),

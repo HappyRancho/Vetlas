@@ -1,6 +1,6 @@
 ---
-title: "A cat keeps visiting the tray and little comes out"
-description: "Recognise a possible urinary blockage and give the emergency team the right information quickly."
+title: "Cat straining to pee with little or no urine?"
+description: "A urinary blockage can be life-threatening. Call an emergency vet now and describe when your cat last passed urine."
 topic: "First aid"
 art: "internal"
 references: ["urinary", "constipation"]

@@ -63,3 +63,10 @@ export const shortlists: Cover[] = finds.map((f,i) => ({
   title:f.title, description:f.method.split(". ")[0]+".", topic:"Directory shortlist", href:f.href,
   image:["/specialities/directory.webp","/specialities/general.webp","/specialities/internal.webp","/specialities/surgery.webp"][i]
 }));
+
+const nationalEditions = new Set(["dog-foods-india","cat-foods-india","veterinary-surgeons-india","veterinary-referral-hospitals-india"]);
+export const healthExplainers = reads.filter(article => !nationalEditions.has(article.slug));
+export const popularEditions: Cover[] = [
+  shampooCover, ...reads.filter(article => nationalEditions.has(article.slug)),
+  ...shortlists.filter(article => article.href === "/finds/vet-clinics/"),
+];

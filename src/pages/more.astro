@@ -3,15 +3,7 @@ import DirectoryHeader from "../components/DirectoryHeader.astro";
 import Layout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import TopicLinks from "../components/TopicLinks.astro";
-const groups = [
-  {name:"Explore care", items:[
-    {label:"City directories",icon:"pin",href:"/locations/"},{label:"Veterinarians",icon:"doctor",href:"/doctors/"},
-    {label:"Specialities",icon:"stethoscope",href:"/specialties/"},{label:"Emergency care",icon:"siren",href:"/emergency/"}]},
-  {name:"For animal owners",items:[{label:"Care guide library",icon:"book",href:"/care-guide/"},{label:"Popular reads",icon:"newspaper",href:"/reads/"}]},
-  {name:"About the directory", items:[
-    {label:"How we check listings",icon:"badge",href:"/methodology/"},{label:"Write a review",icon:"book",href:"/review/"},
-    {label:"About Vetlas",icon:"info",href:"/about/"},{label:"Privacy",icon:"shield",href:"/privacy/"}]}
-];
+import { groups } from "../data/more-menu";
 const schema = {"@context":"https://schema.org","@type":"CollectionPage",name:"More from Vetlas",url:new URL("/more/",Astro.site),hasPart:groups.flatMap(g=>g.items.map(i=>({"@type":"WebPage",name:i.label,url:new URL(i.href,Astro.site)})))};
 ---
 <Layout title="More from Vetlas | Directory tools and information" description="Explore veterinary services, share a visit review, and learn how Vetlas checks and publishes directory information.">

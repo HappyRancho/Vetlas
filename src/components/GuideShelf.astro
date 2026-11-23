@@ -4,7 +4,7 @@ import {guides, olderGuides} from "../data/editorial";
 import LibrarySearch from "./LibrarySearch.astro";
 ---
 <LibrarySearch items={[...guides,...olderGuides]}/>
-<nav class="care-referrals" aria-label="Referral guide chapters">{guideChapters.map(c=><a href={c.href}>{c.label}</a>)}</nav>
+<nav class="care-referrals" aria-label="Referral guide chapters">{guideChapters.map(c=><a href={c.href}>{c.label}</a>)}<a href="/pet-health/">Pet health explainers</a></nav>
 <style>
 .care-referrals{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}.care-referrals a{display:inline-flex;align-items:center;min-height:42px;padding:6px 11px;border:1px solid var(--rule);border-radius:10px;background:white;color:var(--teal);font-weight:650}
 

@@ -19,7 +19,8 @@ async function main() {
     assert.equal(await page.getByText('THAT VET GUY',{exact:true}).count(),6);
     for (const [path,label,term] of [
       ['/care-guide/','Find a guide','rabbit'],
-      ['/reads/','Find a story','radiograph'],
+      ['/reads/','Find a story','surgical'],
+      ['/pet-health/','Find a story','radiograph'],
       ['/locations/','Find a city or state','Indore'],
       ['/indore/','Find a neighbourhood or practice','Myra'],
     ]) {
@@ -32,6 +33,35 @@ async function main() {
       await empty.waitFor({state:'hidden'});
       await input.fill('');
     }
+    await page.setViewportSize({width:390,height:844});
+    await page.goto(base);
+    const map=page.locator('[data-facility-map]');
+    assert.equal(await map.locator('[data-city]').inputValue(),'');
+    assert(await map.locator('[data-branch]').isDisabled());
+    await map.locator('[data-city]').selectOption('indore');
+    assert.equal(await map.locator('[data-branch]').inputValue(),'');
+    await map.locator('[data-branch]').selectOption('indore-myra-usha');
+    assert(await map.locator('a[data-route]').isVisible());
+    await map.locator('[data-city]').selectOption('');
+    assert(await map.locator('a[data-route]').isHidden());
+    const nav=page.getByRole('navigation',{name:'Quick navigation'});
+    const more=nav.getByRole('link',{name:'More'});
+    await more.click();
+    assert(await page.getByRole('dialog').isVisible());
+    await page.keyboard.press('Escape');
+    assert(await more.evaluate(el=>el===document.activeElement));
+    await nav.getByRole('link',{name:'Categories'}).click();
+    assert.equal(await page.locator('.category-grid a').count(),12);
+    await page.locator('.category-grid').getByRole('link',{name:/Home visits/}).click();
+    await page.getByRole('link',{name:'Find home-visit practices'}).click();
+    assert(await page.locator('.discovery-result:visible').count()>0);
+    await page.goto(base+'/reads/cat-foods-india/');
+    const table = page.getByRole('table');
+    assert.equal(await table.getByRole('columnheader').count(),3);
+    const comparisonLabel = table.locator('.comparison-label').first();
+    assert(await comparisonLabel.isVisible());
+    await page.setViewportSize({width:1280,height:844});
+    assert(await comparisonLabel.isHidden());
     await page.goto(base+'/guides/checking-a-surgical-incision/');
     const faq=page.locator('.story-faq');
     await faq.locator('summary').click();

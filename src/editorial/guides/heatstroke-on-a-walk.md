@@ -1,6 +1,6 @@
 ---
-title: "A dog overheats on a walk. What happens next?"
-description: "Start cooling promptly, arrange transport and recognise why apparent recovery still needs assessment."
+title: "First aid for a dog with heatstroke on a walk"
+description: "Start cooling an overheated dog promptly, call a veterinary hospital and arrange transport even if the dog seems to improve."
 topic: "First aid"
 art: "indian-dog"
 references: ["heat"]

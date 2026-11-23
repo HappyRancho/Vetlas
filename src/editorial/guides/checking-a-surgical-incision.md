@@ -1,6 +1,6 @@
 ---
-title: "Checking your dog’s incision, one day at a time"
-description: "Use a first-night photograph, a simple comparison and your discharge instructions to recognise a change worth reporting."
+title: "How to check your dog’s incision after surgery"
+description: "Compare the incision with a discharge photo, protect the stitches and recognise changes that need a call to the surgical team."
 topic: "Recovery"
 art: "collar"
 references: ["surgery", "bandage"]

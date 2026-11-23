@@ -1,11 +1,11 @@
 ---
 import EditorialGrid from "./EditorialGrid.astro";
 import type { Cover } from "../data/editorial";
-interface Props {items:Cover[];paper?:boolean}
-const {items,paper=false}=Astro.props;
+interface Props {items:Cover[];paper?:boolean; name?:string}
+const {items,paper=false,name=paper?"Popular reads":"Vetlas care guide"}=Astro.props;
 const schema={
   "@context":"https://schema.org","@type":"CollectionPage",
-  name:paper?"Popular reads":"Vetlas care guide",url:new URL(Astro.url.pathname,Astro.site),
+  name,url:new URL(Astro.url.pathname,Astro.site),
   mainEntity:{"@type":"ItemList",numberOfItems:items.length,itemListElement:items.map((item,i)=>({
     "@type":"ListItem",position:i+1,name:item.title,url:new URL(item.href,Astro.site)
   }))}
@@ -15,7 +15,7 @@ const schema={
 <div class="editorial-library" data-library>
   <label hidden class="library-filter">Find {paper?"a story":"a guide"}<input type="search" placeholder={paper?"Search by headline or subject":"Search by symptom, animal or topic"}/></label>
   <p class="library-status" role="status" hidden></p>
-  <EditorialGrid items={items} paper={paper} label={paper?"Popular Reads archive":"Guide library"}/>
+  <EditorialGrid items={items} paper={paper} label={name}/>
 </div>
 <script>
  for (const shelf of document.querySelectorAll<HTMLElement>('[data-library]')) {

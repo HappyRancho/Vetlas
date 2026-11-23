@@ -1,0 +1,23 @@
+---
+interface Props { sections:{slug:string;text:string}[] }
+const {sections}=Astro.props;
+---
+<details class="article-index">
+  <summary>In this article</summary>
+  <nav aria-label="Article sections">{sections.map(s=><a href={'#'+s.slug}>{s.text}</a>)}</nav>
+</details>
+<script>
+ for(const index of document.querySelectorAll<HTMLDetailsElement>('details.article-index')){
+   const wide=matchMedia('(min-width: 800px)');
+   const sync=()=>{index.open=wide.matches;};
+   sync();
+   wide.addEventListener('change',sync);
+ }
+</script>
+<style>
+.article-index{align-self:start;background:var(--index-paper,#eef6f0);border:1px solid var(--index-rule,#c4d7cb);border-radius:12px;padding:0 14px;color:#254d40}
+.article-index summary{font:700 .94rem var(--display);padding:13px 0;cursor:pointer}.article-index nav{display:grid;margin:0 0 8px;border-top:1px solid var(--index-rule,#c4d7cb)}
+.article-index a{padding:9px 0;font:550 .9rem/1.3 var(--display);color:inherit;text-decoration:none}.article-index a:hover{text-decoration:underline}
+@media(min-width:800px){.article-index{position:sticky;top:80px}}
+@media print{.article-index{display:none}}
+</style>

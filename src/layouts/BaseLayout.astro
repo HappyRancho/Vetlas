@@ -23,9 +23,10 @@ interface Props {
   noindex?: boolean;
   canonical?: string;
   image?: string;
+  imageAlt?: string;
   article?: boolean;
 }
-const { title, description, noindex = false, canonical, image, article = false } = Astro.props;
+const { title, description, noindex = false, canonical, image, imageAlt, article = false } = Astro.props;
 const siteUrl = Astro.site ?? Astro.url;
 const canonicalUrl = canonical ? new URL(canonical, siteUrl) : new URL(Astro.url.pathname, siteUrl);
 const path = Astro.url.pathname;
@@ -57,6 +58,8 @@ const isCurrent = (href: string) =>
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     {image && <meta property="og:image" content={new URL(image,siteUrl)} />}
+    {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+    {article && !noindex && <meta name="robots" content="max-image-preview:large" />}
     <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
     {
       noindex === false && (

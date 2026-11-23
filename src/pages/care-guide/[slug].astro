@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/BaseLayout.astro";
+import ArticleContents from "../../components/ArticleContents.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { ownerArticles } from "../../data/owner-guides";
 export function getStaticPaths() {
@@ -7,6 +8,7 @@ export function getStaticPaths() {
 }
 const {article:a} = Astro.props;
 const path = `/care-guide/${a.slug}/`;
+const paper=a.slug==="five-vet-recommended-dog-shampoos";
 const related = ownerArticles.find(other=>other.slug!==a.slug && other.group===a.group);
 const minutes = Math.ceil([a.intro,a.takeaway,...a.sections.flatMap(s=>s.paragraphs)].join(" ").split(/\s+/).length/200);
 const schema = {
@@ -16,23 +18,24 @@ const schema = {
   dateModified:"2026-11-23",citation:a.sourceUrl,articleSection:a.topic,timeRequired:`PT${minutes}M`
 };
 ---
-<Layout title={"seoTitle" in a ? a.seoTitle : a.shortTitle+" for dog and cat owners"} description={a.description} image={a.image} article>
+<Layout title={"seoTitle" in a ? a.seoTitle : a.shortTitle+" for dog and cat owners"} description={a.description} image={a.image} imageAlt={a.alt} article>
 <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
-<article class="container journal">
-  <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Care guide",href:"/care-guide/"},{name:a.shortTitle,href:path}]}/>
-  <header class="cover"><div class="cover-text"><p class="category">{a.topic}</p><h1>{a.title}</h1><p class="standfirst">{a.description}</p><p class="byline">By <a href="/about/">Vetlas</a> · {minutes} min read<br/><time datetime="2026-11-23">Updated 23 November 2026</time></p></div>
+<article class:list={["container","journal", {"shampoo-edition":paper}]}>
+  <Breadcrumbs items={[{name:"Home",href:"/"},{name:paper?"Popular reads":"Care guide",href:paper?"/reads/":"/care-guide/"},{name:a.shortTitle,href:path}]}/>
+  <header class="cover"><div class="cover-text"><p class="category">{paper?"THAT VET GUY · ":"Care guide · "}{a.topic}</p><h1>{a.title}</h1><p class="standfirst">{a.description}</p><p class="byline">By <a href="/about/">Vetlas</a> · {minutes} min read<br/><time datetime="2026-11-23">Updated 23 November 2026</time></p></div>
     <figure><img src={a.image} alt={a.alt} width="600" height="600" fetchpriority="high"/><figcaption>{"photoSource" in a && a.photoSource ? <><a href={a.photoSource}>{a.credit}</a> · <a href={a.licenseUrl}>{a.license}</a> · adapted for web</> : "Vetlas editorial illustration"}</figcaption></figure>
   </header>
   <div class="article-layout">
-    <nav class="contents" aria-label="In this article"><strong>In this article</strong>{a.sections.map(s=><a href={'#'+s.id}>{s.title}</a>)}<a href="#visit-notes">What to bring</a></nav>
+    <ArticleContents sections={[...a.sections.map(s=>({slug:s.id,text:s.title})),{slug:"visit-notes",text:"What to bring"},{slug:"sources",text:"Further reading"}]}/>
     <div class="story-body"><p class="opening">{a.intro}</p><aside class="takeaway">{a.takeaway}</aside>
       {a.sections.map(s=><section id={s.id}><h2>{s.title}</h2>{s.paragraphs.map(p=><p>{p}</p>)}</section>)}
       <section class="visit-notes" id="visit-notes"><h2>What to bring</h2><ul>{a.checklist.map(item=><li>{item}</li>)}</ul><a href={a.nextUrl}>{a.next}</a></section>
-      <footer><p><strong>Further reading</strong><br/><a href={a.sourceUrl}>{a.source}</a></p>{related && <p><strong>Read next</strong><br/><a href={'/care-guide/'+related.slug+'/'}>{related.title}</a></p>}</footer>
+      <footer id="sources"><p><strong>Further reading</strong><br/><a href={a.sourceUrl}>{a.source}</a></p>{related && <p><strong>Read next</strong><br/><a href={'/care-guide/'+related.slug+'/'}>{related.title}</a></p>}</footer>
     </div>
   </div>
 </article></Layout>
 <style>
+.shampoo-edition .cover{border-radius:4px;background:#f7eedc url(/editorial/newsprint.webp);border-block:4px double #726957}.shampoo-edition .category{color:#863729;letter-spacing:.05em}.shampoo-edition .cover h1{color:#30271f}.shampoo-edition .takeaway{background:#fcf3e2;border-color:#a96942}.journal .article-layout{margin-inline:auto;justify-content:center}
 .journal{max-width:1020px;padding-bottom:2.5rem}.cover{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);background:#f6f5eb;border-radius:21px;border:1px solid #d8ddcc;overflow:hidden}
 .cover-text{align-self:center;padding:clamp(18px,4vw,40px)}.category{color:#38644e;font-weight:720;margin:0 0 8px}
 .cover h1{font:550 clamp(2rem,5vw,3.6rem)/1.03 Georgia,serif;letter-spacing:-.042em;margin:0;color:#173e36}

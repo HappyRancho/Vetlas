@@ -1,3 +1,4 @@
+import { readingTables } from "./src/lib/reading-tables.mjs";
 import { defineConfig } from "astro/config";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative, sep } from "node:path";
@@ -8,6 +9,7 @@ const escape = value => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;");
 
 export default defineConfig({
   site, trailingSlash: "always",
+  markdown: { rehypePlugins: [readingTables] },
   vite: { resolve: { alias: { "@data": fileURLToPath(new URL("./src/data", import.meta.url)) } } },
   integrations: [{
     name: "vetlas-public-sitemap",

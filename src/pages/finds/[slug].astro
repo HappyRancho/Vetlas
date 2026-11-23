@@ -4,16 +4,24 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { finds } from "../../data/popular-finds";
 export function getStaticPaths(){return finds.map(find=>({params:{slug:find.slug},props:{find}}));}
 const {find} = Astro.props;
+const photo=find.entries.find(e=>"image" in e && e.image);
+const image=photo && "image" in photo ? String(photo.image) : "/specialities/"+(find.slug==="veterinary-surgery"?"surgery":"internal")+".webp";
 const schema = {"@context":"https://schema.org","@type":"CollectionPage",name:find.title,url:new URL(find.href,Astro.site),description:find.method,mainEntity:{"@type":"ItemList",numberOfItems:find.entries.length,itemListElement:find.entries.map((e,i)=>({"@type":"ListItem",position:i+1,name:e.name,url:new URL(e.href,Astro.site)}))}};
 ---
-<Layout title={find.title} description={`Browse ${find.title}. ${find.method}`}>
+<Layout image={image} title={find.title} description={`Browse ${find.title}. ${find.method}`}>
 <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
 <div class="container reading-page">
-  <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Popular finds",href:"/#popular-finds"},{name:find.label,href:find.href}]}/>
-  <header class="city-mast"><p class="kicker">Popular finds</p><h1>{find.title}</h1><p>{find.method}</p></header>
-  <ul class="find-entries">{find.entries.map(e=><li><a href={e.href}><strong>{e.name}</strong><span>{e.city} · {e.detail}</span></a></li>)}</ul>
+  <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Popular reads",href:"/reads/"},{name:find.label,href:find.href}]}/>
+  <header class="shortlist-cover"><div><p>THAT VET GUY</p><h1>{find.title}</h1><span>Directory shortlist</span></div><img src={image} alt="" width="540" height="300"/></header>
+  <section class="selection-note"><h2>How we selected these profiles</h2><p>{find.method}</p></section>
+  <ul class="find-entries">{find.entries.map(e=><li><a href={e.href}><strong>{e.name}</strong><span>{e.city} · {e.detail}</span><b aria-hidden="true">→</b></a></li>)}</ul>
   <a class="btn btn-secondary" href={find.all}>Explore all {find.slug==="veterinary-surgery"?"surgery services":find.label.toLowerCase()}</a>
 </div></Layout>
 <style>
 .find-entries{list-style:none;padding:0;display:grid;gap:7px}.find-entries a{display:grid;gap:4px;padding:12px 14px;border:1px solid var(--rule);background:white;color:var(--ink);border-radius:12px;text-decoration:none}.find-entries span{color:var(--body);font-size:.88rem}.find-entries a:hover strong{text-decoration:underline}
+
+.shortlist-cover{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);overflow:hidden;background:#f6ecda url(/editorial/newsprint.webp);border-block:4px double #746957}
+.shortlist-cover div{align-self:center;padding:clamp(14px,3vw,34px)}.shortlist-cover p{display:inline-block;margin:0;border-block:2px solid #544935;padding:4px 0;font:800 .97rem Georgia,serif}.shortlist-cover h1{font:750 clamp(1.85rem,4.8vw,3.7rem)/1.03 Georgia,serif;color:#30261c;margin:.3em 0;letter-spacing:-.04em}.shortlist-cover span{color:#793a29;font-weight:700}.shortlist-cover img{width:100%;height:100%;min-height:165px;object-fit:cover}
+.selection-note{margin:18px 0}.selection-note h2{margin:0;font:700 1.2rem var(--display)}.selection-note p{max-width:65ch;margin:.4em 0}.find-entries{grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:10px}.find-entries a{grid-template-columns:1fr auto;height:100%;border-left:3px solid #bda176;background:#fffdf8}.find-entries b{grid-column:2;grid-row:1 / 3;align-self:center;color:#884a34}
+@media(max-width:460px){.shortlist-cover{grid-template-columns:1fr}.shortlist-cover img{min-height:0;height:125px}}
 </style>

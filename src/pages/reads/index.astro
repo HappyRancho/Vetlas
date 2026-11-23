@@ -2,11 +2,11 @@
 import Layout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import LibrarySearch from "../../components/LibrarySearch.astro";
-import { reads, shampooCover, shortlists } from "../../data/editorial";
-const items=[shampooCover,...reads,...shortlists];
+import { shortlists,popularEditions } from "../../data/editorial";
+
 ---
-<Layout title="Popular Reads | That Vet Guy veterinary newspaper" description="Explore original reporting and explainers on pet health, treatment choices, diagnostic tests and finding veterinary care in India.">
+<Layout title="Popular Reads | That Vet Guy veterinary newspaper" description="Explore dog shampoos, dog and cat foods and veterinary referral options in India, with product labels, named clinicians and hospital sources.">
  <div class="container reads-archive"><Breadcrumbs items={[{name:"Home",href:"/"},{name:"Popular reads",href:"/reads/"}]}/>
- <header class="archive-mast"><span>THAT VET GUY</span><h1>Popular reads</h1><p>Pet health, the decisions behind treatment and the people who provide care.</p></header>
- <LibrarySearch items={items} paper/></div>
+ <header class="archive-mast"><span>THAT VET GUY</span><h1>Popular reads</h1><p>Food, coat care and referral shortlists for animal owners across India.</p></header>
+ <LibrarySearch items={popularEditions} paper/><a class="archive-link" href="/pet-health/">Read the pet health archive →</a><nav aria-label="More directory comparisons" class="other-comparisons">{shortlists.filter(item=>!popularEditions.some(feature=>feature.href===item.href)).map(item=><a href={item.href}>{item.title}</a>)}</nav></div>
 </Layout>

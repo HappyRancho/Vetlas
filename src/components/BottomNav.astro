@@ -1,17 +1,58 @@
 ---
 import Icon from "./Icon.astro";
+import { groups } from "../data/more-menu";
 import { cities } from "@data";
 interface Props { path: string; isCurrent: (href: string) => boolean }
 const { path } = Astro.props;
 const segment = path.split("/")[1];
 const items = [
   { label: "Home", href: "/", icon: "home", active: !segment },
-  { label: "Find", href: "/search/", icon: "search", active: ["search","hospitals","clinics","doctors","specialists","specialties","emergency","map"].includes(segment) },
-  { label: "City", href: "/locations/", icon: "pin", active: segment === "locations" || cities.some(c => c.slug === segment) },
-  { label: "Guide", href: "/care-guide/", icon: "book", active: ["care-guide","guides","reads","finds"].includes(segment) },
+  { label: "Find", href: "/search/", icon: "search", active: ["search","hospitals","clinics","doctors","specialists","emergency","map"].includes(segment) || segment === "locations" || cities.some(c => c.slug === segment) },
+  { label: "Categories", href: "/categories/", icon: "grid", active: ["categories","specialties"].includes(segment) },
+  { label: "Guide", href: "/care-guide/", icon: "book", active: ["care-guide","guides","reads","finds","pet-health"].includes(segment) },
   { label: "More", href: "/more/", icon: "dots", active: ["more","about","methodology","review","privacy","rankings"].includes(segment) }
 ];
 ---
 <nav class="bottom-nav" aria-label="Quick navigation">
-  {items.map(item => <a href={item.href} aria-current={item.active ? (item.href === path ? "page" : "location") : undefined}><Icon name={item.icon} class="icon icon-md"/><span>{item.label}</span></a>)}
+  {items.map(item => <a href={item.href} data-more-trigger={item.label === "More" ? "" : undefined} aria-current={item.active ? (item.href === path ? "page" : "location") : undefined}><Icon name={item.icon} class="icon icon-md"/><span>{item.label}</span></a>)}
 </nav>
+<dialog id="more-sheet" aria-labelledby="more-heading">
+  <header><h2 id="more-heading">More from Vetlas</h2><form method="dialog"><button aria-label="Close menu" autofocus><Icon name="x"/></button></form></header>
+  {groups.map(group=><section><h3>{group.name}</h3><div>{group.items.map(item=><a href={item.href}><Icon name={item.icon}/>{item.label}</a>)}</div></section>)}
+</dialog>
+<script>
+ const sheet=document.querySelector<HTMLDialogElement>('#more-sheet')!;
+ let opener:HTMLAnchorElement;
+ if(typeof sheet.showModal === 'function') {
+   for(const trigger of document.querySelectorAll<HTMLAnchorElement>('[data-more-trigger]')) {
+     trigger.setAttribute('aria-haspopup','dialog');
+     trigger.setAttribute('aria-controls',sheet.id);
+     trigger.setAttribute('aria-expanded','false');
+     trigger.addEventListener('click',event=>{
+       if(event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+       event.preventDefault();
+       opener=trigger;
+       sheet.showModal();
+       trigger.setAttribute('aria-expanded','true');
+     });
+   }
+   sheet.addEventListener('close',()=>{
+     opener?.setAttribute('aria-expanded','false');
+     opener?.focus();
+   });
+   sheet.addEventListener('click',event=>{
+     const rect=sheet.getBoundingClientRect();
+     if(event.target===sheet && (event.clientX<rect.left || event.clientX>rect.right || event.clientY<rect.top || event.clientY>rect.bottom)) sheet.close();
+   });
+ }
+</script>
+<style>
+ #more-sheet{position:fixed;inset:auto 8px max(8px,env(safe-area-inset-bottom)) auto;margin:0;width:min(420px,calc(100% - 16px));max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #afc7bd;border-radius:22px;background:#fcfcf6;padding:16px;color:#163e38;box-shadow:0 8px 45px #173c3440}
+ #more-sheet::backdrop{background:#122f2d63}
+ #more-sheet header{display:flex;justify-content:space-between;align-items:center}#more-sheet h2{font:730 1.5rem var(--display);margin:0}#more-sheet h3{font:650 .85rem var(--display);color:#466458;margin:12px 0 6px}
+ #more-sheet button{border:0;border-radius:50%;background:#e7f2eb;color:#24584d;width:44px;height:44px;cursor:pointer}#more-sheet section>div{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+ #more-sheet a{display:flex;align-items:center;gap:7px;border:1px solid #c6d8cb;border-radius:10px;padding:7px 9px;min-height:44px;background:#edf6ed;color:#214e40;font:650 .87rem/1.2 var(--display);text-decoration:none}
+ #more-sheet section:nth-of-type(2) a{background:#fcf1df;border-color:#dfceae}#more-sheet section:nth-of-type(3) a{background:#f1eff7;border-color:#d9cfe2}
+ #more-sheet a:hover{text-decoration:underline}#more-sheet :global(svg){width:19px;height:19px;flex:none}
+ @media(min-width:700px){#more-sheet{inset:12px 12px auto auto}}
+</style>

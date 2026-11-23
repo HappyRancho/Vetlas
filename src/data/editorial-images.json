@@ -217,5 +217,11 @@
     "src": "/specialities/vaccination.webp",
     "alt": "A pet receiving preventive care",
     "credit": "Vetlas editorial illustration"
+  },
+  "tata-hospital": {
+    "src": "/facilities/mumbai-tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta.webp",
+    "alt": "Exterior of Small Animal Hospital Mumbai in Mahalaxmi",
+    "credit": "Edifice Consultants",
+    "source": "https://mytribe.in/edifice_consultants/healthcare-facility-design/tata-trusts-small-animal-hospital"
   }
 }

@@ -178,5 +178,77 @@
   "tickremove": {
     "title": "CDC · What to do after a tick bite (removal technique)",
     "url": "https://www.cdc.gov/ticks/after-a-tick-bite/index.html"
+  },
+  "pedigreeDry": {
+    "title": "Pedigree India · Chicken & Vegetables Adult Dry Food",
+    "url": "https://www.pedigree.in/pedigree-adult-dog-food-chicken-and-vegetables"
+  },
+  "pedigreeWet": {
+    "title": "Pedigree India · Adult Chicken & Liver Chunks in Gravy",
+    "url": "https://www.pedigree.in/pedigree-adult-wet-dog-food-chicken-liver-chunks-gravy"
+  },
+  "miniPuppy": {
+    "title": "Royal Canin India · Mini Puppy dry food",
+    "url": "https://www.royalcanin.com/in/dogs/products/retail-products/mini-puppy-3000"
+  },
+  "mediumPuppy": {
+    "title": "Royal Canin India · Medium Puppy dry food",
+    "url": "https://www.royalcanin.com/in/dogs/products/retail-products/puppy-medium-3003"
+  },
+  "maxiPuppy": {
+    "title": "Royal Canin India · Maxi Puppy in Gravy",
+    "url": "https://www.royalcanin.com/in/dogs/products/retail-products/maxi-puppy-1097"
+  },
+  "whiskasKitten": {
+    "title": "Whiskas India · Kitten food range",
+    "url": "https://www.whiskas.in/our-products/kitten"
+  },
+  "royalKitten": {
+    "title": "Royal Canin India · Kitten Instinctive in Gravy",
+    "url": "https://www.royalcanin.com/in/cats/products/retail-products/kitten-gravy-4058"
+  },
+  "whiskasAdult": {
+    "title": "Whiskas India · Adult Tuna dry food",
+    "url": "https://www.whiskas.in/our-products/dry-cat-food/whiskas-adult-dry-food-tuna"
+  },
+  "whiskasRange": {
+    "title": "Whiskas India · Adult cat food range",
+    "url": "https://www.whiskas.in/all-products-adult-cat"
+  },
+  "royalAdult": {
+    "title": "Royal Canin India · Adult Instinctive range",
+    "url": "https://www.royalcanin.com/in/cats/products/retail-products/instinctive-gravy-4059"
+  },
+  "sahSurgery": {
+    "title": "Small Animal Hospital Mumbai · Soft tissue surgery team and services",
+    "url": "https://sahmumbai.com/specialities/soft-tissue-surgery"
+  },
+  "sanchuTeam": {
+    "title": "Sanchu Animal Hospital · Clinicians and branch profiles",
+    "url": "https://www.sanchuanimalhospital.com/doctors"
+  },
+  "chiragClinic": {
+    "title": "Dr. Chirag Dave’s Pets’ Clinic · Clinical team and services",
+    "url": "https://www.drchiragdave.com/"
+  },
+  "madrasClinics": {
+    "title": "TANUVAS · Madras Veterinary College Teaching Hospital",
+    "url": "https://www.tanuvas.ac.in/mvc_clinics.php"
+  },
+  "ivriClinic": {
+    "title": "ICAR–IVRI · Referral Veterinary Polyclinic",
+    "url": "https://ivri.nic.in/Division/CENFC/RVP/"
+  },
+  "jivdaya": {
+    "title": "Jivdaya Charitable Trust · Animal hospital and rehabilitation",
+    "url": "https://www.jivdayatrust.org/"
+  },
+  "bspca": {
+    "title": "Bai Sakarbai Dinshaw Petit Hospital for Animals · Facilities",
+    "url": "https://bombayspca.org/facilities.html"
+  },
+  "chiragAddress": {
+    "title": "Dr. Chirag Dave’s Pets’ Clinic · Ahmedabad contact details",
+    "url": "https://www.petsclinic.co.in/contact-us/"
   }
 }
