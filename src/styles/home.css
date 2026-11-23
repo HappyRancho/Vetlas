@@ -108,7 +108,7 @@
  .urgent-care strong { font-size: .94rem; }
  .urgent-care p { font-size: .75rem; line-height: 1.35; }
  .urgent-care a { font-size: .75rem; padding: 10px; }
- .speciality-rail { grid-auto-columns: minmax(86px,1fr); gap: 7px; }
+ .speciality-rail { grid-auto-columns: minmax(104px,1fr); gap: 7px; }
  .speciality-rail strong { font-size: .79rem; }
  .practice-rail { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: min(89%,400px); overflow-x: auto; gap: 9px; padding: 3px 3px 7px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
  .practice { scroll-snap-align: start; display: grid; grid-template-columns: 32% minmax(0,1fr); grid-template-rows: 1fr auto; padding: 8px; }
