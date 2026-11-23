@@ -111,6 +111,7 @@ export interface Provider {
   imageCheckedAt?: string;
   imageCredit?: string;
   imageSourceUrl?: string;
+  imageLicenseUrl?: string;
   coordinates?: { lat: number; lng: number };
   sources?: {
     googleMaps?: string;
