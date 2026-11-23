@@ -1,7 +1,8 @@
 {
   "mumbai-tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta": {
-    "url": "https://sahmumbai.com/home/gallery/1783057684_6a474d140a9bc.webp",
-    "source": "https://sahmumbai.com/"
+    "url": "https://assets.mytribe.in/insecure/rs:fill:1200:630/f:webp/plain/s3://mytribe-assets-production/dde5f94d-d606-48dc-b5c9-99f40d253861",
+    "source": "https://mytribe.in/edifice_consultants/healthcare-facility-design/tata-trusts-small-animal-hospital",
+    "caption": "Mahalaxmi hospital exterior · Edifice Consultants"
   },
   "mumbai-crown-vet-worli-worli-naka": {
     "url": "https://crown.vet/assets/images/resources/wor4.png",
@@ -202,11 +203,6 @@
     "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/GoregaonNewFacad-700X302.webp",
     "source": "https://vetic.in/clinics/mumbai/goregaon"
   },
-  "hyderabad-vetic-himayat-nagar-himayat-nagar": {
-    "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/Clinic%20Detail%20Page%20Images/Hyderabad/Manikond.jpeg",
-    "source": "https://vetic.in/clinics/hyderabad/himayat-nagar-hyderabad",
-    "caption": "Vetic clinic in Manikonda, Hyderabad · Vetic network photo"
-  },
   "kolkata-vetic-behala-behala": {
     "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/Behala+Faced-700X302.webp",
     "source": "https://vetic.in/clinics-locator",
@@ -216,11 +212,6 @@
     "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/quick_commerce//misc/Lower+Parel,+Mumbai.webp",
     "source": "https://vetic.in/clinics/mumbai/lower-parel"
   },
-  "chennai-vetic-porur-porur": {
-    "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/AnnaNagarNewFacad-700X302.webp",
-    "source": "https://vetic.in/clinics/chennai/porur",
-    "caption": "Vetic clinic in Anna Nagar, Chennai · Vetic network photo"
-  },
   "hyderabad-vetic-lb-nagar-lb-nagar": {
     "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/Clinic%20Detail%20Page%20Images/Hyderabad/Secunderba.jpeg",
     "source": "https://vetic.in/clinics/hyderabad/lb-nagar"
@@ -229,38 +220,14 @@
     "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/quick_commerce//misc/AundhFac1comp.jpg",
     "source": "https://vetic.in/clinics/pune/hadapsar"
   },
-  "chennai-vetic-t-nagar-t-nagar": {
-    "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/AnnaNagarNewFacad-700X302.webp",
-    "source": "https://vetic.in/clinics/chennai/t-nagar",
-    "caption": "Vetic clinic in Anna Nagar, Chennai · Vetic network photo"
-  },
-  "chennai-vetic-ecr-ecr": {
-    "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/AnnaNagarNewFacad-700X302.webp",
-    "source": "https://vetic.in/clinics/chennai/ecr-neelankarai",
-    "caption": "Vetic clinic in Anna Nagar, Chennai · Vetic network photo"
-  },
-  "hyderabad-vetic-maredpally-maredpally": {
-    "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/Clinic%20Detail%20Page%20Images/Bangalore%20clinics%20facade%20images%20300425/HITE.jpeg",
-    "source": "https://vetic.in/clinics/hyderabad/https://vetic.in/",
-    "caption": "Vetic clinic in Hitec City, Hyderabad · Vetic network photo"
-  },
-  "kolkata-vetic-patuli-patuli": {
-    "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/Behala+Faced-700X302.webp",
-    "source": "https://vetic.in/clinics-locator",
-    "caption": "Vetic clinic in Behala, Kolkata · Vetic network photo"
-  },
-  "chennai-vetic-medavakkam-medavakkam": {
-    "url": "https://vetic-img.s3.ap-south-1.amazonaws.com/AnnaNagarNewFacad-700X302.webp",
-    "source": "https://vetic.in/clinics/chennai/https://vetic.in/",
-    "caption": "Vetic clinic in Anna Nagar, Chennai · Vetic network photo"
-  },
   "ahmedabad-dr-patel-pet-clinic-opp-poojan-app-jivraj-park": {
     "url": "https://content.jdmagicbox.com/comp/ahmedabad/k4/079pxx79.xx79.151004134533.a9k4/catalogue/dr-dhaval-b-patel-jivraj-park-ahmedabad-veterinary-doctors-44maq9q327.jpg",
     "source": "https://www.justdial.com/Ahmedabad/Dr-Patel-Pet-Clinic-Near-Jivraj-Raj-Mehta-Hospital-Jivraj-Park/079PXX79-XX79-151004134533-A9K4_BZDET"
   },
   "ahmedabad-dr-gautams-dog-clinic-hospital-tragad-road-chandkheda": {
-    "url": "https://content.jdmagicbox.com/v2/comp/ahmedabad/c4/079pxx79.xx79.100616150749.c1c4/catalogue/dr-gautams-dog-clinic-and-hospital-chandkheda-ahmedabad-veterinary-clinics-ibvgppkc7w.jpg",
-    "source": "https://www.justdial.com/Ahmedabad/Dr-Gautams-Dog-Clinic-Hospital-Next-To-Anand-Crystal-Flats-Opposite-Shivdarshan-Society-Chandkheda/079PXX79-XX79-100616150749-C1C4_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/ahmedabad/c4/079pxx79.xx79.100616150749.c1c4/catalogue/dr-gautams-dog-clinic-and-hospital-chandkheda-ahmedabad-veterinary-clinics-vdew6jxdt3.jpg",
+    "source": "https://www.justdial.com/Ahmedabad/Dr-Gautams-Dog-Clinic-Hospital-Next-To-Anand-Crystal-Flats-Opposite-Shivdarshan-Society-Chandkheda/079PXX79-XX79-100616150749-C1C4_BZDET",
+    "caption": "Dr. Gautams Dog Clinic & Hospital · exterior"
   },
   "ahmedabad-malav-pet-clinic-anandnangar-road-satellite": {
     "url": "https://content.jdmagicbox.com/comp/ahmedabad/h2/079pxx79.xx79.171125200055.u6h2/catalogue/malav-pet-clinic-satellite-ahmedabad-veterinary-doctors-hbjytcxtbt.jpg",
@@ -280,33 +247,38 @@
     "caption": "Treatment room from the Zigly network gallery"
   },
   "ahmedabad-zigly-pet-clinic-sunrise-park-road-vastrapur": {
-    "url": "https://content.jdmagicbox.com/v2/comp/ahmedabad/d4/079pxx79.xx79.250818170933.e6d4/catalogue/zigly-pet-clinic-vastrapur-ahmedabad-veterinary-hospitals-oscuea3mzh.jpg",
-    "source": "https://www.justdial.com/Ahmedabad/Zigly-Pet-Clinic-Opposite-Himalaya-Mall-Commercial-Building-Big-Bazar-Vastrapur/079PXX79-XX79-250818170933-E6D4_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/ahmedabad/d4/079pxx79.xx79.250818170933.e6d4/catalogue/zigly-pet-clinic-vastrapur-ahmedabad-veterinary-hospitals-i9xh99vbd4.jpg",
+    "source": "https://www.justdial.com/Ahmedabad/Zigly-Pet-Clinic-Opposite-Himalaya-Mall-Commercial-Building-Big-Bazar-Vastrapur/079PXX79-XX79-250818170933-E6D4_BZDET",
+    "caption": "Zigly Pet Clinic · exterior"
   },
   "ahmedabad-city-pet-animal-hospital-vakil-saheb-bridge-bopal": {
-    "url": "https://content.jdmagicbox.com/v2/comp/ahmedabad/y3/079pxx79.xx79.260711002650.y7y3/catalogue/city-pet-animal-hospital-bopal-ahmedabad-clinics-sao2h5h25r.jpg",
-    "source": "https://www.justdial.com/Ahmedabad/City-Pet-Animal-Hospital-Behind-Mcdonalds-Bopal/079PXX79-XX79-260711002650-Y7Y3_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/ahmedabad/y3/079pxx79.xx79.260711002650.y7y3/catalogue/city-pet-animal-hospital-bopal-ahmedabad-rabies-treatment-clinics-tv9qjo6pii.jpg",
+    "source": "https://www.justdial.com/Ahmedabad/City-Pet-Animal-Hospital-Behind-Mcdonalds-Bopal/079PXX79-XX79-260711002650-Y7Y3_BZDET",
+    "caption": "City Pet Animal Hospital · exterior"
   },
   "bengaluru-shreyas-pet-hospital-1st-cross-kirloskar-colony-basaveshwara-nagar": {
     "url": "https://content.jdmagicbox.com/v2/comp/bangalore/29/080p5161529/catalogue/shreyas-pet-hospital-basaveshwara-nagar-bangalore-pet-shops-ey5llgml71.jpg",
     "source": "https://www.justdial.com/Bangalore/Shreyas-Pet-Hospital-Near-Shankarmath-Signal-Basaveshwara-Nagar/080P5161529_BZDET"
   },
   "bengaluru-zigly-for-happy-pets-3rd-block-new-bel-road": {
-    "url": "https://content.jdmagicbox.com/v2/comp/bangalore/s9/080pxx80.xx80.250117201952.f5s9/catalogue/zigly-for-happy-pets-new-bel-road-bangalore-veterinary-hospitals-n9btjm1h33.jpg",
+    "url": "https://content.jdmagicbox.com/v2/comp/bangalore/s9/080pxx80.xx80.250117201952.f5s9/catalogue/zigly-vet-clinic-new-bel-road-bangalore-ty5l82jlyi.jpg",
     "source": "https://www.justdial.com/Bangalore/Zigly-For-Happy-Pets-Rmv-2-Nd-Stage-New-Bel-Road/080PXX80-XX80-250117201952-F5S9_BZDET",
-    "caption": "Treatment room from the Zigly network gallery"
+    "caption": "Retail area in the New BEL Road branch gallery"
   },
   "chennai-parvathy-pet-clinic-kamaraj-nagar-kamaraja-nagar": {
-    "url": "https://content.jdmagicbox.com/v2/comp/chennai/g7/044pxx44.xx44.230506145358.a6g7/catalogue/parvathy-pet-clinic-kamaraja-nagar-chennai-pet-clinics-p7ovhtzonv.jpg",
-    "source": "https://www.justdial.com/Chennai/Parvathy-Pet-Clinic-Next-To-Grace-Super-Market-Kamaraj-Nagar-Kamaraja-Nagar/044PXX44-XX44-230506145358-A6G7_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/chennai/g7/044pxx44.xx44.230506145358.a6g7/catalogue/parvathy-pet-clinic-kamaraja-nagar-chennai-pet-clinics-bisfbqsn0a.jpg",
+    "source": "https://www.justdial.com/Chennai/Parvathy-Pet-Clinic-Next-To-Grace-Super-Market-Kamaraj-Nagar-Kamaraja-Nagar/044PXX44-XX44-230506145358-A6G7_BZDET",
+    "caption": "Parvathy Pet Clinic · exterior"
   },
   "chennai-sasi-canine-fertility-clinic-ramadoss-nagar-theerodum-veedhi-thiruverkadu": {
     "url": "https://content.jdmagicbox.com/v2/comp/chennai/x1/044pxx44.xx44.240403192204.r9x1/catalogue/9v825ecwud33jo7-2wizicrl12.jpg",
-    "source": "https://www.justdial.com/Chennai/Sasi-Canine-Fertility-Clinic-Thiruverkadu/044PXX44-XX44-240403192204-R9X1_BZDET"
+    "source": "https://www.justdial.com/Chennai/Sasi-Canine-Fertility-Clinic-Thiruverkadu/044PXX44-XX44-240403192204-R9X1_BZDET",
+    "caption": "Sasi Canine Fertility Clinic · exterior"
   },
   "chennai-k-k-pet-clinic-gurusamy-nagar-extension-3-mugalivakkam": {
-    "url": "https://content.jdmagicbox.com/v2/comp/chennai/y2/044pxx44.xx44.240302192258.s9y2/catalogue/k-k-pet-clinic-mugalivakkam-chennai-veterinary-hospitals-4hqsat3pq5.jpg",
-    "source": "https://www.justdial.com/Chennai/K-K-Pet-Clinic-Mugalivakam-Mugalivakkam/044PXX44-XX44-240302192258-S9Y2_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/chennai/y2/044pxx44.xx44.240302192258.s9y2/catalogue/k-k-pet-clinic-mugalivakkam-chennai-veterinary-hospitals-0p0s79o0b0.jpg",
+    "source": "https://www.justdial.com/Chennai/K-K-Pet-Clinic-Mugalivakam-Mugalivakkam/044PXX44-XX44-240302192258-S9Y2_BZDET",
+    "caption": "K K Pet Clinic · exterior"
   },
   "chennai-barks-pet-speciality-clinic-ajaya-road-modern-city-pattabiram": {
     "url": "https://content.jdmagicbox.com/v2/comp/chennai/f9/044pxx44.xx44.150213160421.r3f9/catalogue/barking-fine-chennai-4s0ggahscn.jpg",
@@ -317,50 +289,56 @@
     "source": "https://www.justdial.com/Delhi/Rk-Wellness-Pet-Clinic-Laxminarayan-Mandir-Sarita-Vihar/011PXX11-XX11-200113113042-P1C4_BZDET"
   },
   "delhi-zigly-for-happy-pets-block-f-rajouri-garden": {
-    "url": "https://content.jdmagicbox.com/v2/comp/delhi/s6/011pxx11.xx11.230406181636.u3s6/catalogue/zigly-for-happy-pets-rajouri-garden-delhi-veterinarians-muunvxflps.jpg",
+    "url": "https://content.jdmagicbox.com/v2/comp/delhi/s6/011pxx11.xx11.230406181636.u3s6/catalogue/zigly-for-happy-pets-rajouri-garden-delhi-veterinarians-06scn736td.jpg",
     "source": "https://www.justdial.com/Delhi/Zigly-For-Happy-Pets-Nearby-Gians-Ice-Cream-Shop-Sharda-Puri-Rajouri-Garden/011PXX11-XX11-230406181636-U3S6_BZDET",
-    "caption": "Treatment room from the Zigly network gallery"
+    "caption": "Zigly For Happy Pets · exterior"
   },
   "delhi-cure-and-care-pet-clinic-shokeen-plaza-dwarka-sector-12": {
     "url": "https://content.jdmagicbox.com/v2/comp/delhi/m4/011pxx11.xx11.131112171722.q7m4/catalogue/cure-and-care-pet-clinic-dwarka-sector-12-delhi-pet-shops-ks0khsu0vm.jpg",
     "source": "https://www.justdial.com/Delhi/Cure-and-Care-Pet-Clinic-Near-K-M-Chowk-Dwarka-Sector-12/011PXX11-XX11-131112171722-Q7M4_BZDET"
   },
   "jaipur-vetgo-multispeciality-animal-hospital-madhyam-marg-mansarovar": {
-    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/q6/0141px141.x141.230808173335.k7q6/catalogue/vetgo-mobile-veterinary-clinic-vaishali-nagar-jaipur-veterinary-doctors-jprzcn0upk.jpg",
-    "source": "https://www.justdial.com/Jaipur/Vetgo-Multispeciality-Animal-Hospital-Near-Dignity-Hospital-Mansarovar/0141PX141-X141-230808173335-K7Q6_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/q6/0141px141.x141.230808173335.k7q6/catalogue/vetgo-multispeciality-animal-hospital-mansarovar-jaipur-veterinarians-8tiq6jcwb2.jpg",
+    "source": "https://www.justdial.com/Jaipur/Vetgo-Multispeciality-Animal-Hospital-Near-Dignity-Hospital-Mansarovar/0141PX141-X141-230808173335-K7Q6_BZDET",
+    "caption": "Vetgo Multispeciality Animal Hospital · exterior"
   },
   "jaipur-jaipur-pet-hospital-roop-nagar-jhotwara": {
-    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/q5/0141px141.x141.150515110537.h2q5/catalogue/jaipur-pet-hospital-jhotwara-jaipur-veterinary-hospitals-6spp44g976.jpg",
-    "source": "https://www.justdial.com/Jaipur/Jaipur-Pet-Hospital-Opp-Cm-Child-Hospital-Roop-Nagar-Jhotwara/0141PX141-X141-150515110537-H2Q5_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/q5/0141px141.x141.150515110537.h2q5/catalogue/jaipur-pet-hospital-jhotwara-jaipur-veterinary-hospitals-67g55j5sja.jpg",
+    "source": "https://www.justdial.com/Jaipur/Jaipur-Pet-Hospital-Opp-Cm-Child-Hospital-Roop-Nagar-Jhotwara/0141PX141-X141-150515110537-H2Q5_BZDET",
+    "caption": "Jaipur Pet Hospital · exterior"
   },
   "jaipur-vetbros-pet-hospital-maharani-garden-road-mansarovar": {
     "url": "https://content.jdmagicbox.com/v2/comp/jaipur/c2/0141px141.x141.251216003513.s5c2/catalogue/vetbros-pet-hospital-mansarovar-jaipur-veterinary-hospitals-zdqcdt7g6u.jpg",
     "source": "https://www.justdial.com/Jaipur/Vetbros-Pet-Hospital-In-Front-Of-Just-Eat-Mansarovar/0141PX141-X141-251216003513-S5C2_BZDET"
   },
   "jaipur-zigly-for-happy-pets-khatipura-road-vaishali-nagar": {
-    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/c9/0141px141.x141.240113200741.a2c9/catalogue/zigly-vaishali-nagar-jaipur-veterinary-clinics-xesu3kk3fq.jpg",
+    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/c9/0141px141.x141.240113200741.a2c9/catalogue/zigly-vaishali-nagar-jaipur-veterinary-clinics-8ffbwpqyjv.jpg",
     "source": "https://www.justdial.com/Jaipur/Zigly-For-Happy-Pets-Nearby-Vaishali-Circle-Vaishali-Nagar/0141PX141-X141-240113200741-A2C9_BZDET",
-    "caption": "Treatment room from the Zigly network gallery"
+    "caption": "Zigly For Happy Pets · exterior"
   },
   "jaipur-vet-24-multi-speciality-animal-hospital-shipra-path-mansarovar": {
     "url": "https://content.jdmagicbox.com/v2/comp/jaipur/z2/0141px141.x141.231214113735.a8z2/catalogue/vet-24-multi-speciality-animal-hospital-mansarovar-jaipur-veterinary-clinics-4oz1bl2al9.jpg",
     "source": "https://www.justdial.com/Jaipur/Vet-24-Multi-Speciality-Animal-Hospital-Opposite-Jaipur-Legacy-Hotel-Mansarovar/0141PX141-X141-231214113735-A8Z2_BZDET"
   },
   "jaipur-vet-24-multispeciality-animal-hospital-prabhudayal-marg-pratap-nagar": {
-    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/j5/0141px141.x141.250820152007.f4j5/catalogue/vet-24-multispeciality-animal-hospital-pratap-nagar-jaipur-veterinarians-9fb3g8x7ss.jpg",
-    "source": "https://www.justdial.com/Jaipur/Vet-24-Multispeciality-Animal-Hospital-Near-By-Coaching-Hub-Pratap-Nagar/0141PX141-X141-250820152007-F4J5_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/j5/0141px141.x141.250820152007.f4j5/catalogue/vet-24-multispeciality-animal-hospital-pratap-nagar-jaipur-veterinary-hospitals-h786qazoit.jpg",
+    "source": "https://www.justdial.com/Jaipur/Vet-24-Multispeciality-Animal-Hospital-Near-By-Coaching-Hub-Pratap-Nagar/0141PX141-X141-250820152007-F4J5_BZDET",
+    "caption": "Vet 24 Multispeciality Animal Hospital · exterior"
   },
   "jaipur-chaturvedi-dog-clinic-pet-shop-and-shree-shyam-vedalax-ayurved-store-vts-sirsi-road-panchyawala": {
-    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/w8/0141px141.x141.221122112815.u9w8/catalogue/chaturvedi-dog-clinic-panchyawala-jaipur-pet-grooming-services-at-home-6kf27aq6hk.jpg",
-    "source": "https://www.justdial.com/Jaipur/Chaturvedi-Dog-Clinic-Pet-Shop-and-Shree-Shyam-Vedalax-Ayurved-Store-VTS-Front-Of-Uttam-Heights-Flats-Panchyawala/0141PX141-X141-221122112815-U9W8_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/jaipur/w8/0141px141.x141.221122112815.u9w8/catalogue/chaturvedi-dog-clinic-panchyawala-jaipur-pet-grooming-services-at-home-24kiu8nbbj.jpg",
+    "source": "https://www.justdial.com/Jaipur/Chaturvedi-Dog-Clinic-Pet-Shop-and-Shree-Shyam-Vedalax-Ayurved-Store-VTS-Front-Of-Uttam-Heights-Flats-Panchyawala/0141PX141-X141-221122112815-U9W8_BZDET",
+    "caption": "Chaturvedi Dog Clinic & Pet Shop and Shree Shyam Vedalax Ayurved Store VTS · exterior"
   },
   "kolkata-furry-tails-street-0004-new-town-action-area-1": {
-    "url": "https://content.jdmagicbox.com/v2/comp/kolkata/b9/033pxx33.xx33.250526145458.a9b9/catalogue/furry-tails-new-town-action-area-1-kolkata-veterinary-clinics-q4uqn3m0ke.jpg",
-    "source": "https://www.justdial.com/Kolkata/Furry-Tails-Near-By-3-No-Tank-New-Town-Action-Area-1/033PXX33-XX33-250526145458-A9B9_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/kolkata/b9/033pxx33.xx33.250526145458.a9b9/catalogue/furry-tails-new-town-action-area-1-kolkata-veterinary-clinics-cs2r81fpyx.jpg",
+    "source": "https://www.justdial.com/Kolkata/Furry-Tails-Near-By-3-No-Tank-New-Town-Action-Area-1/033PXX33-XX33-250526145458-A9B9_BZDET",
+    "caption": "Furry Tails · exterior"
   },
   "kolkata-divine-pet-clinic-sec-b-dhapa": {
-    "url": "https://content.jdmagicbox.com/v2/comp/kolkata/f2/033pxx33.xx33.250107121335.t3f2/catalogue/1p6pt2xznj3bke9-pug6142pmk.jpg",
-    "source": "https://www.justdial.com/Kolkata/Divine-Pet-Clinic-Near-Byepass-Dhaba-Dhapa/033PXX33-XX33-250107121335-T3F2_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/kolkata/f2/033pxx33.xx33.250107121335.t3f2/catalogue/gs76wdvtwc0870q-ch13dgeid6.jpg",
+    "source": "https://www.justdial.com/Kolkata/Divine-Pet-Clinic-Near-Byepass-Dhaba-Dhapa/033PXX33-XX33-250107121335-T3F2_BZDET",
+    "caption": "Divine Pet Clinic · exterior"
   },
   "kolkata-dr-newton-bala-vet-pulse-naktala-road-regent-estate": {
     "url": "https://content.jdmagicbox.com/v2/comp/kolkata/k6/033pxx33.xx33.240625202121.z6k6/catalogue/vet-pulse-kolkata-pet-ambulance-services-xqkxw86um3.jpg",
@@ -375,12 +353,14 @@
     "source": "https://www.justdial.com/Kolkata/Pets-Heaven-The-Animal-Hospital-Behind-Dumdum-Club-Mall-Road/033PXX33-XX33-180126133506-T7M4_BZDET"
   },
   "kolkata-four-leglove-b-t-road-sinthee": {
-    "url": "https://content.jdmagicbox.com/comp/kolkata/f8/033pxx33.xx33.211025145203.t3f8/catalogue/four-leg-love-sinthee-kolkata-veterinary-clinics-rcjl11s7g1.jpg",
-    "source": "https://www.justdial.com/Kolkata/Four-Leglove-Beside-City-Spencer-Sinthee/033PXX33-XX33-211025145203-T3F8_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/kolkata/f8/033pxx33.xx33.211025145203.t3f8/catalogue/four-leglove-sinthee-kolkata-veterinary-clinics-7ofnhvrgli.jpg",
+    "source": "https://www.justdial.com/Kolkata/Four-Leglove-Beside-City-Spencer-Sinthee/033PXX33-XX33-211025145203-T3F8_BZDET",
+    "caption": "Four Leglove · exterior"
   },
   "kolkata-dua-s-fur-family-muzaffar-ahmadstreet-park-street": {
-    "url": "https://content.jdmagicbox.com/v2/comp/kolkata/t5/033pxx33.xx33.260905220832.n5t5/catalogue/dua-s-fur-family-park-street-kolkata-veterinary-clinics-zaybilv4ab.jpg",
-    "source": "https://www.justdial.com/Kolkata/Duas-Fur-Family-Near-By-Ripon-St-Dharamtalla-Park-Street/033PXX33-XX33-260905220832-N5T5_BZDET"
+    "url": "https://content.jdmagicbox.com/v2/comp/kolkata/t5/033pxx33.xx33.260905220832.n5t5/catalogue/dua-s-fur-family-park-street-kolkata-sg864whmik.jpg",
+    "source": "https://www.justdial.com/Kolkata/Duas-Fur-Family-Near-By-Ripon-St-Dharamtalla-Park-Street/033PXX33-XX33-260905220832-N5T5_BZDET",
+    "caption": "Dua's Fur Family · exterior"
   },
   "kolkata-medicure-pet-clinic-sree-colony-regent-estate": {
     "url": "https://content.jdmagicbox.com/comp/kolkata/n4/033pxx33.xx33.180823093507.m2n4/catalogue/medicure-pet-clinic-jadavpur-kolkata-veterinary-clinics-2iaqld0ma8.jpg",
@@ -413,5 +393,40 @@
   "jaipur-paalan-pet-hospital-best-pet-clinic-in-jaipur-pratap-nagar": {
     "url": "https://images.sploot.space/optimized/vets/paalan-pet-hospital-best-pet-clinic-in-jaipur/paalan-pet-hospital-best-pet-clinic-in-jaipur-94285455@square-192.webp",
     "source": "https://sploot.space/vets/paalan-pet-hospital-best-pet-clinic-in-jaipur"
+  },
+  "chennai-dr-kishore-s-pet-clinic-veerabhadra-nagar": {
+    "url": "https://content.jdmagicbox.com/v2/comp/chennai/y5/044pxx44.xx44.241107200601.r4y5/catalogue/dr-kishore-s-pet-clinic-veerabhadra-nagar-chennai-veterinary-hospitals-imna9tlmxo.jpg",
+    "source": "https://www.justdial.com/Chennai/Dr-Kishores-Pet-Clinic-Veerabhadra-Nagar/044PXX44-XX44-241107200601-R4Y5_BZDET",
+    "caption": "Clinic sign on Medavakkam Main Road"
+  },
+  "chennai-sanchu-animal-hospital-palavakkam": {
+    "url": "https://content.jdmagicbox.com/v2/comp/chennai/t7/044pxx44.xx44.210303145722.b5t7/catalogue/sanchu-animal-hospital-palavakkam-chennai-veterinary-hospitals-0wyjcie351.jpg",
+    "source": "https://www.justdial.com/Chennai/Sanchu-Animal-Hospital-Near-Palavakkam-Church-Clri-Nagar/044PXX44-XX44-210303145722-B5T7_BZDET",
+    "caption": "Hospital building on East Coast Road"
+  },
+  "chennai-sks-veterinary-hospital-valasaravakkam": {
+    "url": "https://content.jdmagicbox.com/v2/comp/chennai/p2/044pxx44.xx44.120314122454.z2p2/catalogue/sks-pets-forum-valasaravakkam-chennai-veterinary-surgeons-qvkts2tq4j.jpg",
+    "source": "https://www.justdial.com/Chennai/Sks-Veterinary-Hospital-Near-Uco-Bank-Keshavardhini-Bus-Stop-Valasaravakkam/044PXX44-XX44-120314122454-Z2P2_BZDET",
+    "caption": "Hospital frontage on Kamaraj Street"
+  },
+  "chennai-paws-and-claws-pet-clinic-t-nagar": {
+    "url": "https://content.jdmagicbox.com/v2/comp/chennai/t3/044pxx44.xx44.170512203056.h9t3/catalogue/paws-and-claws-pet-clinic-chennai-16a6uiupuq.jpg",
+    "source": "https://www.justdial.com/Chennai/Paws-And-Claws-Pet-Clinic-Near-Tirumala-Tirupathi-Devastanam-T-Nagar/044PXX44-XX44-170512203056-H9T3_BZDET",
+    "caption": "Patient waiting room"
+  },
+  "kolkata-vet-pulse-dr-newton-bala-regent-estate": {
+    "url": "https://content.jdmagicbox.com/v2/comp/kolkata/k6/033pxx33.xx33.240625202121.z6k6/catalogue/vet-pulse-subhash-pally-kolkata-pet-ambulance-services-72p8mdg4k7.jpg",
+    "source": "https://www.justdial.com/Kolkata/Dr-Newton-Bala-Vet-Pulse-Near-By-Barobhut-Math-Regent-Estate/033PXX33-XX33-240625202121-Z6K6_BZDET",
+    "caption": "Entrance to the Vet Pulse practice"
+  },
+  "hyderabad-pet-shine-clinic-himayat-nagar": {
+    "url": "https://content.jdmagicbox.com/v2/comp/hyderabad/c1/040pxx40.xx40.210522203516.y7c1/catalogue/pet-shine-clinic-himayat-nagar-hyderabad-veterinary-clinics-k6qn8p1g55.jpg",
+    "source": "https://www.justdial.com/Hyderabad/Pet-Shine-Clinic-Adjacent-To-To-New-Naveen-Pet-Needs-Himayat-Nagar/040PXX40-XX40-210522203516-Y7C1_BZDET",
+    "caption": "Pet Shine Clinic storefront"
+  },
+  "hyderabad-global-animal-hospital-trimulgherry": {
+    "url": "https://content.jdmagicbox.com/v2/comp/hyderabad/c6/040pxx40.xx40.120313071038.p5c6/catalogue/global-animal-hospital-trimulgherry-hyderabad-veterinary-hospitals-7c6f5mdr7z.jpg",
+    "source": "https://www.justdial.com/Hyderabad/Global-Animal-Hospital-Near-Sp-Colonynear-Sydicate-Bank-Trimulgherry/040PXX40-XX40-120313071038-P5C6_BZDET",
+    "caption": "Global Animal Hospital building"
   }
 }

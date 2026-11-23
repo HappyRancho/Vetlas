@@ -7,11 +7,13 @@ const {doctor}=Astro.props;
 const city=cityById(doctor.cityId)!;
 const practices=doctorsProviders(doctor);
 const name="Dr. "+doctor.name, directory="/"+city.slug+"/veterinarians/", path=directory+doctor.slug+"/";
-const schema={"@context":"https://schema.org","@type":"Person","@id":new URL(path+"#person",Astro.site),name,jobTitle:"Veterinarian",url:new URL(path,Astro.site),hasCredential:doctor.degrees.map(d=>({"@type":"EducationalOccupationalCredential",name:d})),workLocation:practices.map(p=>({"@id":new URL("/"+city.slug+"/"+p.slug+"/#facility",Astro.site)}))};
+const schema={"@context":"https://schema.org","@type":"Person","@id":new URL(path+"#person",Astro.site),name,image:doctor.imageUrl && new URL(doctor.imageUrl,Astro.site),jobTitle:"Veterinarian",url:new URL(path,Astro.site),hasCredential:doctor.degrees.map(d=>({"@type":"EducationalOccupationalCredential",name:d})),workLocation:practices.map(p=>({"@id":new URL("/"+city.slug+"/"+p.slug+"/#facility",Astro.site)}))};
 ---
-<Layout title={name+" · Veterinarian in "+city.name} description={name+" in "+city.name+". Read published qualifications and care interests, find the practice and confirm availability."}>
+<Layout image={doctor.imageUrl} title={name+" · Veterinarian in "+city.name} description={name+" in "+city.name+". Read published qualifications and care interests, find the practice and confirm availability."}>
 <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
 <div class="container atlas"><Breadcrumbs items={[{name:city.name,href:"/"+city.slug+"/"},{name:"Veterinarians",href:directory},{name,href:path}]}/>
-<header class="city-mast"><p class="kicker">{city.name} · {specialtyById(doctor.primarySpecialtyId)?.name}</p><img class="result-photo" src={doctor.imageUrl} alt={doctor.imageAlt} width="144" height="144"/><h1>{name}</h1><p>{doctor.degrees.join(" · ")}</p></header>
+<header class="city-mast clinician"><figure><img src={doctor.imageUrl} alt={doctor.imageAlt} width="144" height="144"/><figcaption>{doctor.imageCredit}</figcaption></figure><div><p class="kicker">{city.name} · {specialtyById(doctor.primarySpecialtyId)?.name}</p><h1>{name}</h1><p>{doctor.degrees.join(" · ")}</p></div></header>
 <div class="atlas-split"><section class="specialty-panel"><h2>Practice and qualifications</h2><p>{doctor.about}</p><h3>Sources</h3><p>{doctor.evidence}</p>{doctor.sourceUrls?.map(source=><p><a href={source.url}>{source.label} ↗</a></p>)}</section>
 <section class="specialty-panel"><h2>Where to book</h2>{practices.map(p=><div><h3><a href={'/'+city.slug+'/'+p.slug+'/'}>{p.name}</a></h3><p>{p.address}</p>{p.phone&&<a href={'tel:'+p.phone.replace(/[^+\d]/g,'')}>Call {p.phone}</a>}{p.sources?.website&&<p><a href={p.sources.website}>Practice website ↗</a></p>}</div>)}<p>Check which branch and session the veterinarian is attending before you travel.</p></section></div></div></Layout>
+
+<style>.clinician{display:flex;align-items:center;gap:clamp(12px,3vw,26px)}.clinician figure{margin:0;flex:0 0 clamp(90px,18vw,144px)}.clinician img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:12px}.clinician figcaption{font-size:.65rem;color:#45625d;margin-top:4px}.clinician h1{font-size:clamp(1.4rem,4vw,2.7rem);line-height:1.08;margin:.3rem 0}.clinician p{margin:.35rem 0}</style>

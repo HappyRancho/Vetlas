@@ -32,12 +32,6 @@ const tone = tones[hash % tones.length];
       </>
     ) : <><span>{initials}</span><Icon name="stethoscope" class="doctor-avatar-icon" /></>}
   </div>
-  {doctor.imageUrl && doctor.imageSourceUrl && (
-    <p class="doctor-photo-credit">
-      Original photo · <a href={doctor.imageSourceUrl} target="_blank" rel="noreferrer">{doctor.imageCredit || "Photo source"}</a>
-    </p>
-  )}
-
   <div class="doctor-body">
     <div class="doctor-top">
       <TrustBadge level={doctor.verified ? "verified" : doctor.dataSource === "user-submitted" ? "user-submitted" : "public"} label={doctor.verified ? undefined : doctor.dataSource === "user-submitted" ? "Submitted · unverified" : "Public source"} />
@@ -80,7 +74,7 @@ const tone = tones[hash % tones.length];
             <span>consultation · public listing</span>
           </>
         ) : (
-          <span class="soft">Fee not verified</span>
+          practiseAt && <a class="soft" href={'/'+city?.slug+'/'+practiseAt.slug+'/#visit'}>Practice visit costs</a>
         )}
       </div>
       <a class="doctor-action" href={`/${city?.slug}/veterinarians/${doctor.slug}/`}>

@@ -234,7 +234,7 @@ const isNoindex = mode === "all" || rows.length === 0;
     if (params.get("sort")) controls.sort.value = params.get("sort");
     if (params.get("emergency") === "1") controls.emergency.checked = true;
 
-    let fixedMode = mode === "hospitals" ? "hospital" : mode === "clinics" ? "clinic" : mode === "doctors" ? "doctor" : (params.get("type") || "");
+    let fixedMode = mode === "hospitals" ? "" : mode === "clinics" ? "clinic" : mode === "doctors" ? "doctor" : (params.get("type") || "");
     function updateUrl() {
       const next = new URLSearchParams();
       if (query) next.set("q", query);

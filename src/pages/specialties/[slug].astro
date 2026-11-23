@@ -49,6 +49,7 @@ const cityLinks = cities.filter((city) =>
       </div>
     </header>
 
+    {["oncology","ophthalmology","emergency"].includes(specialty.id) && <p class="guide-note"><a href="/care-guide/#referral">Plan a specialist referral and see where to book →</a></p>}
     <section class="section-first" aria-labelledby="search-h">
       <h2 class="visually-hidden" id="search-h">Search for care</h2>
       <UniversalSearch variant="compact" />
@@ -70,6 +71,7 @@ const cityLinks = cities.filter((city) =>
       </section>
     )}
 
+    {["oncology","ophthalmology","emergency"].includes(specialty.id) && <p class="guide-note"><a href="/care-guide/#referral">Plan a specialist referral and see where to book →</a></p>}
     <section class="section-first" aria-labelledby="sp-p">
       <div class="section-head">
         <div>

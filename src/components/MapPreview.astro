@@ -3,16 +3,16 @@ import { providers } from '@data';
 import { googleDirections, googlePreview } from '../lib/map-links.mjs';
 interface Props { expanded?: boolean; providerId?: string; }
 const { expanded=false, providerId }=Astro.props;
-const available=providers.filter(p=>p.coordinates && (!providerId || p.id===providerId));
+const available=providers.filter(p=>p.coordinates && (providerId ? p.id===providerId : p.cityId==="indore"));
 const selected=available[0];
 ---
 {selected && <details class="directory-map compact-map" open={expanded}>
- <summary><span>Map preview <small>{providerId?selected.area:'15 sourced clinic locations in Indore'}</small></span><span>Explore →</span></summary>
+ <summary><span>Map preview <small>{providerId?selected.area:available.length+' sourced clinic locations in Indore'}</small></span><span>Explore →</span></summary>
  <div class="map-content">
   {available.length>1 && <label>Choose a facility<select data-preview-select>{available.map(p=><option value={p.id} data-frame={googlePreview(p)} data-directions={googleDirections(p)} data-note={p.mapLocation?.note}>{p.name} · {p.area}</option>)}</select></label>}
   <iframe data-preview-frame data-src={googlePreview(selected)} title={`Google Maps location preview: ${selected.name}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
   <p data-preview-note class="small muted">{selected.mapLocation?.note}</p>
-  <div class="list-inline"><a data-preview-directions class="btn btn-primary" href={googleDirections(selected)} target="_blank" rel="noreferrer">Google Maps directions →</a><a class="btn btn-secondary" href={`/map/?clinic=${selected.id}`}>Compare nearby care →</a></div>
+  <div class="list-inline"><a data-preview-directions class="btn btn-primary" href={googleDirections(selected)} target="_blank" rel="noreferrer">Google Maps directions →</a><a class="btn btn-secondary" href={selected.cityId === "indore" ? `/map/?clinic=${selected.id}` : `/${selected.cityId}/`}>Compare nearby care →</a></div>
  </div>
 </details>}
 <script>

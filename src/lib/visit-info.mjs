@@ -1,7 +1,7 @@
 export function consultationLabel(provider) {
  if(provider.fees)return {amount:`${provider.feeIsStarting?'From ':''}₹${provider.fees.opd.toLocaleString('en-IN')}`,caption:'Consultation · listed fee'};
  const rate=provider.consultationListing;
- if(rate)return {amount:rate.min===rate.max?`₹${rate.min.toLocaleString('en-IN')}`:`₹${rate.min.toLocaleString('en-IN')}–${rate.max.toLocaleString('en-IN')}`,caption:rate.kind==='historical'?'Previously listed · ask current fee':'Published fee range'};
+ if(rate)return {amount:rate.min===rate.max?`₹${rate.min.toLocaleString('en-IN')}`:`₹${rate.min.toLocaleString('en-IN')}–${rate.max.toLocaleString('en-IN')}`,caption:rate.kind==='registration'?'University registration fee · seven days':rate.kind==='directory'?'Directory-reported consultation range':rate.kind==='historical'?'Previously listed · ask current fee':'Published fee range'};
  if(provider.id?.includes('jivdaya-charitable'))return {amount:'Free for unowned animals',caption:'Eligibility per Jivdaya Charitable Trust'};
  return {amount:'Fee unpublished',caption:'Routine consultation'};
 }

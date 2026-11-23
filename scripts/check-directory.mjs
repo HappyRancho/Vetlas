@@ -1,10 +1,11 @@
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 const dataset = JSON.parse(readFileSync(new URL('../dist/directory.json', import.meta.url)));
 const candidates = JSON.parse(readFileSync(new URL('../research/indore-candidates.json', import.meta.url)));
 const mappings = JSON.parse(readFileSync(new URL('../src/data/google-places.json', import.meta.url)));
 const sitemap = readFileSync(new URL('../dist/sitemap-0.xml', import.meta.url), 'utf8');
-const ids = new Set(), slugs = new Set();
+const ids = new Set(), slugs = new Set(), photographHashes = new Set();
 for (const p of dataset.facilities) {
   assert(!ids.has(p.id), `Duplicate provider ID: ${p.id}`); ids.add(p.id);
   assert(!slugs.has(p.slug), `Duplicate provider slug: ${p.slug}`); slugs.add(p.slug);
@@ -13,7 +14,11 @@ for (const p of dataset.facilities) {
   assert(p.imageUrl?.startsWith("/facilities/") && (p.imageLicenseUrl || p.imageOriginalUrl), `Missing approved photograph: ${p.id}`);
   if (p.imageUrl) {
     assert(p.imageSourceUrl && p.imageCredit && p.imageAlt);
-    assert(readFileSync(new URL('../public' + p.imageUrl, import.meta.url)).length > 1000);
+    const file = readFileSync(new URL('../public' + p.imageUrl, import.meta.url));
+    assert(file.length > 1000);
+    const hash = createHash('sha256').update(file).digest('hex');
+    assert(!photographHashes.has(hash), 'Repeated facility photo: ' + p.id);
+    photographHashes.add(hash);
   }
   assert(p.name && p.address && p.area, `Missing public identity: ${p.id}`);
   assert(p.evidence?.length || (p.researchNote && Object.values(p.sources ?? {}).length), `Missing evidence: ${p.id}`);
@@ -51,7 +56,7 @@ assert.equal(cityCounts.size, 10);
 for (const [city, count] of cityCounts) assert(count >= 10 && count <= 20, city + " coverage");
 const portraits = JSON.parse(readFileSync(new URL('../dist/veterinarians.json', import.meta.url))).veterinarians;
 for (const vet of portraits) {
-  assert(vet.imageLicenseUrl && vet.imageSourceUrl && vet.imageCredit && vet.imageAlt, `Incomplete portrait rights: ${vet.id}`);
+  assert((vet.imageLicenseUrl || vet.imageOriginalUrl) && vet.imageUrl.startsWith("/doctors/") && vet.imageSourceUrl && vet.imageCredit && vet.imageAlt, `Incomplete portrait rights: ${vet.id}`);
   assert(readFileSync(new URL('../dist' + vet.imageUrl, import.meta.url)).length > 1000);
 }
 for (const candidate of candidates.candidates) {

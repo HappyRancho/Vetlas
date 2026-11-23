@@ -4,6 +4,7 @@ import "../styles/directory.css";
 import "../styles/polish.css";
 import "../styles/atlas.css";
 import "../styles/notebook.css";
+import "../styles/identity.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/inter";
 import SiteHeader from "../components/SiteHeader.astro";
@@ -16,8 +17,9 @@ interface Props {
   /** SEO indexability gate (spec §6): unvetted content is noindex */
   noindex?: boolean;
   canonical?: string;
+  image?: string;
 }
-const { title, description, noindex = false, canonical } = Astro.props;
+const { title, description, noindex = false, canonical, image } = Astro.props;
 const siteUrl = Astro.site ?? Astro.url;
 const canonicalUrl = canonical ? new URL(canonical, siteUrl) : new URL(Astro.url.pathname, siteUrl);
 const path = Astro.url.pathname;
@@ -32,7 +34,7 @@ const isCurrent = (href: string) =>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#eaf8ff" />
+    <meta name="theme-color" content="#f4f9f7" />
     <title>{title.includes("Vetlas") ? title : title + " | Vetlas"}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
@@ -46,7 +48,8 @@ const isCurrent = (href: string) =>
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta name="twitter:card" content="summary" />
+    {image && <meta property="og:image" content={new URL(image,siteUrl)} />}
+    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
     {
       noindex === false && (
         <script

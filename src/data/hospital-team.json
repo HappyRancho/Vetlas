@@ -1,0 +1,1321 @@
+[
+  {
+    "id": "dr-abhilash-jadhao",
+    "slug": "dr-abhilash-jadhao",
+    "name": "Abhilash Jadhao",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc",
+      "Ph.D. (Pathology)"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Pathology, Cytopathology, Histopathology as areas of practice for Dr. Abhilash Jadhao.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-abhilash-jadhao.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689370_6a13e79a169e7.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Abhilash Jadhao",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-abhisaar-kumar",
+    "slug": "dr-abhisaar-kumar",
+    "name": "Abhisaar Kumar",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "BVSc & AH",
+      "PG Dip (Small Animal Clinical Practice)"
+    ],
+    "primarySpecialtyId": "emergency",
+    "secondarySpecialtyIds": [
+      "imaging"
+    ],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Emergency Critical Care, Radiology as areas of practice for Dr. Abhisaar Kumar.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-abhisaar-kumar.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689970_6a13e9f201cc8.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Abhisaar Kumar",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-aishwarya-ramesh",
+    "slug": "dr-aishwarya-ramesh",
+    "name": "Aishwarya Ramesh",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc",
+      "PG Dip (Small Animal Ultrasound)",
+      "PG Dip (Feline Medicine, University of Sydney)"
+    ],
+    "primarySpecialtyId": "emergency",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Emergency Critical Care, Anaesthesia as areas of practice for Dr. Aishwarya Ramesh.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-aishwarya-ramesh.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689515_6a13e82b5f725.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Aishwarya Ramesh",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-akruti-pachpinde",
+    "slug": "dr-akruti-pachpinde",
+    "name": "Akruti Pachpinde",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc"
+    ],
+    "primarySpecialtyId": "emergency",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Emergency Critical Care as areas of practice for Dr. Akruti Pachpinde.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-akruti-pachpinde.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1783325603_6a4b63a37ab5b.png",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Akruti Pachpinde",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-ankush-gera",
+    "slug": "dr-ankush-gera",
+    "name": "Ankush Gera",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "BVSc & AH"
+    ],
+    "primarySpecialtyId": "emergency",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Emergency Critical Care as areas of practice for Dr. Ankush Gera.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-ankush-gera.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1783325656_6a4b63d8415ff.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Ankush Gera",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-gautam-joglekar",
+    "slug": "dr-gautam-joglekar",
+    "name": "Gautam Joglekar",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc"
+    ],
+    "primarySpecialtyId": "imaging",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Advanced Imaging (USG, CT, MRI) as areas of practice for Dr. Gautam Joglekar.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-gautam-joglekar.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779690051_6a13ea433b27c.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Gautam Joglekar",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-hamid-shah",
+    "slug": "dr-hamid-shah",
+    "name": "Hamid Shah",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc",
+      "Ph.D. (Microbiology)"
+    ],
+    "primarySpecialtyId": "internal",
+    "secondarySpecialtyIds": [
+      "neurology",
+      "imaging"
+    ],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Internal Medicine, Neurology, Imaging (USG, ECHO) as areas of practice for Dr. Hamid Shah.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-hamid-shah.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689136_6a13e6b0c8caf.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Hamid Shah",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-harshada-game",
+    "slug": "dr-harshada-game",
+    "name": "Harshada Game",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc"
+    ],
+    "primarySpecialtyId": "cardiology",
+    "secondarySpecialtyIds": [
+      "internal"
+    ],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Clinical Medicine, Cardiology as areas of practice for Dr. Harshada Game.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-harshada-game.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689699_6a13e8e31b4c4.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Harshada Game",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-mukesh-kini",
+    "slug": "dr-mukesh-kini",
+    "name": "Mukesh Kini",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc (Preventive Medicine & Epidemiology)",
+      "PG Dip (One Health)",
+      "PG Dip (Therapeutic Management of Infectious Diseases)"
+    ],
+    "primarySpecialtyId": "surgery",
+    "secondarySpecialtyIds": [
+      "emergency"
+    ],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Soft Tissue Surgery, Anaesthesia, Emergency & Critical Care as areas of practice for Dr. Mukesh Kini.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-mukesh-kini.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689850_6a13e97abf993.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Mukesh Kini",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-nalmas-dilip-kumar",
+    "slug": "dr-nalmas-dilip-kumar",
+    "name": "Nalmas Dilip Kumar",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc (Surgery & Radiology)"
+    ],
+    "primarySpecialtyId": "surgery",
+    "secondarySpecialtyIds": [
+      "dentistry"
+    ],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Soft Tissue Surgery, Dentistry as areas of practice for Dr. Nalmas Dilip Kumar.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-nalmas-dilip-kumar.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1783082725_6a47aee5ca4fe.png",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Nalmas Dilip Kumar",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-neelam-singh",
+    "slug": "dr-neelam-singh",
+    "name": "Neelam Singh",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc (Preventive Medicine)"
+    ],
+    "primarySpecialtyId": "internal",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Internal Medicine, Infectious & Vector-Borne Diseases as areas of practice for Dr. Neelam Singh.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-neelam-singh.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689994_6a13ea0a9e527.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Neelam Singh",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-prutha-deshpande",
+    "slug": "dr-prutha-deshpande",
+    "name": "Prutha Deshpande",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc (Internal Medicine)"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Acupuncture as areas of practice for Dr. Prutha Deshpande.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-prutha-deshpande.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779690156_6a13eaace44e8.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Prutha Deshpande",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-riddhi-sonigra",
+    "slug": "dr-riddhi-sonigra",
+    "name": "Riddhi Sonigra",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc (Clinical Medicine)"
+    ],
+    "primarySpecialtyId": "emergency",
+    "secondarySpecialtyIds": [
+      "internal"
+    ],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Emergency Critical Care, Internal Medicine as areas of practice for Dr. Riddhi Sonigra.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-riddhi-sonigra.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689675_6a13e8cb907a4.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Riddhi Sonigra",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-roshni-tamhane-shah",
+    "slug": "dr-roshni-tamhane-shah",
+    "name": "Roshni Tamhane Shah",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "BVSc & AH",
+      "MRCVS (UK)",
+      "Cert in Advanced Veterinary Practice (SAC)"
+    ],
+    "primarySpecialtyId": "cardiology",
+    "secondarySpecialtyIds": [
+      "dentistry"
+    ],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Cardiology, Anaesthesia, Dentistry as areas of practice for Dr. Roshni Tamhane Shah.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-roshni-tamhane-shah.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779690180_6a13eac42d46f.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Roshni Tamhane Shah",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-sabhanpreet-singh",
+    "slug": "dr-sabhanpreet-singh",
+    "name": "Sabhanpreet Singh",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "BVSc & AH"
+    ],
+    "primarySpecialtyId": "emergency",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Emergency Critical Care as areas of practice for Dr. Sabhanpreet Singh.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-sabhanpreet-singh.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1783325792_6a4b6460d1d19.png",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Sabhanpreet Singh",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-surbhi-gupta",
+    "slug": "dr-surbhi-gupta",
+    "name": "Surbhi Gupta",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "MVSc",
+      "Ph.D. (Medicine)"
+    ],
+    "primarySpecialtyId": "dermatology",
+    "secondarySpecialtyIds": [
+      "emergency"
+    ],
+    "providerSlugs": [
+      "tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "The hospital lists Dermatology, Emergency Critical Care as areas of practice for Dr. Surbhi Gupta.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "Qualifications and practice interests are published by the treating hospital.",
+    "sourceUrls": [
+      {
+        "label": "Hospital clinical team and qualifications",
+        "url": "https://sahmumbai.com/team"
+      }
+    ],
+    "imageUrl": "/doctors/dr-surbhi-gupta.webp",
+    "imageOriginalUrl": "https://sahmumbai.com/our-team/1779689565_6a13e85ddde5d.webp",
+    "imageSourceUrl": "https://sahmumbai.com/team",
+    "imageAlt": "Dr. Surbhi Gupta",
+    "imageCredit": "Small Animal Hospital Mumbai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-fazil-p-k",
+    "slug": "dr-fazil-p-k",
+    "name": "Fazil P.K",
+    "prefix": "Dr.",
+    "cityId": "bengaluru",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-banashankari-banashankari"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Fazil P.K is listed on the clinical team at Vetic Banashankari. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/bengaluru/banashankari-bengaluru"
+      }
+    ],
+    "imageUrl": "/doctors/dr-fazil-p-k.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/bengaluru/banashankari-bengaluru",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr+Fazil+P.K.webp",
+    "imageAlt": "Dr. Fazil P.K",
+    "imageCredit": "Vetic · Banashankari",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-raghavendra-a",
+    "slug": "dr-raghavendra-a",
+    "name": "Raghavendra A",
+    "prefix": "Dr.",
+    "cityId": "bengaluru",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-banashankari-banashankari"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Raghavendra A is listed on the clinical team at Vetic Banashankari. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/bengaluru/banashankari-bengaluru"
+      }
+    ],
+    "imageUrl": "/doctors/dr-raghavendra-a.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/bengaluru/banashankari-bengaluru",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr.%20Raghavendra.webp",
+    "imageAlt": "Dr. Raghavendra A",
+    "imageCredit": "Vetic · Banashankari",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-apoorva-b-k",
+    "slug": "dr-apoorva-b-k",
+    "name": "Apoorva B. K",
+    "prefix": "Dr.",
+    "cityId": "bengaluru",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-bannerghatta-road-bannerghatta-road"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Apoorva B. K is listed on the clinical team at Vetic Bannerghatta Road. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/bengaluru/banerghatta-bengaluru"
+      }
+    ],
+    "imageUrl": "/doctors/dr-apoorva-b-k.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/bengaluru/banerghatta-bengaluru",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr+Apoorva+B.+K.webp",
+    "imageAlt": "Dr. Apoorva B. K",
+    "imageCredit": "Vetic · Bannerghatta Road",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-famida-sherin",
+    "slug": "dr-famida-sherin",
+    "name": "Famida Sherin",
+    "prefix": "Dr.",
+    "cityId": "bengaluru",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-kalyan-nagar-kalyan-nagar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Famida Sherin is listed on the clinical team at Vetic Kalyan Nagar. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/bengaluru/kalyannagar-bengaluru"
+      }
+    ],
+    "imageUrl": "/doctors/dr-famida-sherin.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/bengaluru/kalyannagar-bengaluru",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr+Famida+Sherin.webp",
+    "imageAlt": "Dr. Famida Sherin",
+    "imageCredit": "Vetic · Kalyan Nagar",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-sahil-nandal",
+    "slug": "dr-sahil-nandal",
+    "name": "Sahil Nandal.",
+    "prefix": "Dr.",
+    "cityId": "chennai",
+    "degrees": [
+      "BVsc. & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-adyar-adyar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Sahil Nandal. is listed on the clinical team at Vetic Adyar. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/chennai/adyar"
+      }
+    ],
+    "imageUrl": "/doctors/dr-sahil-nandal.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/chennai/adyar",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr.%20Sahil%20Nandal.webp",
+    "imageAlt": "Dr. Sahil Nandal.",
+    "imageCredit": "Vetic · Adyar",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-lingidi-yashwanth",
+    "slug": "dr-lingidi-yashwanth",
+    "name": "Lingidi Yashwanth",
+    "prefix": "Dr.",
+    "cityId": "chennai",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-anna-nagar-anna-nagar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Lingidi Yashwanth is listed on the clinical team at Vetic Anna Nagar. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/chennai/anna-nagar"
+      }
+    ],
+    "imageUrl": "/doctors/dr-lingidi-yashwanth.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/chennai/anna-nagar",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Lingidi%20Yashwanth_T%20-%20Nagar%20%28Chennai%29.webp",
+    "imageAlt": "Dr. Lingidi Yashwanth",
+    "imageCredit": "Vetic · Anna Nagar",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-param-nayal",
+    "slug": "dr-param-nayal",
+    "name": "Param Nayal",
+    "prefix": "Dr.",
+    "cityId": "delhi",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-anand-vihar-anand-vihar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Param Nayal is listed on the clinical team at Vetic Anand Vihar. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/delhi/anand-vihar"
+      }
+    ],
+    "imageUrl": "/doctors/dr-param-nayal.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/delhi/anand-vihar",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Param%20Nayal.webp",
+    "imageAlt": "Dr. Param Nayal",
+    "imageCredit": "Vetic · Anand Vihar",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-sahil-dhanda",
+    "slug": "dr-sahil-dhanda",
+    "name": "Sahil Dhanda",
+    "prefix": "Dr.",
+    "cityId": "delhi",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-anand-vihar-anand-vihar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Sahil Dhanda is listed on the clinical team at Vetic Anand Vihar. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/delhi/anand-vihar"
+      }
+    ],
+    "imageUrl": "/doctors/dr-sahil-dhanda.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/delhi/anand-vihar",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Sahil%20Dhanda.webp",
+    "imageAlt": "Dr. Sahil Dhanda",
+    "imageCredit": "Vetic · Anand Vihar",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-lakshay",
+    "slug": "dr-lakshay",
+    "name": "Lakshay",
+    "prefix": "Dr.",
+    "cityId": "delhi",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-dwarka-sector-17-dwarka-sector-17"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Lakshay is listed on the clinical team at Vetic Dwarka Sector 17. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/delhi/sector-17"
+      }
+    ],
+    "imageUrl": "/doctors/dr-lakshay.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/delhi/sector-17",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr.+Lakshay.webp",
+    "imageAlt": "Dr. Lakshay",
+    "imageCredit": "Vetic · Dwarka Sector 17",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-batsala",
+    "slug": "dr-batsala",
+    "name": "Batsala",
+    "prefix": "Dr.",
+    "cityId": "delhi",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-pitampura-pitampura"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Batsala is listed on the clinical team at Vetic Pitampura. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/delhi/pitampura"
+      }
+    ],
+    "imageUrl": "/doctors/dr-batsala.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/delhi/pitampura",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr+Batsala.webp",
+    "imageAlt": "Dr. Batsala",
+    "imageCredit": "Vetic · Pitampura",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-dheeraj-kumar-dubey",
+    "slug": "dr-dheeraj-kumar-dubey",
+    "name": "Dheeraj Kumar Dubey",
+    "prefix": "Dr.",
+    "cityId": "delhi",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-pitampura-pitampura"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Dheeraj Kumar Dubey is listed on the clinical team at Vetic Pitampura. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/delhi/pitampura"
+      }
+    ],
+    "imageUrl": "/doctors/dr-dheeraj-kumar-dubey.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/delhi/pitampura",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr.+Dheeraj+Kumar+Dubey.webp",
+    "imageAlt": "Dr. Dheeraj Kumar Dubey",
+    "imageCredit": "Vetic · Pitampura",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-manish-chaudhary",
+    "slug": "dr-manish-chaudhary",
+    "name": "Manish Chaudhary",
+    "prefix": "Dr.",
+    "cityId": "delhi",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-sda-market-sda-market"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Manish Chaudhary is listed on the clinical team at Vetic SDA Market. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/delhi/sda-market"
+      }
+    ],
+    "imageUrl": "/doctors/dr-manish-chaudhary.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/delhi/sda-market",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Manish%20Chaudhary.webp",
+    "imageAlt": "Dr. Manish Chaudhary",
+    "imageCredit": "Vetic · SDA Market",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-aditya-kumar",
+    "slug": "dr-aditya-kumar",
+    "name": "Aditya Kumar.",
+    "prefix": "Dr.",
+    "cityId": "delhi",
+    "degrees": [
+      "BVsc. & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-vasant-kunj-vasant-kunj"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Aditya Kumar. is listed on the clinical team at Vetic Vasant Kunj. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/delhi/vasant-kunj"
+      }
+    ],
+    "imageUrl": "/doctors/dr-aditya-kumar.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/delhi/vasant-kunj",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Aditya%20Kumar.webp",
+    "imageAlt": "Dr. Aditya Kumar.",
+    "imageCredit": "Vetic · Vasant Kunj",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-hema-sundar",
+    "slug": "dr-hema-sundar",
+    "name": "Hema Sundar",
+    "prefix": "Dr.",
+    "cityId": "hyderabad",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-lb-nagar-lb-nagar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Hema Sundar is listed on the clinical team at Vetic LB Nagar. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/hyderabad/lb-nagar"
+      }
+    ],
+    "imageUrl": "/doctors/dr-hema-sundar.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/hyderabad/lb-nagar",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20HemaSundar.webp",
+    "imageAlt": "Dr. Hema Sundar",
+    "imageCredit": "Vetic · LB Nagar",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-ankit-das",
+    "slug": "dr-ankit-das",
+    "name": "Ankit Das",
+    "prefix": "Dr.",
+    "cityId": "kolkata",
+    "degrees": [
+      "B.V.Sc & A.H, M.V.Sc"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-salt-lake-salt-lake"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Ankit Das is listed on the clinical team at Vetic Salt Lake. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/kolkata/salt-lake"
+      }
+    ],
+    "imageUrl": "/doctors/dr-ankit-das.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/kolkata/salt-lake",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Ankit%20Das%20%281%29.webp",
+    "imageAlt": "Dr. Ankit Das",
+    "imageCredit": "Vetic · Salt Lake",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-aditya-kurkure",
+    "slug": "dr-aditya-kurkure",
+    "name": "Aditya Kurkure",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-borivali-borivali"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Aditya Kurkure is listed on the clinical team at Vetic Borivali. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/mumbai/borivali"
+      }
+    ],
+    "imageUrl": "/doctors/dr-aditya-kurkure.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/mumbai/borivali",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr+Aditya+Kurkure.webp",
+    "imageAlt": "Dr. Aditya Kurkure",
+    "imageCredit": "Vetic · Borivali",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-rajan-solanki",
+    "slug": "dr-rajan-solanki",
+    "name": "Rajan Solanki",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-borivali-borivali"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Rajan Solanki is listed on the clinical team at Vetic Borivali. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/mumbai/borivali"
+      }
+    ],
+    "imageUrl": "/doctors/dr-rajan-solanki.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/mumbai/borivali",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Rajan%20Solanki.webp",
+    "imageAlt": "Dr. Rajan Solanki",
+    "imageCredit": "Vetic · Borivali",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-linga-gowthami",
+    "slug": "dr-linga-gowthami",
+    "name": "Linga Gowthami",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "BVsc. & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-chembur-chembur"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Linga Gowthami is listed on the clinical team at Vetic Chembur. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/mumbai/chembur-mumbai"
+      }
+    ],
+    "imageUrl": "/doctors/dr-linga-gowthami.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/mumbai/chembur-mumbai",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr.+Gowthami.webp",
+    "imageAlt": "Dr. Linga Gowthami",
+    "imageCredit": "Vetic · Chembur",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-meghana-arulvanan",
+    "slug": "dr-meghana-arulvanan",
+    "name": "Meghana Arulvanan",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "B.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-goregaon-goregaon"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Meghana Arulvanan is listed on the clinical team at Vetic Goregaon. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/mumbai/goregaon"
+      }
+    ],
+    "imageUrl": "/doctors/dr-meghana-arulvanan.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/mumbai/goregaon",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20MrghanavArulvanan.webp",
+    "imageAlt": "Dr. Meghana Arulvanan",
+    "imageCredit": "Vetic · Goregaon",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-ajinkya-chakor",
+    "slug": "dr-ajinkya-chakor",
+    "name": "Ajinkya Chakor",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-kandivali-kandivali"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Ajinkya Chakor is listed on the clinical team at Vetic Kandivali. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/mumbai/kandivali"
+      }
+    ],
+    "imageUrl": "/doctors/dr-ajinkya-chakor.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/mumbai/kandivali",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Ajinkya%20Chakor_Thane.webp",
+    "imageAlt": "Dr. Ajinkya Chakor",
+    "imageCredit": "Vetic · Kandivali",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-ashish-tripathi",
+    "slug": "dr-ashish-tripathi",
+    "name": "Ashish Tripathi",
+    "prefix": "Dr.",
+    "cityId": "mumbai",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-powai-powai"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Ashish Tripathi is listed on the clinical team at Vetic Powai. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/mumbai/powai"
+      }
+    ],
+    "imageUrl": "/doctors/dr-ashish-tripathi.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/mumbai/powai",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Ashish%20Tripathi.webp",
+    "imageAlt": "Dr. Ashish Tripathi",
+    "imageCredit": "Vetic · Powai",
+    "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-vishal-singh-bhati",
+    "slug": "dr-vishal-singh-bhati",
+    "name": "Vishal Singh Bhati",
+    "prefix": "Dr.",
+    "cityId": "pune",
+    "degrees": [
+      "M.V.Sc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [],
+    "providerSlugs": [
+      "vetic-hadapsar-hadapsar"
+    ],
+    "species": [],
+    "languages": [],
+    "about": "Dr. Vishal Singh Bhati is listed on the clinical team at Vetic Hadapsar. Contact the branch to confirm its next available appointment.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The branch page identifies this clinician and lists the qualification shown here.",
+    "sourceUrls": [
+      {
+        "label": "Branch clinical roster and qualification",
+        "url": "https://vetic.in/clinics/pune/hadapsar"
+      }
+    ],
+    "imageUrl": "/doctors/dr-vishal-singh-bhati.webp",
+    "imageSourceUrl": "https://vetic.in/clinics/pune/hadapsar",
+    "imageOriginalUrl": "https://vetic-img.s3.ap-south-1.amazonaws.com/website/Website-Astro/doctor_images/Dr%20Vishal%20Singh%20Bhati.webp",
+    "imageAlt": "Dr. Vishal Singh Bhati",
+    "imageCredit": "Vetic · Hadapsar",
+    "imageCheckedAt": "2026-11-23"
+  }
+]

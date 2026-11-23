@@ -16,7 +16,8 @@ const providers: Provider[] = records.map(p => {
     evidence: [...(p.evidence ?? []), { label: "Published consultation fee", url: rate.url }] };
 });
 import regionalDoctors from "./regional-doctors.json";
-const doctors: Doctor[] = withApprovedPhotos([...regionalDoctors as Doctor[], ...puneDoctors.filter(d => d.degrees.length && d.confidence === "high" && d.dataSource === "public" && curatedPune.some(p => d.providerSlugs.includes(p.slug)))]);
+import hospitalTeam from "./hospital-team.json";
+const doctors: Doctor[] = [...hospitalTeam as Doctor[], ...withApprovedPhotos([...regionalDoctors as Doctor[], ...puneDoctors.filter(d => d.degrees.length && d.confidence === "high" && d.dataSource === "public" && curatedPune.some(p => d.providerSlugs.includes(p.slug)))])];
 const reviews: Review[] = [];
 const costEstimates: import("./types").CostEstimateItem[] = [];
 import type { City, Specialty, Provider, Doctor, Review, ReviewTheme } from "./types";

@@ -1,0 +1,930 @@
+{
+  "mumbai-vetic-andheri-andheri": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Spaying and neutering",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "about": "The Andheri branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/mumbai/andheri-west",
+    "label": "Branch services and follow-up terms"
+  },
+  "bengaluru-vetic-domlur-domlur": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Vaccinations",
+      "Surgery",
+      "Spaying and neutering",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Domlur branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/bengaluru/domlur-bengaluru",
+    "label": "Branch services and follow-up terms"
+  },
+  "bengaluru-vetic-bannerghatta-road-bannerghatta-road": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Bannerghatta Road branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/bengaluru/banerghatta-bengaluru",
+    "label": "Branch services and follow-up terms"
+  },
+  "bengaluru-vetic-hsr-layout-hsr-layout": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The HSR Layout branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/bengaluru/hsr-bengaluru",
+    "label": "Branch services and follow-up terms"
+  },
+  "bengaluru-vetic-kalyan-nagar-kalyan-nagar": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Kalyan Nagar branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/bengaluru/kalyannagar-bengaluru",
+    "label": "Branch services and follow-up terms"
+  },
+  "mumbai-vetic-kandivali-kandivali": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "about": "The Kandivali branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/mumbai/kandivali",
+    "label": "Branch services and follow-up terms"
+  },
+  "mumbai-vetic-chembur-chembur": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Spaying and neutering",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [
+      "dog"
+    ],
+    "about": "The Chembur branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/mumbai/chembur-mumbai",
+    "label": "Branch services and follow-up terms"
+  },
+  "bengaluru-vetic-electronic-city-electronic-city": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Electronic City branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/bengaluru/electronic-city-bengaluru",
+    "label": "Branch services and follow-up terms"
+  },
+  "kolkata-vetic-salt-lake-salt-lake": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Spaying and neutering",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "about": "The Salt Lake branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/kolkata/salt-lake",
+    "label": "Branch services and follow-up terms"
+  },
+  "chennai-vetic-anna-nagar-anna-nagar": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Spaying and neutering",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "about": "The Anna Nagar branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/chennai/anna-nagar",
+    "label": "Branch services and follow-up terms"
+  },
+  "mumbai-vetic-borivali-borivali": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Spaying and neutering",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "about": "The Borivali branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/mumbai/borivali",
+    "label": "Branch services and follow-up terms"
+  },
+  "chennai-vetic-adyar-adyar": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Vaccinations",
+      "Surgery",
+      "Spaying and neutering",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [
+      "cat",
+      "dog"
+    ],
+    "about": "The Adyar branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/chennai/adyar",
+    "label": "Branch services and follow-up terms"
+  },
+  "kolkata-vetic-behala-behala": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Behala branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/kolkata/behala",
+    "label": "Branch services and follow-up terms"
+  },
+  "delhi-vetic-greater-kailash-1-greater-kailash-1": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Greater Kailash 1 branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/delhi/greater-kailash",
+    "label": "Branch services and follow-up terms"
+  },
+  "delhi-vetic-defence-colony-defence-colony": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Defence Colony branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/delhi/defence-colony",
+    "label": "Branch services and follow-up terms"
+  },
+  "delhi-vetic-pitampura-pitampura": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Pitampura branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/delhi/pitampura",
+    "label": "Branch services and follow-up terms"
+  },
+  "delhi-vetic-malviya-nagar-malviya-nagar": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Malviya Nagar branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/delhi/malviya-nagar",
+    "label": "Branch services and follow-up terms"
+  },
+  "delhi-vetic-anand-vihar-anand-vihar": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Anand Vihar branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/delhi/anand-vihar",
+    "label": "Branch services and follow-up terms"
+  },
+  "delhi-vetic-vasant-kunj-vasant-kunj": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Spaying and neutering",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Vasant Kunj branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/delhi/vasant-kunj",
+    "label": "Branch services and follow-up terms"
+  },
+  "delhi-vetic-dwarka-sector-17-dwarka-sector-17": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The Dwarka Sector 17 branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/delhi/sector-17",
+    "label": "Branch services and follow-up terms"
+  },
+  "delhi-vetic-sda-market-sda-market": {
+    "services": [
+      "Veterinary consultations",
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Vaccinations",
+      "Surgery",
+      "Inpatient monitoring"
+    ],
+    "ids": [
+      "general",
+      "imaging",
+      "vaccination",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The SDA Market branch publishes its clinical services and starting charges online. The branch offers seven days of free follow-ups after a paid consultation or diagnostic test.",
+    "source": "https://vetic.in/clinics/delhi/sda-market",
+    "label": "Branch services and follow-up terms"
+  },
+  "ahmedabad-dr-patel-pet-clinic-opp-poojan-app-jivraj-park": {
+    "services": [
+      "Major and minor surgery",
+      "Corrective surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Opp Poojan App Jivraj Park reports major and minor surgery, corrective surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Ahmedabad/Dr-Patel-Pet-Clinic-Near-Jivraj-Raj-Mehta-Hospital-Jivraj-Park/079PXX79-XX79-151004134533-A9K4_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "ahmedabad-malav-pet-clinic-anandnangar-road-satellite": {
+    "services": [
+      "Major and minor surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Anandnangar Road Satellite reports major and minor surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Ahmedabad/Malav-Pet-Clinic-Near-Seema-Hall-Satellite/079PXX79-XX79-171125200055-U6H2_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "ahmedabad-eterna-vet-care-vastrapur-bodakdev": {
+    "services": [
+      "Orthopaedic surgery",
+      "Corrective surgery"
+    ],
+    "ids": [
+      "orthopedics",
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Vastrapur Bodakdev reports orthopaedic surgery, corrective surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Ahmedabad/Eterna-Vet-Care-Opposite-Milan-Park-Bodakdev/079PXX79-XX79-221223142644-P5X6_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "ahmedabad-zigly-for-happy-pets-rajpath-club-road-bodakdev": {
+    "services": [
+      "Major and minor surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Rajpath Club Road Bodakdev reports major and minor surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Ahmedabad/Zigly-For-Happy-Pets-Bodakdev/079PXX79-XX79-250610155606-Q7Z3_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "ahmedabad-zigly-pet-clinic-sunrise-park-road-vastrapur": {
+    "services": [
+      "Major and minor surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Sunrise Park Road Vastrapur reports major and minor surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Ahmedabad/Zigly-Pet-Clinic-Opposite-Himalaya-Mall-Commercial-Building-Big-Bazar-Vastrapur/079PXX79-XX79-250818170933-E6D4_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "bengaluru-shreyas-pet-hospital-1st-cross-kirloskar-colony-basaveshwara-nagar": {
+    "services": [
+      "Digital X-ray"
+    ],
+    "ids": [
+      "imaging"
+    ],
+    "species": [],
+    "about": "The local practice listing for 1st Cross Kirloskar Colony Basaveshwara Nagar reports digital x-ray. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Bangalore/Shreyas-Pet-Hospital-Near-Shankarmath-Signal-Basaveshwara-Nagar/080P5161529_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "bengaluru-zigly-for-happy-pets-3rd-block-new-bel-road": {
+    "services": [
+      "Major and minor surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for 3rd Block New Bel Road reports major and minor surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Bangalore/Zigly-For-Happy-Pets-Rmv-2-Nd-Stage-New-Bel-Road/080PXX80-XX80-250117201952-F5S9_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "chennai-parvathy-pet-clinic-kamaraj-nagar-kamaraja-nagar": {
+    "services": [
+      "Vaccination services"
+    ],
+    "ids": [
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for Kamaraj Nagar Kamaraja Nagar reports vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Chennai/Parvathy-Pet-Clinic-Next-To-Grace-Super-Market-Kamaraj-Nagar-Kamaraja-Nagar/044PXX44-XX44-230506145358-A6G7_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "chennai-k-k-pet-clinic-gurusamy-nagar-extension-3-mugalivakkam": {
+    "services": [
+      "Major and minor surgery",
+      "Orthopaedic surgery",
+      "Vaccination services"
+    ],
+    "ids": [
+      "surgery",
+      "orthopedics",
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for Gurusamy Nagar Extension 3 Mugalivakkam reports major and minor surgery, orthopaedic surgery, vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Chennai/K-K-Pet-Clinic-Mugalivakam-Mugalivakkam/044PXX44-XX44-240302192258-S9Y2_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "delhi-rk-wellness-pet-clinic-m-block-janta-sarita-vihar": {
+    "services": [
+      "Major and minor surgery",
+      "Vaccination services"
+    ],
+    "ids": [
+      "surgery",
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for M Block Janta Sarita Vihar reports major and minor surgery, vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Delhi/Rk-Wellness-Pet-Clinic-Laxminarayan-Mandir-Sarita-Vihar/011PXX11-XX11-200113113042-P1C4_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "delhi-zigly-for-happy-pets-block-f-rajouri-garden": {
+    "services": [
+      "Major and minor surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Block F Rajouri Garden reports major and minor surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Delhi/Zigly-For-Happy-Pets-Nearby-Gians-Ice-Cream-Shop-Sharda-Puri-Rajouri-Garden/011PXX11-XX11-230406181636-U3S6_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "delhi-cure-and-care-pet-clinic-shokeen-plaza-dwarka-sector-12": {
+    "services": [
+      "Major and minor surgery",
+      "Vaccination services",
+      "Corrective surgery"
+    ],
+    "ids": [
+      "surgery",
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for Shokeen Plaza Dwarka Sector 12 reports major and minor surgery, vaccination services, corrective surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Delhi/Cure-and-Care-Pet-Clinic-Near-K-M-Chowk-Dwarka-Sector-12/011PXX11-XX11-131112171722-Q7M4_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "jaipur-vetgo-multispeciality-animal-hospital-madhyam-marg-mansarovar": {
+    "services": [
+      "Major and minor surgery",
+      "Orthopaedic surgery",
+      "Vaccination services"
+    ],
+    "ids": [
+      "surgery",
+      "orthopedics",
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for Madhyam Marg Mansarovar reports major and minor surgery, orthopaedic surgery, vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Jaipur/Vetgo-Multispeciality-Animal-Hospital-Near-Dignity-Hospital-Mansarovar/0141PX141-X141-230808173335-K7Q6_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "jaipur-jaipur-pet-hospital-roop-nagar-jhotwara": {
+    "services": [
+      "Major and minor surgery",
+      "Corrective surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Roop Nagar Jhotwara reports major and minor surgery, corrective surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Jaipur/Jaipur-Pet-Hospital-Opp-Cm-Child-Hospital-Roop-Nagar-Jhotwara/0141PX141-X141-150515110537-H2Q5_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "jaipur-vetbros-pet-hospital-maharani-garden-road-mansarovar": {
+    "services": [
+      "Major and minor surgery",
+      "Ultrasound",
+      "Pet boarding"
+    ],
+    "ids": [
+      "surgery",
+      "imaging"
+    ],
+    "species": [],
+    "about": "The local practice listing for Maharani Garden Road Mansarovar reports major and minor surgery, ultrasound, pet boarding. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Jaipur/Vetbros-Pet-Hospital-In-Front-Of-Just-Eat-Mansarovar/0141PX141-X141-251216003513-S5C2_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "jaipur-zigly-for-happy-pets-khatipura-road-vaishali-nagar": {
+    "services": [
+      "Major and minor surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Khatipura Road Vaishali Nagar reports major and minor surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Jaipur/Zigly-For-Happy-Pets-Nearby-Vaishali-Circle-Vaishali-Nagar/0141PX141-X141-240113200741-A2C9_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "jaipur-vet-24-multi-speciality-animal-hospital-shipra-path-mansarovar": {
+    "services": [
+      "Major and minor surgery",
+      "Orthopaedic surgery"
+    ],
+    "ids": [
+      "surgery",
+      "orthopedics"
+    ],
+    "species": [],
+    "about": "The local practice listing for Shipra Path Mansarovar reports major and minor surgery, orthopaedic surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Jaipur/Vet-24-Multi-Speciality-Animal-Hospital-Opposite-Jaipur-Legacy-Hotel-Mansarovar/0141PX141-X141-231214113735-A8Z2_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "jaipur-vet-24-multispeciality-animal-hospital-prabhudayal-marg-pratap-nagar": {
+    "services": [
+      "Major and minor surgery",
+      "Orthopaedic surgery"
+    ],
+    "ids": [
+      "surgery",
+      "orthopedics"
+    ],
+    "species": [],
+    "about": "The local practice listing for Prabhudayal Marg Pratap Nagar reports major and minor surgery, orthopaedic surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Jaipur/Vet-24-Multispeciality-Animal-Hospital-Near-By-Coaching-Hub-Pratap-Nagar/0141PX141-X141-250820152007-F4J5_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "kolkata-dr-newton-bala-vet-pulse-naktala-road-regent-estate": {
+    "services": [
+      "Major and minor surgery",
+      "Feline medicine",
+      "Vaccination services"
+    ],
+    "ids": [
+      "surgery",
+      "vaccination"
+    ],
+    "species": [
+      "cat"
+    ],
+    "about": "The local practice listing for Naktala Road Regent Estate reports major and minor surgery, feline medicine, vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Kolkata/Dr-Newton-Bala-Vet-Pulse-Near-By-Barobhut-Math-Regent-Estate/033PXX33-XX33-240625202121-Z6K6_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "kolkata-pets-heaven-the-animal-hospital-east-mall-road-mall-road": {
+    "services": [
+      "Feline medicine",
+      "Corrective surgery",
+      "Pet boarding"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [
+      "cat"
+    ],
+    "about": "The local practice listing for East Mall Road Mall Road reports feline medicine, corrective surgery, pet boarding. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Kolkata/Pets-Heaven-The-Animal-Hospital-Behind-Dumdum-Club-Mall-Road/033PXX33-XX33-180126133506-T7M4_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "kolkata-four-leglove-b-t-road-sinthee": {
+    "services": [
+      "Vaccination services"
+    ],
+    "ids": [
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for B.T. Road Sinthee reports vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Kolkata/Four-Leglove-Beside-City-Spencer-Sinthee/033PXX33-XX33-211025145203-T3F8_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "kolkata-medicure-pet-clinic-sree-colony-regent-estate": {
+    "services": [
+      "Vaccination services"
+    ],
+    "ids": [
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for Sree Colony Regent Estate reports vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Kolkata/Medicure-Pet-Clinic-Opposite-Lalka-Water-Tank-Sree-Colony-Regent-Estate-Regent-Estate/033PXX33-XX33-180823093507-M2N4_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "pune-dr-gorhes-pet-cover-advanced-veterinary-clinic-karve-road-kothrud": {
+    "services": [
+      "Major and minor surgery",
+      "Corrective surgery",
+      "Pet boarding"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Karve Road Kothrud reports major and minor surgery, corrective surgery, pet boarding. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Pune/Dr-Gorhes-Pet-Cover-Advanced-Veterinary-Clinic-Near-Karve-Statue-Next-To-Sutar-Bus-Stand-Kothrud/020PD000354_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "pune-dr-nerlekars-vet-for-pets-clinic-padmavati-chavan-nagar-road-dhankawadi": {
+    "services": [
+      "Major and minor surgery",
+      "Feline medicine"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [
+      "cat"
+    ],
+    "about": "The local practice listing for Padmavati Chavan Nagar Road Dhankawadi reports major and minor surgery, feline medicine. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Pune/Dr-Nerlekars-Vet-For-Pets-Clinic-Near-Winkar-Sabhagruha-Dhankawadi/020PXX20-XX20-120228154750-Y3Z7_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "chennai-sanchu-animal-hospital-palavakkam": {
+    "services": [
+      "Emergency care",
+      "Diagnostics",
+      "Surgery",
+      "Vaccinations",
+      "Pet boarding"
+    ],
+    "ids": [
+      "emergency",
+      "surgery",
+      "vaccination"
+    ],
+    "species": [],
+    "about": "Sanchu lists its East Coast Road hospital as a day-and-night emergency branch. It also offers scheduled veterinary care, surgery, vaccination and diagnostics. Call the ECR branch to confirm intake or the consulting team.",
+    "label": "Sanchu ECR branch and emergency contact",
+    "source": "https://www.sanchuanimalhospital.com/locations#neelankarai-ecr"
+  },
+  "chennai-sks-veterinary-hospital-valasaravakkam": {
+    "services": [
+      "Blood testing",
+      "X-ray",
+      "Ultrasound",
+      "Soft-tissue and orthopaedic surgery",
+      "Emergency care during hospital hours"
+    ],
+    "ids": [
+      "imaging",
+      "surgery",
+      "orthopedics",
+      "emergency"
+    ],
+    "species": [],
+    "about": "The SKS hospital on Kamarajar Street provides in-house blood testing, diagnostic imaging and surgery. Its branch page accepts emergency walk-ins during hospital hours and advises calling ahead for routine appointments.",
+    "label": "Official SKS Valasaravakkam services and hours",
+    "source": "https://www.skspethospital.com/valasaravakkam/"
+  },
+  "chennai-paws-and-claws-pet-clinic-t-nagar": {
+    "services": [
+      "Vaccination services"
+    ],
+    "ids": [
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for T Nagar reports vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Chennai/Paws-And-Claws-Pet-Clinic-Near-Tirumala-Tirupathi-Devastanam-T-Nagar/044PXX44-XX44-170512203056-H9T3_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "kolkata-vet-pulse-dr-newton-bala-regent-estate": {
+    "services": [
+      "Major and minor surgery",
+      "Feline medicine",
+      "Vaccination services"
+    ],
+    "ids": [
+      "surgery",
+      "vaccination"
+    ],
+    "species": [
+      "cat"
+    ],
+    "about": "The local practice listing for Regent Estate reports major and minor surgery, feline medicine, vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Kolkata/Dr-Newton-Bala-Vet-Pulse-Near-By-Barobhut-Math-Regent-Estate/033PXX33-XX33-240625202121-Z6K6_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "hyderabad-pet-shine-clinic-himayat-nagar": {
+    "services": [
+      "Vaccination services"
+    ],
+    "ids": [
+      "vaccination"
+    ],
+    "species": [],
+    "about": "The local practice listing for Himayat Nagar reports vaccination services. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Hyderabad/Pet-Shine-Clinic-Adjacent-To-To-New-Naveen-Pet-Needs-Himayat-Nagar/040PXX40-XX40-210522203516-Y7C1_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "hyderabad-global-animal-hospital-trimulgherry": {
+    "services": [
+      "Major and minor surgery",
+      "Corrective surgery"
+    ],
+    "ids": [
+      "surgery"
+    ],
+    "species": [],
+    "about": "The local practice listing for Trimulgherry reports major and minor surgery, corrective surgery. Contact the practice to arrange the appropriate session.",
+    "source": "https://www.justdial.com/Hyderabad/Global-Animal-Hospital-Near-Sp-Colonynear-Sydicate-Bank-Trimulgherry/040PXX40-XX40-120313071038-P5C6_BZDET",
+    "label": "Services reported on Justdial"
+  },
+  "mumbai-tata-trusts-small-animal-hospital-mahalaxmi-saat-rasta": {
+    "services": [
+      "24-hour emergency and critical care",
+      "Inpatient wards and ICU",
+      "CT, MRI and ultrasound imaging",
+      "In-house diagnostic pathology",
+      "Oncology and ophthalmology",
+      "Dialysis",
+      "Blood transfusion",
+      "Soft-tissue surgery",
+      "Physiotherapy and rehabilitation"
+    ],
+    "ids": [
+      "emergency",
+      "imaging",
+      "internal",
+      "surgery",
+      "oncology",
+      "ophthalmology",
+      "physiotherapy",
+      "dentistry",
+      "dermatology",
+      "cardiology"
+    ],
+    "species": [
+      "dog",
+      "cat"
+    ],
+    "about": "The Mahalaxmi hospital receives emergencies around the clock. Its specialist departments share a campus with intensive care, operating theatres, advanced imaging and an in-house pathology laboratory. Contact the relevant department for referral appointments.",
+    "source": "https://sahmumbai.com/",
+    "label": "Hospital facilities and clinical departments"
+  },
+  "chennai-madras-veterinary-college-teaching-hospital-tanuvas-vepery": {
+    "services": [
+      "Morning outpatient clinics",
+      "24-hour large and small animal emergency care",
+      "Bird and exotic animal section",
+      "Ophthalmology and orthopaedic referrals",
+      "CT, radiology and ultrasound",
+      "Clinical pathology and blood bank",
+      "Cardiology and endoscopy",
+      "Large animal ambulance",
+      "Reproductive medicine and infertility clinic"
+    ],
+    "ids": [
+      "emergency",
+      "ophthalmology",
+      "orthopedics",
+      "imaging",
+      "cardiology",
+      "exotics",
+      "internal",
+      "gynaecology",
+      "surgery",
+      "dermatology"
+    ],
+    "species": [
+      "dog",
+      "cat",
+      "bird",
+      "cattle"
+    ],
+    "about": "The Vepery campus is a TANUVAS teaching hospital. Its outpatient clinics operate in the mornings, with separate 24-hour emergency services for large and small animals.",
+    "source": "https://tanuvas.ac.in/mvc_clinics.php",
+    "label": "TANUVAS clinical departments and fee schedule"
+  }
+}
