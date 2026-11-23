@@ -1,0 +1,59 @@
+---
+import { cities, providers } from "@data";
+import Icon from "./Icon.astro";
+import { googleDirections, googlePreview } from "../lib/map-links.mjs";
+const groups = cities.map(city => ({
+  city, branches: providers.filter(p => p.cityId === city.id && p.coordinates && p.coordinateSource && !p.locationUnconfirmed)
+})).filter(g => g.branches.length);
+const first = groups[0]?.branches[0];
+---
+{first && <section class="home-section" aria-labelledby="map-title">
+  <div class="home-heading"><h2 id="map-title">Find on map</h2><a href="/locations/">All cities</a></div>
+  <div class="facility-map" data-facility-map>
+    <iframe src={googlePreview(first)} title={'Google Maps · '+first.name} loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-desk">
+      <div class="map-fields">
+        <label>City<select data-city>{groups.map(g=><option value={g.city.id}>{g.city.name}</option>)}</select></label>
+        <label>Facility<select data-branch>{groups.map(g=><optgroup label={g.city.name} data-city-id={g.city.id}>{g.branches.map(p=><option value={p.id} data-name={p.name} data-address={p.address} data-preview={googlePreview(p)} data-profile={`/${p.cityId}/${p.slug}/`} data-route={googleDirections(p)}>{p.name}</option>)}</optgroup>)}</select></label>
+      </div>
+      <div class="map-branch" aria-live="polite"><Icon name="pin"/><div><h3>{first.name}</h3><p>{first.address}</p></div></div>
+      <div class="map-actions"><a data-profile href={`/${first.cityId}/${first.slug}/`}>Facility details</a><a data-route href={googleDirections(first)}><Icon name="directions"/>Directions</a></div>
+    </div>
+  </div>
+</section>}
+<script>
+ const map = document.querySelector<HTMLElement>('[data-facility-map]');
+ if (map) {
+   const city = map.querySelector<HTMLSelectElement>('[data-city]')!;
+   const branch = map.querySelector<HTMLSelectElement>('[data-branch]')!;
+   const groups = Array.from(branch.querySelectorAll('optgroup'));
+   const frame = map.querySelector('iframe')!;
+   function showBranch() {
+     const data = branch.selectedOptions[0].dataset;
+     if (frame.getAttribute('src') !== data.preview) frame.src = data.preview!;
+     frame.title = 'Google Maps · '+data.name;
+     map!.querySelector('h3')!.textContent = data.name!;
+     map!.querySelector('.map-branch p')!.textContent = data.address!;
+     map!.querySelector<HTMLAnchorElement>('a[data-profile]')!.href = data.profile!;
+     map!.querySelector<HTMLAnchorElement>('a[data-route]')!.href = data.route!;
+   }
+   function showCity() {
+     const group = groups.find(g=>g.dataset.cityId===city.value)!;
+     branch.replaceChildren(group);
+     branch.selectedIndex = 0;
+     showBranch();
+   }
+   city.addEventListener('change',showCity);
+   branch.addEventListener('change',showBranch);
+   showCity();
+ }
+</script>
+<style>
+.facility-map{display:grid;grid-template-columns:1.45fr 1fr;border:1px solid #c2d9d0;border-radius:20px;overflow:hidden;background:white}
+.facility-map iframe{width:100%;height:100%;min-height:282px;border:0;background:#e8f1ec}.map-desk{display:grid;align-content:center;gap:16px;padding:clamp(14px,2.5vw,27px);min-width:0;background:linear-gradient(135deg,#f5faf6,white)}
+.map-fields{display:grid;gap:8px}.map-fields label{display:grid;gap:4px;color:#45655a;font-weight:650;font-size:.84rem}.map-fields select{min-width:0;width:100%;min-height:44px;padding:6px 8px;border:1px solid #bfd4ca;border-radius:10px;background:white;color:var(--ink);font:inherit}
+.map-branch{display:flex;align-items:flex-start;gap:8px}.map-branch :global(svg){flex:none;color:var(--teal);width:20px;height:20px}
+.map-branch h3{font:720 1.12rem/1.22 var(--display);margin:0}.map-branch p{font-size:.87rem;color:var(--body);line-height:1.45;margin:4px 0 0}
+.facility-map .map-actions{display:flex;gap:8px;margin:0}.map-actions a{display:inline-flex;align-items:center;gap:5px;background:#e5f2eb;padding:8px 13px;border-radius:10px;min-height:42px;font-weight:650;font-size:.88rem}.map-actions a[data-route]{background:#155b53;color:white}.map-actions :global(svg){width:16px;height:16px}
+@media(max-width:680px){.facility-map{grid-template-columns:1fr}.facility-map iframe{min-height:220px}.map-fields{grid-template-columns:minmax(82px,.48fr) minmax(0,1fr)}.map-desk{gap:10px}}
+</style>

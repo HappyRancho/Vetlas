@@ -5,21 +5,42 @@ import { ownerArticles } from "../../data/owner-guides";
 export function getStaticPaths() {
   return ownerArticles.map(article => ({ params:{slug:article.slug}, props:{article} }));
 }
-const { article } = Astro.props;
-const path = `/care-guide/${article.slug}/`;
+const {article:a} = Astro.props;
+const path = `/care-guide/${a.slug}/`;
+const related = ownerArticles.find(other=>other.slug!==a.slug);
+const minutes = Math.ceil([a.intro,a.takeaway,...a.sections.flatMap(s=>s.paragraphs)].join(" ").split(/\s+/).length/200);
 const schema = {
-  "@context":"https://schema.org", "@type":"Article", headline:article.title,
-  mainEntityOfPage:new URL(path, Astro.site), description:article.description, inLanguage:"en-IN",
-  author:{"@type":"Organization",name:"Vetlas"}, citation:article.sourceUrl,
-  articleSection:article.sections.map(s => s.title)
+  "@context":"https://schema.org", "@type":"BlogPosting", headline:a.title,mainEntityOfPage:new URL(path,Astro.site),
+  description:a.description,inLanguage:"en-IN",image:new URL(a.image,Astro.site),
+  author:{"@type":"Organization",name:"Vetlas",url:new URL("/about/",Astro.site)},
+  dateModified:"2026-11-23",citation:a.sourceUrl,articleSection:a.topic,timeRequired:`PT${minutes}M`
 };
 ---
-<Layout title={article.title + " for dog and cat owners"} description={article.description}>
-  <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
-  <article class="container reading-page">
-    <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Care guide",href:"/care-guide/"},{name:article.title,href:path}]}/>
-    <header class="city-mast"><p class="kicker">Animal owner guide</p><h1>{article.title}</h1><p>{article.description}</p></header>
-    {article.sections.map(section => <section><h2>{section.title}</h2><p>{section.text}</p></section>)}
-    <footer><a class="btn btn-primary" href={article.nextUrl}>{article.next}</a><p>Further reading · <a href={article.sourceUrl}>{article.source}</a></p></footer>
-  </article>
-</Layout>
+<Layout title={a.shortTitle+" for dog and cat owners"} description={a.description} image={a.image}>
+<script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+<article class="container journal">
+  <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Care guide",href:"/care-guide/"},{name:a.shortTitle,href:path}]}/>
+  <header class="cover"><div class="cover-text"><p class="category">{a.topic}</p><h1>{a.title}</h1><p class="standfirst">{a.description}</p><p class="byline">By <a href="/about/">Vetlas</a> · {minutes} min read<br/><time datetime="2026-11-23">Updated 23 November 2026</time></p></div>
+    <figure><img src={a.image} alt={a.alt} width="600" height="600" fetchpriority="high"/><figcaption><a href={a.photoSource}>{a.credit}</a> · <a href={a.licenseUrl}>{a.license}</a> · resized</figcaption></figure>
+  </header>
+  <div class="article-layout">
+    <nav class="contents" aria-label="In this article"><strong>In this article</strong>{a.sections.map(s=><a href={'#'+s.id}>{s.title}</a>)}<a href="#visit-notes">What to bring</a></nav>
+    <div class="story-body"><p class="opening">{a.intro}</p><aside class="takeaway">{a.takeaway}</aside>
+      {a.sections.map(s=><section id={s.id}><h2>{s.title}</h2>{s.paragraphs.map(p=><p>{p}</p>)}</section>)}
+      <section class="visit-notes" id="visit-notes"><h2>What to bring</h2><ul>{a.checklist.map(item=><li>{item}</li>)}</ul><a href={a.nextUrl}>{a.next}</a></section>
+      <footer><p><strong>Further reading</strong><br/><a href={a.sourceUrl}>{a.source}</a></p>{related && <p><strong>Read next</strong><br/><a href={'/care-guide/'+related.slug+'/'}>{related.title}</a></p>}</footer>
+    </div>
+  </div>
+</article></Layout>
+<style>
+.journal{max-width:1020px;padding-bottom:2.5rem}.cover{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);background:#f6f5eb;border-radius:21px;border:1px solid #d8ddcc;overflow:hidden}
+.cover-text{align-self:center;padding:clamp(18px,4vw,40px)}.category{color:#38644e;font-weight:720;margin:0 0 8px}
+.cover h1{font:550 clamp(2rem,5vw,3.6rem)/1.03 Georgia,serif;letter-spacing:-.042em;margin:0;color:#173e36}
+.standfirst{font-size:1.05rem;line-height:1.45;color:#425d50}.byline,.cover figcaption{font-size:.8rem;line-height:1.5;color:#455d50}.byline a{font-weight:700}.cover figure{margin:0;display:flex;flex-direction:column;background:#eff1e7;min-width:0}.cover img{display:block;width:100%;height:0;flex:1;min-height:200px;object-fit:cover;object-position:50% 50%}.cover figcaption{padding:4px 8px;background:white;text-align:right}
+.article-layout{display:grid;grid-template-columns:minmax(150px,205px) minmax(0,66ch);gap:clamp(16px,4vw,42px);margin-top:22px}
+.contents{align-self:start;display:grid;gap:7px;padding:14px;background:#edf4ed;border-radius:14px}.contents a{font-size:.9rem;line-height:1.3;color:#28594a}.story-body{color:#263d35;font-size:1.06rem;line-height:1.65}.story-body p{margin:0 0 .85rem}.opening{font:1.16rem/1.57 Georgia,serif}
+.takeaway{margin:1rem 0;padding:12px 15px;border-left:3px solid #6fa18a;background:#eaf4ed;border-radius:0 9px 9px 0}
+.story-body section{scroll-margin-top:80px;margin:1.5rem 0}.story-body h2{font:600 clamp(1.35rem,3vw,1.75rem)/1.18 Georgia,serif;letter-spacing:-.025em;margin:0 0 .5rem}
+.visit-notes{padding:16px;background:#fbf5e9;border-radius:14px}.visit-notes ul{padding-left:1.3rem}.story-body footer{border-top:1px solid #cfdbce;padding-top:14px;font-size:.9rem}.journal a{color:#17594c;text-underline-offset:.15em}
+@media(max-width:640px){.cover{grid-template-columns:1fr}.cover-text{padding:18px}.cover .byline{margin-bottom:0}.cover img{flex:none;min-height:0;height:165px;object-position:50% 52%}.article-layout{grid-template-columns:1fr;gap:15px}.contents{gap:4px}.contents a{min-height:30px;display:flex;align-items:center}}
+</style>

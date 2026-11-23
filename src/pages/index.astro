@@ -5,9 +5,9 @@ import Search from "../components/UniversalSearch.astro";
 import { cities, providers, specialties, cityById } from "@data";
 import ListingActions from "../components/ListingActions.astro";
 import CityTicker from "../components/CityTicker.astro";
-import CityMapIndex from "../components/CityMapIndex.astro";
-import TopicLinks from "../components/TopicLinks.astro";
-import { guideTopics } from "../data/owner-guides";
+import FacilityMap from "../components/FacilityMap.astro";
+import RatingSummary from "../components/RatingSummary.astro";
+import GuideShelf from "../components/GuideShelf.astro";
 import { finds } from "../data/popular-finds";
 import "../styles/home.css";
 import { animalGroups } from "../data/animal-groups";
@@ -20,7 +20,7 @@ const links = [
   { label: "Specialities", icon: "heart", href: "/specialties/" },
   { label: "Doctors", icon: "doctor", href: "/doctors/" }
 ];
-const serviceLabels: Record<string,string> = {general:"General care",dermatology:"Skin",oncology:"Tumour care",ophthalmology:"Eyes",orthopedics:"Orthopaedics"};
+const serviceLabels: Record<string,string> = {general:"General care",dermatology:"Skin",oncology:"Tumour care",ophthalmology:"Eyes",orthopedics:"Bone & joint"};
 const serviceOrder = Object.keys(serviceLabels);
 const animals = [
   {name:"Dogs",photo:"dog",href:"/search/?pet=dog"}, {name:"Cats",photo:"cat",href:"/search/?pet=cat"},
@@ -32,7 +32,6 @@ const featuredIds = ["mumbai-tata-trusts-small-animal-hospital-mahalaxmi-saat-ra
 const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
 ---
 <Layout title="Vetlas | Veterinary clinics, hospitals and specialists in India" description="Explore veterinary care in ten Indian cities. Find a practice by speciality or animal, compare facilities and get directions.">
-<CityTicker/>
 <div class="home-atlas">
 <div class="container home-inner">
   <section class="arrival" aria-labelledby="home-title">
@@ -44,6 +43,7 @@ const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
     <div class="arrival-art" aria-hidden="true"><span class="orbit"></span><Icon name="paw" class="art-paw"/><img src="/pet-hero-small.webp" srcset="/pet-hero-small.webp 350w, /pet-hero-medium.webp 620w" sizes="(max-width:650px) 40vw, 330px" alt="" width="350" height="389" fetchpriority="high"/></div>
     <div class="arrival-search"><Search variant="hero" id="find-care"/></div>
   </section>
+  <CityTicker/>
   <aside class="urgent-care"><span class="alarm-icon"><Icon name="siren"/></span><div><strong>Need urgent care?</strong><p>Find emergency services and call ahead.</p></div><a href="/emergency/">Emergency contacts</a></aside>
   <nav class="care-shortcuts" aria-label="Choose care">{links.map(link =>
     <a href={link.href}><span class="shortcut-icon"><Icon name={link.icon}/></span><strong>{link.label}</strong><Icon name="arrow" class="shortcut-arrow"/></a>
@@ -60,24 +60,25 @@ const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
     <section aria-labelledby="animal-title">
       <div class="home-heading"><h2 id="animal-title">Explore by animal</h2></div>
       <nav class="animal-tiles" aria-label="Practices by animal">{animals.map(g=>
-        <a href={g.href}>{g.photo ? <img src={'/pets/'+g.photo+'.webp'} alt="" width="45" height="45" loading="lazy"/> : <Icon name="paw"/>}<strong>{g.name}</strong></a>
+        <a href={g.href} aria-label={g.name}>{g.photo ? <img src={'/pets/'+g.photo+'.webp'} alt="" width="45" height="45" loading="lazy"/> : <Icon name="paw"/>}<strong>{g.name === "Cattle & buffalo" ? "Cattle / buffalo" : g.name}</strong></a>
       )}</nav>
     </section>
   </div>
-  <CityMapIndex/>
+  <FacilityMap/>
   <section class="home-section" aria-labelledby="guides-title">
     <div class="home-heading"><h2 id="guides-title">Guide for animal owners</h2><a href="/care-guide/">All guides</a></div>
-    <TopicLinks items={guideTopics} label="Guides for animal owners"/>
+    <GuideShelf/>
   </section>
   <section class="home-section" aria-labelledby="popular-finds">
     <div class="home-heading"><h2 id="popular-finds">Popular finds</h2></div>
-    <TopicLinks items={finds.map(f=>({label:f.title,icon:f.icon,href:f.href}))} label="Popular veterinary shortlists"/>
+    <nav class="find-list" aria-label="Popular veterinary shortlists">{finds.map(f=><a href={f.href}><span><Icon name={f.icon}/></span><strong>{f.title}</strong><Icon name="arrow"/></a>)}</nav>
   </section>
   <section class="home-section" aria-labelledby="facility-title">
     <div class="home-heading"><h2 id="facility-title">Featured facilities</h2><a href="/search/">Directory <Icon name="arrow"/></a></div>
     <div class="practice-rail">{featured.map(p => <article class="practice">
       <a class="practice-shot" href={'/'+p.cityId+'/'+p.slug+'/'} aria-label={'View '+p.name}><img src={p.imageUrl} alt={p.imageAlt} width="320" height="220" loading="lazy"/></a>
       <div class="practice-detail"><p class="practice-city"><Icon name="pin"/>{cityById(p.cityId)?.name} · {p.area}</p><h3><a href={'/'+p.cityId+'/'+p.slug+'/'}>{p.name}</a></h3>
+      {p.platformRatings?.length ? <RatingSummary provider={p} compact/> : null}
       <p class="practice-info">{p.specialtyIds.slice(0,3).map(id=>specialties.find(s=>s.id===id)?.name).filter(Boolean).join(" · ")}</p>{(p.fees || p.consultationListing) && <p class="practice-price">{consultationLabel(p).amount} {p.consultationListing?.kind==="registration"?"registration":"consultation"}</p>}</div>
       <ListingActions provider={p}/>
       <small class="credit"><a href={p.imageSourceUrl}>{p.imageCredit}</a>{p.imageLicenseUrl && <> · <a href={p.imageLicenseUrl}>Licence</a></>}</small>

@@ -3,7 +3,7 @@ import { cities } from "@data";
 import Icon from "./Icon.astro";
 ---
 <nav class="city-ticker" aria-label="City directories">
-  <div class="container ticker-inner">
+  <div class="ticker-inner">
     <a class="ticker-label" href="/locations/"><Icon name="pin"/>Cities</a>
     <div class="ticker-window">{cities.map(city => <a href={`/${city.slug}/`}>{city.name}</a>)}</div>
     <button hidden type="button" aria-label="Pause city strip" title="Pause city strip"><Icon name="pause"/></button>
@@ -54,7 +54,7 @@ import Icon from "./Icon.astro";
   }
 </script>
 <style>
-.city-ticker{background:#e0f0e9;border-bottom:1px solid var(--rule);color:#225950}
+.city-ticker{margin:8px 0;background:#e3f1eb;border:1px solid var(--rule);border-radius:14px;padding:0 8px;color:#225950}
 .ticker-inner{display:flex;align-items:center;gap:.65rem}
 .ticker-window{display:flex;flex:1;overflow-x:auto;scrollbar-width:none;min-width:0}
 .ticker-window::-webkit-scrollbar{display:none}

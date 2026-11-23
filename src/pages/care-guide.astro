@@ -1,7 +1,6 @@
 ---
 import DirectoryHeader from "../components/DirectoryHeader.astro";
-import TopicLinks from "../components/TopicLinks.astro";
-import { guideTopics } from "../data/owner-guides";
+import GuideShelf from "../components/GuideShelf.astro";
 import Layout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 
@@ -22,7 +21,7 @@ const brands = ["Crown Vet","Vetic","Zigly"].map(name => ({
 <div class="container guide">
 <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Care guide",href:"/care-guide/"}]}/>
 <DirectoryHeader label="Vetlas field guide" title="Guide for animal owners" description="Prepare for your pet’s next visit or find the right referral for a specialist, farm animal or wildlife case."/>
-<TopicLinks items={guideTopics} label="Animal owner guide topics"/>
+<GuideShelf/>
 <section id="referral"><h2>Specialist referrals</h2><div class="guide-grid"><article><h3>Cancer treatment</h3><p>Small Animal Hospital Mumbai lists oncology, pathology, imaging and surgery at its Mahalaxmi hospital. At Urban Pet Centre’s Juhu practice, Dr. Prajakta’s published services include chemotherapy and surgery for cancer cases. When booking, ask which reports or tissue samples to bring.</p><a href={tata}>Mahalaxmi hospital and team →</a><a href="/specialties/oncology/">Find oncology care →</a><a href="https://urbanpetcentre.co.in/">Urban Pet Centre’s Juhu services ↗</a></article>
 <article><h3>Eye care</h3><p>The Mumbai hospital also lists ophthalmology. Call to confirm the eye clinic’s next session and whether the team can see your animal that day. For an urgent injury, contact an emergency department while arranging the visit.</p><a href="/specialties/ophthalmology/">Browse eye care →</a><a href="https://sahmumbai.com/">Hospital departments ↗</a></article></div></section>
 <section id="teaching"><h2>Teaching hospitals & dairy institutions</h2><div class="guide-grid"><article><h3>Madras Veterinary College, Chennai</h3><p>TANUVAS publishes outpatient hours of 8 am–1 pm on weekdays and 8 am–11:30 am on weekends and government holidays. Its Vepery hospital provides round-the-clock emergency care for large and small animals. Seven-day registration costs ₹100 for small animals and ₹20 for large animals. Call before arranging transport for livestock.</p><a href={madras}>Address and visit details →</a><a href="https://tanuvas.ac.in/mvc_clinics.php">University timetable and fees ↗</a></article>
