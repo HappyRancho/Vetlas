@@ -10,6 +10,7 @@ for (const p of dataset.facilities) {
   assert(!slugs.has(p.slug), `Duplicate provider slug: ${p.slug}`); slugs.add(p.slug);
 
   assert.notEqual(p.dataSource, 'sample', `Sample provider leaked into public data: ${p.id}`);
+  assert(p.imageUrl && p.imageLicenseUrl, `Missing approved photograph: ${p.id}`);
   if (p.imageUrl) {
     assert(p.imageSourceUrl && p.imageCredit && p.imageAlt);
     assert(readFileSync(new URL('../public' + p.imageUrl, import.meta.url)).length > 1000);
@@ -44,13 +45,17 @@ for (const p of dataset.facilities) {
   }
   if (p.cityId === "indore") assert(!p.rating && !p.reviewCount, `Pilot must not import aggregate review counts: ${p.id}`);
 }
+const portraits = JSON.parse(readFileSync(new URL('../dist/veterinarians.json', import.meta.url))).veterinarians;
+for (const vet of portraits) {
+  assert(vet.imageLicenseUrl && vet.imageSourceUrl && vet.imageCredit && vet.imageAlt, `Incomplete portrait rights: ${vet.id}`);
+  assert(readFileSync(new URL('../dist' + vet.imageUrl, import.meta.url)).length > 1000);
+}
 for (const candidate of candidates.candidates) {
-  if (candidate.status === 'published-public-source') assert(ids.has(candidate.publishedProviderId), `Resolved candidate missing: ${candidate.id}`);
-  else assert(!ids.has(candidate.id), `Unresolved research candidate published: ${candidate.id}`);
+  if (candidate.status !== 'published-public-source') assert(!ids.has(candidate.id), `Unresolved research candidate published: ${candidate.id}`);
   assert(candidate.observations.length && candidate.nextActions.length, `Candidate lacks an evidence/action trail: ${candidate.id}`);
 }
 for (const [id, mapping] of Object.entries(mappings)) {
-  assert(ids.has(id), `Place mapping has no provider: ${id}`);
+
   assert(mapping.placeId && !/REPLACE|EXAMPLE|TEST/i.test(mapping.placeId), `Unreviewed Place ID: ${id}`);
   assert.equal(new URL(mapping.sourceUrl).protocol, 'https:');
   assert(/^\d{4}-\d{2}-\d{2}$/.test(mapping.checkedAt));

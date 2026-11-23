@@ -17,6 +17,6 @@ export const regionalProviders: Provider[] = entries.map(entry => {
       entry.name + " is listed in " + entry.area + ". " + (emergency ? "The published branch information describes emergency care. Call ahead to confirm the team can receive your pet." : "Check the linked branch information for appointments and current clinical services."),
     lastChecked: "2026-11-23", sources: directorySource ? { directory: entry.source } : { website: entry.source },
     evidence: [{ label: directorySource ? "Local practice listing" : "Provider or institution", url: entry.source }, { label: "Branch and location reference", url: entry.corroboration }],
-    ...(college ? { imageUrl: "/facilities/madras-veterinary-college.webp", imageAlt: "Madras Veterinary College campus in Chennai", imageCredit: "சத்திரத்தான் · CC BY-SA 4.0 · resized WebP", imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Madras_Veterinary_College.jpg" } : {})
+
   };
 });
