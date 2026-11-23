@@ -9,7 +9,7 @@ interface Props {
   doctor: Doctor;
   index?: number;
 }
-const { doctor, index = 0 } = Astro.props;
+const { doctor } = Astro.props;
 const city = cityById(doctor.cityId);
 const primary = specialtyById(doctor.primarySpecialtyId);
 const practiseAt = doctorsProviders(doctor)[0];
@@ -23,7 +23,7 @@ const hash = [...doctor.slug].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
 const tone = tones[hash % tones.length];
 ---
 
-<article class="doctor-card" style={`animation-delay:${Math.min(index, 8) * 45}ms`}>
+<article class="doctor-card">
   <div class={`doctor-avatar doctor-avatar-${tone}${doctor.imageUrl ? " doctor-avatar-photo" : ""}`} aria-hidden="true">
     {doctor.imageUrl ? (
       <>

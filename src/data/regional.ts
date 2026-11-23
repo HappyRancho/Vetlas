@@ -14,13 +14,14 @@ export const regionalProviders: Provider[] = [...entries, ...additional].map(ent
   const emergency = entry.services.includes("Emergency care");
   const college = entry.name.startsWith("Madras Veterinary College");
   return {
-    id, slug, name: entry.name, cityId: entry.city,
+    id, slug, name: entry.name.replace(/\s+mob-.*$/i,"").replace(/\s+– Best Pet Clinic In Jaipur$/i,""), cityId: entry.city,
     type: entry.type as Provider["type"], area: entry.area, address: entry.address,
     phone: entry.phone || undefined, hours: { open24: entry.hours === "Open 24 hours" },
     hoursNote: entry.hours || undefined,
     ...(college ? {visitHours:{summary:"Morning outpatient clinics · 24-hour emergency care",checkedAt:"2026-11-23",schedule:[{days:"Monday–Friday",time:"8 am–1 pm"},{days:"Weekends and public holidays",time:"8 am–11:30 am"}],note:"Outpatient hours above. Emergency care operates around the clock.",sourceLabel:"TANUVAS Directorate of Clinics",sourceUrl:"https://tanuvas.ac.in/dc_intro.php"}} : {}), specialtyIds: [...new Set(["general", ...(care?.ids ?? []), ...(emergency ? ["emergency"] : []), ...(/CT|Ultrasound|MRI/.test(entry.services.join(" ")) ? ["imaging"] : []), ...(entry.services.includes("Surgery") ? ["surgery"] : []), ...(entry.services.includes("Dental care") ? ["dentistry"] : [])])],
     ...(college ? {consultationListing:{min:20,max:100,kind:"registration",note:"Seven-day registration is ₹100 for a small animal or ₹20 for a large animal. Tests and procedures carry separate charges.",sourceUrl:"https://tanuvas.ac.in/mvc_clinics.php"}} : {}),
     ...(entry.name === "Tata Trusts Small Animal Hospital" ? {consultationListing:{min:500,max:1500,kind:"directory",note:"PetShelter lists this range for the Mahalaxmi hospital. The hospital has not confirmed a tariff. Check the department and appointment price when booking.",sourceUrl:"https://www.petshelter.org/clinics/tata-trust-small-animal-hospital"}} : {}),
+    ...(entry.name.startsWith("Dr. Chirag Dave") ? {consultationListing:{min:250,max:250,kind:"clinician",note:"Drlogy lists ₹250 for a new consultation with Dr. Chirag Dave at the Thaltej clinic. Other doctors, tests and procedures may have different fees.",sourceUrl:"https://www.drlogy.com/ahmedabad/doctor/dr-chirag-dave"}} : {}),
     services, species: care?.species ?? [], amenities: [], verified: false, dataSource: "public",
     about: care?.about ?? (college ? "The teaching hospital at the Madras Veterinary College campus in Vepery offers outpatient consultations and round-the-clock emergency care for large and small animals." :
       entry.name.includes("Jivdaya") ? "The Ambawadi hospital treats unowned domestic animals and injured wildlife. Contact the trust about eligibility and intake before bringing an animal." :

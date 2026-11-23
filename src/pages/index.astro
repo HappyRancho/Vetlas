@@ -34,7 +34,7 @@ const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
   </section>
   <nav class="city-strip" aria-label="City directories">
     <a class="all-cities" href="/locations/"><Icon name="pin"/>Cities</a>
-    <div class="city-scroll">{cities.map(c => <a href={'/'+c.slug+'/'}><img src={'/cities/'+c.id+'.webp'} alt={landmarks[c.id as keyof typeof landmarks].name} width="45" height="34"/>{c.name}</a>)}</div>
+    <div class="city-scroll">{cities.map(c => <a href={'/'+c.slug+'/'}><img src={'/cities/'+c.id+'.webp'} alt={landmarks[c.id as keyof typeof landmarks].name} width="45" height="34" loading="lazy" decoding="async"/>{c.name}</a>)}</div>
   </nav>
   <nav class="care-shortcuts" aria-label="Choose care">{links.map(link =>
     <a href={link.href}><span class="shortcut-icon"><Icon name={link.icon}/></span><strong>{link.label}</strong><Icon name="arrow" class="shortcut-arrow"/></a>
@@ -49,7 +49,7 @@ const featured = featuredIds.flatMap(id => providers.filter(p => p.id === id));
   <section class="home-section animal-section" aria-labelledby="animal-title">
     <div class="home-heading"><h2 id="animal-title">Care for your animal</h2></div>
     <nav class="animal-rail" aria-label="Practices by animal">{animalGroups.map(group =>
-      <a href={'/search/?pet='+group.id}><img src={'/pets/'+group.photo+'.webp'} alt="" width="64" height="64"/><strong>{group.name}</strong></a>
+      <a href={'/search/?pet='+group.id}><img src={'/pets/'+group.photo+'.webp'} alt="" width="64" height="64" loading="lazy" decoding="async"/><strong>{group.name}</strong></a>
     )}</nav>
   </section>
   <section class="home-section" aria-labelledby="facility-title">

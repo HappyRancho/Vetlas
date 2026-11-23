@@ -631,18 +631,25 @@
   },
   "jaipur-vetbros-pet-hospital-maharani-garden-road-mansarovar": {
     "services": [
-      "Major and minor surgery",
-      "Ultrasound",
-      "Pet boarding"
+      "Emergency care",
+      "Pet ambulance",
+      "In-house diagnostics",
+      "Surgery",
+      "Vaccination"
     ],
     "ids": [
+      "emergency",
       "surgery",
-      "imaging"
+      "vaccination"
     ],
-    "species": [],
-    "about": "The local practice listing for Maharani Garden Road Mansarovar reports major and minor surgery, ultrasound, pet boarding. Contact the practice to arrange the appropriate session.",
-    "source": "https://www.justdial.com/Jaipur/Vetbros-Pet-Hospital-In-Front-Of-Just-Eat-Mansarovar/0141PX141-X141-251216003513-S5C2_BZDET",
-    "label": "Services reported on Justdial"
+    "species": [
+      "dog",
+      "cat",
+      "exotics"
+    ],
+    "about": "The Maharani Garden Road hospital lists round-the-clock emergency care, a pet ambulance, an in-house diagnostics lab and a surgical suite. Call the hospital before an emergency transfer to arrange intake.",
+    "source": "https://vetbrospethospital.com/",
+    "label": "Hospital contact, emergency and clinical services"
   },
   "jaipur-zigly-for-happy-pets-khatipura-road-vaishali-nagar": {
     "services": [
@@ -658,17 +665,27 @@
   },
   "jaipur-vet-24-multi-speciality-animal-hospital-shipra-path-mansarovar": {
     "services": [
-      "Major and minor surgery",
-      "Orthopaedic surgery"
+      "Veterinary consultations",
+      "Home visit enquiries",
+      "X-ray",
+      "Ultrasound",
+      "Pet surgery"
     ],
     "ids": [
+      "imaging",
       "surgery",
-      "orthopedics"
+      "exotics"
     ],
-    "species": [],
-    "about": "The local practice listing for Shipra Path Mansarovar reports major and minor surgery, orthopaedic surgery. Contact the practice to arrange the appropriate session.",
-    "source": "https://www.justdial.com/Jaipur/Vet-24-Multi-Speciality-Animal-Hospital-Opposite-Jaipur-Legacy-Hotel-Mansarovar/0141PX141-X141-231214113735-A8Z2_BZDET",
-    "label": "Services reported on Justdial"
+    "species": [
+      "dog",
+      "cat",
+      "bird",
+      "hamster",
+      "exotics"
+    ],
+    "about": "Vet 24 publishes consultations for companion animals, birds and reptiles. The hospital lists imaging and surgery alongside home-visit enquiries. Confirm the doctor and the service you need before travelling to Shipra Path.",
+    "source": "https://www.vet24animalhospital.com/",
+    "label": "Hospital services and clinical roster"
   },
   "jaipur-vet-24-multispeciality-animal-hospital-prabhudayal-marg-pratap-nagar": {
     "services": [
@@ -926,5 +943,28 @@
     "about": "The Vepery campus is a TANUVAS teaching hospital. Its outpatient clinics operate in the mornings, with separate 24-hour emergency services for large and small animals.",
     "source": "https://tanuvas.ac.in/mvc_clinics.php",
     "label": "TANUVAS clinical departments and fee schedule"
+  },
+  "ahmedabad-dr-chirag-dave-s-pets-clinic-thaltej-thaltej-thaltej-shilaj-road": {
+    "services": [
+      "Small animal surgery",
+      "Radiology",
+      "Anaesthesia",
+      "Small animal and avian medicine",
+      "Diagnostic imaging"
+    ],
+    "ids": [
+      "surgery",
+      "imaging",
+      "exotics"
+    ],
+    "species": [
+      "dog",
+      "cat",
+      "bird",
+      "exotics"
+    ],
+    "about": "Dr. Chirag B. Dave established the Thaltej clinic in 1994. The published team pairs surgical and anaesthesia experience with diagnostic imaging and avian medicine. Contact the practice directly to arrange an exotic-pet visit.",
+    "label": "Clinic team and clinical interests",
+    "source": "http://www.drchiragdave.com/"
   }
 }

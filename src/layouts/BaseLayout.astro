@@ -7,6 +7,7 @@ import "../styles/notebook.css";
 import "../styles/identity.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/inter";
+import displayFontUrl from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import BottomNav from "../components/BottomNav.astro";
@@ -33,6 +34,7 @@ const isCurrent = (href: string) =>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href={displayFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f4f9f7" />
     <title>{title.includes("Vetlas") ? title : title + " | Vetlas"}</title>

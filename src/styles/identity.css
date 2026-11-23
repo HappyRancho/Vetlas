@@ -14,3 +14,8 @@ main .btn-primary{background:#154751;color:white}
 .home-atlas .speciality-rail a{background:#eaf4ef;border-color:var(--rule);color:var(--teal)}
 .home-atlas .care-shortcuts .shortcut-icon{background:#dfefe8;color:var(--teal)}
 @media(max-width:700px){.site-header .header-inner{min-height:52px;gap:8px}.wordmark img{width:35px;height:35px}}
+
+main .trust-badge.trust-public,main .chip-sm{background:#e5f1ed;color:#264f4a}
+main .doctor-quals,main .doctor-place,main .doctor-fee .soft{color:#3b5960}
+main .doctor-avatar-photo img{object-position:50% 22%}
+.guide-note a{text-decoration:underline;text-underline-offset:.15em}

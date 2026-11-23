@@ -1317,5 +1317,102 @@
     "imageAlt": "Dr. Vishal Singh Bhati",
     "imageCredit": "Vetic · Hadapsar",
     "imageCheckedAt": "2026-11-23"
+  },
+  {
+    "id": "dr-chirag-b-dave",
+    "slug": "dr-chirag-b-dave",
+    "name": "Chirag B. Dave",
+    "prefix": "Dr.",
+    "cityId": "ahmedabad",
+    "degrees": [
+      "BVSc & AH",
+      "MVSc · Surgery, Anaesthesiology and Radiology"
+    ],
+    "primarySpecialtyId": "surgery",
+    "secondarySpecialtyIds": [
+      "imaging",
+      "exotics"
+    ],
+    "providerSlugs": [
+      "dr-chirag-dave-s-pets-clinic-thaltej-thaltej-thaltej-shilaj-road"
+    ],
+    "species": [
+      "dog",
+      "cat",
+      "exotics"
+    ],
+    "languages": [],
+    "about": "Dr. Dave founded the Thaltej practice in 1994. His clinic names general surgery, radiology and anaesthesiology as his fields, with an interest in exotic companion animals.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The practice publishes the qualifications and clinical interests shown here.",
+    "sourceUrls": [
+      {
+        "label": "Practice biography and specialist interests",
+        "url": "http://www.drchiragdave.com/"
+      },
+      {
+        "label": "Professional listing, consultation fee and portrait",
+        "url": "https://www.drlogy.com/ahmedabad/doctor/dr-chirag-dave"
+      },
+      {
+        "label": "Professional affiliation on LinkedIn",
+        "url": "https://in.linkedin.com/in/dr-chirag-dave-28317624"
+      }
+    ],
+    "imageUrl": "/doctors/dr-chirag-b-dave.webp",
+    "imageSourceUrl": "https://www.drlogy.com/ahmedabad/doctor/dr-chirag-dave",
+    "imageOriginalUrl": "https://images.drlogy.com/assets/uploads/img/practice-profile/doctors/photo/dr-chirag-dave-3176.webp",
+    "imageAlt": "Dr. Chirag B. Dave",
+    "imageCredit": "Drlogy",
+    "imageCheckedAt": "2026-11-23",
+    "consultationFee": 250
+  },
+  {
+    "id": "dr-sanjay-kumar",
+    "slug": "dr-sanjay-kumar",
+    "name": "Sanjay Kumar",
+    "prefix": "Dr.",
+    "cityId": "jaipur",
+    "degrees": [
+      "BVSc & AH"
+    ],
+    "primarySpecialtyId": "general",
+    "secondarySpecialtyIds": [
+      "exotics"
+    ],
+    "providerSlugs": [
+      "vet-24-multi-speciality-animal-hospital-shipra-path-mansarovar"
+    ],
+    "species": [
+      "dog",
+      "cat",
+      "bird",
+      "hamster",
+      "exotics"
+    ],
+    "languages": [],
+    "about": "Vet 24 lists Dr. Sanjay Kumar for dog, cat, bird and exotic-pet consultations. Call the Mansarovar hospital with the species and reason for the visit to confirm his session.",
+    "dataSource": "public",
+    "verified": false,
+    "confidence": "high",
+    "evidence": "The practice publishes the qualifications and clinical interests shown here.",
+    "sourceUrls": [
+      {
+        "label": "Hospital roster and qualifications",
+        "url": "https://www.vet24animalhospital.com/doctor/general-physician-for-canine-dog-feline-cat-and-exotic-mammals-reptiles-birds-hamster-and-guinea-pig/dr.-sanjay-kumar-details/682ad3681e1b883e79499867"
+      },
+      {
+        "label": "Shipra Path facility address",
+        "url": "https://doczone.in/rajasthan/jaipur/veterinarian/vet24-multispeciality-animal-hospital-fb32"
+      }
+    ],
+    "imageUrl": "/doctors/dr-sanjay-kumar.webp",
+    "imageSourceUrl": "https://www.vet24animalhospital.com/doctor/general-physician-for-canine-dog-feline-cat-and-exotic-mammals-reptiles-birds-hamster-and-guinea-pig/dr.-sanjay-kumar-details/682ad3681e1b883e79499867",
+    "imageOriginalUrl": "https://productimages.withfloats.com/staffimages/actual/682ad3671e1b883e79499865sanjay",
+    "imageAlt": "Dr. Sanjay Kumar",
+    "imageCredit": "Vet 24 MultiSpeciality Animal Hospital",
+    "imageCheckedAt": "2026-11-23"
   }
 ]
