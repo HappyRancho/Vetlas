@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { googleDirections } from '../lib/map-links.mjs';
+import ListingActions from './ListingActions.astro';
 import VetNames from './VetNames.astro';
 import RatingSummary from './RatingSummary.astro';
 import { cityById, specialtyById, type Provider } from '@data';
@@ -22,8 +22,9 @@ const highlights=[...new Set([...specs.slice(0,1),...provider.services.filter(s=
   <VetNames id={provider.id}/>
   {provider.platformRatings?.length && <RatingSummary provider={provider} compact/>}
   <div class="listing-visit"><span>{provider.hoursNote && !provider.visitHours && !provider.hours.open ? provider.hoursNote.split(" · ")[0].slice(0,64) : hoursLabel(provider)}</span>{provider.fees && <strong>{fee.amount}</strong>}</div>
-  <div class="listing-actions"><a href={href}>Details →</a>{provider.phone && <a href={`tel:${provider.phone.replace(/[^+\d]/g,"")}`}>Call</a>}{!provider.locationUnconfirmed && <a href={googleDirections(provider)}>Directions</a>}
-    <button type="button" data-save={provider.id} aria-pressed="false" aria-label={`Save ${provider.name}`}><Icon name="heart" class="icon"/><span data-save-label>Save</span></button></div>
+  <ListingActions provider={provider}>
+    <button type="button" data-save={provider.id} aria-pressed="false" aria-label={`Save ${provider.name}`}><Icon name="heart" class="icon"/><span data-save-label>Save</span></button>
+  </ListingActions>
 </article>
 <script>
  const key='vetlas-saved';

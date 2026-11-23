@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { finds } from "../../data/popular-finds";
+export function getStaticPaths(){return finds.map(find=>({params:{slug:find.slug},props:{find}}));}
+const {find} = Astro.props;
+const schema = {"@context":"https://schema.org","@type":"CollectionPage",name:find.title,url:new URL(find.href,Astro.site),description:find.method,mainEntity:{"@type":"ItemList",numberOfItems:find.entries.length,itemListElement:find.entries.map((e,i)=>({"@type":"ListItem",position:i+1,name:e.name,url:new URL(e.href,Astro.site)}))}};
+---
+<Layout title={find.title} description={`Browse ${find.title}. ${find.method}`}>
+<script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+<div class="container reading-page">
+  <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Popular finds",href:"/#popular-finds"},{name:find.label,href:find.href}]}/>
+  <header class="city-mast"><p class="kicker">Popular finds</p><h1>{find.title}</h1><p>{find.method}</p></header>
+  <ul class="find-entries">{find.entries.map(e=><li><a href={e.href}><strong>{e.name}</strong><span>{e.city} · {e.detail}</span></a></li>)}</ul>
+  <a class="btn btn-secondary" href={find.all}>Explore all {find.slug==="veterinary-surgery"?"surgery services":find.label.toLowerCase()}</a>
+</div></Layout>
+<style>
+.find-entries{list-style:none;padding:0;display:grid;gap:7px}.find-entries a{display:grid;gap:4px;padding:12px 14px;border:1px solid var(--rule);background:white;color:var(--ink);border-radius:12px;text-decoration:none}.find-entries span{color:var(--body);font-size:.88rem}.find-entries a:hover strong{text-decoration:underline}
+</style>

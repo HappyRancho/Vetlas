@@ -1,9 +1,10 @@
 ---
+import DirectoryHeader from "../../components/DirectoryHeader.astro";
 import landmarks from "../../data/landmarks.json";
 import Layout from "../../layouts/BaseLayout.astro";
 import { cities, providersByCity } from "@data";
 ---
 <Layout title="Veterinary care by city | Vetlas" description="Browse ten city directories for veterinary practices, branch addresses and contact information across India.">
-<div class="container atlas"><header class="city-mast"><p class="kicker">City directory</p><h1>Care in your city</h1><p>Choose a city to compare local clinics, hospitals and published services.</p></header>
+<div class="container atlas"><DirectoryHeader label="City directory" title="Care in your city" description="Choose a city to compare local clinics, hospitals and published services."/>
 <div class="atlas-cities">{cities.map(c=><a href={'/'+c.slug+'/'}><img src={'/cities/'+c.id+'.webp'} alt={landmarks[c.id as keyof typeof landmarks].name} width="220" height="100"/><strong>{c.name}</strong><small>{c.state} · {providersByCity(c.id).length} facilities</small><span>↗</span></a>)}</div><p><a href="/about/#landmark-credits">Landmark photo credits</a></p></div></Layout>
 <style>.atlas-cities a img{width:100%;height:86px;object-fit:cover;border-radius:7px;grid-column:1/-1}.atlas-cities a small{grid-row:auto}.atlas-cities a span{display:none}.atlas-cities a strong,.atlas-cities a small{grid-column:1/-1}</style>

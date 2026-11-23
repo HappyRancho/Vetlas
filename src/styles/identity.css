@@ -11,7 +11,6 @@ main .panel,main .listing,main .result-summary,main .doctor-card{border-color:va
 main .btn-primary{background:#154751;color:white}
 .clinic-profile #visit{background:#f4f8f4;border-color:var(--rule)}
 .clinic-profile #reviews{background:#f0f6f5;border-color:var(--rule)}
-.home-atlas .speciality-rail a{background:#eaf4ef;border-color:var(--rule);color:var(--teal)}
 .home-atlas .care-shortcuts .shortcut-icon{background:#dfefe8;color:var(--teal)}
 @media(max-width:700px){.site-header .header-inner{min-height:52px;gap:8px}.wordmark img{width:35px;height:35px}}
 
@@ -19,3 +18,17 @@ main .trust-badge.trust-public,main .chip-sm{background:#e5f1ed;color:#264f4a}
 main .doctor-quals,main .doctor-place,main .doctor-fee .soft{color:#3b5960}
 main .doctor-avatar-photo img{object-position:50% 22%}
 .guide-note a{text-decoration:underline;text-underline-offset:.15em}
+
+.bottom-nav a[aria-current]{background:#dceee7;color:var(--teal)}
+main .practice-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding-top:8px}
+main .practice-controls>a,main .practice-controls>button{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:42px;padding:6px 11px;border:1px solid #b7cfc7;border-radius:11px;font-size:.85rem;font-weight:650;line-height:1.15;text-decoration:none;color:var(--forest);background:white}
+main .practice-controls .details-action{color:white;background:#155b53;border-color:#155b53}
+main .practice-controls .call-action{background:#e4f2eb;color:#195b4a}
+main .practice-controls .icon{width:16px;height:16px;flex:none}
+main .practice-controls>a:hover{box-shadow:inset 0 0 0 1px currentColor}
+.discovery-result .result-summary>.practice-controls{grid-column:1/-1}
+.reading-page{max-width:800px;padding-bottom:2rem}
+.reading-page section{padding:1rem 0;border-bottom:1px solid var(--rule)}
+.reading-page section h2{font:720 1.22rem/1.25 var(--display);margin:0 0 .4rem}
+.reading-page section p,.reading-page header p{margin:.4rem 0;line-height:1.55}
+.reading-page footer{padding-top:1rem}.reading-page footer p{font-size:.875rem}

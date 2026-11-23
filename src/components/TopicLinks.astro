@@ -1,0 +1,17 @@
+---
+import Icon from "./Icon.astro";
+interface Props { items: {label:string; icon:string; href:string}[]; label:string }
+const {items, label} = Astro.props;
+---
+<nav class="topic-links" aria-label={label}>
+  {items.map(item => <a href={item.href}><span><Icon name={item.icon}/></span><strong>{item.label}</strong></a>)}
+</nav>
+<style>
+.topic-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:8px}
+.topic-links a{display:flex;align-items:center;gap:10px;padding:10px;min-width:0;border:1px solid var(--rule);border-radius:13px;background:white;color:var(--ink);text-decoration:none}
+.topic-links a:hover,.topic-links a:focus-visible{border-color:#568b7d;background:#f6faf7}
+.topic-links a>span{display:grid;place-items:center;flex:none;width:37px;height:37px;border-radius:12px;background:#e1f0e7;color:#236456}
+.topic-links a:nth-child(3n+2)>span{background:#f7ead5;color:#815a28}.topic-links a:nth-child(3n)>span{background:#ede9f3;color:#70577f}
+.topic-links a :global(svg){width:20px;height:20px}.topic-links strong{font:670 .95rem/1.24 var(--display);overflow-wrap:anywhere}
+@media(max-width:660px){.topic-links{grid-template-columns:1fr 1fr}.topic-links a{gap:7px;padding:9px}.topic-links a>span{width:29px;height:32px}.topic-links strong{font-size:.88rem}}
+</style>

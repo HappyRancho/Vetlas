@@ -1,0 +1,24 @@
+---
+import DirectoryHeader from "../components/DirectoryHeader.astro";
+import Layout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import TopicLinks from "../components/TopicLinks.astro";
+const groups = [
+  {name:"Explore care", items:[
+    {label:"City directories",icon:"pin",href:"/locations/"},{label:"Veterinarians",icon:"doctor",href:"/doctors/"},
+    {label:"Specialities",icon:"stethoscope",href:"/specialties/"},{label:"Emergency care",icon:"siren",href:"/emergency/"}]},
+  {name:"About the directory", items:[
+    {label:"How we check listings",icon:"badge",href:"/methodology/"},{label:"Write a review",icon:"book",href:"/review/"},
+    {label:"About Vetlas",icon:"info",href:"/about/"},{label:"Privacy",icon:"shield",href:"/privacy/"}]}
+];
+const schema = {"@context":"https://schema.org","@type":"CollectionPage",name:"More from Vetlas",url:new URL("/more/",Astro.site),hasPart:groups.flatMap(g=>g.items.map(i=>({"@type":"WebPage",name:i.label,url:new URL(i.href,Astro.site)})))};
+---
+<Layout title="More from Vetlas | Directory tools and information" description="Explore veterinary services, share a visit review, and learn how Vetlas checks and publishes directory information.">
+<script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+<div class="container atlas">
+<Breadcrumbs items={[{name:"Home",href:"/"},{name:"More",href:"/more/"}]}/>
+<DirectoryHeader label="Directory tools" title="More from Vetlas" description="Find care, share your experience or look up how the directory works."/>
+{groups.map(g=><section><h2>{g.name}</h2><TopicLinks items={g.items} label={g.name}/></section>)}
+</div></Layout>
+
+<style>section{margin-top:1.15rem}.atlas section h2{font:720 1.25rem/1.2 var(--display);margin-bottom:.5rem}</style>

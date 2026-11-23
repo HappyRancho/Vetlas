@@ -1,0 +1,19 @@
+---
+interface Props {title:string; label:string; description:string}
+const {title,label,description} = Astro.props;
+---
+<header class="city-mast tab-header">
+  <div class="tab-intro"><p class="kicker">{label}</p><h1>{title}</h1><p class="summary">{description}</p></div>
+  <div class="tab-art" aria-hidden="true"><img src="/pet-hero-small.webp" width="350" height="389" alt="" decoding="async"/></div>
+  {Astro.slots.has("default") && <div class="tab-tools"><slot/></div>}
+</header>
+<style>
+.tab-header{position:relative;isolation:isolate;display:grid;align-items:center;grid-template-columns:minmax(0,1fr) clamp(75px,18%,145px);gap:8px 14px;margin-block:12px}
+.tab-header .kicker{margin:0;color:var(--teal)}.tab-header h1{font:740 clamp(1.8rem,4.5vw,3.15rem)/1.04 var(--display);margin:.25rem 0;letter-spacing:-.05em}
+.tab-intro .summary{max-width:64ch;margin:.45rem 0 0;line-height:1.45;color:var(--body)}
+.tab-art{align-self:stretch;position:relative;overflow:hidden;min-height:65px}
+.tab-art::before{content:'';position:absolute;inset:12% 3% 0;background:#c8e1d5;border-radius:60% 45% 30% 30%}
+.tab-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom}
+.tab-tools{grid-column:1/-1;min-width:0}.tab-tools :global(.usearch){margin:0;max-width:100%}
+@media(max-width:600px){.tab-header{gap:8px}.tab-intro .summary{font-size:.9rem}.tab-art{max-height:108px;align-self:end;height:100%}}
+</style>

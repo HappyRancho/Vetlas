@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { ownerArticles } from "../../data/owner-guides";
+export function getStaticPaths() {
+  return ownerArticles.map(article => ({ params:{slug:article.slug}, props:{article} }));
+}
+const { article } = Astro.props;
+const path = `/care-guide/${article.slug}/`;
+const schema = {
+  "@context":"https://schema.org", "@type":"Article", headline:article.title,
+  mainEntityOfPage:new URL(path, Astro.site), description:article.description, inLanguage:"en-IN",
+  author:{"@type":"Organization",name:"Vetlas"}, citation:article.sourceUrl,
+  articleSection:article.sections.map(s => s.title)
+};
+---
+<Layout title={article.title + " for dog and cat owners"} description={article.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+  <article class="container reading-page">
+    <Breadcrumbs items={[{name:"Home",href:"/"},{name:"Care guide",href:"/care-guide/"},{name:article.title,href:path}]}/>
+    <header class="city-mast"><p class="kicker">Animal owner guide</p><h1>{article.title}</h1><p>{article.description}</p></header>
+    {article.sections.map(section => <section><h2>{section.title}</h2><p>{section.text}</p></section>)}
+    <footer><a class="btn btn-primary" href={article.nextUrl}>{article.next}</a><p>Further reading · <a href={article.sourceUrl}>{article.source}</a></p></footer>
+  </article>
+</Layout>

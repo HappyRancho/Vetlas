@@ -1,0 +1,66 @@
+---
+import { cities } from "@data";
+import Icon from "./Icon.astro";
+---
+<nav class="city-ticker" aria-label="City directories">
+  <div class="container ticker-inner">
+    <a class="ticker-label" href="/locations/"><Icon name="pin"/>Cities</a>
+    <div class="ticker-window">{cities.map(city => <a href={`/${city.slug}/`}>{city.name}</a>)}</div>
+    <button hidden type="button" aria-label="Pause city strip" title="Pause city strip"><Icon name="pause"/></button>
+  </div>
+</nav>
+<script>
+  const ticker = document.querySelector<HTMLElement>('.city-ticker');
+  const strip = ticker?.querySelector<HTMLElement>('.ticker-window');
+  const toggle = ticker?.querySelector('button');
+  if (ticker && strip && toggle) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let visible = false;
+    let paused = reduced.matches, position = 0, direction = 1, previous = 0, frame = 0;
+    const stop = () => { cancelAnimationFrame(frame); previous = 0; };
+    function tick(time: number) {
+      const limit = strip!.scrollWidth - strip!.clientWidth;
+      position += direction * Math.min(time - (previous || time), 50) * .025;
+      if (position >= limit) direction = -1;
+      if (position <= 0) direction = 1;
+      position = Math.max(0, Math.min(limit, position));
+      strip!.scrollLeft = position;
+      previous = time;
+      frame = requestAnimationFrame(tick);
+    }
+    function sync() {
+      stop();
+      const overflow = strip!.scrollWidth > strip!.clientWidth + 1;
+      toggle!.hidden = !overflow;
+      toggle!.title = paused ? 'Play city strip' : 'Pause city strip';
+      toggle!.setAttribute('aria-label', toggle!.title);
+      toggle!.dataset.paused = String(paused);
+      if (paused || !overflow || !visible || document.hidden || ticker!.matches(':hover') || strip!.matches(':focus-within')) return;
+      position = strip!.scrollLeft;
+      if (position === 0) direction = 1;
+      frame = requestAnimationFrame(tick);
+    }
+    toggle.addEventListener('click', () => { paused = !paused; sync(); });
+    strip.addEventListener('pointerdown', () => { paused = true; sync(); });
+    ticker.addEventListener('pointerenter', stop);
+    ticker.addEventListener('pointerleave', sync);
+    strip.addEventListener('focusin', stop);
+    strip.addEventListener('focusout', () => requestAnimationFrame(sync));
+    document.addEventListener('visibilitychange', sync);
+    reduced.addEventListener('change', () => { paused = reduced.matches; sync(); });
+    new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); }).observe(ticker);
+    new ResizeObserver(sync).observe(strip);
+    sync();
+  }
+</script>
+<style>
+.city-ticker{background:#e0f0e9;border-bottom:1px solid var(--rule);color:#225950}
+.ticker-inner{display:flex;align-items:center;gap:.65rem}
+.ticker-window{display:flex;flex:1;overflow-x:auto;scrollbar-width:none;min-width:0}
+.ticker-window::-webkit-scrollbar{display:none}
+.city-ticker a,.city-ticker button{display:inline-flex;align-items:center;flex:none;min-height:38px;gap:.35rem;color:inherit;text-decoration:none;font-weight:650;font-size:.86rem}
+.ticker-window a{padding-inline:.75rem}.ticker-window a::before{content:'';width:4px;height:4px;background:#76a498;border-radius:50%;margin-right:.35rem}
+.city-ticker a:hover{text-decoration:underline}.city-ticker .icon{width:16px;height:16px}
+.ticker-label{padding-right:.65rem;border-right:1px solid #b3d1c6}.city-ticker button{background:transparent;border:0;padding:0 .5rem;cursor:pointer}.city-ticker button[hidden]{display:none}
+.city-ticker button[data-paused=true] :global(svg){display:none}.city-ticker button[data-paused=true]::after{content:'▶';font-size:.8rem}
+</style>

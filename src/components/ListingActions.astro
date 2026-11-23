@@ -1,0 +1,15 @@
+---
+import type { Provider } from "@data";
+import Icon from "./Icon.astro";
+import { googleDirections } from "../lib/map-links.mjs";
+
+interface Props { provider: Provider }
+const { provider } = Astro.props;
+const profile = `/${provider.cityId}/${provider.slug}/`;
+---
+<div class="listing-actions practice-controls">
+  <a class="details-action" href={profile} aria-label={`Details for ${provider.name}`}><Icon name="book"/>Details</a>
+  {provider.phone && <a class="call-action" href={'tel:' + provider.phone.replace(/[^+\d]/g, '')} aria-label={`Call ${provider.name}`}><Icon name="phone"/>Call</a>}
+  {!provider.locationUnconfirmed && <a class="route-action" href={googleDirections(provider)} aria-label={`Directions to ${provider.name} on Google Maps`}><Icon name="directions"/>Directions</a>}
+  <slot />
+</div>

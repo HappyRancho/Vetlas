@@ -1,0 +1,43 @@
+---
+import { cities, providersByCity } from "@data";
+import Icon from "./Icon.astro";
+// City centres, using the same projection as the Natural Earth outline.
+const centres: Record<string, [number,number]> = {
+  indore:[75.86,22.72], bengaluru:[77.59,12.97], mumbai:[72.88,19.08],
+  delhi:[77.21,28.61], hyderabad:[78.49,17.39], chennai:[80.27,13.08],
+  pune:[73.86,18.52], kolkata:[88.36,22.57], jaipur:[75.79,26.91], ahmedabad:[72.57,23.02]
+};
+---
+<section class="home-section" aria-labelledby="map-title">
+ <div class="home-heading"><h2 id="map-title">Find on map</h2><a href="/locations/">All cities</a></div>
+ <div class="map-index">
+   <div class="map-paper">
+     <div class="map-figure">
+       <img src="/india-outline.svg" alt="" width="330" height="330" loading="lazy"/>
+       {cities.filter(c=>centres[c.id]).map(c => {
+         const [lon,lat] = centres[c.id];
+         return <a class="city-point" href={`/${c.slug}/`} style={`left:${(lon-66)*10/3.3}%;top:${(37-lat)*10.8/3.3}%`} aria-label={`Browse veterinary care in ${c.name}`} title={c.name}><span>{c.name}</span></a>
+       })}
+     </div>
+   </div>
+   <div class="map-key"><h3>Choose your city</h3><p>Open a directory to find practices and branch directions.</p>
+     <nav aria-label="Cities on the map">{cities.map(c=><a href={`/${c.slug}/`}>{c.name}<small aria-label={`${providersByCity(c.id).length} facilities`}>{providersByCity(c.id).length}</small></a>)}</nav>
+     <a class="clinic-map-link" href="/map/"><Icon name="pin"/>Indore clinic map</a>
+   </div>
+ </div>
+</section>
+<style>
+.map-index{border:1px solid var(--rule);background:#fff;border-radius:18px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+.map-paper{display:grid;place-items:center;background-color:#e6f2ed;background-image:radial-gradient(#a9cbbc 1px,transparent 1px);background-size:15px 15px}
+.map-figure{position:relative;width:min(100%,340px);aspect-ratio:1}
+.map-figure img{display:block;width:100%;height:100%}
+.city-point{position:absolute;transform:translate(-50%,-50%);width:12px;height:12px;border:2px solid white;border-radius:50%;background:#15665d;box-shadow:0 0 0 1px #447f73}
+.city-point span{display:none;position:absolute;left:50%;bottom:100%;transform:translateX(-50%);padding:3px 6px;background:#174b45;color:white;border-radius:6px;font-size:.8rem;z-index:2}
+.city-point:focus-visible,.city-point:hover{z-index:1;background:#aa6030}.city-point:focus-visible span,.city-point:hover span{display:block}
+.map-key{padding:clamp(14px,3vw,28px);align-self:center}.map-key h3{font:720 1.2rem/1.18 var(--display);margin:0}
+.map-key p{margin:.3rem 0 .65rem;color:var(--body);font-size:.9rem}
+.map-key nav{display:grid;grid-template-columns:1fr 1fr;gap:0 .9rem}
+.map-key nav a,.clinic-map-link{display:flex;align-items:center;min-height:36px;font-size:.88rem;font-weight:650;gap:5px}.map-key nav a{border-bottom:1px solid #dceae4;justify-content:space-between}.map-key small{font-variant-numeric:tabular-nums;color:#48665b}
+.map-key .clinic-map-link{margin-top:8px;color:var(--teal)}.clinic-map-link :global(svg){width:16px;height:16px}
+@media(max-width:620px){.map-index{grid-template-columns:1fr}.map-figure{max-width:220px}.map-key{padding:12px}.map-key nav{gap:0 1.2rem}}
+</style>

@@ -1,10 +1,12 @@
 ---
+import DirectoryHeader from "./DirectoryHeader.astro";
 import { animalGroups } from "../data/animal-groups";
 import { summarizeRatings } from "../lib/ratings.mjs";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "./Icon.astro";
 import UniversalSearch from "./UniversalSearch.astro";
 
+import ListingActions from "./ListingActions.astro";
 import VetCard from "./VetCard.astro";
 import { veterinarians, vetsForFacility } from "../data/veterinarians";
 import DoctorCard from "./DoctorCard.astro";
@@ -99,12 +101,9 @@ const isNoindex = mode === "all" || rows.length === 0;
 
 <BaseLayout title={`${title} — Vetlas`} description={description} noindex={isNoindex}>
   <div class="container discovery-page">
-    <header class="discovery-hero">
-      <p class="eyebrow"><Icon name="search" class="icon icon-md" /> {eyebrow}</p>
-      <h1>{title}</h1>
-      <p>{description}</p>
+    <DirectoryHeader label={eyebrow} title={title} description={description}>
       <UniversalSearch variant="page" />
-    </header>
+    </DirectoryHeader>
 
     <section class="discovery-shell" aria-label="Filter results">
       <div class="discovery-filter-head">
@@ -180,7 +179,7 @@ const isNoindex = mode === "all" || rows.length === 0;
           data-search={row.search}
         >
           {row.kind === "facility"
-            ? <article class:list={["result-summary", {"source-photo": !row.provider.imageUrl}]}>{row.provider.imageUrl && <figure class="result-picture"><img class="result-photo" src={row.provider.imageUrl} alt={row.provider.imageAlt} width="144" height="108" loading="lazy"/><figcaption>{row.provider.imageCredit}</figcaption></figure>}<p class="kicker">{row.provider.type} · {row.city}</p><h2><a href={`/${row.city}/${row.provider.slug}/`}>{row.name}</a></h2><p>{row.locality} · {row.provider.hoursNote ? row.provider.hoursNote.split(" · ")[0].slice(0,64) : row.provider.hours.open24 ? "24-hour service" : "Check hours with practice"}</p><div class="listing-actions"><a href={`/${row.city}/${row.provider.slug}/`}>View practice →</a>{row.provider.phone && <a href={`tel:${row.provider.phone.replace(/[^+\d]/g,"")}`}>Call</a>}</div></article>
+            ? <article class:list={["result-summary", {"source-photo": !row.provider.imageUrl}]}>{row.provider.imageUrl && <figure class="result-picture"><img class="result-photo" src={row.provider.imageUrl} alt={row.provider.imageAlt} width="144" height="108" loading="lazy"/><figcaption>{row.provider.imageCredit}</figcaption></figure>}<p class="kicker">{row.provider.type} · {row.city}</p><h2><a href={`/${row.city}/${row.provider.slug}/`}>{row.name}</a></h2><p>{row.locality} · {row.provider.hoursNote ? row.provider.hoursNote.split(" · ")[0].slice(0,64) : row.provider.hours.open24 ? "24-hour service" : "Check hours with practice"}</p><ListingActions provider={row.provider}/></article>
             : row.kind === "veterinarian" ? <VetCard vet={row.vet} /> : <DoctorCard doctor={row.doctor} index={index} />}
         </li>
       ))}
